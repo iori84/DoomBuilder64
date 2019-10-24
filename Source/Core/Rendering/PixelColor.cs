@@ -91,6 +91,14 @@ namespace CodeImp.DoomBuilder.Rendering
 		{
 			return FromColor(Color.FromArgb(c));
 		}
+
+        // Construct from Hex
+        public static PixelColor FromHex(string h)
+        {
+            // Add FF for Alpha value
+            int value = int.Parse("FF" + h, System.Globalization.NumberStyles.HexNumber);
+            return FromInt(value);
+        }
 		
 		// Return the inverse color
 		public PixelColor Inverse()
@@ -109,6 +117,15 @@ namespace CodeImp.DoomBuilder.Rendering
 		{
 			return Color.FromArgb(a, r, g, b).ToArgb();
 		}
+
+        // To Hex
+        public string ToHex()
+        {
+            Color c = Color.FromArgb(a, r, g, b);
+            string h = c.R.ToString("X2") + c.G.ToString("X2") + c.B.ToString("X2");
+            return h;
+
+        }
 
 		// To Color
 		public Color ToColor()

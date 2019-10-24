@@ -369,56 +369,6 @@ namespace CodeImp.DoomBuilder.Windows
 			hlpevent.Handled = true;
 		}
 
-        private void button6_Click_1(object sender, EventArgs e)
-        {
-            color = ceilingcolor.Color;
-        }
-
-        private void button9_Click_1(object sender, EventArgs e)
-        {
-            color = topcolor.Color;
-        }
-
-        private void button11_Click_1(object sender, EventArgs e)
-        {
-            color = thingcolor.Color;
-        }
-
-        private void button13_Click_1(object sender, EventArgs e)
-        {
-            color = lowercolor.Color;
-        }
-
-        private void button15_Click_1(object sender, EventArgs e)
-        {
-            color = floorcolor.Color;
-        }
-
-        private void button7_Click_1(object sender, EventArgs e)
-        {
-            ceilingcolor.Color = color;
-        }
-
-        private void button8_Click_1(object sender, EventArgs e)
-        {
-            topcolor.Color = color;
-        }
-
-        private void button10_Click_1(object sender, EventArgs e)
-        {
-            thingcolor.Color = color;
-        }
-
-        private void button12_Click_1(object sender, EventArgs e)
-        {
-            lowercolor.Color = color;
-        }
-
-        private void button14_Click_1(object sender, EventArgs e)
-        {
-            floorcolor.Color = color;
-        }
-
         private void button1_Click(object sender, EventArgs e)
         {
             Lights light = new Lights(ceilingcolor.Color.r, ceilingcolor.Color.g, ceilingcolor.Color.b, 0);

@@ -106,6 +106,12 @@
     <Compile Include="Controls\ArgumentBox.Designer.cs">
       <DependentUpon>ArgumentBox.cs</DependentUpon>
     </Compile>
+    <Compile Include="Controls\ColorControlSector.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Controls\ColorControlSector.Designer.cs">
+      <DependentUpon>ColorControlSector.cs</DependentUpon>
+    </Compile>
     <Compile Include="Controls\ScriptEditorControl.cs">
       <SubType>UserControl</SubType>
     </Compile>
@@ -525,6 +531,10 @@
     <Reference Include="Trackbar, Version=1.0.2486.37933, Culture=neutral, PublicKeyToken=503bf28f63ad27b4" />
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Controls\ColorControlSector.resx">
+      <DependentUpon>ColorControlSector.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <EmbeddedResource Include="Windows\AboutForm.resx">
       <SubType>Designer</SubType>
       <DependentUpon>AboutForm.cs</DependentUpon>
