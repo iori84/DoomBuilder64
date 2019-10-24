@@ -43,7 +43,6 @@ namespace CodeImp.DoomBuilder.Controls
 		public string Label { get { return label.Text; } set { label.Text = value; } }
         public PixelColor Color { get { return PixelColor.FromColor(panel.BackColor); } set { panel.BackColor = System.Drawing.Color.FromArgb(value.ToInt()); Hexbox.Text = Color.ToHex(); } }
 
-
 		// Button clicked
 		private void button_Click(object sender, EventArgs e)
 		{
@@ -60,14 +59,24 @@ namespace CodeImp.DoomBuilder.Controls
 			}
 		}
 
-        // Textbox contents changed
+        // Textbox contents changed, validate and pass to panel
         private void Hexbox_TextChanged(object sender, EventArgs e)
         {
-            if (Hexbox.Text.Replace("#", "").Length == 6)
+            Hexbox.Text = Hexbox.Text.Replace("#", "");
+            if (Hexbox.Text.Length == 6)
             {
-                PixelColor tempColor = PixelColor.FromHex(Hexbox.Text);
-                panel.BackColor = tempColor.ToColor();
+                try
+                {
+                    PixelColor tempColor = PixelColor.FromHex(Hexbox.Text);
+                    panel.BackColor = tempColor.ToColor();
+                }
+                catch
+                {
+                    MessageBox.Show("Invalid Hexadecimal", "Doom Builder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                }
             }
+            int maxLength = Math.Min(Hexbox.Text.Length, 6);
+            Hexbox.Text = Hexbox.Text.Substring(0, maxLength);
         }
 
 		// Resized
