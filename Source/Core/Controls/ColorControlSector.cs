@@ -62,21 +62,29 @@ namespace CodeImp.DoomBuilder.Controls
         // Textbox contents changed, validate and pass to panel
         private void Hexbox_TextChanged(object sender, EventArgs e)
         {
-            Hexbox.Text = Hexbox.Text.Replace("#", "");
-            if (Hexbox.Text.Length == 6)
+            //force uppercase, strip leading #
+            Hexbox.Text = Hexbox.Text.Replace("#", "").ToUpper();
+            string TempStr = Hexbox.Text;
+            int maxLength = Math.Min(TempStr.Length, 6);
+            if (TempStr.Length == 6)
             {
                 try
                 {
-                    PixelColor tempColor = PixelColor.FromHex(Hexbox.Text);
+                    PixelColor tempColor = PixelColor.FromHex(TempStr);
                     panel.BackColor = tempColor.ToColor();
                 }
                 catch
                 {
                     MessageBox.Show("Invalid Hexadecimal", "Doom Builder", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    //reset to default
+                    Hexbox.Text = "808080";
                 }
             }
-            int maxLength = Math.Min(Hexbox.Text.Length, 6);
-            Hexbox.Text = Hexbox.Text.Substring(0, maxLength);
+            //truncate to 6 digits
+            else if (TempStr.Length > 6)
+            {
+                Hexbox.Text = TempStr.Substring(0, maxLength);
+            }
         }
 
 		// Resized
