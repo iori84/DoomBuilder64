@@ -1,0 +1,7 @@
+
+.vs/Builder/v16/.suo
+Source/Core/obj
+Source/Plugins/BuilderModes/obj
+Source/Plugins/Statistics/obj
+Source/Plugins/CopyPasteSectorProps/obj
+Source/Plugins/ImageDrawingExample/obj
