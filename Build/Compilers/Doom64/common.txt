@@ -16,7 +16,7 @@
 #define Door_Open(tag)                                  2:tag
 #define Door_Close(tag)                                 3:tag
 #define Door_Raise(tag)                                 4:tag
-#define Door_CloseWait30Open(tag)                       16:tag
+#define Door_CloseWaitOpen(tag)                       16:tag
 #define Door_RaiseFast(tag)                             108:tag
 #define Door_OpenFast(tag)                              109:tag
 #define Door_CloseFast(tag)                             110:tag
@@ -31,9 +31,9 @@
 #define Floor_LowerChange(tag)                          37:tag
 #define Floor_LowerToLowest(tag)                        38:tag
 #define Floor_RaiseCrush(tag)                           56:tag
-#define Floor_Raise24(tag)                              58:tag
-#define Floor_Raise24Change(tag)                        59:tag
-#define Floor_RaiseToNearest2(tag)                      119:tag
+#define Floor_RaiseTwentyFour(tag)                              58:tag
+#define Floor_RaiseTwentyFourChange(tag)                        59:tag
+#define Floor_RaiseToNearestTwo(tag)                      119:tag
 #define Floor_MoveByValue(tag, value)                   PushVar(value); 212:tag
 #define Floor_MoveByValueFast(tag, value)               PushVar(value); 228:tag
 #define Floor_MoveByValueInstant(tag, value)            PushVar(value); 229:tag
@@ -44,7 +44,7 @@
 // STAIRS
 //
 #define Stairs_Build(tag)                               8:tag
-#define Stairs_Build16Fast(tag)                         100:tag
+#define Stairs_BuildFast(tag)                         100:tag
 
 //
 // CEILINGS
@@ -52,7 +52,7 @@
 #define Ceiling_RaiseCrush(tag)                         6:tag
 #define Ceiling_RaiseCrushOnce(tag)                     25:tag
 #define Ceiling_LowerToFloor(tag)                       43:tag
-#define Ceiling_RaiseCrush2(tag)                        44:tag
+#define Ceiling_RaiseCrushTwo(tag)                        44:tag
 #define Ceiling_StopCrusher(tag)                        57:tag
 #define Ceiling_SilentCrusher(tag)                      141:tag
 #define Ceiling_MoveByValue(tag, value)                 PushVar(value); 210:tag
