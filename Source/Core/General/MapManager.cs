@@ -57,6 +57,7 @@ namespace CodeImp.DoomBuilder
 		// Status
 		private bool changed;
 		private bool scriptschanged;
+		private bool maploading;
 		
 		// Map information
 		private string filetitle;
@@ -104,7 +105,7 @@ namespace CodeImp.DoomBuilder
 		public MapOptions Options { get { return options; } }
 		public MapSet Map { get { return map; } }
 		public DataManager Data { get { return data; } }
-		public bool IsChanged { get { return changed | CheckScriptChanged(); } set { changed |= value; } }
+		public bool IsChanged { get { return changed | CheckScriptChanged(); } set { changed |= value; if (!maploading) General.MainWindow.UpdateMapChangedStatus(); } }
 		public bool IsDisposed { get { return isdisposed; } }
 		internal D3DDevice Graphics { get { return graphics; } }
 		public IRenderer2D Renderer2D { get { return renderer2d; } }
@@ -172,9 +173,10 @@ namespace CodeImp.DoomBuilder
 				
 				// Unbind any methods
 				General.Actions.UnbindMethods(this);
-				
+
 				// Dispose
-				if(grid != null) grid.Dispose();
+				maploading = true;
+				if (grid != null) grid.Dispose();
 				if(launcher != null) launcher.Dispose();
 				if(copypaste != null) copypaste.Dispose();
 				if(undoredo != null) undoredo.Dispose();
@@ -241,6 +243,7 @@ namespace CodeImp.DoomBuilder
 			// Apply settings
 			this.filetitle = "unnamed.wad";
 			this.filepathname = "";
+			this.maploading = true;
 			this.changed = false;
 			this.options = options;
 
@@ -313,7 +316,9 @@ namespace CodeImp.DoomBuilder
 			
 			// Success
 			this.changed = false;
+			this.maploading = false;
 			General.WriteLogLine("Map creation done");
+			General.MainWindow.UpdateMapChangedStatus();
 			return true;
 		}
 
@@ -328,6 +333,7 @@ namespace CodeImp.DoomBuilder
 			this.filetitle = Path.GetFileName(filepathname);
 			this.filepathname = filepathname;
 			this.changed = false;
+			this.maploading = true;
 			this.options = options;
 			
 			General.WriteLogLine("Opening map '" + options.CurrentName + "' with configuration '" + options.ConfigFile + "'");
@@ -436,7 +442,9 @@ namespace CodeImp.DoomBuilder
 			
 			// Success
 			this.changed = false;
+			this.maploading = false;
 			General.WriteLogLine("Map loading done");
+			General.MainWindow.UpdateMapChangedStatus();
 			return true;
 		}
 		
@@ -717,6 +725,7 @@ namespace CodeImp.DoomBuilder
 			
 			// Success!
 			General.WriteLogLine("Map saving done");
+			General.MainWindow.UpdateMapChangedStatus();
 			return success;
 		}
 		
@@ -908,6 +917,8 @@ namespace CodeImp.DoomBuilder
 			Lump l = tempwad.Insert(lumpname, insertindex, (int)data.Length);
 			l.Stream.Seek(0, SeekOrigin.Begin);
 			data.WriteTo(l.Stream);
+
+			IsChanged = true;
 		}
 
 		// This creates empty lumps for those required
