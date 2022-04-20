@@ -237,7 +237,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
 			this.buttonbrightnessgradient.Name = "buttonbrightnessgradient";
 			this.buttonbrightnessgradient.Size = new System.Drawing.Size(23, 22);
 			this.buttonbrightnessgradient.Tag = "gradientbrightness";
-			this.buttonbrightnessgradient.Text = "Make Brightness Gradient";
+			this.buttonbrightnessgradient.Text = "Make Sector Color Gradient";
 			this.buttonbrightnessgradient.Click += new System.EventHandler(this.InvokeTaggedAction);
 			// 
 			// buttonfloorgradient
