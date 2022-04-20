@@ -40,20 +40,20 @@ using Configuration = CodeImp.DoomBuilder.IO.Configuration;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	internal struct SurfaceBufferSet
-	{
-		// The number of vertices per sector that this set is for
-		public int numvertices;
-		
-		// These are the vertex buffers. They are hashed by an integer key which
-		// is the number of vertices per sector geometry the buffer if meant for.
-		public List<VertexBuffer> buffers;
-		public List<int> buffersizes;
+    internal struct SurfaceBufferSet
+    {
+        // The number of vertices per sector that this set is for
+        public int numvertices;
 
-		// These are the entries that contain information for the contents of the buffers.
-		public List<SurfaceEntry> entries;
+        // These are the vertex buffers. They are hashed by an integer key which
+        // is the number of vertices per sector geometry the buffer if meant for.
+        public List<VertexBuffer> buffers;
+        public List<int> buffersizes;
 
-		// These are the empty entries in buferrs that are available.
-		public List<SurfaceEntry> holes;
-	}
+        // These are the entries that contain information for the contents of the buffers.
+        public List<SurfaceEntry> entries;
+
+        // These are the empty entries in buferrs that are available.
+        public List<SurfaceEntry> holes;
+    }
 }

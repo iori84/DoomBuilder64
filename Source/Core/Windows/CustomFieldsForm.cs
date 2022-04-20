@@ -35,79 +35,79 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Windows
 {
-	/// <summary>
-	/// Dialog window that allows you to view and/or change custom UDMF fields.
-	/// </summary>
-	public partial class CustomFieldsForm : DelayedForm
-	{
-		// Keep a list of elements
-		private ICollection<MapElement> elements;
-		
-		// Constructor
-		public CustomFieldsForm()
-		{
-			// Initialize
-			InitializeComponent();
-		}
+    /// <summary>
+    /// Dialog window that allows you to view and/or change custom UDMF fields.
+    /// </summary>
+    public partial class CustomFieldsForm : DelayedForm
+    {
+        // Keep a list of elements
+        private ICollection<MapElement> elements;
 
-		// This shows the dialog, returns false when cancelled
-		public static bool ShowDialog(IWin32Window owner, string title, string elementname, ICollection<MapElement> elements, List<UniversalFieldInfo> fixedfields)
-		{
-			bool result;
-			CustomFieldsForm f = new CustomFieldsForm();
-			f.Setup(title, elementname, elements, fixedfields);
-			result = (f.ShowDialog(owner) == DialogResult.OK);
-			f.Dispose();
-			return result;
-		}
-		
-		// This sets up the dialog
-		public void Setup(string title, string elementname, ICollection<MapElement> elements, List<UniversalFieldInfo> fixedfields)
-		{
-			// Initialize
-			this.elements = elements;
-			this.Text = title;
-			
-			// Fill universal fields list
-			fieldslist.ListFixedFields(fixedfields);
+        // Constructor
+        public CustomFieldsForm()
+        {
+            // Initialize
+            InitializeComponent();
+        }
 
-			// Initialize custom fields editor
-			fieldslist.Setup(elementname);
+        // This shows the dialog, returns false when cancelled
+        public static bool ShowDialog(IWin32Window owner, string title, string elementname, ICollection<MapElement> elements, List<UniversalFieldInfo> fixedfields)
+        {
+            bool result;
+            CustomFieldsForm f = new CustomFieldsForm();
+            f.Setup(title, elementname, elements, fixedfields);
+            result = (f.ShowDialog(owner) == DialogResult.OK);
+            f.Dispose();
+            return result;
+        }
 
-			// Setup from first element
-			MapElement fe = General.GetByIndex(elements, 0);
-			fieldslist.SetValues(fe.Fields, true);
-			
-			// Setup from all elements
-			foreach(MapElement e in elements)
-				fieldslist.SetValues(e.Fields, false);
-		}
-		
-		// OK clicked
-		private void apply_Click(object sender, EventArgs e)
-		{
-			// Apply fields to all elements
-			foreach(MapElement el in elements) fieldslist.Apply(el.Fields);
-			
-			// Done
-			General.Map.IsChanged = true;
-			this.DialogResult = DialogResult.OK;
-			this.Close();
-		}
+        // This sets up the dialog
+        public void Setup(string title, string elementname, ICollection<MapElement> elements, List<UniversalFieldInfo> fixedfields)
+        {
+            // Initialize
+            this.elements = elements;
+            this.Text = title;
 
-		// Cancel clicked
-		private void cancel_Click(object sender, EventArgs e)
-		{
-			// Be gone
-			this.DialogResult = DialogResult.Cancel;
-			this.Close();
-		}
+            // Fill universal fields list
+            fieldslist.ListFixedFields(fixedfields);
 
-		// Help requested
-		private void CustomFieldsForm_HelpRequested(object sender, HelpEventArgs hlpevent)
-		{
-			General.ShowHelp("w_customfields.html");
-			hlpevent.Handled = true;
-		}
-	}
+            // Initialize custom fields editor
+            fieldslist.Setup(elementname);
+
+            // Setup from first element
+            MapElement fe = General.GetByIndex(elements, 0);
+            fieldslist.SetValues(fe.Fields, true);
+
+            // Setup from all elements
+            foreach (MapElement e in elements)
+                fieldslist.SetValues(e.Fields, false);
+        }
+
+        // OK clicked
+        private void apply_Click(object sender, EventArgs e)
+        {
+            // Apply fields to all elements
+            foreach (MapElement el in elements) fieldslist.Apply(el.Fields);
+
+            // Done
+            General.Map.IsChanged = true;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        // Cancel clicked
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            // Be gone
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        // Help requested
+        private void CustomFieldsForm_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            General.ShowHelp("w_customfields.html");
+            hlpevent.Handled = true;
+        }
+    }
 }

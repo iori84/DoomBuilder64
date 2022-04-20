@@ -73,18 +73,18 @@ namespace CodeImp.DoomBuilder.BuilderModes
         // This must return the string that is displayed in the listbox
         public override string ToString()
         {
-			string sidestr = side.IsFront ? "front" : "back";
+            string sidestr = side.IsFront ? "front" : "back";
 
             switch (part)
             {
                 case SidedefPart.Upper:
-					return "Sidedef has missing upper texture (" + sidestr + " side)";
+                    return "Sidedef has missing upper texture (" + sidestr + " side)";
 
                 case SidedefPart.Middle:
-					return "Sidedef has missing middle texture (" + sidestr + " side)";
+                    return "Sidedef has missing middle texture (" + sidestr + " side)";
 
                 case SidedefPart.Lower:
-					return "Sidedef has missing lower texture (" + sidestr + " side)";
+                    return "Sidedef has missing lower texture (" + sidestr + " side)";
 
                 default:
                     return "ERROR";
@@ -102,8 +102,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
         // Fix by setting default texture
         public override bool Button1Click()
         {
-			General.Map.UndoRedo.CreateUndo("Missing texture correction");
-			General.Settings.FindDefaultDrawSettings();
+            General.Map.UndoRedo.CreateUndo("Missing texture correction");
+            General.Settings.FindDefaultDrawSettings();
             switch (part)
             {
                 case SidedefPart.Upper: side.SetTextureHigh(General.Settings.DefaultTexture); break;

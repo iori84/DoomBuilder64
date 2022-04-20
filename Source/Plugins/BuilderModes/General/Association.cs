@@ -39,49 +39,49 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	public struct Association
-	{
-		public int tag;
-		public UniversalType type;
+    public struct Association
+    {
+        public int tag;
+        public UniversalType type;
 
-		// This sets up the association
-		public Association(int tag, int type)
-		{
-			this.tag = tag;
-			this.type = (UniversalType)type;
-		}
+        // This sets up the association
+        public Association(int tag, int type)
+        {
+            this.tag = tag;
+            this.type = (UniversalType)type;
+        }
 
-		// This sets up the association
-		public Association(int tag, UniversalType type)
-		{
-			this.tag = tag;
-			this.type = type;
-		}
+        // This sets up the association
+        public Association(int tag, UniversalType type)
+        {
+            this.tag = tag;
+            this.type = type;
+        }
 
-		// This sets up the association
-		public void Set(int tag, int type)
-		{
-			this.tag = tag;
-			this.type = (UniversalType)type;
-		}
+        // This sets up the association
+        public void Set(int tag, int type)
+        {
+            this.tag = tag;
+            this.type = (UniversalType)type;
+        }
 
-		// This sets up the association
-		public void Set(int tag, UniversalType type)
-		{
-			this.tag = tag;
-			this.type = type;
-		}
+        // This sets up the association
+        public void Set(int tag, UniversalType type)
+        {
+            this.tag = tag;
+            this.type = type;
+        }
 
-		// This compares an association
-		public static bool operator ==(Association a, Association b)
-		{
-			return (a.tag == b.tag) && (a.type == b.type);
-		}
+        // This compares an association
+        public static bool operator ==(Association a, Association b)
+        {
+            return (a.tag == b.tag) && (a.type == b.type);
+        }
 
-		// This compares an association
-		public static bool operator !=(Association a, Association b)
-		{
-			return (a.tag != b.tag) || (a.type != b.type);
-		}
-	}
+        // This compares an association
+        public static bool operator !=(Association a, Association b)
+        {
+            return (a.tag != b.tag) || (a.type != b.type);
+        }
+    }
 }

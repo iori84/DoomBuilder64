@@ -4,17 +4,17 @@
 // Vertex input data
 struct VertexData
 {
-    float3 pos		: POSITION;
-    float4 color	: COLOR0;
-    float2 uv		: TEXCOORD0;
+	float3 pos		: POSITION;
+	float4 color	: COLOR0;
+	float2 uv		: TEXCOORD0;
 };
 
 // Pixel input data
 struct PixelData
 {
-    float4 pos		: POSITION;
-    float4 color	: COLOR0;
-    float2 uv		: TEXCOORD0;
+	float4 pos		: POSITION;
+	float4 color	: COLOR0;
+	float2 uv		: TEXCOORD0;
 };
 
 // Render settings
@@ -33,17 +33,17 @@ dword filtersettings;
 // Texture1 input
 texture texture1
 <
-    string UIName = "Texture1";
-    string ResourceType = "2D";
->;
+	string UIName = "Texture1";
+	string ResourceType = "2D";
+> ;
 
 // Texture sampler settings
 sampler2D texture1samp = sampler_state
 {
-    Texture = <texture1>;
-    MagFilter = filtersettings;
-    MinFilter = filtersettings;
-    MipFilter = filtersettings;
+	Texture = <texture1>;
+	MagFilter = filtersettings;
+	MinFilter = filtersettings;
+	MipFilter = filtersettings;
 	AddressU = Wrap;
 	AddressV = Wrap;
 	MipMapLodBias = 0.0f;
@@ -52,10 +52,10 @@ sampler2D texture1samp = sampler_state
 // Texture sampler settings
 sampler2D texture1linear = sampler_state
 {
-    Texture = <texture1>;
-    MagFilter = Linear;
-    MinFilter = Linear;
-    MipFilter = Linear;
+	Texture = <texture1>;
+	MagFilter = Linear;
+	MinFilter = Linear;
+	MipFilter = Linear;
 	AddressU = Wrap;
 	AddressV = Wrap;
 	MipMapLodBias = 0.0f;
@@ -75,9 +75,9 @@ PixelData vs_transform(VertexData vd)
 float4 addcolor(float4 c1, float4 c2)
 {
 	return float4(max(c1.r, c2.r),
-				  max(c1.g, c2.g),
-				  max(c1.b, c2.b),
-				  saturate(c1.a + c2.a * 0.5f));
+		max(c1.g, c2.g),
+		max(c1.b, c2.b),
+		saturate(c1.a + c2.a * 0.5f));
 }
 
 // Pixel shader for antialiased drawing
@@ -85,9 +85,9 @@ float4 ps_fsaa(PixelData pd) : COLOR
 {
 	// Take this pixel's color
 	float4 c = tex2D(texture1samp, pd.uv);
-	
+
 	// If this pixel is not drawn on...
-	if(c.a < 0.1f)
+	if (c.a < 0.1f)
 	{
 		// Mix the colors of nearby pixels
 		float4 n = (float4)0;
@@ -95,7 +95,7 @@ float4 ps_fsaa(PixelData pd) : COLOR
 		n = addcolor(n, tex2D(texture1samp, float2(pd.uv.x - rendersettings.x, pd.uv.y)));
 		n = addcolor(n, tex2D(texture1samp, float2(pd.uv.x, pd.uv.y + rendersettings.y)));
 		n = addcolor(n, tex2D(texture1samp, float2(pd.uv.x, pd.uv.y - rendersettings.y)));
-		
+
 		// If any pixels nearby where found, return a blend, otherwise return nothing
 		//if(n.a > 0.1f) return float4(n.rgb, n.a * settings.z); else return (float4)0;
 		return float4(n.rgb, n.a * rendersettings.z * rendersettings.w);
@@ -124,19 +124,19 @@ technique SM20
 {
 	pass p0
 	{
-	    VertexShader = compile vs_2_0 vs_transform();
-	    PixelShader = compile ps_2_0 ps_fsaa();
+		VertexShader = compile vs_2_0 vs_transform();
+		PixelShader = compile ps_2_0 ps_fsaa();
 	}
-	
+
 	pass p1
 	{
-	    VertexShader = compile vs_2_0 vs_transform();
-	    PixelShader = compile ps_2_0 ps_normal();
+		VertexShader = compile vs_2_0 vs_transform();
+		PixelShader = compile ps_2_0 ps_normal();
 	}
-	
+
 	pass p2
 	{
-	    VertexShader = compile vs_2_0 vs_transform();
-	    PixelShader = compile ps_2_0 ps_text();
+		VertexShader = compile vs_2_0 vs_transform();
+		PixelShader = compile ps_2_0 ps_text();
 	}
 }

@@ -29,62 +29,62 @@ using ICSharpCode.SharpZipLib.Checksums;
 
 namespace CodeImp.DoomBuilder
 {
-	public class CRC
-	{
-		#region ================== Constants
+    public class CRC
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private Crc32 crc;
+        private Crc32 crc;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public long Value { get { return crc.Value; } }
+        public long Value { get { return crc.Value; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		public CRC()
-		{
-			crc = new Crc32();
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        // Constructor
+        public CRC()
+        {
+            crc = new Crc32();
 
-		#endregion
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		#region ================== Methods
+        #endregion
 
-		public void Add(long value)
-		{
-			uint lo = (uint)((ulong)value & 0x00000000FFFFFFFF);
-			uint hi = (uint)(((ulong)value & 0xFFFFFFFF00000000) >> 32);
-			crc.Update(unchecked((int)lo));
-			crc.Update(unchecked((int)hi));
-		}
+        #region ================== Methods
 
-		public void Add(int value)
-		{
-			crc.Update(value);
-		}
+        public void Add(long value)
+        {
+            uint lo = (uint)((ulong)value & 0x00000000FFFFFFFF);
+            uint hi = (uint)(((ulong)value & 0xFFFFFFFF00000000) >> 32);
+            crc.Update(unchecked((int)lo));
+            crc.Update(unchecked((int)hi));
+        }
 
-		public void Add(byte[] data)
-		{
-			crc.Update(data);
-		}
+        public void Add(int value)
+        {
+            crc.Update(value);
+        }
 
-		public void Reset()
-		{
-			crc.Reset();
-		}
+        public void Add(byte[] data)
+        {
+            crc.Update(data);
+        }
 
-		#endregion
-	}
+        public void Reset()
+        {
+            crc.Reset();
+        }
+
+        #endregion
+    }
 }

@@ -35,143 +35,143 @@ using CodeImp.DoomBuilder.Controls;
 
 namespace CodeImp.DoomBuilder.Windows
 {
-	public partial class VertexEditForm : DelayedForm
-	{
-		#region ================== Constants
+    public partial class VertexEditForm : DelayedForm
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private ICollection<Vertex> vertices;
+        private ICollection<Vertex> vertices;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
-		
-		#region ================== Constructor
+        #endregion
 
-		// Constructor
-		public VertexEditForm()
-		{
-			InitializeComponent();
+        #region ================== Constructor
 
-			// Fill universal fields list
-			fieldslist.ListFixedFields(General.Map.Config.VertexFields);
+        // Constructor
+        public VertexEditForm()
+        {
+            InitializeComponent();
 
-			// Custom fields?
-			if(!General.Map.FormatInterface.HasCustomFields)
-				tabs.TabPages.Remove(tabcustom);
-			
-			// Decimals allowed?
-			if(General.Map.FormatInterface.VertexDecimals > 0)
-			{
-				positionx.AllowDecimal = true;
-				positiony.AllowDecimal = true;
-			}
+            // Fill universal fields list
+            fieldslist.ListFixedFields(General.Map.Config.VertexFields);
 
-			// Initialize custom fields editor
-			fieldslist.Setup("vertex");
-		}
+            // Custom fields?
+            if (!General.Map.FormatInterface.HasCustomFields)
+                tabs.TabPages.Remove(tabcustom);
 
-		#endregion
-		
-		#region ================== Methods
+            // Decimals allowed?
+            if (General.Map.FormatInterface.VertexDecimals > 0)
+            {
+                positionx.AllowDecimal = true;
+                positiony.AllowDecimal = true;
+            }
 
-		// This sets up the form to edit the given vertices
-		public void Setup(ICollection<Vertex> vertices)
-		{
-			// Keep this list
-			this.vertices = vertices;
-			if(vertices.Count > 1) this.Text = "Edit Vertices (" + vertices.Count + ")";
+            // Initialize custom fields editor
+            fieldslist.Setup("vertex");
+        }
 
-			////////////////////////////////////////////////////////////////////////
-			// Set all options to the first vertex properties
-			////////////////////////////////////////////////////////////////////////
+        #endregion
 
-			// Get first vertex
-			Vertex vc = General.GetByIndex(vertices, 0);
+        #region ================== Methods
 
-			// Position
-			positionx.Text = vc.Position.x.ToString();
-			positiony.Text = vc.Position.y.ToString();
-			
-			// Custom fields
-			fieldslist.SetValues(vc.Fields, true);
-			
-			////////////////////////////////////////////////////////////////////////
-			// Now go for all sectors and change the options when a setting is different
-			////////////////////////////////////////////////////////////////////////
+        // This sets up the form to edit the given vertices
+        public void Setup(ICollection<Vertex> vertices)
+        {
+            // Keep this list
+            this.vertices = vertices;
+            if (vertices.Count > 1) this.Text = "Edit Vertices (" + vertices.Count + ")";
 
-			// Go for all vertices
-			foreach(Vertex v in vertices)
-			{
-				// Position
-				if(positionx.Text != v.Position.x.ToString()) positionx.Text = "";
-				if(positiony.Text != v.Position.y.ToString()) positiony.Text = "";
+            ////////////////////////////////////////////////////////////////////////
+            // Set all options to the first vertex properties
+            ////////////////////////////////////////////////////////////////////////
 
-				// Custom fields
-				fieldslist.SetValues(v.Fields, false);
-			}
-		}
-		
-		#endregion
-		
-		#region ================== Events
+            // Get first vertex
+            Vertex vc = General.GetByIndex(vertices, 0);
 
-		// OK clicked
-		private void apply_Click(object sender, EventArgs e)
-		{
-			string undodesc = "vertex";
+            // Position
+            positionx.Text = vc.Position.x.ToString();
+            positiony.Text = vc.Position.y.ToString();
 
-			// Verify the coordinates
-			if((positionx.GetResultFloat(0.0f) < General.Map.FormatInterface.MinCoordinate) || (positionx.GetResultFloat(0.0f) > General.Map.FormatInterface.MaxCoordinate) ||
-			   (positiony.GetResultFloat(0.0f) < General.Map.FormatInterface.MinCoordinate) || (positiony.GetResultFloat(0.0f) > General.Map.FormatInterface.MaxCoordinate))
-			{
-				General.ShowWarningMessage("Vertex coordinates must be between " + General.Map.FormatInterface.MinCoordinate + " and " + General.Map.FormatInterface.MaxCoordinate + ".", MessageBoxButtons.OK);
-				return;
-			}
-			
-			// Make undo
-			if(vertices.Count > 1) undodesc = vertices.Count + " vertices";
-			General.Map.UndoRedo.CreateUndo("Edit " + undodesc);
+            // Custom fields
+            fieldslist.SetValues(vc.Fields, true);
 
-			// Go for all vertices
-			foreach(Vertex v in vertices)
-			{
-				// Apply position
-				Vector2D p = new Vector2D();
-				p.x = General.Clamp(positionx.GetResultFloat(v.Position.x), (float)General.Map.FormatInterface.MinCoordinate, (float)General.Map.FormatInterface.MaxCoordinate);
-				p.y = General.Clamp(positiony.GetResultFloat(v.Position.y), (float)General.Map.FormatInterface.MinCoordinate, (float)General.Map.FormatInterface.MaxCoordinate);
-				v.Move(p);
-				
-				// Custom fields
-				fieldslist.Apply(v.Fields);
-			}
-			
-			// Done
-			General.Map.IsChanged = true;
-			this.DialogResult = DialogResult.OK;
-			this.Close();
-		}
+            ////////////////////////////////////////////////////////////////////////
+            // Now go for all sectors and change the options when a setting is different
+            ////////////////////////////////////////////////////////////////////////
 
-		// Cancel clicked
-		private void cancel_Click(object sender, EventArgs e)
-		{
-			// Just close
-			this.DialogResult = DialogResult.Cancel;
-			this.Close();
-		}
+            // Go for all vertices
+            foreach (Vertex v in vertices)
+            {
+                // Position
+                if (positionx.Text != v.Position.x.ToString()) positionx.Text = "";
+                if (positiony.Text != v.Position.y.ToString()) positiony.Text = "";
 
-		// Help requested
-		private void VertexEditForm_HelpRequested(object sender, HelpEventArgs hlpevent)
-		{
-			General.ShowHelp("w_vertexeditor.html");
-			hlpevent.Handled = true;
-		}
+                // Custom fields
+                fieldslist.SetValues(v.Fields, false);
+            }
+        }
 
-		#endregion
-	}
+        #endregion
+
+        #region ================== Events
+
+        // OK clicked
+        private void apply_Click(object sender, EventArgs e)
+        {
+            string undodesc = "vertex";
+
+            // Verify the coordinates
+            if ((positionx.GetResultFloat(0.0f) < General.Map.FormatInterface.MinCoordinate) || (positionx.GetResultFloat(0.0f) > General.Map.FormatInterface.MaxCoordinate) ||
+               (positiony.GetResultFloat(0.0f) < General.Map.FormatInterface.MinCoordinate) || (positiony.GetResultFloat(0.0f) > General.Map.FormatInterface.MaxCoordinate))
+            {
+                General.ShowWarningMessage("Vertex coordinates must be between " + General.Map.FormatInterface.MinCoordinate + " and " + General.Map.FormatInterface.MaxCoordinate + ".", MessageBoxButtons.OK);
+                return;
+            }
+
+            // Make undo
+            if (vertices.Count > 1) undodesc = vertices.Count + " vertices";
+            General.Map.UndoRedo.CreateUndo("Edit " + undodesc);
+
+            // Go for all vertices
+            foreach (Vertex v in vertices)
+            {
+                // Apply position
+                Vector2D p = new Vector2D();
+                p.x = General.Clamp(positionx.GetResultFloat(v.Position.x), (float)General.Map.FormatInterface.MinCoordinate, (float)General.Map.FormatInterface.MaxCoordinate);
+                p.y = General.Clamp(positiony.GetResultFloat(v.Position.y), (float)General.Map.FormatInterface.MinCoordinate, (float)General.Map.FormatInterface.MaxCoordinate);
+                v.Move(p);
+
+                // Custom fields
+                fieldslist.Apply(v.Fields);
+            }
+
+            // Done
+            General.Map.IsChanged = true;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
+
+        // Cancel clicked
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            // Just close
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        // Help requested
+        private void VertexEditForm_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            General.ShowHelp("w_vertexeditor.html");
+            hlpevent.Handled = true;
+        }
+
+        #endregion
+    }
 }

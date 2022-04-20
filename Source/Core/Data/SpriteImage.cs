@@ -31,112 +31,112 @@ using System.IO;
 
 namespace CodeImp.DoomBuilder.Data
 {
-	public sealed class SpriteImage : ImageData
-	{
-		#region ================== Variables
+    public sealed class SpriteImage : ImageData
+    {
+        #region ================== Variables
 
-		protected int offsetx;
-		protected int offsety;
-		
-		#endregion
+        protected int offsetx;
+        protected int offsety;
 
-		#region ================== Properties
+        #endregion
 
-		public int OffsetX { get { return offsetx; } }
-		public int OffsetY { get { return offsety; } }
-		
-		#endregion
-		
-		#region ================== Constructor / Disposer
+        #region ================== Properties
 
-		// Constructor
-		internal SpriteImage(string name)
-		{
-			// Initialize
-			SetName(name);
+        public int OffsetX { get { return offsetx; } }
+        public int OffsetY { get { return offsety; } }
 
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        #endregion
 
-		#endregion
+        #region ================== Constructor / Disposer
 
-		#region ================== Methods
+        // Constructor
+        internal SpriteImage(string name)
+        {
+            // Initialize
+            SetName(name);
 
-		// This loads the image
-		protected override void LocalLoadImage()
-		{
-			Stream lumpdata;
-			MemoryStream mem;
-			IImageReader reader;
-			byte[] membytes;
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-			// Leave when already loaded
-			if(this.IsImageLoaded) return;
+        #endregion
 
-			lock(this)
-			{
-				// Get the lump data stream
-				lumpdata = General.Map.Data.GetSpriteData(Name);
-				if(lumpdata != null)
-				{
-					// Copy lump data to memory
-					lumpdata.Seek(0, SeekOrigin.Begin);
-					membytes = new byte[(int)lumpdata.Length];
-					lumpdata.Read(membytes, 0, (int)lumpdata.Length);
-					mem = new MemoryStream(membytes);
-					mem.Seek(0, SeekOrigin.Begin);
-					
-					// Get a reader for the data
-					reader = ImageDataFormat.GetImageReader(mem, ImageDataFormat.DOOMPICTURE, General.Map.Data.Palette);
-					if(reader is UnknownImageReader)
-					{
-						// Data is in an unknown format!
-						General.ErrorLogger.Add(ErrorType.Error, "Sprite lump '" + Name + "' data format could not be read. Does this lump contain valid picture data at all?");
-						bitmap = null;
-					}
-					else
-					{
-						// Read data as bitmap
-						mem.Seek(0, SeekOrigin.Begin);
-						if(bitmap != null) bitmap.Dispose();
-						bitmap = reader.ReadAsBitmap(mem, out offsetx, out offsety);
-					}
-					
-					// Done
-					mem.Dispose();
+        #region ================== Methods
 
-					if(bitmap != null)
-					{
-						// Get width and height from image
-						width = bitmap.Size.Width;
-						height = bitmap.Size.Height;
-						scale.x = 1.0f;
-						scale.y = 1.0f;
-						
-						// Make offset corrections if the offset was not given
-						if((offsetx == int.MinValue) || (offsety == int.MinValue))
-						{
-							offsetx = (int)((width * scale.x) * 0.5f);
-							offsety = (int)(height * scale.y);
-						}
-					}
-					else
-					{
-						loadfailed = true;
-					}
-				}
-				else
-				{
-					// Missing a patch lump!
-					General.ErrorLogger.Add(ErrorType.Error, "Missing sprite lump '" + Name + "'. Forgot to include required resources?");
-				}
+        // This loads the image
+        protected override void LocalLoadImage()
+        {
+            Stream lumpdata;
+            MemoryStream mem;
+            IImageReader reader;
+            byte[] membytes;
 
-				// Pass on to base
-				base.LocalLoadImage();
-			}
-		}
+            // Leave when already loaded
+            if (this.IsImageLoaded) return;
 
-		#endregion
-	}
+            lock (this)
+            {
+                // Get the lump data stream
+                lumpdata = General.Map.Data.GetSpriteData(Name);
+                if (lumpdata != null)
+                {
+                    // Copy lump data to memory
+                    lumpdata.Seek(0, SeekOrigin.Begin);
+                    membytes = new byte[(int)lumpdata.Length];
+                    lumpdata.Read(membytes, 0, (int)lumpdata.Length);
+                    mem = new MemoryStream(membytes);
+                    mem.Seek(0, SeekOrigin.Begin);
+
+                    // Get a reader for the data
+                    reader = ImageDataFormat.GetImageReader(mem, ImageDataFormat.DOOMPICTURE, General.Map.Data.Palette);
+                    if (reader is UnknownImageReader)
+                    {
+                        // Data is in an unknown format!
+                        General.ErrorLogger.Add(ErrorType.Error, "Sprite lump '" + Name + "' data format could not be read. Does this lump contain valid picture data at all?");
+                        bitmap = null;
+                    }
+                    else
+                    {
+                        // Read data as bitmap
+                        mem.Seek(0, SeekOrigin.Begin);
+                        if (bitmap != null) bitmap.Dispose();
+                        bitmap = reader.ReadAsBitmap(mem, out offsetx, out offsety);
+                    }
+
+                    // Done
+                    mem.Dispose();
+
+                    if (bitmap != null)
+                    {
+                        // Get width and height from image
+                        width = bitmap.Size.Width;
+                        height = bitmap.Size.Height;
+                        scale.x = 1.0f;
+                        scale.y = 1.0f;
+
+                        // Make offset corrections if the offset was not given
+                        if ((offsetx == int.MinValue) || (offsety == int.MinValue))
+                        {
+                            offsetx = (int)((width * scale.x) * 0.5f);
+                            offsety = (int)(height * scale.y);
+                        }
+                    }
+                    else
+                    {
+                        loadfailed = true;
+                    }
+                }
+                else
+                {
+                    // Missing a patch lump!
+                    General.ErrorLogger.Add(ErrorType.Error, "Missing sprite lump '" + Name + "'. Forgot to include required resources?");
+                }
+
+                // Pass on to base
+                base.LocalLoadImage();
+            }
+        }
+
+        #endregion
+    }
 }

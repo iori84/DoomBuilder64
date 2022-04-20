@@ -36,225 +36,225 @@ using System.Drawing.Imaging;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	internal sealed class World3DShader : D3DShader
-	{
-		#region ================== Variables
+    internal sealed class World3DShader : D3DShader
+    {
+        #region ================== Variables
 
-		// Property handlers
-		private EffectHandle texture1;
-		private EffectHandle worldviewproj;
-		private EffectHandle minfiltersettings;
-		private EffectHandle magfiltersettings;
-		private EffectHandle modulatecolor;
-		private EffectHandle highlightcolor;
-		
-		#endregion
+        // Property handlers
+        private EffectHandle texture1;
+        private EffectHandle worldviewproj;
+        private EffectHandle minfiltersettings;
+        private EffectHandle magfiltersettings;
+        private EffectHandle modulatecolor;
+        private EffectHandle highlightcolor;
 
-		#region ================== Properties
+        #endregion
 
-		public Matrix WorldViewProj { set { if(manager.Enabled) effect.SetValue<Matrix>(worldviewproj, value); } }
-		public Texture Texture1 { set { if(manager.Enabled) effect.SetTexture(texture1, value); } }
+        #region ================== Properties
 
-		#endregion
+        public Matrix WorldViewProj { set { if (manager.Enabled) effect.SetValue<Matrix>(worldviewproj, value); } }
+        public Texture Texture1 { set { if (manager.Enabled) effect.SetTexture(texture1, value); } }
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		// Constructor
-		public World3DShader(ShaderManager manager) : base(manager)
-		{
-			// Load effect from file
-			effect = LoadEffect("world3d.fx");
+        #region ================== Constructor / Disposer
 
-			// Get the property handlers from effect
-			if(effect != null)
-			{
-				worldviewproj = effect.GetParameter(null, "worldviewproj");
-				texture1 = effect.GetParameter(null, "texture1");
-				minfiltersettings = effect.GetParameter(null, "minfiltersettings");
-				magfiltersettings = effect.GetParameter(null, "magfiltersettings");
-				modulatecolor = effect.GetParameter(null, "modulatecolor");
-				highlightcolor = effect.GetParameter(null, "highlightcolor");
-			}
+        // Constructor
+        public World3DShader(ShaderManager manager) : base(manager)
+        {
+            // Load effect from file
+            effect = LoadEffect("world3d.fx");
 
-			// Initialize world vertex declaration
-			VertexElement[] elements = new VertexElement[]
-			{
-				new VertexElement(0, 0, DeclarationType.Float3, DeclarationMethod.Default, DeclarationUsage.Position, 0),
-				new VertexElement(0, 12, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, 0),
-				new VertexElement(0, 16, DeclarationType.Float2, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 0),
-				VertexElement.VertexDeclarationEnd
-			};
-			vertexdecl = new VertexDeclaration(General.Map.Graphics.Device, elements);
+            // Get the property handlers from effect
+            if (effect != null)
+            {
+                worldviewproj = effect.GetParameter(null, "worldviewproj");
+                texture1 = effect.GetParameter(null, "texture1");
+                minfiltersettings = effect.GetParameter(null, "minfiltersettings");
+                magfiltersettings = effect.GetParameter(null, "magfiltersettings");
+                modulatecolor = effect.GetParameter(null, "modulatecolor");
+                highlightcolor = effect.GetParameter(null, "highlightcolor");
+            }
 
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+            // Initialize world vertex declaration
+            VertexElement[] elements = new VertexElement[]
+            {
+                new VertexElement(0, 0, DeclarationType.Float3, DeclarationMethod.Default, DeclarationUsage.Position, 0),
+                new VertexElement(0, 12, DeclarationType.Color, DeclarationMethod.Default, DeclarationUsage.Color, 0),
+                new VertexElement(0, 16, DeclarationType.Float2, DeclarationMethod.Default, DeclarationUsage.TextureCoordinate, 0),
+                VertexElement.VertexDeclarationEnd
+            };
+            vertexdecl = new VertexDeclaration(General.Map.Graphics.Device, elements);
 
-		// Disposer
-		public override void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
-				if(texture1 != null) texture1.Dispose();
-				if(worldviewproj != null) worldviewproj.Dispose();
-				if(minfiltersettings != null) minfiltersettings.Dispose();
-				if(magfiltersettings != null) magfiltersettings.Dispose();
-				if(modulatecolor != null) modulatecolor.Dispose();
-				if(highlightcolor != null) highlightcolor.Dispose();
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-				// Done
-				base.Dispose();
-			}
-		}
+        // Disposer
+        public override void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
+                if (texture1 != null) texture1.Dispose();
+                if (worldviewproj != null) worldviewproj.Dispose();
+                if (minfiltersettings != null) minfiltersettings.Dispose();
+                if (magfiltersettings != null) magfiltersettings.Dispose();
+                if (modulatecolor != null) modulatecolor.Dispose();
+                if (highlightcolor != null) highlightcolor.Dispose();
 
-		#endregion
+                // Done
+                base.Dispose();
+            }
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// This sets the constant settings
-		public void SetConstants(bool bilinear, bool useanisotropic)
-		{
-			if(manager.Enabled)
-			{
-				if(bilinear)
-				{
-					effect.SetValue(magfiltersettings, (int)TextureFilter.Linear);
-					if(useanisotropic) effect.SetValue<int>(minfiltersettings, (int)TextureFilter.Anisotropic);
-				}
-				else
-				{
-					effect.SetValue(magfiltersettings, (int)TextureFilter.Point);
-					effect.SetValue(minfiltersettings, (int)TextureFilter.Point);
-				}
-			}
-		}
+        #region ================== Methods
 
-		// This sets the modulation color
-		public void SetModulateColor(int modcolor)
-		{
-			if(manager.Enabled)
-			{
-				effect.SetValue(modulatecolor, new Color4(modcolor));
-			}
-		}
+        // This sets the constant settings
+        public void SetConstants(bool bilinear, bool useanisotropic)
+        {
+            if (manager.Enabled)
+            {
+                if (bilinear)
+                {
+                    effect.SetValue(magfiltersettings, (int)TextureFilter.Linear);
+                    if (useanisotropic) effect.SetValue<int>(minfiltersettings, (int)TextureFilter.Anisotropic);
+                }
+                else
+                {
+                    effect.SetValue(magfiltersettings, (int)TextureFilter.Point);
+                    effect.SetValue(minfiltersettings, (int)TextureFilter.Point);
+                }
+            }
+        }
 
-		// This sets the highlight color
-		public void SetHighlightColor(int hicolor)
-		{
-			if(manager.Enabled)
-			{
-				effect.SetValue(highlightcolor, new Color4(hicolor));
-			}
-		}
+        // This sets the modulation color
+        public void SetModulateColor(int modcolor)
+        {
+            if (manager.Enabled)
+            {
+                effect.SetValue(modulatecolor, new Color4(modcolor));
+            }
+        }
 
-		// This sets up the render pipeline
-		public override void BeginPass(int index)
-		{
-			Device device = manager.D3DDevice.Device;
+        // This sets the highlight color
+        public void SetHighlightColor(int hicolor)
+        {
+            if (manager.Enabled)
+            {
+                effect.SetValue(highlightcolor, new Color4(hicolor));
+            }
+        }
 
-			if(!manager.Enabled)
-			{
-				// Sampler settings
-				if(General.Settings.VisualBilinear)
-				{
-					device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Linear);
-					device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Linear);
-					device.SetSamplerState(0, SamplerState.MipFilter, TextureFilter.Linear);
-					device.SetSamplerState(0, SamplerState.MipMapLodBias, 0f);
-				}
-				else
-				{
-					device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
-					device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Point);
-					device.SetSamplerState(0, SamplerState.MipFilter, TextureFilter.Point);
-					device.SetSamplerState(0, SamplerState.MipMapLodBias, 0f);
-				}
+        // This sets up the render pipeline
+        public override void BeginPass(int index)
+        {
+            Device device = manager.D3DDevice.Device;
 
-				// Texture addressing
-				device.SetSamplerState(0, SamplerState.AddressU, TextureAddress.Wrap);
-				device.SetSamplerState(0, SamplerState.AddressV, TextureAddress.Wrap);
-				device.SetSamplerState(0, SamplerState.AddressW, TextureAddress.Wrap);
-				
-				// First texture stage
-				if((index == 0) || (index == 2))
-				{
-					// Normal
-					device.SetTextureStageState(0, TextureStage.ColorOperation, TextureOperation.Modulate);
-					device.SetTextureStageState(0, TextureStage.ColorArg1, TextureArgument.Texture);
-					device.SetTextureStageState(0, TextureStage.ColorArg2, TextureArgument.Diffuse);
-					device.SetTextureStageState(0, TextureStage.ResultArg, TextureArgument.Current);
-					device.SetTextureStageState(0, TextureStage.TexCoordIndex, 0);
-				}
-				else
-				{
-					// Full brightness
-					device.SetTextureStageState(0, TextureStage.ColorOperation, TextureOperation.SelectArg1);
-					device.SetTextureStageState(0, TextureStage.ColorArg1, TextureArgument.Texture);
-					device.SetTextureStageState(0, TextureStage.ResultArg, TextureArgument.Current);
-					device.SetTextureStageState(0, TextureStage.TexCoordIndex, 0);
-				}
+            if (!manager.Enabled)
+            {
+                // Sampler settings
+                if (General.Settings.VisualBilinear)
+                {
+                    device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Linear);
+                    device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Linear);
+                    device.SetSamplerState(0, SamplerState.MipFilter, TextureFilter.Linear);
+                    device.SetSamplerState(0, SamplerState.MipMapLodBias, 0f);
+                }
+                else
+                {
+                    device.SetSamplerState(0, SamplerState.MagFilter, TextureFilter.Point);
+                    device.SetSamplerState(0, SamplerState.MinFilter, TextureFilter.Point);
+                    device.SetSamplerState(0, SamplerState.MipFilter, TextureFilter.Point);
+                    device.SetSamplerState(0, SamplerState.MipMapLodBias, 0f);
+                }
 
-				// First alpha stage
-				device.SetTextureStageState(0, TextureStage.AlphaOperation, TextureOperation.Modulate);
-				device.SetTextureStageState(0, TextureStage.AlphaArg1, TextureArgument.Texture);
-				device.SetTextureStageState(0, TextureStage.AlphaArg2, TextureArgument.Diffuse);
-				
-				// Second texture stage
-				device.SetTextureStageState(1, TextureStage.ColorOperation, TextureOperation.Modulate);
-				device.SetTextureStageState(1, TextureStage.ColorArg1, TextureArgument.Current);
-				device.SetTextureStageState(1, TextureStage.ColorArg2, TextureArgument.TFactor);
-				device.SetTextureStageState(1, TextureStage.ResultArg, TextureArgument.Current);
-				device.SetTextureStageState(1, TextureStage.TexCoordIndex, 0);
+                // Texture addressing
+                device.SetSamplerState(0, SamplerState.AddressU, TextureAddress.Wrap);
+                device.SetSamplerState(0, SamplerState.AddressV, TextureAddress.Wrap);
+                device.SetSamplerState(0, SamplerState.AddressW, TextureAddress.Wrap);
 
-				// Second alpha stage
-				device.SetTextureStageState(1, TextureStage.AlphaOperation, TextureOperation.Modulate);
-				device.SetTextureStageState(1, TextureStage.AlphaArg1, TextureArgument.Current);
-				device.SetTextureStageState(1, TextureStage.AlphaArg2, TextureArgument.TFactor);
+                // First texture stage
+                if ((index == 0) || (index == 2))
+                {
+                    // Normal
+                    device.SetTextureStageState(0, TextureStage.ColorOperation, TextureOperation.Modulate);
+                    device.SetTextureStageState(0, TextureStage.ColorArg1, TextureArgument.Texture);
+                    device.SetTextureStageState(0, TextureStage.ColorArg2, TextureArgument.Diffuse);
+                    device.SetTextureStageState(0, TextureStage.ResultArg, TextureArgument.Current);
+                    device.SetTextureStageState(0, TextureStage.TexCoordIndex, 0);
+                }
+                else
+                {
+                    // Full brightness
+                    device.SetTextureStageState(0, TextureStage.ColorOperation, TextureOperation.SelectArg1);
+                    device.SetTextureStageState(0, TextureStage.ColorArg1, TextureArgument.Texture);
+                    device.SetTextureStageState(0, TextureStage.ResultArg, TextureArgument.Current);
+                    device.SetTextureStageState(0, TextureStage.TexCoordIndex, 0);
+                }
 
-				// Highlight?
-				if(index > 1)
-				{
-					// Third texture stage
-					device.SetTextureStageState(2, TextureStage.ColorOperation, TextureOperation.AddSigned);
-					device.SetTextureStageState(2, TextureStage.ColorArg1, TextureArgument.Current);
-					device.SetTextureStageState(2, TextureStage.ColorArg2, TextureArgument.Texture);
-					device.SetTextureStageState(2, TextureStage.ColorArg0, TextureArgument.Texture);
-					device.SetTextureStageState(2, TextureStage.ResultArg, TextureArgument.Current);
-					device.SetTextureStageState(2, TextureStage.TexCoordIndex, 0);
+                // First alpha stage
+                device.SetTextureStageState(0, TextureStage.AlphaOperation, TextureOperation.Modulate);
+                device.SetTextureStageState(0, TextureStage.AlphaArg1, TextureArgument.Texture);
+                device.SetTextureStageState(0, TextureStage.AlphaArg2, TextureArgument.Diffuse);
 
-					// Third alpha stage
-					device.SetTextureStageState(2, TextureStage.AlphaOperation, TextureOperation.SelectArg1);
-					device.SetTextureStageState(2, TextureStage.AlphaArg1, TextureArgument.Current);
+                // Second texture stage
+                device.SetTextureStageState(1, TextureStage.ColorOperation, TextureOperation.Modulate);
+                device.SetTextureStageState(1, TextureStage.ColorArg1, TextureArgument.Current);
+                device.SetTextureStageState(1, TextureStage.ColorArg2, TextureArgument.TFactor);
+                device.SetTextureStageState(1, TextureStage.ResultArg, TextureArgument.Current);
+                device.SetTextureStageState(1, TextureStage.TexCoordIndex, 0);
 
-					// Fourth texture stage
-					device.SetTextureStageState(3, TextureStage.ColorOperation, TextureOperation.AddSigned);
-					device.SetTextureStageState(3, TextureStage.ColorArg1, TextureArgument.Current);
-					device.SetTextureStageState(3, TextureStage.ColorArg2, TextureArgument.Texture);
-					device.SetTextureStageState(3, TextureStage.ColorArg0, TextureArgument.Texture);
-					device.SetTextureStageState(3, TextureStage.ResultArg, TextureArgument.Current);
-					device.SetTextureStageState(3, TextureStage.TexCoordIndex, 0);
+                // Second alpha stage
+                device.SetTextureStageState(1, TextureStage.AlphaOperation, TextureOperation.Modulate);
+                device.SetTextureStageState(1, TextureStage.AlphaArg1, TextureArgument.Current);
+                device.SetTextureStageState(1, TextureStage.AlphaArg2, TextureArgument.TFactor);
 
-					// Fourth alpha stage
-					device.SetTextureStageState(3, TextureStage.AlphaOperation, TextureOperation.SelectArg1);
-					device.SetTextureStageState(3, TextureStage.AlphaArg1, TextureArgument.Current);
+                // Highlight?
+                if (index > 1)
+                {
+                    // Third texture stage
+                    device.SetTextureStageState(2, TextureStage.ColorOperation, TextureOperation.AddSigned);
+                    device.SetTextureStageState(2, TextureStage.ColorArg1, TextureArgument.Current);
+                    device.SetTextureStageState(2, TextureStage.ColorArg2, TextureArgument.Texture);
+                    device.SetTextureStageState(2, TextureStage.ColorArg0, TextureArgument.Texture);
+                    device.SetTextureStageState(2, TextureStage.ResultArg, TextureArgument.Current);
+                    device.SetTextureStageState(2, TextureStage.TexCoordIndex, 0);
 
-					// No more further stages
-					device.SetTextureStageState(4, TextureStage.ColorOperation, TextureOperation.Disable);
-					device.SetTextureStageState(4, TextureStage.AlphaOperation, TextureOperation.Disable);
-				}
-				else
-				{
-					// No more further stages
-					device.SetTextureStageState(2, TextureStage.ColorOperation, TextureOperation.Disable);
-					device.SetTextureStageState(2, TextureStage.AlphaOperation, TextureOperation.Disable);
-				}
-			}
+                    // Third alpha stage
+                    device.SetTextureStageState(2, TextureStage.AlphaOperation, TextureOperation.SelectArg1);
+                    device.SetTextureStageState(2, TextureStage.AlphaArg1, TextureArgument.Current);
 
-			base.BeginPass(index);
-		}
-		
-		#endregion
-	}
+                    // Fourth texture stage
+                    device.SetTextureStageState(3, TextureStage.ColorOperation, TextureOperation.AddSigned);
+                    device.SetTextureStageState(3, TextureStage.ColorArg1, TextureArgument.Current);
+                    device.SetTextureStageState(3, TextureStage.ColorArg2, TextureArgument.Texture);
+                    device.SetTextureStageState(3, TextureStage.ColorArg0, TextureArgument.Texture);
+                    device.SetTextureStageState(3, TextureStage.ResultArg, TextureArgument.Current);
+                    device.SetTextureStageState(3, TextureStage.TexCoordIndex, 0);
+
+                    // Fourth alpha stage
+                    device.SetTextureStageState(3, TextureStage.AlphaOperation, TextureOperation.SelectArg1);
+                    device.SetTextureStageState(3, TextureStage.AlphaArg1, TextureArgument.Current);
+
+                    // No more further stages
+                    device.SetTextureStageState(4, TextureStage.ColorOperation, TextureOperation.Disable);
+                    device.SetTextureStageState(4, TextureStage.AlphaOperation, TextureOperation.Disable);
+                }
+                else
+                {
+                    // No more further stages
+                    device.SetTextureStageState(2, TextureStage.ColorOperation, TextureOperation.Disable);
+                    device.SetTextureStageState(2, TextureStage.AlphaOperation, TextureOperation.Disable);
+                }
+            }
+
+            base.BeginPass(index);
+        }
+
+        #endregion
+    }
 }

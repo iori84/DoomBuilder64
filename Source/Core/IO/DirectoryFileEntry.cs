@@ -27,64 +27,64 @@ using System.IO;
 
 namespace CodeImp.DoomBuilder.IO
 {
-	internal struct DirectoryFileEntry
-	{
-										// Example for:   C:\WADs\Foo\Bar.WAD
-										// Created from:  C:\WADs
-		// Members
-		public string filename;			// bar.wad
-		public string filetitle;		// bar
-		public string extension;		// wad
-		public string path;				// foo
-		public string filepathname;		// Foo\Bar.WAD
-		public string filepathtitle;	// Foo\Bar
+    internal struct DirectoryFileEntry
+    {
+        // Example for:   C:\WADs\Foo\Bar.WAD
+        // Created from:  C:\WADs
+        // Members
+        public string filename;         // bar.wad
+        public string filetitle;        // bar
+        public string extension;        // wad
+        public string path;             // foo
+        public string filepathname;     // Foo\Bar.WAD
+        public string filepathtitle;    // Foo\Bar
 
-		// Constructor
-		public DirectoryFileEntry(string fullname, string frompath)
-		{
-			// Get the information we need
-			filename = Path.GetFileName(fullname);
-			filetitle = Path.GetFileNameWithoutExtension(fullname);
-			extension = Path.GetExtension(fullname);
-			if(extension.Length > 1)
-				extension = extension.Substring(1);
-			else
-				extension = "";
-			path = Path.GetDirectoryName(fullname);
-			if(path.Length > (frompath.Length + 1))
-				path = path.Substring(frompath.Length + 1);
-			else
-				path = "";
-			filepathname = Path.Combine(path, filename);
-			filepathtitle = Path.Combine(path, filetitle);
+        // Constructor
+        public DirectoryFileEntry(string fullname, string frompath)
+        {
+            // Get the information we need
+            filename = Path.GetFileName(fullname);
+            filetitle = Path.GetFileNameWithoutExtension(fullname);
+            extension = Path.GetExtension(fullname);
+            if (extension.Length > 1)
+                extension = extension.Substring(1);
+            else
+                extension = "";
+            path = Path.GetDirectoryName(fullname);
+            if (path.Length > (frompath.Length + 1))
+                path = path.Substring(frompath.Length + 1);
+            else
+                path = "";
+            filepathname = Path.Combine(path, filename);
+            filepathtitle = Path.Combine(path, filetitle);
 
-			// Make some lowercase
-			filename = filename.ToLowerInvariant();
-			filetitle = filetitle.ToLowerInvariant();
-			extension = extension.ToLowerInvariant();
-			path = path.ToLowerInvariant();
-		}
+            // Make some lowercase
+            filename = filename.ToLowerInvariant();
+            filetitle = filetitle.ToLowerInvariant();
+            extension = extension.ToLowerInvariant();
+            path = path.ToLowerInvariant();
+        }
 
-		// Constructor
-		public DirectoryFileEntry(string fullname)
-		{
-			// Get the information we need
-			filename = Path.GetFileName(fullname);
-			filetitle = Path.GetFileNameWithoutExtension(fullname);
-			extension = Path.GetExtension(fullname);
-			if(extension.Length > 1)
-				extension = extension.Substring(1);
-			else
-				extension = "";
-			path = Path.GetDirectoryName(fullname);
-			filepathname = Path.Combine(path, filename);
-			filepathtitle = Path.Combine(path, filetitle);
+        // Constructor
+        public DirectoryFileEntry(string fullname)
+        {
+            // Get the information we need
+            filename = Path.GetFileName(fullname);
+            filetitle = Path.GetFileNameWithoutExtension(fullname);
+            extension = Path.GetExtension(fullname);
+            if (extension.Length > 1)
+                extension = extension.Substring(1);
+            else
+                extension = "";
+            path = Path.GetDirectoryName(fullname);
+            filepathname = Path.Combine(path, filename);
+            filepathtitle = Path.Combine(path, filetitle);
 
-			// Make some lowercase
-			filename = filename.ToLowerInvariant();
-			filetitle = filetitle.ToLowerInvariant();
-			extension = extension.ToLowerInvariant();
-			path = path.ToLowerInvariant();
-		}
-	}
+            // Make some lowercase
+            filename = filename.ToLowerInvariant();
+            filetitle = filetitle.ToLowerInvariant();
+            extension = extension.ToLowerInvariant();
+            path = path.ToLowerInvariant();
+        }
+    }
 }

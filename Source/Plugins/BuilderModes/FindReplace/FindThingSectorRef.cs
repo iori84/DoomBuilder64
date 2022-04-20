@@ -38,152 +38,152 @@ using CodeImp.DoomBuilder.Types;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	[FindReplace("Thing Sector Reference", BrowseButton = false)]
-	internal class FindThingSectorRef : FindReplaceType
-	{
-		#region ================== Constants
+    [FindReplace("Thing Sector Reference", BrowseButton = false)]
+    internal class FindThingSectorRef : FindReplaceType
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public override Presentation RenderPresentation { get { return Presentation.Things; } }
+        public override Presentation RenderPresentation { get { return Presentation.Things; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Destructor
+        #region ================== Constructor / Destructor
 
-		// Constructor
-		public FindThingSectorRef()
-		{
-			// Initialize
+        // Constructor
+        public FindThingSectorRef()
+        {
+            // Initialize
 
-		}
+        }
 
-		// Destructor
-		~FindThingSectorRef()
-		{
-		}
+        // Destructor
+        ~FindThingSectorRef()
+        {
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// This is called to test if the item should be displayed
-		public override bool DetermineVisiblity()
-		{
-			return General.Map.FormatInterface.HasThingAction && General.Map.FormatInterface.HasActionArgs;
-		}
-
-
-		// This is called when the browse button is pressed
-		public override string Browse(string initialvalue)
-		{
-			return "";
-		}
+        // This is called to test if the item should be displayed
+        public override bool DetermineVisiblity()
+        {
+            return General.Map.FormatInterface.HasThingAction && General.Map.FormatInterface.HasActionArgs;
+        }
 
 
-		// This is called to perform a search (and replace)
-		// Returns a list of items to show in the results list
-		// replacewith is null when not replacing
-		public override FindReplaceObject[] Find(string value, bool withinselection, string replacewith, bool keepselection)
-		{
-			List<FindReplaceObject> objs = new List<FindReplaceObject>();
+        // This is called when the browse button is pressed
+        public override string Browse(string initialvalue)
+        {
+            return "";
+        }
 
-			// Interpret the replacement
-			int replacetag = 0;
-			if(replacewith != null)
-			{
-				// If it cannot be interpreted, set replacewith to null (not replacing at all)
-				if(!int.TryParse(replacewith, out replacetag)) replacewith = null;
-				if(replacetag < 0) replacewith = null;
-				if(replacetag > 255) replacewith = null;
-				if(replacewith == null)
-				{
-					MessageBox.Show("Invalid replace value for this search type!", "Find and Replace", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return objs.ToArray();
-				}
-			}
 
-			// Interpret the number given
-			int tag = 0;
-			if(int.TryParse(value, out tag))
-			{
-				// Where to search?
-				ICollection<Thing> list = withinselection ? General.Map.Map.GetSelectedThings(true) : General.Map.Map.Things;
+        // This is called to perform a search (and replace)
+        // Returns a list of items to show in the results list
+        // replacewith is null when not replacing
+        public override FindReplaceObject[] Find(string value, bool withinselection, string replacewith, bool keepselection)
+        {
+            List<FindReplaceObject> objs = new List<FindReplaceObject>();
 
-				// Go for all things
-				foreach(Thing t in list)
-				{
-					bool addthing = false;
-					
-					LinedefActionInfo info = General.Map.Config.GetLinedefActionInfo(t.Action);
-					if(info.IsKnown && !info.IsNull)
-					{
-						// Go for all args
-						for(int i = 0; i < Linedef.NUM_ARGS; i++)
-						{
-							// Argument type matches?
-							if(info.Args[i].Used && (info.Args[i].Type == (int)UniversalType.SectorTag))
-							{
-								if(t.Args[i] == tag)
-								{
-									// Replace
-									if(replacewith != null) t.Args[i] = replacetag;
-									addthing = true;
-								}
-							}
-						}
-					}
-					
-					if(addthing)
-					{
-						// Add to list
-						ThingTypeInfo ti = General.Map.Data.GetThingInfo(t.Type);
-						objs.Add(new FindReplaceObject(t, "Thing " + t.Index + " (" + ti.Title + ")"));
-					}
-				}
-			}
+            // Interpret the replacement
+            int replacetag = 0;
+            if (replacewith != null)
+            {
+                // If it cannot be interpreted, set replacewith to null (not replacing at all)
+                if (!int.TryParse(replacewith, out replacetag)) replacewith = null;
+                if (replacetag < 0) replacewith = null;
+                if (replacetag > 255) replacewith = null;
+                if (replacewith == null)
+                {
+                    MessageBox.Show("Invalid replace value for this search type!", "Find and Replace", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return objs.ToArray();
+                }
+            }
 
-			return objs.ToArray();
-		}
+            // Interpret the number given
+            int tag = 0;
+            if (int.TryParse(value, out tag))
+            {
+                // Where to search?
+                ICollection<Thing> list = withinselection ? General.Map.Map.GetSelectedThings(true) : General.Map.Map.Things;
 
-		// This is called when a specific object is selected from the list
-		public override void ObjectSelected(FindReplaceObject[] selection)
-		{
-			if(selection.Length == 1)
-			{
-				ZoomToSelection(selection);
-				General.Interface.ShowThingInfo(selection[0].Thing);
-			}
-			else
-				General.Interface.HideInfo();
+                // Go for all things
+                foreach (Thing t in list)
+                {
+                    bool addthing = false;
 
-			General.Map.Map.ClearAllSelected();
-			foreach(FindReplaceObject obj in selection) obj.Thing.Selected = true;
-		}
+                    LinedefActionInfo info = General.Map.Config.GetLinedefActionInfo(t.Action);
+                    if (info.IsKnown && !info.IsNull)
+                    {
+                        // Go for all args
+                        for (int i = 0; i < Linedef.NUM_ARGS; i++)
+                        {
+                            // Argument type matches?
+                            if (info.Args[i].Used && (info.Args[i].Type == (int)UniversalType.SectorTag))
+                            {
+                                if (t.Args[i] == tag)
+                                {
+                                    // Replace
+                                    if (replacewith != null) t.Args[i] = replacetag;
+                                    addthing = true;
+                                }
+                            }
+                        }
+                    }
 
-		// Render selection
-		public override void RenderThingsSelection(IRenderer2D renderer, FindReplaceObject[] selection)
-		{
-			foreach(FindReplaceObject o in selection)
-			{
-				renderer.RenderThing(o.Thing, General.Colors.Selection, 1.0f);
-			}
-		}
+                    if (addthing)
+                    {
+                        // Add to list
+                        ThingTypeInfo ti = General.Map.Data.GetThingInfo(t.Type);
+                        objs.Add(new FindReplaceObject(t, "Thing " + t.Index + " (" + ti.Title + ")"));
+                    }
+                }
+            }
 
-		// Edit objects
-		public override void EditObjects(FindReplaceObject[] selection)
-		{
-			List<Thing> things = new List<Thing>(selection.Length);
-			foreach(FindReplaceObject o in selection) things.Add(o.Thing);
-			General.Interface.ShowEditThings(things);
-		}
+            return objs.ToArray();
+        }
 
-		#endregion
-	}
+        // This is called when a specific object is selected from the list
+        public override void ObjectSelected(FindReplaceObject[] selection)
+        {
+            if (selection.Length == 1)
+            {
+                ZoomToSelection(selection);
+                General.Interface.ShowThingInfo(selection[0].Thing);
+            }
+            else
+                General.Interface.HideInfo();
+
+            General.Map.Map.ClearAllSelected();
+            foreach (FindReplaceObject obj in selection) obj.Thing.Selected = true;
+        }
+
+        // Render selection
+        public override void RenderThingsSelection(IRenderer2D renderer, FindReplaceObject[] selection)
+        {
+            foreach (FindReplaceObject o in selection)
+            {
+                renderer.RenderThing(o.Thing, General.Colors.Selection, 1.0f);
+            }
+        }
+
+        // Edit objects
+        public override void EditObjects(FindReplaceObject[] selection)
+        {
+            List<Thing> things = new List<Thing>(selection.Length);
+            foreach (FindReplaceObject o in selection) things.Add(o.Thing);
+            General.Interface.ShowEditThings(things);
+        }
+
+        #endregion
+    }
 }

@@ -32,82 +32,82 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public class UniversalFieldInfo : IComparable<UniversalFieldInfo>
-	{
-		#region ================== Constants
+    public class UniversalFieldInfo : IComparable<UniversalFieldInfo>
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Properties
-		private string name;
-		private int type;
-		private object defaultvalue;
-		private EnumList enumlist;
+        // Properties
+        private string name;
+        private int type;
+        private object defaultvalue;
+        private EnumList enumlist;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public string Name { get { return name; } }
-		public int Type { get { return type; } }
-		public object Default { get { return defaultvalue; } }
-		public EnumList Enum { get { return enumlist; } }
+        public string Name { get { return name; } }
+        public int Type { get { return type; } }
+        public object Default { get { return defaultvalue; } }
+        public EnumList Enum { get { return enumlist; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		internal UniversalFieldInfo(string path, string name, Configuration cfg, IDictionary<string, EnumList> enums)
-		{
-			string setting = "universalfields." + path + "." + name;
+        // Constructor
+        internal UniversalFieldInfo(string path, string name, Configuration cfg, IDictionary<string, EnumList> enums)
+        {
+            string setting = "universalfields." + path + "." + name;
 
-			// Initialize
-			this.name = name.ToLowerInvariant();
+            // Initialize
+            this.name = name.ToLowerInvariant();
 
-			// Read type
-			this.type = cfg.ReadSetting(setting + ".type", 0);
-			this.defaultvalue = cfg.ReadSettingObject(setting + ".default", null);
-			
-			// Read enum
-			object enumsetting = cfg.ReadSettingObject(setting + ".enum", null);
-			if(enumsetting != null)
-			{
-				// Reference to existing enums list?
-				if(enumsetting is string)
-				{
-					// Link to it
-					enumlist = enums[enumsetting.ToString()];
-				}
-				else if(enumsetting is IDictionary)
-				{
-					// Make list
-					enumlist = new EnumList(enumsetting as IDictionary);
-				}
-			}
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+            // Read type
+            this.type = cfg.ReadSetting(setting + ".type", 0);
+            this.defaultvalue = cfg.ReadSettingObject(setting + ".default", null);
 
-		#endregion
+            // Read enum
+            object enumsetting = cfg.ReadSettingObject(setting + ".enum", null);
+            if (enumsetting != null)
+            {
+                // Reference to existing enums list?
+                if (enumsetting is string)
+                {
+                    // Link to it
+                    enumlist = enums[enumsetting.ToString()];
+                }
+                else if (enumsetting is IDictionary)
+                {
+                    // Make list
+                    enumlist = new EnumList(enumsetting as IDictionary);
+                }
+            }
 
-		#region ================== Methods
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		// This presents the item as string
-		public override string ToString()
-		{
-			return name;
-		}
+        #endregion
 
-		// This compares against another field
-		public int CompareTo(UniversalFieldInfo other)
-		{
-			return string.Compare(this.name, other.name);
-		}
+        #region ================== Methods
 
-		#endregion
-	}
+        // This presents the item as string
+        public override string ToString()
+        {
+            return name;
+        }
+
+        // This compares against another field
+        public int CompareTo(UniversalFieldInfo other)
+        {
+            return string.Compare(this.name, other.name);
+        }
+
+        #endregion
+    }
 }

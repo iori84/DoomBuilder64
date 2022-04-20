@@ -33,44 +33,44 @@ using System.Collections.ObjectModel;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public struct MapLumpInfo
-	{
-		// Members
-		public string name;
-		public bool required;
-		public bool blindcopy;
-		public bool nodebuild;
-		public bool allowempty;
-		internal ScriptConfiguration script;
-		
-		// Construct from IDictionary
-		internal MapLumpInfo(string name, Configuration cfg)
-		{
-			string scriptconfig = "";
-			
-			// Apply settings
-			this.name = name;
-			this.script = null;
-			this.required = cfg.ReadSetting("maplumpnames." + name + ".required", false);
-			this.blindcopy = cfg.ReadSetting("maplumpnames." + name + ".blindcopy", false);
-			this.nodebuild = cfg.ReadSetting("maplumpnames." + name + ".nodebuild", false);
-			this.allowempty = cfg.ReadSetting("maplumpnames." + name + ".allowempty", false);
-			scriptconfig = cfg.ReadSetting("maplumpnames." + name + ".script", "");
-			
-			// Find script configuration
-			if(scriptconfig.Length > 0)
-			{
-				if(General.ScriptConfigs.ContainsKey(scriptconfig.ToLowerInvariant()))
-				{
-					this.script = General.ScriptConfigs[scriptconfig.ToLowerInvariant()];
-				}
-				else
-				{
-					General.ErrorLogger.Add(ErrorType.Warning, "Map lump '" + name + "' in the current game configuration specifies an unknown script configuration '" + scriptconfig + "'. Using plain text instead.");
-					this.script = new ScriptConfiguration();
-				}
-			}
-		}
-	}
+    public struct MapLumpInfo
+    {
+        // Members
+        public string name;
+        public bool required;
+        public bool blindcopy;
+        public bool nodebuild;
+        public bool allowempty;
+        internal ScriptConfiguration script;
+
+        // Construct from IDictionary
+        internal MapLumpInfo(string name, Configuration cfg)
+        {
+            string scriptconfig = "";
+
+            // Apply settings
+            this.name = name;
+            this.script = null;
+            this.required = cfg.ReadSetting("maplumpnames." + name + ".required", false);
+            this.blindcopy = cfg.ReadSetting("maplumpnames." + name + ".blindcopy", false);
+            this.nodebuild = cfg.ReadSetting("maplumpnames." + name + ".nodebuild", false);
+            this.allowempty = cfg.ReadSetting("maplumpnames." + name + ".allowempty", false);
+            scriptconfig = cfg.ReadSetting("maplumpnames." + name + ".script", "");
+
+            // Find script configuration
+            if (scriptconfig.Length > 0)
+            {
+                if (General.ScriptConfigs.ContainsKey(scriptconfig.ToLowerInvariant()))
+                {
+                    this.script = General.ScriptConfigs[scriptconfig.ToLowerInvariant()];
+                }
+                else
+                {
+                    General.ErrorLogger.Add(ErrorType.Warning, "Map lump '" + name + "' in the current game configuration specifies an unknown script configuration '" + scriptconfig + "'. Using plain text instead.");
+                    this.script = new ScriptConfiguration();
+                }
+            }
+        }
+    }
 }
 

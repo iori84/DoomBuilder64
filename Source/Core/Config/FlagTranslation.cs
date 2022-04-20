@@ -31,71 +31,71 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public class FlagTranslation : IComparable<FlagTranslation>
-	{
-		#region ================== Variables
+    public class FlagTranslation : IComparable<FlagTranslation>
+    {
+        #region ================== Variables
 
-		private int flag;
-		private List<string> fields;
-		private List<bool> values;
+        private int flag;
+        private List<string> fields;
+        private List<bool> values;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public int Flag { get { return flag; } }
-		public List<string> Fields { get { return fields; } }
-		public List<bool> FieldValues { get { return values; } }
+        public int Flag { get { return flag; } }
+        public List<string> Fields { get { return fields; } }
+        public List<bool> FieldValues { get { return values; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor
+        #region ================== Constructor
 
-		// Constructor
-		public FlagTranslation(DictionaryEntry de)
-		{
-			// Initialize
-			this.fields = new List<string>();
-			this.values = new List<bool>();
-			
-			// Set the flag
-			if(!int.TryParse(de.Key.ToString(), out flag))
-				General.ErrorLogger.Add(ErrorType.Warning, "Invalid flag translation key in configuration. The key must be numeric.");
+        // Constructor
+        public FlagTranslation(DictionaryEntry de)
+        {
+            // Initialize
+            this.fields = new List<string>();
+            this.values = new List<bool>();
 
-			// Set the fields
-			string[] fieldstrings = de.Value.ToString().Split(',');
-			foreach(string f in fieldstrings)
-			{
-				string ft = f.Trim();
-				if(ft.StartsWith("!"))
-				{
-					fields.Add(ft.Substring(1).Trim());
-					values.Add(false);
-				}
-				else
-				{
-					fields.Add(ft);
-					values.Add(true);
-				}
-			}
-		}
+            // Set the flag
+            if (!int.TryParse(de.Key.ToString(), out flag))
+                General.ErrorLogger.Add(ErrorType.Warning, "Invalid flag translation key in configuration. The key must be numeric.");
 
-		#endregion
+            // Set the fields
+            string[] fieldstrings = de.Value.ToString().Split(',');
+            foreach (string f in fieldstrings)
+            {
+                string ft = f.Trim();
+                if (ft.StartsWith("!"))
+                {
+                    fields.Add(ft.Substring(1).Trim());
+                    values.Add(false);
+                }
+                else
+                {
+                    fields.Add(ft);
+                    values.Add(true);
+                }
+            }
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// String representation
-		public override string ToString()
-		{
-			return flag.ToString();
-		}
+        #region ================== Methods
 
-		// Comparer (highest first)
-		public int CompareTo(FlagTranslation other)
-		{
-			return other.flag - this.flag;
-		}
-		
-		#endregion
-	}
+        // String representation
+        public override string ToString()
+        {
+            return flag.ToString();
+        }
+
+        // Comparer (highest first)
+        public int CompareTo(FlagTranslation other)
+        {
+            return other.flag - this.flag;
+        }
+
+        #endregion
+    }
 }

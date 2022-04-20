@@ -31,92 +31,92 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.Boolean, "Boolean", true)]
-	internal class BoolHandler : TypeHandler
-	{
-		#region ================== Constants
+    [TypeHandler(UniversalType.Boolean, "Boolean", true)]
+    internal class BoolHandler : TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private EnumList list;
-		private bool value;
+        private EnumList list;
+        private bool value;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public override bool IsEnumerable { get { return true; } }
-		public override bool IsLimitedToEnums { get { return true; } }
-		
-		#endregion
+        public override bool IsEnumerable { get { return true; } }
+        public override bool IsLimitedToEnums { get { return true; } }
 
-		#region ================== Constructor
+        #endregion
 
-		// When set up for an argument
-		public BoolHandler() : base()
-		{
-			// Make enums
-			list = new EnumList();
-			list.Add(new EnumItem("true", "True"));
-			list.Add(new EnumItem("false", "False"));
-		}
+        #region ================== Constructor
 
-		#endregion
+        // When set up for an argument
+        public BoolHandler() : base()
+        {
+            // Make enums
+            list = new EnumList();
+            list.Add(new EnumItem("true", "True"));
+            list.Add(new EnumItem("false", "False"));
+        }
 
-		#region ================== Methods
+        #endregion
 
-		public override void SetValue(object value)
-		{
-			bool result;
+        #region ================== Methods
 
-			// null?
-			if(value == null)
-			{
-				this.value = false;
-			}
-			// Compatible type?
-			else if((value is int) || (value is float) || (value is bool))
-			{
-				this.value = Convert.ToBoolean(value);
-			}
-			// string?
-			else if(value is string)
-			{
-				// Try parsing as string
-				if(value.ToString().ToLowerInvariant().StartsWith("t"))
-					this.value = true;
-				else
-					this.value = false;
-			}
-			else
-			{
-				this.value = false;
-			}
-		}
+        public override void SetValue(object value)
+        {
+            bool result;
 
-		public override object GetValue()
-		{
-			return this.value;
-		}
+            // null?
+            if (value == null)
+            {
+                this.value = false;
+            }
+            // Compatible type?
+            else if ((value is int) || (value is float) || (value is bool))
+            {
+                this.value = Convert.ToBoolean(value);
+            }
+            // string?
+            else if (value is string)
+            {
+                // Try parsing as string
+                if (value.ToString().ToLowerInvariant().StartsWith("t"))
+                    this.value = true;
+                else
+                    this.value = false;
+            }
+            else
+            {
+                this.value = false;
+            }
+        }
 
-		public override int GetIntValue()
-		{
-			if(this.value) return 1; else return 0;
-		}
+        public override object GetValue()
+        {
+            return this.value;
+        }
 
-		public override string GetStringValue()
-		{
-			return this.value.ToString();
-		}
+        public override int GetIntValue()
+        {
+            if (this.value) return 1; else return 0;
+        }
 
-		// This returns an enum list
-		public override EnumList GetEnumList()
-		{
-			return list;
-		}
-		
-		#endregion
-	}
+        public override string GetStringValue()
+        {
+            return this.value.ToString();
+        }
+
+        // This returns an enum list
+        public override EnumList GetEnumList()
+        {
+            return list;
+        }
+
+        #endregion
+    }
 }

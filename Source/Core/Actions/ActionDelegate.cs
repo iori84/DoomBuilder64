@@ -26,5 +26,5 @@ using System.Text;
 
 namespace CodeImp.DoomBuilder.Actions
 {
-	internal delegate void ActionDelegate();
+    internal delegate void ActionDelegate();
 }

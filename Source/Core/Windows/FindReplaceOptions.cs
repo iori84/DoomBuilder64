@@ -38,12 +38,12 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Windows
 {
-	internal struct FindReplaceOptions
-	{
-		public string FindText;
-		public bool CaseSensitive;
-		public bool WholeWord;
-		public string ReplaceWith;
-	}
+    internal struct FindReplaceOptions
+    {
+        public string FindText;
+        public bool CaseSensitive;
+        public bool WholeWord;
+        public string ReplaceWith;
+    }
 }
 

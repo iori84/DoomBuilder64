@@ -38,240 +38,240 @@ using CodeImp.DoomBuilder.Compilers;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	public partial class ThingBrowserControl : UserControl
-	{
-		#region ================== Events
+    public partial class ThingBrowserControl : UserControl
+    {
+        #region ================== Events
 
-		public delegate void TypeChangedDeletegate(ThingTypeInfo value);
-		public delegate void TypeDoubleClickDeletegate();
+        public delegate void TypeChangedDeletegate(ThingTypeInfo value);
+        public delegate void TypeDoubleClickDeletegate();
 
-		public event TypeChangedDeletegate OnTypeChanged;
-		public event TypeDoubleClickDeletegate OnTypeDoubleClicked;
+        public event TypeChangedDeletegate OnTypeChanged;
+        public event TypeDoubleClickDeletegate OnTypeDoubleClicked;
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private ICollection<Thing> things;
-		private List<TreeNode> nodes;
-		private ThingTypeInfo thinginfo;
-		private bool doupdatenode;
-		private bool doupdatetextbox;
-		
-		#endregion
+        private ICollection<Thing> things;
+        private List<TreeNode> nodes;
+        private ThingTypeInfo thinginfo;
+        private bool doupdatenode;
+        private bool doupdatetextbox;
 
-		#region ================== Properties
+        #endregion
 
-		public string TypeStringValue { get { return typeid.Text; } }
+        #region ================== Properties
 
-		#endregion
+        public string TypeStringValue { get { return typeid.Text; } }
 
-		#region ================== Constructor
+        #endregion
 
-		// Constructor
-		public ThingBrowserControl()
-		{
-			InitializeComponent();
-		}
+        #region ================== Constructor
 
-		// This sets up the control
-		public void Setup()
-		{
-			// Go for all predefined categories
-			typelist.Nodes.Clear();
-			nodes = new List<TreeNode>();
-			foreach(ThingCategory tc in General.Map.Data.ThingCategories)
-			{
-				// Create category
-				TreeNode cn = typelist.Nodes.Add(tc.Name, tc.Title);
-				if((tc.Color >= 0) && (tc.Color < thingimages.Images.Count)) cn.ImageIndex = tc.Color;
-				cn.SelectedImageIndex = cn.ImageIndex;
-				foreach(ThingTypeInfo ti in tc.Things)
-				{
-					// Create thing
-					TreeNode n = cn.Nodes.Add(ti.Title);
-					if((ti.Color >= 0) && (ti.Color < thingimages.Images.Count)) n.ImageIndex = ti.Color;
-					n.SelectedImageIndex = n.ImageIndex;
-					n.Tag = ti;
-					nodes.Add(n);
-				}
-			}
+        // Constructor
+        public ThingBrowserControl()
+        {
+            InitializeComponent();
+        }
 
-			doupdatenode = true;
-			doupdatetextbox = true;
-		}
+        // This sets up the control
+        public void Setup()
+        {
+            // Go for all predefined categories
+            typelist.Nodes.Clear();
+            nodes = new List<TreeNode>();
+            foreach (ThingCategory tc in General.Map.Data.ThingCategories)
+            {
+                // Create category
+                TreeNode cn = typelist.Nodes.Add(tc.Name, tc.Title);
+                if ((tc.Color >= 0) && (tc.Color < thingimages.Images.Count)) cn.ImageIndex = tc.Color;
+                cn.SelectedImageIndex = cn.ImageIndex;
+                foreach (ThingTypeInfo ti in tc.Things)
+                {
+                    // Create thing
+                    TreeNode n = cn.Nodes.Add(ti.Title);
+                    if ((ti.Color >= 0) && (ti.Color < thingimages.Images.Count)) n.ImageIndex = ti.Color;
+                    n.SelectedImageIndex = n.ImageIndex;
+                    n.Tag = ti;
+                    nodes.Add(n);
+                }
+            }
 
-		#endregion
-		
-		#region ================== Methods
+            doupdatenode = true;
+            doupdatetextbox = true;
+        }
 
-		// Select a type
-		public void SelectType(int type)
-		{
-			// Set type index
-			typeid.Text = type.ToString();
-			typeid_TextChanged(this, EventArgs.Empty);
-		}
+        #endregion
 
-		// Return selected type info
-		public ThingTypeInfo GetSelectedInfo()
-		{
-			return thinginfo;
-		}
+        #region ================== Methods
 
-		// This clears the type
-		public void ClearSelectedType()
-		{
-			doupdatenode = false;
+        // Select a type
+        public void SelectType(int type)
+        {
+            // Set type index
+            typeid.Text = type.ToString();
+            typeid_TextChanged(this, EventArgs.Empty);
+        }
 
-			// Clear selection
-			typelist.SelectedNode = null;
-			typeid.Text = "";
+        // Return selected type info
+        public ThingTypeInfo GetSelectedInfo()
+        {
+            return thinginfo;
+        }
 
-			// Collapse nodes
-			foreach(TreeNode n in nodes)
-				if(n.Parent.IsExpanded) n.Parent.Collapse();
-			
-			doupdatenode = true;
-		}
+        // This clears the type
+        public void ClearSelectedType()
+        {
+            doupdatenode = false;
 
-		// Result
-		public int GetResult(int original)
-		{
-			return typeid.GetResult(original);
-		}
+            // Clear selection
+            typelist.SelectedNode = null;
+            typeid.Text = "";
 
-		#endregion
+            // Collapse nodes
+            foreach (TreeNode n in nodes)
+                if (n.Parent.IsExpanded) n.Parent.Collapse();
 
-		#region ================== Events
+            doupdatenode = true;
+        }
 
-		// List double-clicked
-		private void typelist_DoubleClick(object sender, EventArgs e)
-		{
-			if(typelist.SelectedNode != null)
-			{
-				// Node is a child node?
-				TreeNode n = typelist.SelectedNode;
-				if((n.Nodes.Count == 0) && (n.Tag != null) && (n.Tag is ThingTypeInfo))
-				{
-					if((OnTypeDoubleClicked != null) && (typeid.Text.Length > 0)) OnTypeDoubleClicked();
-				}
-			}
-		}
-		
-		// Thing type selection changed
-		private void typelist_AfterSelect(object sender, TreeViewEventArgs e)
-		{
-			if(doupdatetextbox)
-			{
-				// Anything selected?
-				if(typelist.SelectedNode != null)
-				{
-					TreeNode n = typelist.SelectedNode;
+        // Result
+        public int GetResult(int original)
+        {
+            return typeid.GetResult(original);
+        }
 
-					// Node is a child node?
-					if((n.Nodes.Count == 0) && (n.Tag != null) && (n.Tag is ThingTypeInfo))
-					{
-						ThingTypeInfo ti = (n.Tag as ThingTypeInfo);
+        #endregion
 
-						// Show info
-						typeid.Text = ti.Index.ToString();
-					}
-				}
-			}
-		}
+        #region ================== Events
 
-		// Thing type index changed
-		private void typeid_TextChanged(object sender, EventArgs e)
-		{
-			bool knownthing = false;
+        // List double-clicked
+        private void typelist_DoubleClick(object sender, EventArgs e)
+        {
+            if (typelist.SelectedNode != null)
+            {
+                // Node is a child node?
+                TreeNode n = typelist.SelectedNode;
+                if ((n.Nodes.Count == 0) && (n.Tag != null) && (n.Tag is ThingTypeInfo))
+                {
+                    if ((OnTypeDoubleClicked != null) && (typeid.Text.Length > 0)) OnTypeDoubleClicked();
+                }
+            }
+        }
 
-			// Any text?
-			if(typeid.Text.Length > 0)
-			{
-				// Get the info
-				thinginfo = General.Map.Data.GetThingInfoEx(typeid.GetResult(0));
-				if(thinginfo != null)
-				{
-					knownthing = true;
+        // Thing type selection changed
+        private void typelist_AfterSelect(object sender, TreeViewEventArgs e)
+        {
+            if (doupdatetextbox)
+            {
+                // Anything selected?
+                if (typelist.SelectedNode != null)
+                {
+                    TreeNode n = typelist.SelectedNode;
 
-					// Size
-					sizelabel.Text = (thinginfo.Radius * 2) + " x " + thinginfo.Height;
+                    // Node is a child node?
+                    if ((n.Nodes.Count == 0) && (n.Tag != null) && (n.Tag is ThingTypeInfo))
+                    {
+                        ThingTypeInfo ti = (n.Tag as ThingTypeInfo);
 
-					// Hangs from ceiling
-					if(thinginfo.Hangs) positionlabel.Text = "Ceiling"; else positionlabel.Text = "Floor";
+                        // Show info
+                        typeid.Text = ti.Index.ToString();
+                    }
+                }
+            }
+        }
 
-					// Blocking
-					switch(thinginfo.Blocking)
-					{
-						case ThingTypeInfo.THING_BLOCKING_NONE: blockinglabel.Text = "No"; break;
-						case ThingTypeInfo.THING_BLOCKING_FULL: blockinglabel.Text = "Completely"; break;
-						case ThingTypeInfo.THING_BLOCKING_HEIGHT: blockinglabel.Text = "True-Height"; break;
-						default: blockinglabel.Text = "Unknown"; break;
-					}
-				}
+        // Thing type index changed
+        private void typeid_TextChanged(object sender, EventArgs e)
+        {
+            bool knownthing = false;
 
-				if(doupdatenode)
-				{
-					doupdatetextbox = false;
-					int typeindex = typeid.GetResult(0);
-					typelist.SelectedNode = null;
-					foreach(TreeNode n in nodes)
-					{
-						// Matching node?
-						if((n.Tag as ThingTypeInfo).Index == typeindex)
-						{
-							// Select this
-							n.Parent.Expand();
-							typelist.SelectedNode = n;
-							n.EnsureVisible();
-						}
-					}
-					doupdatetextbox = true;
-				}
-			}
-			else
-			{
-				thinginfo = null;
-				if(doupdatenode) typelist.SelectedNode = null;
-			}
+            // Any text?
+            if (typeid.Text.Length > 0)
+            {
+                // Get the info
+                thinginfo = General.Map.Data.GetThingInfoEx(typeid.GetResult(0));
+                if (thinginfo != null)
+                {
+                    knownthing = true;
 
-			// No known thing?
-			if(!knownthing)
-			{
-				sizelabel.Text = "-";
-				positionlabel.Text = "-";
-				blockinglabel.Text = "-";
-			}
+                    // Size
+                    sizelabel.Text = (thinginfo.Radius * 2) + " x " + thinginfo.Height;
 
-			// Raise event
-			if(OnTypeChanged != null) OnTypeChanged(thinginfo);
-		}
+                    // Hangs from ceiling
+                    if (thinginfo.Hangs) positionlabel.Text = "Ceiling"; else positionlabel.Text = "Floor";
 
-		// Layout update!
-		private void ThingBrowserControl_Layout(object sender, LayoutEventArgs e)
-		{
-			ThingBrowserControl_SizeChanged(sender, EventArgs.Empty);
-		}
+                    // Blocking
+                    switch (thinginfo.Blocking)
+                    {
+                        case ThingTypeInfo.THING_BLOCKING_NONE: blockinglabel.Text = "No"; break;
+                        case ThingTypeInfo.THING_BLOCKING_FULL: blockinglabel.Text = "Completely"; break;
+                        case ThingTypeInfo.THING_BLOCKING_HEIGHT: blockinglabel.Text = "True-Height"; break;
+                        default: blockinglabel.Text = "Unknown"; break;
+                    }
+                }
 
-		private void ThingBrowserControl_Resize(object sender, EventArgs e)
-		{
-			ThingBrowserControl_SizeChanged(sender, EventArgs.Empty);
-		}
+                if (doupdatenode)
+                {
+                    doupdatetextbox = false;
+                    int typeindex = typeid.GetResult(0);
+                    typelist.SelectedNode = null;
+                    foreach (TreeNode n in nodes)
+                    {
+                        // Matching node?
+                        if ((n.Tag as ThingTypeInfo).Index == typeindex)
+                        {
+                            // Select this
+                            n.Parent.Expand();
+                            typelist.SelectedNode = n;
+                            n.EnsureVisible();
+                        }
+                    }
+                    doupdatetextbox = true;
+                }
+            }
+            else
+            {
+                thinginfo = null;
+                if (doupdatenode) typelist.SelectedNode = null;
+            }
 
-		private void ThingBrowserControl_SizeChanged(object sender, EventArgs e)
-		{
-			infopanel.Top = this.ClientSize.Height - infopanel.Height;
-			infopanel.Width = this.ClientSize.Width;
-			typelist.Width = this.ClientSize.Width;
-			typelist.Height = infopanel.Top;
+            // No known thing?
+            if (!knownthing)
+            {
+                sizelabel.Text = "-";
+                positionlabel.Text = "-";
+                blockinglabel.Text = "-";
+            }
 
-			blockingcaption.Left = infopanel.Width / 2;
-			blockinglabel.Left = blockingcaption.Right + blockingcaption.Margin.Right;
-			sizecaption.Left = blockingcaption.Right - sizecaption.Width;
-			sizelabel.Left = sizecaption.Right + sizecaption.Margin.Right;
-		}
-		
-		#endregion
-	}
+            // Raise event
+            if (OnTypeChanged != null) OnTypeChanged(thinginfo);
+        }
+
+        // Layout update!
+        private void ThingBrowserControl_Layout(object sender, LayoutEventArgs e)
+        {
+            ThingBrowserControl_SizeChanged(sender, EventArgs.Empty);
+        }
+
+        private void ThingBrowserControl_Resize(object sender, EventArgs e)
+        {
+            ThingBrowserControl_SizeChanged(sender, EventArgs.Empty);
+        }
+
+        private void ThingBrowserControl_SizeChanged(object sender, EventArgs e)
+        {
+            infopanel.Top = this.ClientSize.Height - infopanel.Height;
+            infopanel.Width = this.ClientSize.Width;
+            typelist.Width = this.ClientSize.Width;
+            typelist.Height = infopanel.Top;
+
+            blockingcaption.Left = infopanel.Width / 2;
+            blockinglabel.Left = blockingcaption.Right + blockingcaption.Margin.Right;
+            sizecaption.Left = blockingcaption.Right - sizecaption.Width;
+            sizelabel.Left = sizecaption.Right + sizecaption.Margin.Right;
+        }
+
+        #endregion
+    }
 }

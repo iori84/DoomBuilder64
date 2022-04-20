@@ -1,33 +1,33 @@
 namespace CodeImp.DoomBuilder.Windows
 {
-	partial class LinedefEditForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class LinedefEditForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if(disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.Windows.Forms.Label label2;
             System.Windows.Forms.Label taglabel;
             System.Windows.Forms.Label label3;
@@ -1260,62 +1260,62 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabmacros.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Button cancel;
-		private System.Windows.Forms.Button apply;
-		private System.Windows.Forms.GroupBox actiongroup;
-		private System.Windows.Forms.GroupBox settingsgroup;
-		private CodeImp.DoomBuilder.Controls.CheckboxArrayControl flags;
-		private System.Windows.Forms.CheckBox checkBox1;
-		private System.Windows.Forms.Button browseaction;
-		private CodeImp.DoomBuilder.Controls.ActionSelectorControl action;
-		private System.Windows.Forms.Button newtag;
-		private System.Windows.Forms.TabControl tabs;
-		private System.Windows.Forms.TabPage tabproperties;
-		private System.Windows.Forms.TabPage tabsidedefs;
-		private System.Windows.Forms.GroupBox frontgroup;
-		private System.Windows.Forms.CheckBox frontside;
-		private System.Windows.Forms.CheckBox backside;
-		private System.Windows.Forms.GroupBox backgroup;
-		private CodeImp.DoomBuilder.Controls.TextureSelectorControl frontlow;
-		private CodeImp.DoomBuilder.Controls.TextureSelectorControl frontmid;
-		private CodeImp.DoomBuilder.Controls.TextureSelectorControl fronthigh;
-		private CodeImp.DoomBuilder.Controls.TextureSelectorControl backlow;
-		private CodeImp.DoomBuilder.Controls.TextureSelectorControl backmid;
-		private CodeImp.DoomBuilder.Controls.TextureSelectorControl backhigh;
-		private System.Windows.Forms.ComboBox activation;
-		private System.Windows.Forms.Panel udmfpanel;
-		private System.Windows.Forms.Panel hexenpanel;
-		private System.Windows.Forms.TabPage tabcustom;
-		private CodeImp.DoomBuilder.Controls.FieldsEditorControl fieldslist;
-		private System.Windows.Forms.GroupBox idgroup;
-		private CodeImp.DoomBuilder.Controls.CheckboxArrayControl udmfactivates;
-		private System.Windows.Forms.Panel argspanel;
-		private CodeImp.DoomBuilder.Controls.ArgumentBox arg2;
-		private CodeImp.DoomBuilder.Controls.ArgumentBox arg1;
-		private CodeImp.DoomBuilder.Controls.ArgumentBox arg0;
-		private CodeImp.DoomBuilder.Controls.ArgumentBox arg3;
-		private CodeImp.DoomBuilder.Controls.ArgumentBox arg4;
-		private System.Windows.Forms.Label arg1label;
-		private System.Windows.Forms.Label arg0label;
-		private System.Windows.Forms.Label arg3label;
-		private System.Windows.Forms.Label arg2label;
-		private System.Windows.Forms.Label arg4label;
-		private System.Windows.Forms.SplitContainer splitter;
-		private System.Windows.Forms.Button customfrontbutton;
-		private System.Windows.Forms.Button custombackbutton;
-		private System.Windows.Forms.Panel heightpanel1;
-		private System.Windows.Forms.Panel heightpanel2;
+        private System.Windows.Forms.Button cancel;
+        private System.Windows.Forms.Button apply;
+        private System.Windows.Forms.GroupBox actiongroup;
+        private System.Windows.Forms.GroupBox settingsgroup;
+        private CodeImp.DoomBuilder.Controls.CheckboxArrayControl flags;
+        private System.Windows.Forms.CheckBox checkBox1;
+        private System.Windows.Forms.Button browseaction;
+        private CodeImp.DoomBuilder.Controls.ActionSelectorControl action;
+        private System.Windows.Forms.Button newtag;
+        private System.Windows.Forms.TabControl tabs;
+        private System.Windows.Forms.TabPage tabproperties;
+        private System.Windows.Forms.TabPage tabsidedefs;
+        private System.Windows.Forms.GroupBox frontgroup;
+        private System.Windows.Forms.CheckBox frontside;
+        private System.Windows.Forms.CheckBox backside;
+        private System.Windows.Forms.GroupBox backgroup;
+        private CodeImp.DoomBuilder.Controls.TextureSelectorControl frontlow;
+        private CodeImp.DoomBuilder.Controls.TextureSelectorControl frontmid;
+        private CodeImp.DoomBuilder.Controls.TextureSelectorControl fronthigh;
+        private CodeImp.DoomBuilder.Controls.TextureSelectorControl backlow;
+        private CodeImp.DoomBuilder.Controls.TextureSelectorControl backmid;
+        private CodeImp.DoomBuilder.Controls.TextureSelectorControl backhigh;
+        private System.Windows.Forms.ComboBox activation;
+        private System.Windows.Forms.Panel udmfpanel;
+        private System.Windows.Forms.Panel hexenpanel;
+        private System.Windows.Forms.TabPage tabcustom;
+        private CodeImp.DoomBuilder.Controls.FieldsEditorControl fieldslist;
+        private System.Windows.Forms.GroupBox idgroup;
+        private CodeImp.DoomBuilder.Controls.CheckboxArrayControl udmfactivates;
+        private System.Windows.Forms.Panel argspanel;
+        private CodeImp.DoomBuilder.Controls.ArgumentBox arg2;
+        private CodeImp.DoomBuilder.Controls.ArgumentBox arg1;
+        private CodeImp.DoomBuilder.Controls.ArgumentBox arg0;
+        private CodeImp.DoomBuilder.Controls.ArgumentBox arg3;
+        private CodeImp.DoomBuilder.Controls.ArgumentBox arg4;
+        private System.Windows.Forms.Label arg1label;
+        private System.Windows.Forms.Label arg0label;
+        private System.Windows.Forms.Label arg3label;
+        private System.Windows.Forms.Label arg2label;
+        private System.Windows.Forms.Label arg4label;
+        private System.Windows.Forms.SplitContainer splitter;
+        private System.Windows.Forms.Button customfrontbutton;
+        private System.Windows.Forms.Button custombackbutton;
+        private System.Windows.Forms.Panel heightpanel1;
+        private System.Windows.Forms.Panel heightpanel2;
         private System.Windows.Forms.Panel heightpanel3;    // villsa
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox tag;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox frontoffsetx;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox frontsector;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox frontoffsety;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox backoffsety;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox backoffsetx;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox tag;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox frontoffsetx;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox frontsector;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox frontoffsety;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox backoffsety;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox backoffsetx;
         private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox backsector;
         private System.Windows.Forms.GroupBox activationtype;
         private System.Windows.Forms.CheckBox activationtyperepeat;
@@ -1340,5 +1340,5 @@ namespace CodeImp.DoomBuilder.Windows
         private System.Windows.Forms.CheckBox chkSwitchDisplayMiddle;
         private System.Windows.Forms.CheckBox chkSwitchTextureUpper;
         private System.Windows.Forms.CheckBox chkSwitchDisplayUpper;
-	}
+    }
 }

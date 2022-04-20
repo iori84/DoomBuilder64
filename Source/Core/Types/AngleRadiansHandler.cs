@@ -34,80 +34,80 @@ using CodeImp.DoomBuilder.Geometry;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.AngleRadians, "Radians", true)]
-	internal class AngleRadiansHandler : TypeHandler
-	{
-		#region ================== Constants
+    [TypeHandler(UniversalType.AngleRadians, "Radians", true)]
+    internal class AngleRadiansHandler : TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private float value;
+        private float value;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public override bool IsBrowseable { get { return true; } }
+        public override bool IsBrowseable { get { return true; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor
+        #region ================== Constructor
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		public override void Browse(IWin32Window parent)
-		{
-			value = Angle2D.DoomToReal(AngleForm.ShowDialog(parent, Angle2D.RealToDoom(value)));
-		}
+        public override void Browse(IWin32Window parent)
+        {
+            value = Angle2D.DoomToReal(AngleForm.ShowDialog(parent, Angle2D.RealToDoom(value)));
+        }
 
-		public override void SetValue(object value)
-		{
-			float result;
+        public override void SetValue(object value)
+        {
+            float result;
 
-			// Null?
-			if(value == null)
-			{
-				this.value = 0.0f;
-			}
-			// Compatible type?
-			else if((value is int) || (value is float) || (value is bool))
-			{
-				// Set directly
-				this.value = Convert.ToSingle(value);
-			}
-			else
-			{
-				// Try parsing as string
-				if(float.TryParse(value.ToString(), NumberStyles.Float, CultureInfo.CurrentCulture, out result))
-				{
-					this.value = result;
-				}
-				else
-				{
-					this.value = 0.0f;
-				}
-			}
-		}
+            // Null?
+            if (value == null)
+            {
+                this.value = 0.0f;
+            }
+            // Compatible type?
+            else if ((value is int) || (value is float) || (value is bool))
+            {
+                // Set directly
+                this.value = Convert.ToSingle(value);
+            }
+            else
+            {
+                // Try parsing as string
+                if (float.TryParse(value.ToString(), NumberStyles.Float, CultureInfo.CurrentCulture, out result))
+                {
+                    this.value = result;
+                }
+                else
+                {
+                    this.value = 0.0f;
+                }
+            }
+        }
 
-		public override object GetValue()
-		{
-			return this.value;
-		}
+        public override object GetValue()
+        {
+            return this.value;
+        }
 
-		public override int GetIntValue()
-		{
-			return (int)this.value;
-		}
+        public override int GetIntValue()
+        {
+            return (int)this.value;
+        }
 
-		public override string GetStringValue()
-		{
-			return this.value.ToString();
-		}
+        public override string GetStringValue()
+        {
+            return this.value.ToString();
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

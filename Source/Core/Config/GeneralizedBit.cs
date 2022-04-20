@@ -6,61 +6,61 @@ using System.Text;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	/// <summary>
-	/// Option value in generalized types.
-	/// </summary>
-	public class GeneralizedBit : INumberedTitle, IComparable<GeneralizedBit>
-	{
-		#region ================== Constants
+    /// <summary>
+    /// Option value in generalized types.
+    /// </summary>
+    public class GeneralizedBit : INumberedTitle, IComparable<GeneralizedBit>
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Properties
-		private int index;
-		private string title;
+        // Properties
+        private int index;
+        private string title;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public int Index { get { return index; } }
-		public string Title { get { return title; } }
+        public int Index { get { return index; } }
+        public string Title { get { return title; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		internal GeneralizedBit(int index, string title)
-		{
-			// Initialize
-			this.index = index;
-			this.title = title;
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        // Constructor
+        internal GeneralizedBit(int index, string title)
+        {
+            // Initialize
+            this.index = index;
+            this.title = title;
 
-		#endregion
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// This presents the item as string
-		public override string ToString()
-		{
-			return title;
-		}
+        #region ================== Methods
 
-		// This compares against another
-		public int CompareTo(GeneralizedBit other)
-		{
-			if(this.index < other.index) return -1;
-			else if(this.index > other.index) return 1;
-			else return 0;
-		}
-		
-		#endregion
-	}
+        // This presents the item as string
+        public override string ToString()
+        {
+            return title;
+        }
+
+        // This compares against another
+        public int CompareTo(GeneralizedBit other)
+        {
+            if (this.index < other.index) return -1;
+            else if (this.index > other.index) return 1;
+            else return 0;
+        }
+
+        #endregion
+    }
 }

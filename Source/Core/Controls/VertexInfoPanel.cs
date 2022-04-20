@@ -31,25 +31,25 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	internal partial class VertexInfoPanel : UserControl
-	{
-		// Constructor
-		public VertexInfoPanel()
-		{
-			// Initialize
-			InitializeComponent();
-		}
+    internal partial class VertexInfoPanel : UserControl
+    {
+        // Constructor
+        public VertexInfoPanel()
+        {
+            // Initialize
+            InitializeComponent();
+        }
 
-		// This shows the info
-		public void ShowInfo(Vertex v)
-		{
-			// Vertex info
-			vertexinfo.Text = " Vertex " + v.Index + " ";
-			position.Text = v.Position.x.ToString("0.##") + ", " + v.Position.y.ToString("0.##");
-			
-			// Show the whole thing
-			this.Show();
-			this.Update();
-		}
-	}
+        // This shows the info
+        public void ShowInfo(Vertex v)
+        {
+            // Vertex info
+            vertexinfo.Text = " Vertex " + v.Index + " ";
+            position.Text = v.Position.x.ToString("0.##") + ", " + v.Position.y.ToString("0.##");
+
+            // Show the whole thing
+            this.Show();
+            this.Update();
+        }
+    }
 }

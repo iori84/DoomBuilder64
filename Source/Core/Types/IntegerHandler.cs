@@ -30,74 +30,74 @@ using System.Diagnostics;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.Integer, "Integer", true)]
-	internal class IntegerHandler : TypeHandler
-	{
-		#region ================== Constants
+    [TypeHandler(UniversalType.Integer, "Integer", true)]
+    internal class IntegerHandler : TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private int value;
-		
-		#endregion
+        private int value;
 
-		#region ================== Properties
+        #endregion
 
-		#endregion
+        #region ================== Properties
 
-		#region ================== Methods
+        #endregion
 
-		public override void SetValue(object value)
-		{
-			int result;
-			
-			// Null?
-			if(value == null)
-			{
-				this.value = 0;
-			}
-			// Compatible type?
-			else if((value is int) || (value is float) || (value is bool))
-			{
-				// Set directly
-				this.value = Convert.ToInt32(value);
-			}
-			else
-			{
-				// Try parsing as string
-				if(int.TryParse(value.ToString(), NumberStyles.Integer, CultureInfo.CurrentCulture, out result))
-				{
-					this.value = result;
-				}
-				else
-				{
-					this.value = 0;
-				}
-			}
+        #region ================== Methods
 
-			if(forargument)
-			{
-				this.value = General.Clamp(this.value, General.Map.FormatInterface.MinArgument, General.Map.FormatInterface.MaxArgument);
-			}
-		}
+        public override void SetValue(object value)
+        {
+            int result;
 
-		public override object GetValue()
-		{
-			return this.value;
-		}
-		
-		public override int GetIntValue()
-		{
-			return this.value;
-		}
+            // Null?
+            if (value == null)
+            {
+                this.value = 0;
+            }
+            // Compatible type?
+            else if ((value is int) || (value is float) || (value is bool))
+            {
+                // Set directly
+                this.value = Convert.ToInt32(value);
+            }
+            else
+            {
+                // Try parsing as string
+                if (int.TryParse(value.ToString(), NumberStyles.Integer, CultureInfo.CurrentCulture, out result))
+                {
+                    this.value = result;
+                }
+                else
+                {
+                    this.value = 0;
+                }
+            }
 
-		public override string GetStringValue()
-		{
-			return this.value.ToString();
-		}
-		
-		#endregion
-	}
+            if (forargument)
+            {
+                this.value = General.Clamp(this.value, General.Map.FormatInterface.MinArgument, General.Map.FormatInterface.MaxArgument);
+            }
+        }
+
+        public override object GetValue()
+        {
+            return this.value;
+        }
+
+        public override int GetIntValue()
+        {
+            return this.value;
+        }
+
+        public override string GetStringValue()
+        {
+            return this.value.ToString();
+        }
+
+        #endregion
+    }
 }

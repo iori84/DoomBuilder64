@@ -38,35 +38,35 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Map
 {
-	public class BlockEntry
-	{
-		#region ================== Variables
-		
-		// Members
-		private List<Linedef> lines;
-		private List<Thing> things;
-		private List<Sector> sectors;
-		
-		#endregion
-		
-		#region ================== Properties
-		
-		public List<Linedef> Lines { get { return lines; } }
-		public List<Thing> Things { get { return things; } }
-		public List<Sector> Sectors { get { return sectors; } }
-		
-		#endregion
-		
-		#region ================== Constructor
-		
-		// Constructor for empty block
-		public BlockEntry()
-		{
-			lines = new List<Linedef>(2);
-			things = new List<Thing>(2);
-			sectors = new List<Sector>(2);
-		}
-		
-		#endregion
-	}
+    public class BlockEntry
+    {
+        #region ================== Variables
+
+        // Members
+        private List<Linedef> lines;
+        private List<Thing> things;
+        private List<Sector> sectors;
+
+        #endregion
+
+        #region ================== Properties
+
+        public List<Linedef> Lines { get { return lines; } }
+        public List<Thing> Things { get { return things; } }
+        public List<Sector> Sectors { get { return sectors; } }
+
+        #endregion
+
+        #region ================== Constructor
+
+        // Constructor for empty block
+        public BlockEntry()
+        {
+            lines = new List<Linedef>(2);
+            things = new List<Thing>(2);
+            sectors = new List<Sector>(2);
+        }
+
+        #endregion
+    }
 }

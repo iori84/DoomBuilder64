@@ -38,51 +38,51 @@ using CodeImp.DoomBuilder.Windows;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	public class TextureSelectorControl : ImageSelectorControl
-	{
-		// Variables
-		private bool required;
-		
-		// Properties
-		public bool Required { get { return required; } set { required = value; } }
+    public class TextureSelectorControl : ImageSelectorControl
+    {
+        // Variables
+        private bool required;
 
-		// Setup
-		public override void Initialize()
-		{
-			base.Initialize();
-			
-			// Fill autocomplete list
-			name.AutoCompleteCustomSource.AddRange(General.Map.Data.TextureNames.ToArray());
-			allowclear = true;
-		}
-		
-		// This finds the image we need for the given texture name
-		protected override Image FindImage(string imagename)
-		{
-			// Check if name is a "none" texture
-			if((imagename.Length < 1) || (imagename[0] == '-'))
-			{
-				// Determine image to show
-				if(required)
-					return CodeImp.DoomBuilder.Properties.Resources.MissingTexture;
-				else
-					return null;
-			}
-			else
-			{
-				// Set the image
-				return General.Map.Data.GetTextureImage(imagename).GetPreview();
-			}
-		}
+        // Properties
+        public bool Required { get { return required; } set { required = value; } }
 
-		// This browses for a texture
-		protected override string BrowseImage(string imagename)
-		{
-			string result;
+        // Setup
+        public override void Initialize()
+        {
+            base.Initialize();
 
-			// Browse for texture
-			result = TextureBrowserForm.Browse(this.ParentForm, imagename);
-			if(result != null) return result; else return imagename;
-		}
-	}
+            // Fill autocomplete list
+            name.AutoCompleteCustomSource.AddRange(General.Map.Data.TextureNames.ToArray());
+            allowclear = true;
+        }
+
+        // This finds the image we need for the given texture name
+        protected override Image FindImage(string imagename)
+        {
+            // Check if name is a "none" texture
+            if ((imagename.Length < 1) || (imagename[0] == '-'))
+            {
+                // Determine image to show
+                if (required)
+                    return CodeImp.DoomBuilder.Properties.Resources.MissingTexture;
+                else
+                    return null;
+            }
+            else
+            {
+                // Set the image
+                return General.Map.Data.GetTextureImage(imagename).GetPreview();
+            }
+        }
+
+        // This browses for a texture
+        protected override string BrowseImage(string imagename)
+        {
+            string result;
+
+            // Browse for texture
+            result = TextureBrowserForm.Browse(this.ParentForm, imagename);
+            if (result != null) return result; else return imagename;
+        }
+    }
 }

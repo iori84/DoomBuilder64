@@ -38,72 +38,72 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Windows
 {
-	public class PreferencesController
-	{
-		#region ================== Delegates
+    public class PreferencesController
+    {
+        #region ================== Delegates
 
-		public delegate void AcceptDelegate(PreferencesController controller);
-		public delegate void CancelDelegate(PreferencesController controller);
+        public delegate void AcceptDelegate(PreferencesController controller);
+        public delegate void CancelDelegate(PreferencesController controller);
 
-		public event AcceptDelegate OnAccept;
-		public event CancelDelegate OnCancel;
+        public event AcceptDelegate OnAccept;
+        public event CancelDelegate OnCancel;
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private PreferencesForm form;
-		private bool allowaddtab;
+        private PreferencesForm form;
+        private bool allowaddtab;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		internal bool AllowAddTab { get { return allowaddtab; } set { allowaddtab = value; } }
+        internal bool AllowAddTab { get { return allowaddtab; } set { allowaddtab = value; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Destructor
+        #region ================== Constructor / Destructor
 
-		// Constructor
-		internal PreferencesController(PreferencesForm form)
-		{
-			// Initialize
-			this.form = form;
-		}
+        // Constructor
+        internal PreferencesController(PreferencesForm form)
+        {
+            // Initialize
+            this.form = form;
+        }
 
-		// Destructor
-		~PreferencesController()
-		{
-			form = null;
-			OnAccept = null;
-			OnCancel = null;
-		}
+        // Destructor
+        ~PreferencesController()
+        {
+            form = null;
+            OnAccept = null;
+            OnCancel = null;
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// This adds a preferences tab
-		public void AddTab(TabPage tab)
-		{
-			if(!allowaddtab) throw new InvalidOperationException("Tab pages can only be added when the dialog is being initialized");
+        // This adds a preferences tab
+        public void AddTab(TabPage tab)
+        {
+            if (!allowaddtab) throw new InvalidOperationException("Tab pages can only be added when the dialog is being initialized");
 
-			form.AddTabPage(tab);
-		}
-		
-		// This raises the OnAccept event
-		public void RaiseAccept()
-		{
-			if(OnAccept != null) OnAccept(this);
-		}
+            form.AddTabPage(tab);
+        }
 
-		// This raises the OnCancel event
-		public void RaiseCancel()
-		{
-			if(OnCancel != null) OnCancel(this);
-		}
+        // This raises the OnAccept event
+        public void RaiseAccept()
+        {
+            if (OnAccept != null) OnAccept(this);
+        }
 
-		#endregion
-	}
+        // This raises the OnCancel event
+        public void RaiseCancel()
+        {
+            if (OnCancel != null) OnCancel(this);
+        }
+
+        #endregion
+    }
 }

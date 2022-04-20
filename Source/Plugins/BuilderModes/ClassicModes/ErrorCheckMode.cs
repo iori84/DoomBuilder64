@@ -36,130 +36,130 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	[EditMode(DisplayName = "Map Analysis Mode",
-			  SwitchAction = "errorcheckmode",
-			  ButtonImage = "MapAnalysisMode.png",
-			  ButtonOrder = 200,
-			  ButtonGroup = "002_tools",
-			  Volatile = true,
-			  UseByDefault = true)]
+    [EditMode(DisplayName = "Map Analysis Mode",
+              SwitchAction = "errorcheckmode",
+              ButtonImage = "MapAnalysisMode.png",
+              ButtonOrder = 200,
+              ButtonGroup = "002_tools",
+              Volatile = true,
+              UseByDefault = true)]
 
-	public sealed class ErrorCheckMode : BaseClassicMode
-	{
-		#region ================== Constants
+    public sealed class ErrorCheckMode : BaseClassicMode
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		#endregion
+        #endregion
 
-		#region ================== Events
+        #region ================== Events
 
-		public override void OnHelp()
-		{
-			General.ShowHelp("e_mapanalysis.html");
-		}
+        public override void OnHelp()
+        {
+            General.ShowHelp("e_mapanalysis.html");
+        }
 
-		// Cancelled
-		public override void OnCancel()
-		{
-			// Cancel base class
-			base.OnCancel();
+        // Cancelled
+        public override void OnCancel()
+        {
+            // Cancel base class
+            base.OnCancel();
 
-			// Return to base mode
-			General.Editing.ChangeMode(General.Editing.PreviousStableMode.Name);
-		}
+            // Return to base mode
+            General.Editing.ChangeMode(General.Editing.PreviousStableMode.Name);
+        }
 
-		// Mode engages
-		public override void OnEngage()
-		{
-			base.OnEngage();
-			renderer.SetPresentation(Presentation.Standard);
+        // Mode engages
+        public override void OnEngage()
+        {
+            base.OnEngage();
+            renderer.SetPresentation(Presentation.Standard);
 
-			// Save selection as marks
-			General.Map.Map.ClearAllMarks(false);
-			General.Map.Map.MarkAllSelectedGeometry(true, false, false, false, false);
-			General.Map.Map.ClearAllSelected();
-			General.Map.Map.SelectionType = SelectionType.All;
-			
-			// Show toolbox window
-			BuilderPlug.Me.ErrorCheckForm.Show((Form)General.Interface);
-		}
+            // Save selection as marks
+            General.Map.Map.ClearAllMarks(false);
+            General.Map.Map.MarkAllSelectedGeometry(true, false, false, false, false);
+            General.Map.Map.ClearAllSelected();
+            General.Map.Map.SelectionType = SelectionType.All;
 
-		// Disenagaging
-		public override void OnDisengage()
-		{
-			base.OnDisengage();
+            // Show toolbox window
+            BuilderPlug.Me.ErrorCheckForm.Show((Form)General.Interface);
+        }
 
-			// Hide object info
-			General.Interface.HideInfo();
-			
-			// Restore selection
-			General.Map.Map.SelectMarkedGeometry(true, true);
-			General.Map.Map.ClearAllMarks(false);
-			
-			// Hide toolbox window
-			BuilderPlug.Me.ErrorCheckForm.CloseWindow();
-		}
+        // Disenagaging
+        public override void OnDisengage()
+        {
+            base.OnDisengage();
 
-		// This applies the curves and returns to the base mode
-		public override void OnAccept()
-		{
-			// Snap to map format accuracy
-			General.Map.Map.SnapAllToAccuracy();
+            // Hide object info
+            General.Interface.HideInfo();
 
-			// Update caches
-			General.Map.Map.Update();
-			General.Map.IsChanged = true;
+            // Restore selection
+            General.Map.Map.SelectMarkedGeometry(true, true);
+            General.Map.Map.ClearAllMarks(false);
 
-			// Return to base mode
-			General.Editing.ChangeMode(General.Editing.PreviousStableMode.Name);
-		}
+            // Hide toolbox window
+            BuilderPlug.Me.ErrorCheckForm.CloseWindow();
+        }
 
-		// Redrawing display
-		public override void OnRedrawDisplay()
-		{
-			// Get the selection
-			ErrorResult selection = BuilderPlug.Me.ErrorCheckForm.SelectedResult;
-			
-			renderer.RedrawSurface();
-			
-			// Render lines
-			if(renderer.StartPlotter(true))
-			{
-				renderer.PlotLinedefSet(General.Map.Map.Linedefs);
-				renderer.PlotVerticesSet(General.Map.Map.Vertices);
-				if(selection != null) selection.PlotSelection(renderer);
-				renderer.Finish();
-			}
-			
-			// Render things
-			if(renderer.StartThings(true))
-			{
-				renderer.RenderThingSet(General.Map.Map.Things, 1.0f);
-				if(selection != null) selection.RenderThingsSelection(renderer);
-				renderer.Finish();
-			}
-			
-			// Render overlay
-			if(renderer.StartOverlay(true))
-			{
-				if(selection != null) selection.RenderOverlaySelection(renderer);
-				renderer.Finish();
-			}
-			
-			renderer.Present();
-		}
+        // This applies the curves and returns to the base mode
+        public override void OnAccept()
+        {
+            // Snap to map format accuracy
+            General.Map.Map.SnapAllToAccuracy();
 
-		#endregion
-	}
+            // Update caches
+            General.Map.Map.Update();
+            General.Map.IsChanged = true;
+
+            // Return to base mode
+            General.Editing.ChangeMode(General.Editing.PreviousStableMode.Name);
+        }
+
+        // Redrawing display
+        public override void OnRedrawDisplay()
+        {
+            // Get the selection
+            ErrorResult selection = BuilderPlug.Me.ErrorCheckForm.SelectedResult;
+
+            renderer.RedrawSurface();
+
+            // Render lines
+            if (renderer.StartPlotter(true))
+            {
+                renderer.PlotLinedefSet(General.Map.Map.Linedefs);
+                renderer.PlotVerticesSet(General.Map.Map.Vertices);
+                if (selection != null) selection.PlotSelection(renderer);
+                renderer.Finish();
+            }
+
+            // Render things
+            if (renderer.StartThings(true))
+            {
+                renderer.RenderThingSet(General.Map.Map.Things, 1.0f);
+                if (selection != null) selection.RenderThingsSelection(renderer);
+                renderer.Finish();
+            }
+
+            // Render overlay
+            if (renderer.StartOverlay(true))
+            {
+                if (selection != null) selection.RenderOverlaySelection(renderer);
+                renderer.Finish();
+            }
+
+            renderer.Present();
+        }
+
+        #endregion
+    }
 }

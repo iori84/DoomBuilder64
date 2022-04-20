@@ -34,12 +34,12 @@ using SlimDX;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	internal interface ID3DResource
-	{
-		// This is used to unload the resouce
-		void UnloadResource();
-		
-		// This is used to reload the resource
-		void ReloadResource();
-	}
+    internal interface ID3DResource
+    {
+        // This is used to unload the resouce
+        void UnloadResource();
+
+        // This is used to reload the resource
+        void ReloadResource();
+    }
 }

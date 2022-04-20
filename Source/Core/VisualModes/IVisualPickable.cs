@@ -40,10 +40,10 @@ using CodeImp.DoomBuilder.Rendering;
 
 namespace CodeImp.DoomBuilder.VisualModes
 {
-	public interface IVisualPickable
-	{
-		bool Selected { get; set; }
-		bool PickFastReject(Vector3D from, Vector3D to, Vector3D dir);
-		bool PickAccurate(Vector3D from, Vector3D to, Vector3D dir, ref float u_ray);
-	}
+    public interface IVisualPickable
+    {
+        bool Selected { get; set; }
+        bool PickFastReject(Vector3D from, Vector3D to, Vector3D dir);
+        bool PickAccurate(Vector3D from, Vector3D to, Vector3D dir, ref float u_ray);
+    }
 }

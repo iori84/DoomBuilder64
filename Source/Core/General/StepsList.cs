@@ -30,70 +30,70 @@ using System.Diagnostics;
 
 namespace CodeImp.DoomBuilder
 {
-	public class StepsList : List<int>
-	{
-		// This returns a step higher
-		public int GetNextHigher(int level)
-		{
-			int low = 0;
-			int high = base.Count - 1;
+    public class StepsList : List<int>
+    {
+        // This returns a step higher
+        public int GetNextHigher(int level)
+        {
+            int low = 0;
+            int high = base.Count - 1;
 
-			while(low < high)
-			{
-				int mid = (int)Math.Floor((float)(low + high) * 0.5f);
-				int l = base[mid];
+            while (low < high)
+            {
+                int mid = (int)Math.Floor((float)(low + high) * 0.5f);
+                int l = base[mid];
 
-				if(l <= level)
-					low = mid + 1;
-				else
-					high = mid;
-			}
-			
-			return base[high];
-		}
-		
-		// This returns a step lower
-		public int GetNextLower(int level)
-		{
-			int low = 0;
-			int high = base.Count - 1;
+                if (l <= level)
+                    low = mid + 1;
+                else
+                    high = mid;
+            }
 
-			while(low < high)
-			{
-				int mid = (int)Math.Ceiling((float)(low + high) * 0.5f);
-				int l = base[mid];
+            return base[high];
+        }
 
-				if(l >= level)
-					high = mid - 1;
-				else
-					low = mid;
-			}
+        // This returns a step lower
+        public int GetNextLower(int level)
+        {
+            int low = 0;
+            int high = base.Count - 1;
 
-			return base[low];
-		}
+            while (low < high)
+            {
+                int mid = (int)Math.Ceiling((float)(low + high) * 0.5f);
+                int l = base[mid];
 
-		// This returns the nearest step
-		public int GetNearest(int level)
-		{
-			int low = 0;
-			int high = base.Count - 1;
+                if (l >= level)
+                    high = mid - 1;
+                else
+                    low = mid;
+            }
 
-			while(low < high)
-			{
-				int mid = (int)Math.Floor((float)(low + high) * 0.5f);
-				int l = base[mid];
+            return base[low];
+        }
 
-				if(l <= level)
-					low = mid + 1;
-				else
-					high = mid;
-			}
+        // This returns the nearest step
+        public int GetNearest(int level)
+        {
+            int low = 0;
+            int high = base.Count - 1;
 
-			// Find which one is nearest
-			low = (high > 0) ? (high - 1) : 0;
-			int dlow = level - base[low];
-			int dhigh = base[high] - level;
-			return (dlow < dhigh) ? base[low] : base[high];
-		}
-	}
+            while (low < high)
+            {
+                int mid = (int)Math.Floor((float)(low + high) * 0.5f);
+                int l = base[mid];
+
+                if (l <= level)
+                    low = mid + 1;
+                else
+                    high = mid;
+            }
+
+            // Find which one is nearest
+            low = (high > 0) ? (high - 1) : 0;
+            int dlow = level - base[low];
+            int dhigh = base[high] - level;
+            return (dlow < dhigh) ? base[low] : base[high];
+        }
+    }
 }

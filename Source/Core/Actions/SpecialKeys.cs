@@ -26,9 +26,9 @@ using System.Text;
 
 namespace CodeImp.DoomBuilder.Actions
 {
-	public enum SpecialKeys : int
-	{
-		MScrollUp = 65530,
-		MScrollDown = 65531,
-	}
+    public enum SpecialKeys : int
+    {
+        MScrollUp = 65530,
+        MScrollDown = 65531,
+    }
 }

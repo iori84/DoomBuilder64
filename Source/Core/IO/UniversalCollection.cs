@@ -28,18 +28,18 @@ using System.Collections.Generic;
 
 namespace CodeImp.DoomBuilder.IO
 {
-	public sealed class UniversalCollection : List<UniversalEntry>
-	{
-		// Variables
-		private string comment;
-		
-		// Properties
-		public string Comment { get { return comment; } set { comment = value; } }
+    public sealed class UniversalCollection : List<UniversalEntry>
+    {
+        // Variables
+        private string comment;
 
-		// Overload
-		public void Add(string key, object value)
-		{
-			base.Add(new UniversalEntry(key, value));
-		}
-	}
+        // Properties
+        public string Comment { get { return comment; } set { comment = value; } }
+
+        // Overload
+        public void Add(string key, object value)
+        {
+            base.Add(new UniversalEntry(key, value));
+        }
+    }
 }

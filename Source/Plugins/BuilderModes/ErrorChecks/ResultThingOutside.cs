@@ -38,58 +38,58 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	public class ResultThingOutside : ErrorResult
-	{
-		#region ================== Variables
+    public class ResultThingOutside : ErrorResult
+    {
+        #region ================== Variables
 
-		private Thing thing;
+        private Thing thing;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
-		
-		public override int Buttons { get { return 1; } }
-		public override string Button1Text { get { return "Delete Thing"; } }
-		
-		#endregion
+        #region ================== Properties
 
-		#region ================== Constructor / Destructor
+        public override int Buttons { get { return 1; } }
+        public override string Button1Text { get { return "Delete Thing"; } }
 
-		// Constructor
-		public ResultThingOutside(Thing t)
-		{
-			// Initialize
-			this.thing = t;
-			this.viewobjects.Add(t);
-			this.description = "This thing is completely outside the map.";
-		}
+        #endregion
 
-		#endregion
+        #region ================== Constructor / Destructor
 
-		#region ================== Methods
+        // Constructor
+        public ResultThingOutside(Thing t)
+        {
+            // Initialize
+            this.thing = t;
+            this.viewobjects.Add(t);
+            this.description = "This thing is completely outside the map.";
+        }
 
-		// This must return the string that is displayed in the listbox
-		public override string ToString()
-		{
-			return General.Map.Data.GetThingInfo(thing.Type).Title + " is outside the map at " + thing.Position.x + ", " + thing.Position.y;
-		}
+        #endregion
 
-		// Rendering
-		public override void  RenderOverlaySelection(IRenderer2D renderer)
-		{
-			renderer.RenderThing(thing, renderer.DetermineThingColor(thing), 1.0f);
-		}
-		
-		// This removes the thing
-		public override bool Button1Click()
-		{
-			General.Map.UndoRedo.CreateUndo("Delete thing");
-			thing.Dispose();
-			General.Map.IsChanged = true;
-			General.Map.ThingsFilter.Update();
-			return true;
-		}
-		
-		#endregion
-	}
+        #region ================== Methods
+
+        // This must return the string that is displayed in the listbox
+        public override string ToString()
+        {
+            return General.Map.Data.GetThingInfo(thing.Type).Title + " is outside the map at " + thing.Position.x + ", " + thing.Position.y;
+        }
+
+        // Rendering
+        public override void RenderOverlaySelection(IRenderer2D renderer)
+        {
+            renderer.RenderThing(thing, renderer.DetermineThingColor(thing), 1.0f);
+        }
+
+        // This removes the thing
+        public override bool Button1Click()
+        {
+            General.Map.UndoRedo.CreateUndo("Delete thing");
+            thing.Dispose();
+            General.Map.IsChanged = true;
+            General.Map.ThingsFilter.Update();
+            return true;
+        }
+
+        #endregion
+    }
 }

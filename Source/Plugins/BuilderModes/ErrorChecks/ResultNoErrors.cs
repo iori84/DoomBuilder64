@@ -38,35 +38,35 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	public class ResultNoErrors : ErrorResult
-	{
-		#region ================== Variables
+    public class ResultNoErrors : ErrorResult
+    {
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public override int Buttons { get { return 0; } }
+        public override int Buttons { get { return 0; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Destructor
+        #region ================== Constructor / Destructor
 
-		// Constructor
-		public ResultNoErrors()
-		{
-		}
+        // Constructor
+        public ResultNoErrors()
+        {
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// This must return the string that is displayed in the listbox
-		public override string ToString()
-		{
-			return "No errors were found.";
-		}
-		
-		#endregion
-	}
+        // This must return the string that is displayed in the listbox
+        public override string ToString()
+        {
+            return "No errors were found.";
+        }
+
+        #endregion
+    }
 }

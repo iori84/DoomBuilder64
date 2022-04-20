@@ -1,4 +1,4 @@
-	
+
 #region ================== Copyright (c) 2007 Pascal vd Heiden
 
 /*
@@ -40,153 +40,153 @@ using CodeImp.DoomBuilder.Windows;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	internal sealed class VisualFloor : BaseVisualGeometrySector
-	{
-		#region ================== Constants
+    internal sealed class VisualFloor : BaseVisualGeometrySector
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
-		
-		#endregion
+        #region ================== Variables
 
-		#region ================== Properties
+        #endregion
 
-		#endregion
+        #region ================== Properties
 
-		#region ================== Constructor / Setup
+        #endregion
 
-		// Constructor
-		public VisualFloor(BaseVisualMode mode, VisualSector vs) : base(mode, vs)
-		{
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        #region ================== Constructor / Setup
 
-		// This builds the geometry. Returns false when no geometry created.
-		public override bool Setup()
-		{
-			WorldVertex[] verts;
-			Sector s = base.Sector.Sector;
+        // Constructor
+        public VisualFloor(BaseVisualMode mode, VisualSector vs) : base(mode, vs)
+        {
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
+
+        // This builds the geometry. Returns false when no geometry created.
+        public override bool Setup()
+        {
+            WorldVertex[] verts;
+            Sector s = base.Sector.Sector;
             //int brightness = mode.CalculateBrightness(s.Brightness);
             int brightness = s.FloorColor.GetColor();
-			
-			// Load floor texture
-			base.Texture = General.Map.Data.GetFlatImage(s.LongFloorTexture);
-			if(base.Texture == null)
-			{
-				base.Texture = General.Map.Data.MissingTexture3D;
-				setuponloadedtexture = s.LongFloorTexture;
-			}
-			else
-			{
-				if(!base.Texture.IsImageLoaded)
-					setuponloadedtexture = s.LongFloorTexture;
-			}
-			
-			// Make vertices
-			verts = new WorldVertex[s.Triangles.Vertices.Count];
-			for(int i = 0; i < s.Triangles.Vertices.Count; i++)
-			{
-				// Use sector brightness for color shading
-				verts[i].c = brightness;
 
-				// Grid aligned texture coordinates
-				if(base.Texture.IsImageLoaded)
-				{
-					verts[i].u = s.Triangles.Vertices[i].x / base.Texture.ScaledWidth;
-					verts[i].v = -s.Triangles.Vertices[i].y / base.Texture.ScaledHeight;
-				}
-				else
-				{
-					verts[i].u = s.Triangles.Vertices[i].x / 64;
-					verts[i].v = -s.Triangles.Vertices[i].y / 64;
-				}
+            // Load floor texture
+            base.Texture = General.Map.Data.GetFlatImage(s.LongFloorTexture);
+            if (base.Texture == null)
+            {
+                base.Texture = General.Map.Data.MissingTexture3D;
+                setuponloadedtexture = s.LongFloorTexture;
+            }
+            else
+            {
+                if (!base.Texture.IsImageLoaded)
+                    setuponloadedtexture = s.LongFloorTexture;
+            }
 
-				// Vertex coordinates
-				verts[i].x = s.Triangles.Vertices[i].x;
-				verts[i].y = s.Triangles.Vertices[i].y;
-				verts[i].z = (float)s.FloorHeight;
-			}
-			
-			// Apply vertices
-			base.SetVertices(verts);
-			return (verts.Length > 0);
-		}
-		
-		#endregion
-		
-		#region ================== Methods
-		
-		// Paste texture
-		public override void OnPasteTexture()
-		{
-			if(BuilderPlug.Me.CopiedFlat != null)
-			{
-				mode.CreateUndo("Paste floor " + BuilderPlug.Me.CopiedFlat);
-				mode.SetActionResult("Pasted flat " + BuilderPlug.Me.CopiedFlat + " on floor.");
-				SetTexture(BuilderPlug.Me.CopiedFlat);
-				this.Setup();
-			}
-		}
+            // Make vertices
+            verts = new WorldVertex[s.Triangles.Vertices.Count];
+            for (int i = 0; i < s.Triangles.Vertices.Count; i++)
+            {
+                // Use sector brightness for color shading
+                verts[i].c = brightness;
 
-		// This changes the height
-		protected override void ChangeHeight(int amount)
-		{
-			mode.CreateUndo("Change floor height", UndoGroup.FloorHeightChange, this.Sector.Sector.FixedIndex);
-			this.Sector.Sector.FloorHeight += amount;
-			mode.SetActionResult("Changed floor height to " + Sector.Sector.FloorHeight + ".");
-		}
+                // Grid aligned texture coordinates
+                if (base.Texture.IsImageLoaded)
+                {
+                    verts[i].u = s.Triangles.Vertices[i].x / base.Texture.ScaledWidth;
+                    verts[i].v = -s.Triangles.Vertices[i].y / base.Texture.ScaledHeight;
+                }
+                else
+                {
+                    verts[i].u = s.Triangles.Vertices[i].x / 64;
+                    verts[i].v = -s.Triangles.Vertices[i].y / 64;
+                }
 
-		// This performs a fast test in object picking
-		public override bool PickFastReject(Vector3D from, Vector3D to, Vector3D dir)
-		{
-			float planez = (float)Sector.Sector.FloorHeight;
-			
-			// Check if line crosses the z height
-			if((from.z > planez) && (to.z < planez))
-			{
-				// Calculate intersection point using the z height
-				pickrayu = (planez - from.z) / (to.z - from.z);
-				pickintersect = from + (to - from) * pickrayu;
-				
-				// Intersection point within bbox?
-				RectangleF bbox = Sector.Sector.BBox;
-				return ((pickintersect.x >= bbox.Left) && (pickintersect.x <= bbox.Right) &&
-				        (pickintersect.y >= bbox.Top) && (pickintersect.y <= bbox.Bottom));
-			}
-			else
-			{
-				// Not even crossing the z height (or not in the right direction)
-				return false;
-			}
-		}
-		
-		// This performs an accurate test for object picking
-		public override bool PickAccurate(Vector3D from, Vector3D to, Vector3D dir, ref float u_ray)
-		{
-			u_ray = pickrayu;
-			
-			// Check on which side of the nearest sidedef we are
-			Sidedef sd = MapSet.NearestSidedef(Sector.Sector.Sidedefs, pickintersect);
-			float side = sd.Line.SideOfLine(pickintersect);
-			return (((side <= 0.0f) && sd.IsFront) || ((side > 0.0f) && !sd.IsFront));
-		}
-		
-		// Return texture name
-		public override string GetTextureName()
-		{
-			return this.Sector.Sector.FloorTexture;
-		}
+                // Vertex coordinates
+                verts[i].x = s.Triangles.Vertices[i].x;
+                verts[i].y = s.Triangles.Vertices[i].y;
+                verts[i].z = (float)s.FloorHeight;
+            }
 
-		// This changes the texture
-		protected override void SetTexture(string texturename)
-		{
-			this.Sector.Sector.SetFloorTexture(texturename);
-			General.Map.Data.UpdateUsedTextures();
-			this.Setup();
-		}
-		
-		#endregion
-	}
+            // Apply vertices
+            base.SetVertices(verts);
+            return (verts.Length > 0);
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // Paste texture
+        public override void OnPasteTexture()
+        {
+            if (BuilderPlug.Me.CopiedFlat != null)
+            {
+                mode.CreateUndo("Paste floor " + BuilderPlug.Me.CopiedFlat);
+                mode.SetActionResult("Pasted flat " + BuilderPlug.Me.CopiedFlat + " on floor.");
+                SetTexture(BuilderPlug.Me.CopiedFlat);
+                this.Setup();
+            }
+        }
+
+        // This changes the height
+        protected override void ChangeHeight(int amount)
+        {
+            mode.CreateUndo("Change floor height", UndoGroup.FloorHeightChange, this.Sector.Sector.FixedIndex);
+            this.Sector.Sector.FloorHeight += amount;
+            mode.SetActionResult("Changed floor height to " + Sector.Sector.FloorHeight + ".");
+        }
+
+        // This performs a fast test in object picking
+        public override bool PickFastReject(Vector3D from, Vector3D to, Vector3D dir)
+        {
+            float planez = (float)Sector.Sector.FloorHeight;
+
+            // Check if line crosses the z height
+            if ((from.z > planez) && (to.z < planez))
+            {
+                // Calculate intersection point using the z height
+                pickrayu = (planez - from.z) / (to.z - from.z);
+                pickintersect = from + (to - from) * pickrayu;
+
+                // Intersection point within bbox?
+                RectangleF bbox = Sector.Sector.BBox;
+                return ((pickintersect.x >= bbox.Left) && (pickintersect.x <= bbox.Right) &&
+                        (pickintersect.y >= bbox.Top) && (pickintersect.y <= bbox.Bottom));
+            }
+            else
+            {
+                // Not even crossing the z height (or not in the right direction)
+                return false;
+            }
+        }
+
+        // This performs an accurate test for object picking
+        public override bool PickAccurate(Vector3D from, Vector3D to, Vector3D dir, ref float u_ray)
+        {
+            u_ray = pickrayu;
+
+            // Check on which side of the nearest sidedef we are
+            Sidedef sd = MapSet.NearestSidedef(Sector.Sector.Sidedefs, pickintersect);
+            float side = sd.Line.SideOfLine(pickintersect);
+            return (((side <= 0.0f) && sd.IsFront) || ((side > 0.0f) && !sd.IsFront));
+        }
+
+        // Return texture name
+        public override string GetTextureName()
+        {
+            return this.Sector.Sector.FloorTexture;
+        }
+
+        // This changes the texture
+        protected override void SetTexture(string texturename)
+        {
+            this.Sector.Sector.SetFloorTexture(texturename);
+            General.Map.Data.UpdateUsedTextures();
+            this.Setup();
+        }
+
+        #endregion
+    }
 }

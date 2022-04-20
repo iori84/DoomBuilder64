@@ -38,14 +38,14 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	public enum ViewMode : int
-	{
-		Normal = 0,
-		//Brightness = 1,
-		FloorTextures = 1,
-		CeilingTextures = 2,
+    public enum ViewMode : int
+    {
+        Normal = 0,
+        //Brightness = 1,
+        FloorTextures = 1,
+        CeilingTextures = 2,
         FloorColor = 3, // villsa
         CeilingColor = 4, // villsa
         ThingColor = 5, // villsa
-	}
+    }
 }

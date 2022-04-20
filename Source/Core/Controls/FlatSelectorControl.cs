@@ -38,41 +38,41 @@ using CodeImp.DoomBuilder.Windows;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	public class FlatSelectorControl : ImageSelectorControl
-	{
-		// Setup
-		public override void Initialize()
-		{
-			base.Initialize();
-			
-			// Fill autocomplete list
-			name.AutoCompleteCustomSource.AddRange(General.Map.Data.FlatNames.ToArray());
-		}
-		
-		// This finds the image we need for the given flat name
-		protected override Image FindImage(string imagename)
-		{
-			// Check if name is a "none" texture
-			if((imagename.Length < 1) || (imagename[0] == '-'))
-			{
-				// Flat required!
-				return CodeImp.DoomBuilder.Properties.Resources.MissingTexture;
-			}
-			else
-			{
-				// Set the image
-				return General.Map.Data.GetFlatImage(imagename).GetPreview();
-			}
-		}
+    public class FlatSelectorControl : ImageSelectorControl
+    {
+        // Setup
+        public override void Initialize()
+        {
+            base.Initialize();
 
-		// This browses for a flat
-		protected override string BrowseImage(string imagename)
-		{
-			string result;
+            // Fill autocomplete list
+            name.AutoCompleteCustomSource.AddRange(General.Map.Data.FlatNames.ToArray());
+        }
 
-			// Browse for texture
-			result = FlatBrowserForm.Browse(this.ParentForm, imagename);
-			if(result != null) return result; else return imagename;
-		}
-	}
+        // This finds the image we need for the given flat name
+        protected override Image FindImage(string imagename)
+        {
+            // Check if name is a "none" texture
+            if ((imagename.Length < 1) || (imagename[0] == '-'))
+            {
+                // Flat required!
+                return CodeImp.DoomBuilder.Properties.Resources.MissingTexture;
+            }
+            else
+            {
+                // Set the image
+                return General.Map.Data.GetFlatImage(imagename).GetPreview();
+            }
+        }
+
+        // This browses for a flat
+        protected override string BrowseImage(string imagename)
+        {
+            string result;
+
+            // Browse for texture
+            result = FlatBrowserForm.Browse(this.ParentForm, imagename);
+            if (result != null) return result; else return imagename;
+        }
+    }
 }

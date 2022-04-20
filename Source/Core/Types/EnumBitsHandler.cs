@@ -33,90 +33,90 @@ using CodeImp.DoomBuilder.Windows;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.EnumBits, "Options", false)]
-	internal class EnumBitsHandler : TypeHandler
-	{
-		#region ================== Constants
+    [TypeHandler(UniversalType.EnumBits, "Options", false)]
+    internal class EnumBitsHandler : TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private EnumList list;
-		private int value;
+        private EnumList list;
+        private int value;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public override bool IsBrowseable { get { return true; } }
-		
-		#endregion
+        public override bool IsBrowseable { get { return true; } }
 
-		#region ================== Constructor
+        #endregion
 
-		// When set up for an argument
-		public override void SetupArgument(TypeHandlerAttribute attr, ArgumentInfo arginfo)
-		{
-			base.SetupArgument(attr, arginfo);
+        #region ================== Constructor
 
-			// Keep enum list reference
-			list = arginfo.Enum;
-		}
+        // When set up for an argument
+        public override void SetupArgument(TypeHandlerAttribute attr, ArgumentInfo arginfo)
+        {
+            base.SetupArgument(attr, arginfo);
 
-		#endregion
-		
-		#region ================== Methods
+            // Keep enum list reference
+            list = arginfo.Enum;
+        }
 
-		public override void Browse(IWin32Window parent)
-		{
-			value = BitFlagsForm.ShowDialog(parent, list, value);
-		}
+        #endregion
 
-		public override void SetValue(object value)
-		{
-			int result;
+        #region ================== Methods
 
-			// Null?
-			if(value == null)
-			{
-				this.value = 0;
-			}
-			// Compatible type?
-			else if((value is int) || (value is float) || (value is bool))
-			{
-				// Set directly
-				this.value = Convert.ToInt32(value);
-			}
-			else
-			{
-				// Try parsing as string
-				if(int.TryParse(value.ToString(), NumberStyles.Integer, CultureInfo.CurrentCulture, out result))
-				{
-					this.value = result;
-				}
-				else
-				{
-					this.value = 0;
-				}
-			}
-		}
+        public override void Browse(IWin32Window parent)
+        {
+            value = BitFlagsForm.ShowDialog(parent, list, value);
+        }
 
-		public override object GetValue()
-		{
-			return this.value;
-		}
+        public override void SetValue(object value)
+        {
+            int result;
 
-		public override int GetIntValue()
-		{
-			return this.value;
-		}
+            // Null?
+            if (value == null)
+            {
+                this.value = 0;
+            }
+            // Compatible type?
+            else if ((value is int) || (value is float) || (value is bool))
+            {
+                // Set directly
+                this.value = Convert.ToInt32(value);
+            }
+            else
+            {
+                // Try parsing as string
+                if (int.TryParse(value.ToString(), NumberStyles.Integer, CultureInfo.CurrentCulture, out result))
+                {
+                    this.value = result;
+                }
+                else
+                {
+                    this.value = 0;
+                }
+            }
+        }
 
-		public override string GetStringValue()
-		{
-			return this.value.ToString();
-		}
+        public override object GetValue()
+        {
+            return this.value;
+        }
 
-		#endregion
-	}
+        public override int GetIntValue()
+        {
+            return this.value;
+        }
+
+        public override string GetStringValue()
+        {
+            return this.value.ToString();
+        }
+
+        #endregion
+    }
 }

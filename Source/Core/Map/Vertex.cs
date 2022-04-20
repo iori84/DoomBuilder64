@@ -31,273 +31,273 @@ using CodeImp.DoomBuilder.IO;
 
 namespace CodeImp.DoomBuilder.Map
 {
-	public sealed class Vertex : SelectableElement
-	{
-		#region ================== Constants
-		
-		public const int BUFFERVERTICES = 1;
-		public const int RENDERPRIMITIVES = 1;
-		
-		#endregion
+    public sealed class Vertex : SelectableElement
+    {
+        #region ================== Constants
 
-		#region ================== Variables
+        public const int BUFFERVERTICES = 1;
+        public const int RENDERPRIMITIVES = 1;
 
-		// Map
-		private MapSet map;
-		
-		// List items
-		private LinkedListNode<Vertex> selecteditem;
+        #endregion
 
-		// Position
-		private Vector2D pos;
+        #region ================== Variables
 
-		// References
-		private LinkedList<Linedef> linedefs;
-		
-		// Cloning
-		private Vertex clone;
-		private int serializedindex;
-		
-		#endregion
+        // Map
+        private MapSet map;
 
-		#region ================== Properties
+        // List items
+        private LinkedListNode<Vertex> selecteditem;
 
-		public MapSet Map { get { return map; } }
-		public ICollection<Linedef> Linedefs { get { return linedefs; } }
-		public Vector2D Position { get { return pos; } }
-		internal Vertex Clone { get { return clone; } set { clone = value; } }
-		internal int SerializedIndex { get { return serializedindex; } set { serializedindex = value; } }
+        // Position
+        private Vector2D pos;
 
-		#endregion
+        // References
+        private LinkedList<Linedef> linedefs;
 
-		#region ================== Constructor / Disposer
+        // Cloning
+        private Vertex clone;
+        private int serializedindex;
 
-		// Constructor
-		internal Vertex(MapSet map, int listindex, Vector2D pos)
-		{
-			// Initialize
-			this.map = map;
-			this.linedefs = new LinkedList<Linedef>();
-			this.listindex = listindex;
-			this.pos = pos;
-			
-			if(map == General.Map.Map)
-				General.Map.UndoRedo.RecAddVertex(this);
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        #endregion
 
-		// Disposer
-		public override void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Already set isdisposed so that changes can be prohibited
-				isdisposed = true;
+        #region ================== Properties
 
-				if(map.AutoRemove)
-				{
-					// Dispose the lines that are attached to this vertex
-					// because a linedef cannot exist without 2 vertices.
-					foreach(Linedef ld in linedefs) ld.Dispose();
-				}
-				else
-				{
-					// Detach from linedefs
-					foreach(Linedef ld in linedefs) ld.DetachVertexP(this);
-				}
-				
-				if(map == General.Map.Map)
-					General.Map.UndoRedo.RecRemVertex(this);
-				
-				// Remove from main list
-				map.RemoveVertex(listindex);
+        public MapSet Map { get { return map; } }
+        public ICollection<Linedef> Linedefs { get { return linedefs; } }
+        public Vector2D Position { get { return pos; } }
+        internal Vertex Clone { get { return clone; } set { clone = value; } }
+        internal int SerializedIndex { get { return serializedindex; } set { serializedindex = value; } }
 
-				// Clean up
-				linedefs = null;
-				map = null;
+        #endregion
 
-				// Dispose base
-				base.Dispose();
-			}
-		}
+        #region ================== Constructor / Disposer
 
-		#endregion
+        // Constructor
+        internal Vertex(MapSet map, int listindex, Vector2D pos)
+        {
+            // Initialize
+            this.map = map;
+            this.linedefs = new LinkedList<Linedef>();
+            this.listindex = listindex;
+            this.pos = pos;
 
-		#region ================== Management
+            if (map == General.Map.Map)
+                General.Map.UndoRedo.RecAddVertex(this);
 
-		// Call this before changing properties
-		protected override void BeforePropsChange()
-		{
-			if(map == General.Map.Map)
-				General.Map.UndoRedo.RecPrpVertex(this);
-		}
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		// This attaches a linedef and returns the listitem
-		internal LinkedListNode<Linedef> AttachLinedefP(Linedef l)
-		{
-			return linedefs.AddLast(l);
-		}
+        // Disposer
+        public override void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Already set isdisposed so that changes can be prohibited
+                isdisposed = true;
 
-		// This detaches a linedef
-		internal void DetachLinedefP(LinkedListNode<Linedef> l)
-		{
-			// Not disposing?
-			if(!isdisposed)
-			{
-				// Remove linedef
-				linedefs.Remove(l);
+                if (map.AutoRemove)
+                {
+                    // Dispose the lines that are attached to this vertex
+                    // because a linedef cannot exist without 2 vertices.
+                    foreach (Linedef ld in linedefs) ld.Dispose();
+                }
+                else
+                {
+                    // Detach from linedefs
+                    foreach (Linedef ld in linedefs) ld.DetachVertexP(this);
+                }
 
-				// No more linedefs left?
-				if((linedefs.Count == 0) && map.AutoRemove)
-				{
-					// This vertex is now useless, dispose it
-					this.Dispose();
-				}
-			}
-		}
+                if (map == General.Map.Map)
+                    General.Map.UndoRedo.RecRemVertex(this);
 
-		// Serialize / deserialize
-		internal void ReadWrite(IReadWriteStream s)
-		{
-			if(!s.IsWriting) BeforePropsChange();
-			
-			base.ReadWrite(s);
-			
-			s.rwVector2D(ref pos);
-			
-			if(s.IsWriting)
-			{
-				// Let all lines know they need an update
-				foreach(Linedef l in linedefs) l.NeedUpdate();
-			}
-		}
+                // Remove from main list
+                map.RemoveVertex(listindex);
 
-		// Selected
-		protected override void DoSelect()
-		{
-			base.DoSelect();
-			selecteditem = map.SelectedVertices.AddLast(this);
-		}
+                // Clean up
+                linedefs = null;
+                map = null;
 
-		// Deselect
-		protected override void DoUnselect()
-		{
-			base.DoUnselect();
-			if(selecteditem.List != null) selecteditem.List.Remove(selecteditem);
-			selecteditem = null;
-		}
+                // Dispose base
+                base.Dispose();
+            }
+        }
 
-		#endregion
-		
-		#region ================== Methods
+        #endregion
 
-		// This copies all properties to another thing
-		public void CopyPropertiesTo(Vertex v)
-		{
-			v.BeforePropsChange();
-			
-			// Copy properties
-			v.pos = pos;
-			base.CopyPropertiesTo(v);
-		}
-		
-		// This returns the distance from given coordinates
-		public float DistanceToSq(Vector2D p)
-		{
-			return (p.x - pos.x) * (p.x - pos.x) + (p.y - pos.y) * (p.y - pos.y);
-		}
-		
-		// This returns the distance from given coordinates
-		public float DistanceTo(Vector2D p)
-		{
-			return Vector2D.Distance(p, pos);
-		}
+        #region ================== Management
 
-		// This finds the line closest to the specified position
-		public Linedef NearestLinedef(Vector2D pos) { return MapSet.NearestLinedef(linedefs, pos); }
+        // Call this before changing properties
+        protected override void BeforePropsChange()
+        {
+            if (map == General.Map.Map)
+                General.Map.UndoRedo.RecPrpVertex(this);
+        }
 
-		// This moves the vertex
-		public void Move(Vector2D newpos)
-		{
-			// Do we actually move?
-			if(newpos != pos)
-			{
-				BeforePropsChange();
-				
-				// Change position
-				pos = newpos;
+        // This attaches a linedef and returns the listitem
+        internal LinkedListNode<Linedef> AttachLinedefP(Linedef l)
+        {
+            return linedefs.AddLast(l);
+        }
 
-				#if DEBUG
+        // This detaches a linedef
+        internal void DetachLinedefP(LinkedListNode<Linedef> l)
+        {
+            // Not disposing?
+            if (!isdisposed)
+            {
+                // Remove linedef
+                linedefs.Remove(l);
+
+                // No more linedefs left?
+                if ((linedefs.Count == 0) && map.AutoRemove)
+                {
+                    // This vertex is now useless, dispose it
+                    this.Dispose();
+                }
+            }
+        }
+
+        // Serialize / deserialize
+        internal void ReadWrite(IReadWriteStream s)
+        {
+            if (!s.IsWriting) BeforePropsChange();
+
+            base.ReadWrite(s);
+
+            s.rwVector2D(ref pos);
+
+            if (s.IsWriting)
+            {
+                // Let all lines know they need an update
+                foreach (Linedef l in linedefs) l.NeedUpdate();
+            }
+        }
+
+        // Selected
+        protected override void DoSelect()
+        {
+            base.DoSelect();
+            selecteditem = map.SelectedVertices.AddLast(this);
+        }
+
+        // Deselect
+        protected override void DoUnselect()
+        {
+            base.DoUnselect();
+            if (selecteditem.List != null) selecteditem.List.Remove(selecteditem);
+            selecteditem = null;
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // This copies all properties to another thing
+        public void CopyPropertiesTo(Vertex v)
+        {
+            v.BeforePropsChange();
+
+            // Copy properties
+            v.pos = pos;
+            base.CopyPropertiesTo(v);
+        }
+
+        // This returns the distance from given coordinates
+        public float DistanceToSq(Vector2D p)
+        {
+            return (p.x - pos.x) * (p.x - pos.x) + (p.y - pos.y) * (p.y - pos.y);
+        }
+
+        // This returns the distance from given coordinates
+        public float DistanceTo(Vector2D p)
+        {
+            return Vector2D.Distance(p, pos);
+        }
+
+        // This finds the line closest to the specified position
+        public Linedef NearestLinedef(Vector2D pos) { return MapSet.NearestLinedef(linedefs, pos); }
+
+        // This moves the vertex
+        public void Move(Vector2D newpos)
+        {
+            // Do we actually move?
+            if (newpos != pos)
+            {
+                BeforePropsChange();
+
+                // Change position
+                pos = newpos;
+
+#if DEBUG
 				if(float.IsNaN(pos.x) || float.IsNaN(pos.y) ||
 				   float.IsInfinity(pos.x) || float.IsInfinity(pos.y))
 				{
 					General.Fail("Invalid vertex position! The given vertex coordinates cannot be NaN or Infinite.");
 				}
-				#endif
+#endif
 
-				// Let all lines know they need an update
-				foreach(Linedef l in linedefs) l.NeedUpdate();
-				General.Map.IsChanged = true;
-			}
-		}
+                // Let all lines know they need an update
+                foreach (Linedef l in linedefs) l.NeedUpdate();
+                General.Map.IsChanged = true;
+            }
+        }
 
-		// This snaps the vertex to the map format accuracy
-		public void SnapToAccuracy()
-		{
-			// Round the coordinates
-			Vector2D newpos = new Vector2D((float)Math.Round(pos.x, General.Map.FormatInterface.VertexDecimals),
-										   (float)Math.Round(pos.y, General.Map.FormatInterface.VertexDecimals));
-			this.Move(newpos);
-		}
+        // This snaps the vertex to the map format accuracy
+        public void SnapToAccuracy()
+        {
+            // Round the coordinates
+            Vector2D newpos = new Vector2D((float)Math.Round(pos.x, General.Map.FormatInterface.VertexDecimals),
+                                           (float)Math.Round(pos.y, General.Map.FormatInterface.VertexDecimals));
+            this.Move(newpos);
+        }
 
-		// This snaps the vertex to the grid
-		public void SnapToGrid()
-		{
-			// Calculate nearest grid coordinates
-			this.Move(General.Map.Grid.SnappedToGrid(pos));
-		}
-		
-		// This joins another vertex
-		// Which means this vertex is removed and the other is kept!
-		public void Join(Vertex other)
-		{
-			// If either of the two vertices was selected, keep the other selected
-			if(this.Selected) other.Selected = true;
-			if(this.marked) other.marked = true;
+        // This snaps the vertex to the grid
+        public void SnapToGrid()
+        {
+            // Calculate nearest grid coordinates
+            this.Move(General.Map.Grid.SnappedToGrid(pos));
+        }
 
-			// Any linedefs to move?
-			if(linedefs.Count > 0)
-			{
-				// Detach all linedefs and attach them to the other
-				// This will automatically dispose this vertex
-				while(linedefs != null)
-				{
-					// Move the line to the other vertex
-					if(linedefs.First.Value.Start == this)
-						linedefs.First.Value.SetStartVertex(other);
-					else
-						linedefs.First.Value.SetEndVertex(other);
-				}
-			}
-			else
-			{
-				// No lines attached
-				// Dispose manually
-				this.Dispose();
-			}
+        // This joins another vertex
+        // Which means this vertex is removed and the other is kept!
+        public void Join(Vertex other)
+        {
+            // If either of the two vertices was selected, keep the other selected
+            if (this.Selected) other.Selected = true;
+            if (this.marked) other.marked = true;
 
-			General.Map.IsChanged = true;
-		}
+            // Any linedefs to move?
+            if (linedefs.Count > 0)
+            {
+                // Detach all linedefs and attach them to the other
+                // This will automatically dispose this vertex
+                while (linedefs != null)
+                {
+                    // Move the line to the other vertex
+                    if (linedefs.First.Value.Start == this)
+                        linedefs.First.Value.SetStartVertex(other);
+                    else
+                        linedefs.First.Value.SetEndVertex(other);
+                }
+            }
+            else
+            {
+                // No lines attached
+                // Dispose manually
+                this.Dispose();
+            }
 
-		// String representation
-		public override string ToString()
-		{
-			return "Vertex (" + pos + ")";
-		}
+            General.Map.IsChanged = true;
+        }
 
-		#endregion
-	}
+        // String representation
+        public override string ToString()
+        {
+            return "Vertex (" + pos + ")";
+        }
+
+        #endregion
+    }
 }

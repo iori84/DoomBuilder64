@@ -1,33 +1,33 @@
 namespace CodeImp.DoomBuilder.Windows
 {
-	partial class ActionBrowserForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class ActionBrowserForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if(disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label2;
             System.Windows.Forms.Label label3;
@@ -473,33 +473,33 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabgeneralized.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Button cancel;
-		private System.Windows.Forms.Button apply;
-		private System.Windows.Forms.TreeView actions;
-		private System.Windows.Forms.TabControl tabs;
-		private System.Windows.Forms.TabPage tabactions;
-		private System.Windows.Forms.TabPage tabgeneralized;
-		private System.Windows.Forms.ComboBox category;
-		private System.Windows.Forms.ComboBox option7;
-		private System.Windows.Forms.Label option7label;
-		private System.Windows.Forms.ComboBox option6;
-		private System.Windows.Forms.Label option6label;
-		private System.Windows.Forms.ComboBox option5;
-		private System.Windows.Forms.Label option5label;
-		private System.Windows.Forms.ComboBox option4;
-		private System.Windows.Forms.Label option4label;
-		private System.Windows.Forms.ComboBox option3;
-		private System.Windows.Forms.Label option3label;
-		private System.Windows.Forms.ComboBox option2;
-		private System.Windows.Forms.Label option2label;
-		private System.Windows.Forms.ComboBox option1;
-		private System.Windows.Forms.Label option1label;
-		private System.Windows.Forms.ComboBox option0;
-		private System.Windows.Forms.Label option0label;
+        private System.Windows.Forms.Button cancel;
+        private System.Windows.Forms.Button apply;
+        private System.Windows.Forms.TreeView actions;
+        private System.Windows.Forms.TabControl tabs;
+        private System.Windows.Forms.TabPage tabactions;
+        private System.Windows.Forms.TabPage tabgeneralized;
+        private System.Windows.Forms.ComboBox category;
+        private System.Windows.Forms.ComboBox option7;
+        private System.Windows.Forms.Label option7label;
+        private System.Windows.Forms.ComboBox option6;
+        private System.Windows.Forms.Label option6label;
+        private System.Windows.Forms.ComboBox option5;
+        private System.Windows.Forms.Label option5label;
+        private System.Windows.Forms.ComboBox option4;
+        private System.Windows.Forms.Label option4label;
+        private System.Windows.Forms.ComboBox option3;
+        private System.Windows.Forms.Label option3label;
+        private System.Windows.Forms.ComboBox option2;
+        private System.Windows.Forms.Label option2label;
+        private System.Windows.Forms.ComboBox option1;
+        private System.Windows.Forms.Label option1label;
+        private System.Windows.Forms.ComboBox option0;
+        private System.Windows.Forms.Label option0label;
         private System.Windows.Forms.Panel prefixespanel;
-	}
+    }
 }

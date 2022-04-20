@@ -38,11 +38,11 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.VisualModes
 {
-	public struct VisualPickResult
-	{
-		// Members
-		public IVisualPickable picked;
-		public float u_ray;
-		public Vector3D hitpos;
-	}
+    public struct VisualPickResult
+    {
+        // Members
+        public IVisualPickable picked;
+        public float u_ray;
+        public Vector3D hitpos;
+    }
 }

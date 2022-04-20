@@ -32,57 +32,57 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.String, "Text", true)]
-	internal class StringHandler : TypeHandler
-	{
-		#region ================== Constants
+    [TypeHandler(UniversalType.String, "Text", true)]
+    internal class StringHandler : TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private string value = "";
+        private string value = "";
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public override bool IsBrowseable { get { return true; } }
-		
-		#endregion
+        public override bool IsBrowseable { get { return true; } }
 
-		#region ================== Methods
+        #endregion
 
-		public override void Browse(IWin32Window parent)
-		{
-			value = TextEditForm.ShowDialog(parent, value);
-		}
+        #region ================== Methods
 
-		public override void SetValue(object value)
-		{
-			if(value != null)
-				this.value = value.ToString();
-			else
-				this.value = "";
-		}
+        public override void Browse(IWin32Window parent)
+        {
+            value = TextEditForm.ShowDialog(parent, value);
+        }
 
-		public override object GetValue()
-		{
-			return this.value;
-		}
+        public override void SetValue(object value)
+        {
+            if (value != null)
+                this.value = value.ToString();
+            else
+                this.value = "";
+        }
 
-		public override int GetIntValue()
-		{
-			int result;
-			if(int.TryParse(this.value, out result)) return result;
-				else return 0;
-		}
+        public override object GetValue()
+        {
+            return this.value;
+        }
 
-		public override string GetStringValue()
-		{
-			return this.value;
-		}
+        public override int GetIntValue()
+        {
+            int result;
+            if (int.TryParse(this.value, out result)) return result;
+            else return 0;
+        }
 
-		#endregion
-	}
+        public override string GetStringValue()
+        {
+            return this.value;
+        }
+
+        #endregion
+    }
 }

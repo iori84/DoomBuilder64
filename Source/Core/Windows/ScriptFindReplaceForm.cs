@@ -31,95 +31,95 @@ using CodeImp.DoomBuilder.Controls;
 
 namespace CodeImp.DoomBuilder.Windows
 {
-	public partial class ScriptFindReplaceForm : DelayedForm
-	{
-		#region ================== Variables
+    public partial class ScriptFindReplaceForm : DelayedForm
+    {
+        #region ================== Variables
 
-		private bool appclose;
+        private bool appclose;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
-		
-		#endregion
+        #region ================== Properties
 
-		#region ================== Constructor
+        #endregion
 
-		// Constructor
-		public ScriptFindReplaceForm()
-		{
-			InitializeComponent();
-		}
+        #region ================== Constructor
 
-		#endregion
+        // Constructor
+        public ScriptFindReplaceForm()
+        {
+            InitializeComponent();
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// This makes the Find & Replace options
-		private FindReplaceOptions MakeOptions()
-		{
-			FindReplaceOptions options = new FindReplaceOptions();
-			options.FindText = findtext.Text;
-			options.CaseSensitive = casesensitive.Checked;
-			options.WholeWord = wordonly.Checked;
-			options.ReplaceWith = replacetext.Text;
-			return options;
-		}
+        #region ================== Methods
 
-		// Close the window
-		new public void Close()
-		{
-			appclose = true;
-			base.Close();
-		}
+        // This makes the Find & Replace options
+        private FindReplaceOptions MakeOptions()
+        {
+            FindReplaceOptions options = new FindReplaceOptions();
+            options.FindText = findtext.Text;
+            options.CaseSensitive = casesensitive.Checked;
+            options.WholeWord = wordonly.Checked;
+            options.ReplaceWith = replacetext.Text;
+            return options;
+        }
 
-		// This sets the text to find
-		public void SetFindText(string text)
-		{
-			findtext.Text = text;
-			findtext.SelectAll();
-		}
+        // Close the window
+        new public void Close()
+        {
+            appclose = true;
+            base.Close();
+        }
 
-		#endregion
+        // This sets the text to find
+        public void SetFindText(string text)
+        {
+            findtext.Text = text;
+            findtext.SelectAll();
+        }
 
-		#region ================== Events
+        #endregion
 
-		// Form is closing
-		private void ScriptFindReplaceForm_FormClosing(object sender, FormClosingEventArgs e)
-		{
-			if(!appclose)
-			{
-				General.Map.ScriptEditor.Editor.CloseFindReplace(true);
-			}
-		}
+        #region ================== Events
 
-		// Find Next
-		private void findnextbutton_Click(object sender, EventArgs e)
-		{
-			General.Map.ScriptEditor.Editor.FindNext(MakeOptions());
-		}
-		
-		// Replace
-		private void replacebutton_Click(object sender, EventArgs e)
-		{
-			FindReplaceOptions options = MakeOptions();
-			
-			General.Map.ScriptEditor.Editor.Replace(options);
-			General.Map.ScriptEditor.Editor.FindNext(options);
-		}
-		
-		// Replace All
-		private void replaceallbutton_Click(object sender, EventArgs e)
-		{
-			General.Map.ScriptEditor.Editor.ReplaceAll(MakeOptions());
-		}
-		
-		// Close
-		private void closebutton_Click(object sender, EventArgs e)
-		{
-			General.Map.ScriptEditor.Editor.CloseFindReplace(false);
-		}
+        // Form is closing
+        private void ScriptFindReplaceForm_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            if (!appclose)
+            {
+                General.Map.ScriptEditor.Editor.CloseFindReplace(true);
+            }
+        }
 
-		#endregion
-	}
+        // Find Next
+        private void findnextbutton_Click(object sender, EventArgs e)
+        {
+            General.Map.ScriptEditor.Editor.FindNext(MakeOptions());
+        }
+
+        // Replace
+        private void replacebutton_Click(object sender, EventArgs e)
+        {
+            FindReplaceOptions options = MakeOptions();
+
+            General.Map.ScriptEditor.Editor.Replace(options);
+            General.Map.ScriptEditor.Editor.FindNext(options);
+        }
+
+        // Replace All
+        private void replaceallbutton_Click(object sender, EventArgs e)
+        {
+            General.Map.ScriptEditor.Editor.ReplaceAll(MakeOptions());
+        }
+
+        // Close
+        private void closebutton_Click(object sender, EventArgs e)
+        {
+            General.Map.ScriptEditor.Editor.CloseFindReplace(false);
+        }
+
+        #endregion
+    }
 }

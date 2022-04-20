@@ -37,131 +37,131 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	[FindReplace("Linedef Actions", BrowseButton = true)]
-	internal class FindLinedefTypes : FindReplaceType
-	{
-		#region ================== Constants
+    [FindReplace("Linedef Actions", BrowseButton = true)]
+    internal class FindLinedefTypes : FindReplaceType
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Destructor
+        #region ================== Constructor / Destructor
 
-		// Constructor
-		public FindLinedefTypes()
-		{
-			// Initialize
+        // Constructor
+        public FindLinedefTypes()
+        {
+            // Initialize
 
-		}
+        }
 
-		// Destructor
-		~FindLinedefTypes()
-		{
-		}
+        // Destructor
+        ~FindLinedefTypes()
+        {
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// This is called when the browse button is pressed
-		public override string Browse(string initialvalue)
-		{
-			int num = 0;
-			int.TryParse(initialvalue, out num);
-			return General.Interface.BrowseLinedefActions(BuilderPlug.Me.FindReplaceForm, num).ToString();
-		}
+        // This is called when the browse button is pressed
+        public override string Browse(string initialvalue)
+        {
+            int num = 0;
+            int.TryParse(initialvalue, out num);
+            return General.Interface.BrowseLinedefActions(BuilderPlug.Me.FindReplaceForm, num).ToString();
+        }
 
 
-		// This is called to perform a search (and replace)
-		// Returns a list of items to show in the results list
-		// replacewith is null when not replacing
-		public override FindReplaceObject[] Find(string value, bool withinselection, string replacewith, bool keepselection)
-		{
-			List<FindReplaceObject> objs = new List<FindReplaceObject>();
+        // This is called to perform a search (and replace)
+        // Returns a list of items to show in the results list
+        // replacewith is null when not replacing
+        public override FindReplaceObject[] Find(string value, bool withinselection, string replacewith, bool keepselection)
+        {
+            List<FindReplaceObject> objs = new List<FindReplaceObject>();
 
-			// Interpret the replacement
-			int replaceaction = 0;
-			if(replacewith != null)
-			{
-				// If it cannot be interpreted, set replacewith to null (not replacing at all)
-				if(!int.TryParse(replacewith, out replaceaction)) replacewith = null;
-				if(replaceaction < 0) replacewith = null;
-				if(replaceaction > Int16.MaxValue) replacewith = null;
-				if(replacewith == null)
-				{
-					MessageBox.Show("Invalid replace value for this search type!", "Find and Replace", MessageBoxButtons.OK, MessageBoxIcon.Error);
-					return objs.ToArray();
-				}
-			}
+            // Interpret the replacement
+            int replaceaction = 0;
+            if (replacewith != null)
+            {
+                // If it cannot be interpreted, set replacewith to null (not replacing at all)
+                if (!int.TryParse(replacewith, out replaceaction)) replacewith = null;
+                if (replaceaction < 0) replacewith = null;
+                if (replaceaction > Int16.MaxValue) replacewith = null;
+                if (replacewith == null)
+                {
+                    MessageBox.Show("Invalid replace value for this search type!", "Find and Replace", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                    return objs.ToArray();
+                }
+            }
 
-			// Interpret the number given
-			int action = 0;
-			if(int.TryParse(value, out action))
-			{
-				// Where to search?
-				ICollection<Linedef> list = withinselection ? General.Map.Map.GetSelectedLinedefs(true) : General.Map.Map.Linedefs;
+            // Interpret the number given
+            int action = 0;
+            if (int.TryParse(value, out action))
+            {
+                // Where to search?
+                ICollection<Linedef> list = withinselection ? General.Map.Map.GetSelectedLinedefs(true) : General.Map.Map.Linedefs;
 
-				// Go for all linedefs
-				foreach(Linedef l in list)
-				{
-					// Action matches?
-					if(l.Action == action)
-					{
-						// Replace
-						if(replacewith != null) l.Action = replaceaction;
+                // Go for all linedefs
+                foreach (Linedef l in list)
+                {
+                    // Action matches?
+                    if (l.Action == action)
+                    {
+                        // Replace
+                        if (replacewith != null) l.Action = replaceaction;
 
-						// Add to list
-						LinedefActionInfo info = General.Map.Config.GetLinedefActionInfo(l.Action);
-						if(!info.IsNull)
-							objs.Add(new FindReplaceObject(l, "Linedef " + l.Index + " (" + info.Title + ")"));
-						else
-							objs.Add(new FindReplaceObject(l, "Linedef " + l.Index));
-					}
-				}
-			}
+                        // Add to list
+                        LinedefActionInfo info = General.Map.Config.GetLinedefActionInfo(l.Action);
+                        if (!info.IsNull)
+                            objs.Add(new FindReplaceObject(l, "Linedef " + l.Index + " (" + info.Title + ")"));
+                        else
+                            objs.Add(new FindReplaceObject(l, "Linedef " + l.Index));
+                    }
+                }
+            }
 
-			return objs.ToArray();
-		}
-		
-		// This is called when a specific object is selected from the list
-		public override void ObjectSelected(FindReplaceObject[] selection)
-		{
-			if(selection.Length == 1)
-			{
-				ZoomToSelection(selection);
-				General.Interface.ShowLinedefInfo(selection[0].Linedef);
-			}
-			else
-				General.Interface.HideInfo();
-			
-			General.Map.Map.ClearAllSelected();
-			foreach(FindReplaceObject obj in selection) obj.Linedef.Selected = true;
-		}
+            return objs.ToArray();
+        }
 
-		// Render selection
-		public override void PlotSelection(IRenderer2D renderer, FindReplaceObject[] selection)
-		{
-			foreach(FindReplaceObject o in selection)
-			{
-				renderer.PlotLinedef(o.Linedef, General.Colors.Selection);
-			}
-		}
+        // This is called when a specific object is selected from the list
+        public override void ObjectSelected(FindReplaceObject[] selection)
+        {
+            if (selection.Length == 1)
+            {
+                ZoomToSelection(selection);
+                General.Interface.ShowLinedefInfo(selection[0].Linedef);
+            }
+            else
+                General.Interface.HideInfo();
 
-		// Edit objects
-		public override void EditObjects(FindReplaceObject[] selection)
-		{
-			List<Linedef> lines = new List<Linedef>(selection.Length);
-			foreach(FindReplaceObject o in selection) lines.Add(o.Linedef);
-			General.Interface.ShowEditLinedefs(lines);
-		}
-		
-		#endregion
-	}
+            General.Map.Map.ClearAllSelected();
+            foreach (FindReplaceObject obj in selection) obj.Linedef.Selected = true;
+        }
+
+        // Render selection
+        public override void PlotSelection(IRenderer2D renderer, FindReplaceObject[] selection)
+        {
+            foreach (FindReplaceObject o in selection)
+            {
+                renderer.PlotLinedef(o.Linedef, General.Colors.Selection);
+            }
+        }
+
+        // Edit objects
+        public override void EditObjects(FindReplaceObject[] selection)
+        {
+            List<Linedef> lines = new List<Linedef>(selection.Length);
+            foreach (FindReplaceObject o in selection) lines.Add(o.Linedef);
+            General.Interface.ShowEditLinedefs(lines);
+        }
+
+        #endregion
+    }
 }

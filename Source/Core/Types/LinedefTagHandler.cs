@@ -33,8 +33,8 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.LinedefTag, "Linedef Tag", true)]
-	internal class LinedefTagHandler : IntegerHandler
-	{
-	}
+    [TypeHandler(UniversalType.LinedefTag, "Linedef Tag", true)]
+    internal class LinedefTagHandler : IntegerHandler
+    {
+    }
 }

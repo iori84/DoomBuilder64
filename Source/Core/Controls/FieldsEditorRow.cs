@@ -38,244 +38,244 @@ using CodeImp.DoomBuilder.Types;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	internal class FieldsEditorRow : DataGridViewRow
-	{
-		#region ================== Constants
+    internal class FieldsEditorRow : DataGridViewRow
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
-		
-		// This is true when for a fixed field as defined in the game configuration
-		// This means that the field cannot be deleted (delete will result in a reset)
-		// and cannot change type.
-		private bool isfixed;
+        #region ================== Variables
 
-		// Field information (only for fixed fields)
-		private UniversalFieldInfo fieldinfo;
+        // This is true when for a fixed field as defined in the game configuration
+        // This means that the field cannot be deleted (delete will result in a reset)
+        // and cannot change type.
+        private bool isfixed;
 
-		// This is true when the field is defined. Cannot be false when this field
-		// is not fixed, because non-fixed fields are deleted from the list when undefined.
-		private bool isdefined;
+        // Field information (only for fixed fields)
+        private UniversalFieldInfo fieldinfo;
 
-		// Type
-		private TypeHandler fieldtype;
-		
-		#endregion
+        // This is true when the field is defined. Cannot be false when this field
+        // is not fixed, because non-fixed fields are deleted from the list when undefined.
+        private bool isdefined;
 
-		#region ================== Properties
+        // Type
+        private TypeHandler fieldtype;
 
-		public bool IsFixed { get { return isfixed; } }
-		public bool IsDefined { get { return isdefined; } }
-		public bool IsEmpty { get { return (this.Cells[2].Value == null) || (this.Cells[2].Value.ToString().Length == 0); } }
-		public string Name { get { return this.Cells[0].Value.ToString(); } }
-		public TypeHandler TypeHandler { get { return fieldtype; } }
-		public UniversalFieldInfo Info { get { return fieldinfo; } }
+        #endregion
 
-		#endregion
+        #region ================== Properties
 
-		#region ================== Constructor
+        public bool IsFixed { get { return isfixed; } }
+        public bool IsDefined { get { return isdefined; } }
+        public bool IsEmpty { get { return (this.Cells[2].Value == null) || (this.Cells[2].Value.ToString().Length == 0); } }
+        public string Name { get { return this.Cells[0].Value.ToString(); } }
+        public TypeHandler TypeHandler { get { return fieldtype; } }
+        public UniversalFieldInfo Info { get { return fieldinfo; } }
 
-		// Constructor for a fixed, undefined field
-		public FieldsEditorRow(DataGridView view, UniversalFieldInfo fixedfield)
-		{
-			// Undefined
-			this.DefaultCellStyle.ForeColor = SystemColors.GrayText;
-			isdefined = false;
-			
-			// Fixed
-			this.fieldinfo = fixedfield;
-			isfixed = true;
-			
-			// Type
-			this.fieldtype = General.Types.GetFieldHandler(fixedfield);
-			
-			// Make all cells
-			base.CreateCells(view);
-			
-			// Setup property cell
-			this.Cells[0].Value = fixedfield.Name;
-			this.Cells[0].ReadOnly = true;
+        #endregion
 
-			// Setup type cell
-			this.Cells[1].Value = fieldtype.GetDisplayType();
-			this.Cells[1].ReadOnly = true;
+        #region ================== Constructor
 
-			// Setup value cell
-			this.Cells[2].Value = fieldtype.GetStringValue();
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        // Constructor for a fixed, undefined field
+        public FieldsEditorRow(DataGridView view, UniversalFieldInfo fixedfield)
+        {
+            // Undefined
+            this.DefaultCellStyle.ForeColor = SystemColors.GrayText;
+            isdefined = false;
 
-		// Constructor for a non-fixed, defined field
-		public FieldsEditorRow(DataGridView view, string name, int type, object value)
-		{
-			// Defined
-			this.DefaultCellStyle.ForeColor = SystemColors.WindowText;
-			isdefined = true;
+            // Fixed
+            this.fieldinfo = fixedfield;
+            isfixed = true;
 
-			// Non-fixed
-			isfixed = false;
+            // Type
+            this.fieldtype = General.Types.GetFieldHandler(fixedfield);
 
-			// Type
-			this.fieldtype = General.Types.GetFieldHandler(type, value);
+            // Make all cells
+            base.CreateCells(view);
 
-			// Make all cells
-			base.CreateCells(view);
-			
-			// Setup property cell
-			this.Cells[0].Value = name;
-			this.Cells[0].ReadOnly = true;
+            // Setup property cell
+            this.Cells[0].Value = fixedfield.Name;
+            this.Cells[0].ReadOnly = true;
 
-			// Setup type cell
-			this.Cells[1].Value = fieldtype.GetDisplayType();
-			this.Cells[1].ReadOnly = false;
+            // Setup type cell
+            this.Cells[1].Value = fieldtype.GetDisplayType();
+            this.Cells[1].ReadOnly = true;
 
-			// Setup value cell
-			this.Cells[2].Value = fieldtype.GetStringValue();
+            // Setup value cell
+            this.Cells[2].Value = fieldtype.GetStringValue();
 
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		#endregion
+        // Constructor for a non-fixed, defined field
+        public FieldsEditorRow(DataGridView view, string name, int type, object value)
+        {
+            // Defined
+            this.DefaultCellStyle.ForeColor = SystemColors.WindowText;
+            isdefined = true;
 
-		#region ================== Methods
-		
-		// Browse for value
-		public void Browse(IWin32Window parent)
-		{
-			if(fieldtype != null)
-			{
-				// Browse for value
-				fieldtype.Browse(parent);
+            // Non-fixed
+            isfixed = false;
 
-				// This is a fixed field?
-				if(isfixed)
-				{
-					// Does this match the default setting?
-					if(fieldtype.GetValue().Equals(fieldinfo.Default))
-					{
-						// Undefine this field!
-						Undefine();
-					}
-					else
-					{
-						// Define
-						Define(fieldtype.GetValue());
-					}
-				}
-				else
-				{
-					// Define
-					Define(fieldtype.GetValue());
-				}
-			}
-		}
-		
-		// This is called when a cell is edited
-		public void CellChanged()
-		{
-			// This gdmn grid thing returns the chosen value as string instead
-			// of the object type I added to the combobox...
-			if(this.Cells[1].Value is string)
-			{
-				// Find the TypeHandlerAttribute with this name
-				TypeHandlerAttribute attrib = General.Types.GetNamedAttribute(this.Cells[1].Value.ToString());
+            // Type
+            this.fieldtype = General.Types.GetFieldHandler(type, value);
 
-				// Different?
-				if(attrib.Index != fieldtype.Index)
-				{
-					// Change field type!
-					this.ChangeType(attrib.Index);
-				}
-			}
-			
-			// Anything in the box?
-			if((this.Cells[2].Value != null) && (this.Cells[2].Value.ToString().Length > 0))
-			{
-				// Validate value
-				fieldtype.SetValue(this.Cells[2].Value);
-				this.Cells[2].Value = fieldtype.GetStringValue();
+            // Make all cells
+            base.CreateCells(view);
 
-				// This is a fixed field?
-				if(isfixed)
-				{
-					// Does this match the default setting?
-					if(fieldtype.GetValue().Equals(fieldinfo.Default))
-					{
-						// Undefine this field!
-						Undefine();
-					}
-				}
-			}
-		}
-		
-		// This undefines the field
-		// ONLY VALID FOR FIXED FIELDS
-		// You should just delete non-fixed fields
-		public void Undefine()
-		{
-			// Must be fixed!
-			if(!isfixed) throw new InvalidOperationException();
-			
-			// Now undefined
-			fieldtype.SetValue(fieldinfo.Default);
-			this.Cells[2].Value = fieldtype.GetStringValue();
-			this.DefaultCellStyle.ForeColor = SystemColors.GrayText;
-			isdefined = false;
-		}
+            // Setup property cell
+            this.Cells[0].Value = name;
+            this.Cells[0].ReadOnly = true;
 
-		// This defines the field
-		public void Define(object value)
-		{
-			// Now defined
-			fieldtype.SetValue(value);
-			this.Cells[2].Value = fieldtype.GetStringValue();
-			this.DefaultCellStyle.ForeColor = SystemColors.WindowText;
-			isdefined = true;
-		}
+            // Setup type cell
+            this.Cells[1].Value = fieldtype.GetDisplayType();
+            this.Cells[1].ReadOnly = false;
 
-		// This changes the type
-		public void ChangeType(int typeindex)
-		{
-			// Can't do this for a fixed field!
-			if(isfixed) throw new InvalidOperationException();
-			
-			// Different?
-			if(typeindex != fieldtype.Index)
-			{
-				// Change field type!
-				TypeHandlerAttribute attrib = General.Types.GetAttribute(typeindex);
-				fieldtype = General.Types.GetFieldHandler(typeindex, this.Cells[2].Value);
-				this.Cells[1].Value = fieldtype.GetDisplayType();
-			}
-		}
-		
-		// This clears the field
-		public void Clear()
-		{
-			this.Cells[2].Value = "";
-		}
-		
-		// This returns the result
-		public object GetResult(object value)
-		{
-			// Anything in the box?
-			if((this.Cells[2].Value != null) && (this.Cells[2].Value.ToString().Length > 0))
-			{
-				// Return validated value
-				fieldtype.SetValue(this.Cells[2].Value);
-				return fieldtype.GetValue();
-			}
-			else
-			{
-				// Return old value
-				return value;
-			}
-		}
-		
-		#endregion
-	}
+            // Setup value cell
+            this.Cells[2].Value = fieldtype.GetStringValue();
+
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // Browse for value
+        public void Browse(IWin32Window parent)
+        {
+            if (fieldtype != null)
+            {
+                // Browse for value
+                fieldtype.Browse(parent);
+
+                // This is a fixed field?
+                if (isfixed)
+                {
+                    // Does this match the default setting?
+                    if (fieldtype.GetValue().Equals(fieldinfo.Default))
+                    {
+                        // Undefine this field!
+                        Undefine();
+                    }
+                    else
+                    {
+                        // Define
+                        Define(fieldtype.GetValue());
+                    }
+                }
+                else
+                {
+                    // Define
+                    Define(fieldtype.GetValue());
+                }
+            }
+        }
+
+        // This is called when a cell is edited
+        public void CellChanged()
+        {
+            // This gdmn grid thing returns the chosen value as string instead
+            // of the object type I added to the combobox...
+            if (this.Cells[1].Value is string)
+            {
+                // Find the TypeHandlerAttribute with this name
+                TypeHandlerAttribute attrib = General.Types.GetNamedAttribute(this.Cells[1].Value.ToString());
+
+                // Different?
+                if (attrib.Index != fieldtype.Index)
+                {
+                    // Change field type!
+                    this.ChangeType(attrib.Index);
+                }
+            }
+
+            // Anything in the box?
+            if ((this.Cells[2].Value != null) && (this.Cells[2].Value.ToString().Length > 0))
+            {
+                // Validate value
+                fieldtype.SetValue(this.Cells[2].Value);
+                this.Cells[2].Value = fieldtype.GetStringValue();
+
+                // This is a fixed field?
+                if (isfixed)
+                {
+                    // Does this match the default setting?
+                    if (fieldtype.GetValue().Equals(fieldinfo.Default))
+                    {
+                        // Undefine this field!
+                        Undefine();
+                    }
+                }
+            }
+        }
+
+        // This undefines the field
+        // ONLY VALID FOR FIXED FIELDS
+        // You should just delete non-fixed fields
+        public void Undefine()
+        {
+            // Must be fixed!
+            if (!isfixed) throw new InvalidOperationException();
+
+            // Now undefined
+            fieldtype.SetValue(fieldinfo.Default);
+            this.Cells[2].Value = fieldtype.GetStringValue();
+            this.DefaultCellStyle.ForeColor = SystemColors.GrayText;
+            isdefined = false;
+        }
+
+        // This defines the field
+        public void Define(object value)
+        {
+            // Now defined
+            fieldtype.SetValue(value);
+            this.Cells[2].Value = fieldtype.GetStringValue();
+            this.DefaultCellStyle.ForeColor = SystemColors.WindowText;
+            isdefined = true;
+        }
+
+        // This changes the type
+        public void ChangeType(int typeindex)
+        {
+            // Can't do this for a fixed field!
+            if (isfixed) throw new InvalidOperationException();
+
+            // Different?
+            if (typeindex != fieldtype.Index)
+            {
+                // Change field type!
+                TypeHandlerAttribute attrib = General.Types.GetAttribute(typeindex);
+                fieldtype = General.Types.GetFieldHandler(typeindex, this.Cells[2].Value);
+                this.Cells[1].Value = fieldtype.GetDisplayType();
+            }
+        }
+
+        // This clears the field
+        public void Clear()
+        {
+            this.Cells[2].Value = "";
+        }
+
+        // This returns the result
+        public object GetResult(object value)
+        {
+            // Anything in the box?
+            if ((this.Cells[2].Value != null) && (this.Cells[2].Value.ToString().Length > 0))
+            {
+                // Return validated value
+                fieldtype.SetValue(this.Cells[2].Value);
+                return fieldtype.GetValue();
+            }
+            else
+            {
+                // Return old value
+                return value;
+            }
+        }
+
+        #endregion
+    }
 }

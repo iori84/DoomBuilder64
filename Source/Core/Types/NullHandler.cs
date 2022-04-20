@@ -30,49 +30,49 @@ using System.Diagnostics;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	internal class NullHandler : TypeHandler
-	{
-		#region ================== Constants
+    internal class NullHandler : TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private object value = (int)0;
+        private object value = (int)0;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		public override void SetValue(object value)
-		{
-			if(value != null)
-				this.value = value;
-			else
-				this.value = (int)0;
-		}
+        public override void SetValue(object value)
+        {
+            if (value != null)
+                this.value = value;
+            else
+                this.value = (int)0;
+        }
 
-		public override object GetValue()
-		{
-			return this.value.ToString();
-		}
+        public override object GetValue()
+        {
+            return this.value.ToString();
+        }
 
-		public override int GetIntValue()
-		{
-			int result;
-			if(int.TryParse(this.value.ToString(), out result)) return result;
-				else return 0;
-		}
-		
-		public override string GetStringValue()
-		{
-			return this.value.ToString();
-		}
-		
-		#endregion
-	}
+        public override int GetIntValue()
+        {
+            int result;
+            if (int.TryParse(this.value.ToString(), out result)) return result;
+            else return 0;
+        }
+
+        public override string GetStringValue()
+        {
+            return this.value.ToString();
+        }
+
+        #endregion
+    }
 }

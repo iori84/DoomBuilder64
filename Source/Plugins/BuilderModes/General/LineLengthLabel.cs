@@ -36,88 +36,88 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	public class LineLengthLabel : IDisposable
-	{
-		#region ================== Constants
+    public class LineLengthLabel : IDisposable
+    {
+        #region ================== Constants
 
-		private const int TEXT_CAPACITY = 10;
-		private const float TEXT_SCALE = 14f;
-		private const string VALUE_FORMAT = "0";
+        private const int TEXT_CAPACITY = 10;
+        private const float TEXT_SCALE = 14f;
+        private const string VALUE_FORMAT = "0";
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private TextLabel label;
-		private Vector2D start;
-		private Vector2D end;
-		
-		#endregion
+        private TextLabel label;
+        private Vector2D start;
+        private Vector2D end;
 
-		#region ================== Properties
+        #endregion
 
-		public TextLabel TextLabel { get { return label; } }
-		public Vector2D Start { get { return start; } set { start = value; Update(); } }
-		public Vector2D End { get { return end; } set { end = value; Update(); } }
+        #region ================== Properties
 
-		#endregion
+        public TextLabel TextLabel { get { return label; } }
+        public Vector2D Start { get { return start; } set { start = value; Update(); } }
+        public Vector2D End { get { return end; } set { end = value; Update(); } }
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		// Constructor
-		public LineLengthLabel()
-		{
-			// Initialize
-			Initialize();
-		}
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		public LineLengthLabel(Vector2D start, Vector2D end)
-		{
-			// Initialize
-			Initialize();
-			Move(start, end);
-		}
+        // Constructor
+        public LineLengthLabel()
+        {
+            // Initialize
+            Initialize();
+        }
 
-		// Initialization
-		private void Initialize()
-		{
-			label = new TextLabel(TEXT_CAPACITY);
-			label.AlignX = TextAlignmentX.Center;
-			label.AlignY = TextAlignmentY.Middle;
-			label.Color = General.Colors.Highlight;
-			label.Backcolor = General.Colors.Background;
-			label.Scale = TEXT_SCALE;
-			label.TransformCoords = true;
-		}
-		
-		// Disposer
-		public void Dispose()
-		{
-			label.Dispose();
-		}
+        // Constructor
+        public LineLengthLabel(Vector2D start, Vector2D end)
+        {
+            // Initialize
+            Initialize();
+            Move(start, end);
+        }
 
-		#endregion
-		
-		#region ================== Methods
+        // Initialization
+        private void Initialize()
+        {
+            label = new TextLabel(TEXT_CAPACITY);
+            label.AlignX = TextAlignmentX.Center;
+            label.AlignY = TextAlignmentY.Middle;
+            label.Color = General.Colors.Highlight;
+            label.Backcolor = General.Colors.Background;
+            label.Scale = TEXT_SCALE;
+            label.TransformCoords = true;
+        }
 
-		// This updates the text
-		private void Update()
-		{
-			Vector2D delta = end - start;
-			float length = delta.GetLength();
-			label.Text = length.ToString(VALUE_FORMAT);
-			label.Rectangle = new RectangleF(start.x + delta.x * 0.5f, start.y + delta.y * 0.5f, 0f, 0f);
-		}
+        // Disposer
+        public void Dispose()
+        {
+            label.Dispose();
+        }
 
-		// This moves the label
-		public void Move(Vector2D start, Vector2D end)
-		{
-			this.start = start;
-			this.end = end;
-			Update();
-		}
-		
-		#endregion
-	}
+        #endregion
+
+        #region ================== Methods
+
+        // This updates the text
+        private void Update()
+        {
+            Vector2D delta = end - start;
+            float length = delta.GetLength();
+            label.Text = length.ToString(VALUE_FORMAT);
+            label.Rectangle = new RectangleF(start.x + delta.x * 0.5f, start.y + delta.y * 0.5f, 0f, 0f);
+        }
+
+        // This moves the label
+        public void Move(Vector2D start, Vector2D end)
+        {
+            this.start = start;
+            this.end = end;
+            Update();
+        }
+
+        #endregion
+    }
 }

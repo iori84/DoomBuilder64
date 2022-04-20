@@ -37,106 +37,106 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	[FindReplace("Sector Index", BrowseButton = false, Replacable = false)]
-	internal class FindSectorNumber : FindReplaceType
-	{
-		#region ================== Constants
+    [FindReplace("Sector Index", BrowseButton = false, Replacable = false)]
+    internal class FindSectorNumber : FindReplaceType
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Destructor
+        #region ================== Constructor / Destructor
 
-		// Constructor
-		public FindSectorNumber()
-		{
-			// Initialize
+        // Constructor
+        public FindSectorNumber()
+        {
+            // Initialize
 
-		}
+        }
 
-		// Destructor
-		~FindSectorNumber()
-		{
-		}
+        // Destructor
+        ~FindSectorNumber()
+        {
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// This is called when the browse button is pressed
-		public override string Browse(string initialvalue)
-		{
-			return "";
-		}
+        // This is called when the browse button is pressed
+        public override string Browse(string initialvalue)
+        {
+            return "";
+        }
 
 
-		// This is called to perform a search (and replace)
-		// Returns a list of items to show in the results list
-		// replacewith is null when not replacing
-		public override FindReplaceObject[] Find(string value, bool withinselection, string replacewith, bool keepselection)
-		{
-			List<FindReplaceObject> objs = new List<FindReplaceObject>();
+        // This is called to perform a search (and replace)
+        // Returns a list of items to show in the results list
+        // replacewith is null when not replacing
+        public override FindReplaceObject[] Find(string value, bool withinselection, string replacewith, bool keepselection)
+        {
+            List<FindReplaceObject> objs = new List<FindReplaceObject>();
 
-			// Interpret the number given
-			int index = 0;
-			if(int.TryParse(value, out index))
-			{
-				Sector s = General.Map.Map.GetSectorByIndex(index);
-				if(s != null)
-				{
-					SectorEffectInfo info = General.Map.Config.GetSectorEffectInfo(s.Effect);
-					if(!info.IsNull)
-						objs.Add(new FindReplaceObject(s, "Sector " + index + " (" + info.Title + ")"));
-					else
-						objs.Add(new FindReplaceObject(s, "Sector " + index));
-				}
-			}
+            // Interpret the number given
+            int index = 0;
+            if (int.TryParse(value, out index))
+            {
+                Sector s = General.Map.Map.GetSectorByIndex(index);
+                if (s != null)
+                {
+                    SectorEffectInfo info = General.Map.Config.GetSectorEffectInfo(s.Effect);
+                    if (!info.IsNull)
+                        objs.Add(new FindReplaceObject(s, "Sector " + index + " (" + info.Title + ")"));
+                    else
+                        objs.Add(new FindReplaceObject(s, "Sector " + index));
+                }
+            }
 
-			return objs.ToArray();
-		}
+            return objs.ToArray();
+        }
 
-		// This is called when a specific object is selected from the list
-		public override void ObjectSelected(FindReplaceObject[] selection)
-		{
-			if(selection.Length == 1)
-			{
-				ZoomToSelection(selection);
-				General.Interface.ShowSectorInfo(selection[0].Sector);
-			}
-			else
-				General.Interface.HideInfo();
+        // This is called when a specific object is selected from the list
+        public override void ObjectSelected(FindReplaceObject[] selection)
+        {
+            if (selection.Length == 1)
+            {
+                ZoomToSelection(selection);
+                General.Interface.ShowSectorInfo(selection[0].Sector);
+            }
+            else
+                General.Interface.HideInfo();
 
-			General.Map.Map.ClearAllSelected();
-			foreach(FindReplaceObject obj in selection) obj.Sector.Selected = true;
-		}
+            General.Map.Map.ClearAllSelected();
+            foreach (FindReplaceObject obj in selection) obj.Sector.Selected = true;
+        }
 
-		// Render selection
-		public override void PlotSelection(IRenderer2D renderer, FindReplaceObject[] selection)
-		{
-			foreach(FindReplaceObject o in selection)
-			{
-				foreach(Sidedef sd in o.Sector.Sidedefs)
-				{
-					renderer.PlotLinedef(sd.Line, General.Colors.Selection);
-				}
-			}
-		}
+        // Render selection
+        public override void PlotSelection(IRenderer2D renderer, FindReplaceObject[] selection)
+        {
+            foreach (FindReplaceObject o in selection)
+            {
+                foreach (Sidedef sd in o.Sector.Sidedefs)
+                {
+                    renderer.PlotLinedef(sd.Line, General.Colors.Selection);
+                }
+            }
+        }
 
-		// Edit objects
-		public override void EditObjects(FindReplaceObject[] selection)
-		{
-			List<Sector> sectors = new List<Sector>(selection.Length);
-			foreach(FindReplaceObject o in selection) sectors.Add(o.Sector);
-			General.Interface.ShowEditSectors(sectors);
-		}
+        // Edit objects
+        public override void EditObjects(FindReplaceObject[] selection)
+        {
+            List<Sector> sectors = new List<Sector>(selection.Length);
+            foreach (FindReplaceObject o in selection) sectors.Add(o.Sector);
+            General.Interface.ShowEditSectors(sectors);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

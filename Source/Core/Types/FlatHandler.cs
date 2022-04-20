@@ -32,50 +32,50 @@ using CodeImp.DoomBuilder.Windows;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.Flat, "Flat", true)]
-	internal class FlatHandler : TypeHandler
-	{
-		#region ================== Constants
+    [TypeHandler(UniversalType.Flat, "Flat", true)]
+    internal class FlatHandler : TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private string value = "";
+        private string value = "";
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public override bool IsBrowseable { get { return true; } }
+        public override bool IsBrowseable { get { return true; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		public override void Browse(IWin32Window parent)
-		{
-			this.value = FlatBrowserForm.Browse(parent, this.value);
-		}
+        public override void Browse(IWin32Window parent)
+        {
+            this.value = FlatBrowserForm.Browse(parent, this.value);
+        }
 
-		public override void SetValue(object value)
-		{
-			if(value != null)
-				this.value = value.ToString();
-			else
-				this.value = "";
-		}
+        public override void SetValue(object value)
+        {
+            if (value != null)
+                this.value = value.ToString();
+            else
+                this.value = "";
+        }
 
-		public override object GetValue()
-		{
-			return this.value;
-		}
+        public override object GetValue()
+        {
+            return this.value;
+        }
 
-		public override string GetStringValue()
-		{
-			return this.value;
-		}
+        public override string GetStringValue()
+        {
+            return this.value;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -31,11 +31,11 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public enum TagType
-	{
-		None = 0,
-		Sector = 1,
-		Thing = 2,
-		Linedef = 3		// Implement this?
-	}
+    public enum TagType
+    {
+        None = 0,
+        Sector = 1,
+        Thing = 2,
+        Linedef = 3     // Implement this?
+    }
 }

@@ -31,52 +31,52 @@ using System.IO;
 
 namespace CodeImp.DoomBuilder.Data
 {
-	public sealed class UnknownImage : ImageData
-	{
-		#region ================== Variables
+    public sealed class UnknownImage : ImageData
+    {
+        #region ================== Variables
 
-		private Bitmap loadbitmap = null;
-		
-		#endregion
-		
-		#region ================== Constructor / Disposer
+        private Bitmap loadbitmap = null;
 
-		// Constructor
-		public UnknownImage(Bitmap image)
-		{
-			// Initialize
-			this.width = 0;
-			this.height = 0;
-			this.loadbitmap = image;
-			SetName("");
-			
-			LocalLoadImage();
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        #endregion
 
-		#endregion
+        #region ================== Constructor / Disposer
 
-		#region ================== Methods
-		
-		// This 'loads' the image
-		protected override void LocalLoadImage()
-		{
-			bitmap = loadbitmap;
-			base.LocalLoadImage();
-		}
+        // Constructor
+        public UnknownImage(Bitmap image)
+        {
+            // Initialize
+            this.width = 0;
+            this.height = 0;
+            this.loadbitmap = image;
+            SetName("");
 
-		// This returns a preview image
-		public override Image GetPreview()
-		{
-			lock(this)
-			{
-				// Make a copy
-				return new Bitmap(loadbitmap);
-			}
-		}
+            LocalLoadImage();
 
-		#endregion
-	}
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // This 'loads' the image
+        protected override void LocalLoadImage()
+        {
+            bitmap = loadbitmap;
+            base.LocalLoadImage();
+        }
+
+        // This returns a preview image
+        public override Image GetPreview()
+        {
+            lock (this)
+            {
+                // Make a copy
+                return new Bitmap(loadbitmap);
+            }
+        }
+
+        #endregion
+    }
 }

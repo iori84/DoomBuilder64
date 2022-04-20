@@ -36,152 +36,152 @@ using System.Drawing.Imaging;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	internal abstract class D3DShader
-	{
-		#region ================== Constants
+    internal abstract class D3DShader
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// The manager
-		protected ShaderManager manager;
-		
-		// The effect
-		protected Effect effect;
+        // The manager
+        protected ShaderManager manager;
 
-		// The vertex declaration
-		protected VertexDeclaration vertexdecl;
-		
-		// Disposing
-		protected bool isdisposed = false;
+        // The effect
+        protected Effect effect;
 
-		#endregion
+        // The vertex declaration
+        protected VertexDeclaration vertexdecl;
 
-		#region ================== Properties
+        // Disposing
+        protected bool isdisposed = false;
 
-		// Disposing
-		public bool IsDisposed { get { return isdisposed; } }
+        #endregion
 
-		#endregion
+        #region ================== Properties
 
-		#region ================== Constructor / Disposer
+        // Disposing
+        public bool IsDisposed { get { return isdisposed; } }
 
-		// Constructor
-		public D3DShader(ShaderManager manager)
-		{
-			// Initialize
-			this.manager = manager;
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        #endregion
 
-		// Disposer
-		public virtual void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
-				manager = null;
-				if(effect != null) effect.Dispose();
-				vertexdecl.Dispose();
-				
-				// Done
-				isdisposed = true;
-			}
-		}
+        #region ================== Constructor / Disposer
 
-		#endregion
+        // Constructor
+        public D3DShader(ShaderManager manager)
+        {
+            // Initialize
+            this.manager = manager;
 
-		#region ================== Methods
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		// This loads an effect
-		protected Effect LoadEffect(string fxfile)
-		{
-			Effect fx;
-			string errors;
-			Stream fxdata;
-			
-			// Return null when not using shaders
-			if(!manager.Enabled) return null;
-			
-			// Load the resource
-			fxdata = General.ThisAssembly.GetManifestResourceStream("CodeImp.DoomBuilder.Resources." + fxfile);
-			fxdata.Seek(0, SeekOrigin.Begin);
-			
-			try
-			{
-				// Compile effect
-				fx = Effect.FromStream(General.Map.Graphics.Device, fxdata, null, null, null, ShaderFlags.None, null, out errors);
-				if(!string.IsNullOrEmpty(errors))
-				{
-					throw new Exception("Errors in effect file " + fxfile + ": " + errors);
-				}
-			}
-			catch(Exception)
-			{
-				// Compiling failed, try with debug information
-				try
-				{
-					// Compile effect
-					fx = Effect.FromStream(General.Map.Graphics.Device, fxdata, null, null, null, ShaderFlags.Debug, null, out errors);
-					if(!string.IsNullOrEmpty(errors))
-					{
-						throw new Exception("Errors in effect file " + fxfile + ": " + errors);
-					}
-				}
-				catch(Exception e)
-				{
-					// No debug information, just crash
-					throw new Exception(e.GetType().Name + " while loading effect " + fxfile + ": " + e.Message);
-				}
-			}
-			
-			fxdata.Dispose();
-			
-			// Set the technique to use
-			fx.Technique = manager.ShaderTechnique;
+        // Disposer
+        public virtual void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
+                manager = null;
+                if (effect != null) effect.Dispose();
+                vertexdecl.Dispose();
 
-			// Return result
-			return fx;
-		}
+                // Done
+                isdisposed = true;
+            }
+        }
 
-		// This applies the shader
-		public void Begin()
-		{
-			// Set vertex declaration
-			General.Map.Graphics.Device.VertexDeclaration = vertexdecl;
+        #endregion
 
-			// Set effect
-			if(manager.Enabled) effect.Begin(FX.DoNotSaveState);
-		}
+        #region ================== Methods
 
-		// This begins a pass
-		public virtual void BeginPass(int index)
-		{
-			if(manager.Enabled) effect.BeginPass(index);
-		}
+        // This loads an effect
+        protected Effect LoadEffect(string fxfile)
+        {
+            Effect fx;
+            string errors;
+            Stream fxdata;
 
-		// This ends a pass
-		public void EndPass()
-		{
-			if(manager.Enabled) effect.EndPass();
-		}
-		
-		// This ends te shader
-		public void End()
-		{
-			if(manager.Enabled) effect.End();
-		}
+            // Return null when not using shaders
+            if (!manager.Enabled) return null;
 
-		// This applies properties during a pass
-		public void ApplySettings()
-		{
-			if(manager.Enabled) effect.CommitChanges();
-		}
-		
-		#endregion
-	}
+            // Load the resource
+            fxdata = General.ThisAssembly.GetManifestResourceStream("CodeImp.DoomBuilder.Resources." + fxfile);
+            fxdata.Seek(0, SeekOrigin.Begin);
+
+            try
+            {
+                // Compile effect
+                fx = Effect.FromStream(General.Map.Graphics.Device, fxdata, null, null, null, ShaderFlags.None, null, out errors);
+                if (!string.IsNullOrEmpty(errors))
+                {
+                    throw new Exception("Errors in effect file " + fxfile + ": " + errors);
+                }
+            }
+            catch (Exception)
+            {
+                // Compiling failed, try with debug information
+                try
+                {
+                    // Compile effect
+                    fx = Effect.FromStream(General.Map.Graphics.Device, fxdata, null, null, null, ShaderFlags.Debug, null, out errors);
+                    if (!string.IsNullOrEmpty(errors))
+                    {
+                        throw new Exception("Errors in effect file " + fxfile + ": " + errors);
+                    }
+                }
+                catch (Exception e)
+                {
+                    // No debug information, just crash
+                    throw new Exception(e.GetType().Name + " while loading effect " + fxfile + ": " + e.Message);
+                }
+            }
+
+            fxdata.Dispose();
+
+            // Set the technique to use
+            fx.Technique = manager.ShaderTechnique;
+
+            // Return result
+            return fx;
+        }
+
+        // This applies the shader
+        public void Begin()
+        {
+            // Set vertex declaration
+            General.Map.Graphics.Device.VertexDeclaration = vertexdecl;
+
+            // Set effect
+            if (manager.Enabled) effect.Begin(FX.DoNotSaveState);
+        }
+
+        // This begins a pass
+        public virtual void BeginPass(int index)
+        {
+            if (manager.Enabled) effect.BeginPass(index);
+        }
+
+        // This ends a pass
+        public void EndPass()
+        {
+            if (manager.Enabled) effect.EndPass();
+        }
+
+        // This ends te shader
+        public void End()
+        {
+            if (manager.Enabled) effect.End();
+        }
+
+        // This applies properties during a pass
+        public void ApplySettings()
+        {
+            if (manager.Enabled) effect.CommitChanges();
+        }
+
+        #endregion
+    }
 }

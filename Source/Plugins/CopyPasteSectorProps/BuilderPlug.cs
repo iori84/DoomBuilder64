@@ -42,24 +42,24 @@ using CodeImp.DoomBuilder.Data;
 
 namespace CodeImp.DoomBuilder.CopyPasteSectorProps
 {
-	//
-	// MANDATORY: The plug!
-	// This is an important class to the Doom Builder core. Every plugin must
-	// have exactly 1 class that inherits from Plug. When the plugin is loaded,
-	// this class is instantiated and used to receive events from the core.
-	// Make sure the class is public, because only public classes can be seen
-	// by the core.
-	//
+    //
+    // MANDATORY: The plug!
+    // This is an important class to the Doom Builder core. Every plugin must
+    // have exactly 1 class that inherits from Plug. When the plugin is loaded,
+    // this class is instantiated and used to receive events from the core.
+    // Make sure the class is public, because only public classes can be seen
+    // by the core.
+    //
 
-	public class BuilderPlug : Plug
-	{
-		// Static instance. We can't use a real static class, because BuilderPlug must
-		// be instantiated by the core, so we keep a static reference. (this technique
-		// should be familiar to object-oriented programmers)
-		private static BuilderPlug me;
+    public class BuilderPlug : Plug
+    {
+        // Static instance. We can't use a real static class, because BuilderPlug must
+        // be instantiated by the core, so we keep a static reference. (this technique
+        // should be familiar to object-oriented programmers)
+        private static BuilderPlug me;
 
-		// Static property to access the BuilderPlug
-		public static BuilderPlug Me { get { return me; } }
+        // Static property to access the BuilderPlug
+        public static BuilderPlug Me { get { return me; } }
 
         // These variables will store the properties we want to copy
         private int floorHeight;
@@ -74,46 +74,46 @@ namespace CodeImp.DoomBuilder.CopyPasteSectorProps
         private Lights thingColor;   // villsa
         private Lights upperColor;   // villsa
         private Lights lowerColor;   // villsa
-		private UniFields fields;
-		
+        private UniFields fields;
+
         // This is set to true to know that we copied sector properties.
-		// If this is false, the variables above are uninitialized.
+        // If this is false, the variables above are uninitialized.
         bool didCopyProps = false;
         bool didCopyColors = false;
 
-		// This event is called when the plugin is initialized
-		public override void OnInitialize()
-		{
-			base.OnInitialize();
+        // This event is called when the plugin is initialized
+        public override void OnInitialize()
+        {
+            base.OnInitialize();
 
-			// This binds the methods in this class that have the BeginAction
-			// and EndAction attributes with their actions. Without this, the
-			// attributes are useless. Note that in classes derived from EditMode
-			// this is not needed, because they are bound automatically when the
-			// editing mode is engaged.
+            // This binds the methods in this class that have the BeginAction
+            // and EndAction attributes with their actions. Without this, the
+            // attributes are useless. Note that in classes derived from EditMode
+            // this is not needed, because they are bound automatically when the
+            // editing mode is engaged.
             General.Actions.BindMethods(this);
 
-			// Keep a static reference
+            // Keep a static reference
             me = this;
-		}
+        }
 
-		// This is called when the plugin is terminated
-		public override void Dispose()
-		{
-			base.Dispose();
+        // This is called when the plugin is terminated
+        public override void Dispose()
+        {
+            base.Dispose();
 
-			// This must be called to remove bound methods for actions.
+            // This must be called to remove bound methods for actions.
             General.Actions.UnbindMethods(this);
         }
 
         #region ================== Actions
 
-		// This is the method that will be called when the "copysectorprops" action is used by the user.
-		// The actions are defined in the Actions.cfg file (the name must be exactly that) and the
-		// BeginAction attribute indicates that this method must be called when the key for this
-		// action is pressed. You can use the EndAction attribute for methods that must be called when
-		// the key for an action is released. See above for the BindMethods method call which must be
-		// called in order for these methods to work.
+        // This is the method that will be called when the "copysectorprops" action is used by the user.
+        // The actions are defined in the Actions.cfg file (the name must be exactly that) and the
+        // BeginAction attribute indicates that this method must be called when the key for this
+        // action is pressed. You can use the EndAction attribute for methods that must be called when
+        // the key for an action is released. See above for the BindMethods method call which must be
+        // called in order for these methods to work.
         [BeginAction("copysectorprops")]
         public void CopySectorProps()
         {
@@ -185,8 +185,8 @@ namespace CodeImp.DoomBuilder.CopyPasteSectorProps
             General.Interface.DisplayStatus(StatusType.Action, "Copied sector colors.");
         }
 
-		// This is the method that will be called when the "pastesectorprops" action is used by the user.
-		[BeginAction("pastesectorprops")]
+        // This is the method that will be called when the "pastesectorprops" action is used by the user.
+        [BeginAction("pastesectorprops")]
         public void PasteSectorProps()
         {
             // Collection used to store the sectors we want to paste to
@@ -220,7 +220,7 @@ namespace CodeImp.DoomBuilder.CopyPasteSectorProps
             // If there are selected sectors only paste to them
             if (General.Map.Map.GetSelectedSectors(true).Count != 0)
             {
-				ICollection<Sector> selectedsectors = General.Map.Map.GetSelectedSectors(true);
+                ICollection<Sector> selectedsectors = General.Map.Map.GetSelectedSectors(true);
                 foreach (Sector s in selectedsectors)
                 {
                     sectors.Add(s);
@@ -238,7 +238,7 @@ namespace CodeImp.DoomBuilder.CopyPasteSectorProps
             General.Map.UndoRedo.CreateUndo("Paste sector properties");
 
             // Set the properties of all selected sectors
-            foreach(Sector s in sectors)
+            foreach (Sector s in sectors)
             {
                 // Heights
                 s.FloorHeight = floorHeight;

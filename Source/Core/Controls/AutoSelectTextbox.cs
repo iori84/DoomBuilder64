@@ -32,63 +32,63 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	public class AutoSelectTextbox : TextBox
-	{
-		#region ================== Constants
+    public class AutoSelectTextbox : TextBox
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private int eventcount = 0;
-		
-		#endregion
+        private int eventcount = 0;
 
-		#region ================== Properties
+        #endregion
 
-		#endregion
+        #region ================== Properties
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		#endregion
+        #region ================== Constructor / Disposer
 
-		#region ================== Methods
+        #endregion
 
-		// When gaining focus
-		protected override void OnGotFocus(EventArgs e)
-		{
-			base.OnGotFocus(e);
+        #region ================== Methods
 
-			// Reset counter
-			eventcount = 0;
-		}
-		
-		// When losing focus
-		protected override void OnLostFocus(EventArgs e)
-		{
-			base.OnLostFocus(e);
+        // When gaining focus
+        protected override void OnGotFocus(EventArgs e)
+        {
+            base.OnGotFocus(e);
 
-			// Reset counter
-			eventcount = 0;
-		}
-		
-		// When mouse pressed down
-		protected override void OnMouseDown(MouseEventArgs e)
-		{
-			base.OnMouseDown(e);
+            // Reset counter
+            eventcount = 0;
+        }
 
-			// Select all text when this mouseclick gives focus
-			if(eventcount == 0) this.SelectAll();
-			eventcount++;
-		}
+        // When losing focus
+        protected override void OnLostFocus(EventArgs e)
+        {
+            base.OnLostFocus(e);
 
-		// When key is pressed
-		protected override void OnKeyDown(KeyEventArgs e)
-		{
-			base.OnKeyDown(e);
-			eventcount++;
-		}
-		
-		#endregion
-	}
+            // Reset counter
+            eventcount = 0;
+        }
+
+        // When mouse pressed down
+        protected override void OnMouseDown(MouseEventArgs e)
+        {
+            base.OnMouseDown(e);
+
+            // Select all text when this mouseclick gives focus
+            if (eventcount == 0) this.SelectAll();
+            eventcount++;
+        }
+
+        // When key is pressed
+        protected override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            eventcount++;
+        }
+
+        #endregion
+    }
 }

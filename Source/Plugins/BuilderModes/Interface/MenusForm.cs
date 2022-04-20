@@ -36,128 +36,128 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	public partial class MenusForm : Form
-	{
-		#region ================== Variables
+    public partial class MenusForm : Form
+    {
+        #region ================== Variables
 
-		// Menus list
-		private ToolStripItem[] menus;
+        // Menus list
+        private ToolStripItem[] menus;
 
-		// Buttons list
-		private ToolStripItem[] buttons;
+        // Buttons list
+        private ToolStripItem[] buttons;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public ToolStripMenuItem LinedefsMenu { get { return linedefsmenu; } }
-		public ToolStripMenuItem SectorsMenu { get { return sectorsmenu; } }
-		public ToolStripButton ViewSelectionNumbers { get { return buttonselectionnumbers; } }
-		public ToolStripSeparator SeparatorSectors1 { get { return separatorsectors1; } }
-		public ToolStripButton MakeGradientBrightness { get { return buttonbrightnessgradient; } }
-		public ToolStripButton MakeGradientFloors { get { return buttonfloorgradient; } }
-		public ToolStripButton MakeGradientCeilings { get { return buttonceilinggradient; } }
-		public ToolStripButton FlipSelectionV { get { return buttonflipselectionv; } }
-		public ToolStripButton FlipSelectionH { get { return buttonflipselectionh; } }
-		public ToolStripButton CurveLinedefs { get { return buttoncurvelinedefs; } }
-		public ToolStripButton CopyProperties { get { return buttoncopyproperties; } }
-		public ToolStripButton PasteProperties { get { return buttonpasteproperties; } }
-		public ToolStripSeparator SeparatorCopyPaste { get { return seperatorcopypaste; } }
+        public ToolStripMenuItem LinedefsMenu { get { return linedefsmenu; } }
+        public ToolStripMenuItem SectorsMenu { get { return sectorsmenu; } }
+        public ToolStripButton ViewSelectionNumbers { get { return buttonselectionnumbers; } }
+        public ToolStripSeparator SeparatorSectors1 { get { return separatorsectors1; } }
+        public ToolStripButton MakeGradientBrightness { get { return buttonbrightnessgradient; } }
+        public ToolStripButton MakeGradientFloors { get { return buttonfloorgradient; } }
+        public ToolStripButton MakeGradientCeilings { get { return buttonceilinggradient; } }
+        public ToolStripButton FlipSelectionV { get { return buttonflipselectionv; } }
+        public ToolStripButton FlipSelectionH { get { return buttonflipselectionh; } }
+        public ToolStripButton CurveLinedefs { get { return buttoncurvelinedefs; } }
+        public ToolStripButton CopyProperties { get { return buttoncopyproperties; } }
+        public ToolStripButton PasteProperties { get { return buttonpasteproperties; } }
+        public ToolStripSeparator SeparatorCopyPaste { get { return seperatorcopypaste; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		public MenusForm()
-		{
-			// Initialize
-			InitializeComponent();
+        // Constructor
+        public MenusForm()
+        {
+            // Initialize
+            InitializeComponent();
 
-			// Apply settings
-			buttonselectionnumbers.Checked = BuilderPlug.Me.ViewSelectionNumbers;
-			
-			// List all menus
-			menus = new ToolStripItem[menustrip.Items.Count];
-			for(int i = 0; i < menustrip.Items.Count; i++) menus[i] = menustrip.Items[i];
+            // Apply settings
+            buttonselectionnumbers.Checked = BuilderPlug.Me.ViewSelectionNumbers;
 
-			// List all buttons
-			buttons = new ToolStripItem[globalstrip.Items.Count];
-			for(int i = 0; i < globalstrip.Items.Count; i++) buttons[i] = globalstrip.Items[i];
-		}
-		
-		#endregion
+            // List all menus
+            menus = new ToolStripItem[menustrip.Items.Count];
+            for (int i = 0; i < menustrip.Items.Count; i++) menus[i] = menustrip.Items[i];
 
-		#region ================== Methods
+            // List all buttons
+            buttons = new ToolStripItem[globalstrip.Items.Count];
+            for (int i = 0; i < globalstrip.Items.Count; i++) buttons[i] = globalstrip.Items[i];
+        }
 
-		// This registers with the core
-		public void Register()
-		{
-			// Add the menus to the core
-			foreach(ToolStripMenuItem m in menus)
-				General.Interface.AddMenu(m);
-			
-			// Add the buttons to the core
-			foreach(ToolStripItem b in buttons)
-				General.Interface.AddButton(b);
-		}
+        #endregion
 
-		// This unregisters from the core
-		public void Unregister()
-		{
-			// Remove the menus from the core
-			foreach(ToolStripMenuItem m in menus)
-				General.Interface.RemoveMenu(m);
+        #region ================== Methods
 
-			// Remove the buttons from the core
-			foreach(ToolStripItem b in buttons)
-				General.Interface.RemoveButton(b);
-		}
+        // This registers with the core
+        public void Register()
+        {
+            // Add the menus to the core
+            foreach (ToolStripMenuItem m in menus)
+                General.Interface.AddMenu(m);
 
-		// This hides all menus
-		public void HideAllMenus()
-		{
-			foreach(ToolStripMenuItem m in menus) m.Visible = false;
-		}
-		
-		// This hides all except one menu
-		public void HideAllMenusExcept(ToolStripMenuItem showthis)
-		{
-			HideAllMenus();
-			showthis.Visible = true;
-		}
-		
-		// This shows the menu for the current editing mode
-		public void ShowEditingModeMenu(EditMode mode)
-		{
-			Type sourcemode = typeof(object);
-			if(mode != null)
-			{
-				sourcemode = mode.GetType();
+            // Add the buttons to the core
+            foreach (ToolStripItem b in buttons)
+                General.Interface.AddButton(b);
+        }
 
-				// When in a volatile mode, check against the last stable mode
-				if(mode.Attributes.Volatile) sourcemode = General.Editing.PreviousStableMode;
-			}
-			
-			// Final decision
-			if(sourcemode == typeof(LinedefsMode)) HideAllMenusExcept(linedefsmenu);
-			else if(sourcemode == typeof(SectorsMode)) HideAllMenusExcept(sectorsmenu);
-			else HideAllMenus();
-		}
+        // This unregisters from the core
+        public void Unregister()
+        {
+            // Remove the menus from the core
+            foreach (ToolStripMenuItem m in menus)
+                General.Interface.RemoveMenu(m);
 
-		// This invokes an action from control event
-		private void InvokeTaggedAction(object sender, EventArgs e)
-		{
-			General.Interface.InvokeTaggedAction(sender, e);
-		}
+            // Remove the buttons from the core
+            foreach (ToolStripItem b in buttons)
+                General.Interface.RemoveButton(b);
+        }
 
-		// View selection numbers clicked
-		private void buttonselectionnumbers_Click(object sender, EventArgs e)
-		{
-			BuilderPlug.Me.ViewSelectionNumbers = buttonselectionnumbers.Checked;
-			General.Interface.RedrawDisplay();
-		}
-		
-		#endregion
-	}
+        // This hides all menus
+        public void HideAllMenus()
+        {
+            foreach (ToolStripMenuItem m in menus) m.Visible = false;
+        }
+
+        // This hides all except one menu
+        public void HideAllMenusExcept(ToolStripMenuItem showthis)
+        {
+            HideAllMenus();
+            showthis.Visible = true;
+        }
+
+        // This shows the menu for the current editing mode
+        public void ShowEditingModeMenu(EditMode mode)
+        {
+            Type sourcemode = typeof(object);
+            if (mode != null)
+            {
+                sourcemode = mode.GetType();
+
+                // When in a volatile mode, check against the last stable mode
+                if (mode.Attributes.Volatile) sourcemode = General.Editing.PreviousStableMode;
+            }
+
+            // Final decision
+            if (sourcemode == typeof(LinedefsMode)) HideAllMenusExcept(linedefsmenu);
+            else if (sourcemode == typeof(SectorsMode)) HideAllMenusExcept(sectorsmenu);
+            else HideAllMenus();
+        }
+
+        // This invokes an action from control event
+        private void InvokeTaggedAction(object sender, EventArgs e)
+        {
+            General.Interface.InvokeTaggedAction(sender, e);
+        }
+
+        // View selection numbers clicked
+        private void buttonselectionnumbers_Click(object sender, EventArgs e)
+        {
+            BuilderPlug.Me.ViewSelectionNumbers = buttonselectionnumbers.Checked;
+            General.Interface.RedrawDisplay();
+        }
+
+        #endregion
+    }
 }

@@ -26,11 +26,11 @@ using System.Text;
 
 namespace CodeImp.DoomBuilder.Map
 {
-	public enum SidedefPart
-	{
-		None = 0,
-		Upper = 1,
-		Middle = 2,
-		Lower = 3
-	}
+    public enum SidedefPart
+    {
+        None = 0,
+        Upper = 1,
+        Middle = 2,
+        Lower = 3
+    }
 }

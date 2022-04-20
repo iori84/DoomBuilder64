@@ -39,34 +39,34 @@ using System.Threading;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	[ErrorChecker("Check closed sectors", true, 300)]
-	public class CheckClosedSectors : ErrorChecker
-	{
-		#region ================== Constants
+    [ErrorChecker("Check closed sectors", true, 300)]
+    public class CheckClosedSectors : ErrorChecker
+    {
+        #region ================== Constants
 
-		private const int PROGRESS_STEP = 40;
+        private const int PROGRESS_STEP = 40;
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Destructor
+        #region ================== Constructor / Destructor
 
-		// Constructor
-		public CheckClosedSectors()
-		{
-			// Total progress is done when all sectors are checked
-			SetTotalProgress(General.Map.Map.Sectors.Count / PROGRESS_STEP);
-		}
-		
-		#endregion
-		
-		#region ================== Methods
-		
-		// This runs the check
-		public override void Run()
-		{
-			int progress = 0;
-			int stepprogress = 0;
-			
+        // Constructor
+        public CheckClosedSectors()
+        {
+            // Total progress is done when all sectors are checked
+            SetTotalProgress(General.Map.Map.Sectors.Count / PROGRESS_STEP);
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // This runs the check
+        public override void Run()
+        {
+            int progress = 0;
+            int stepprogress = 0;
+
             // This is a simple yet effective way to check if a sector is closed.
             // Each sidedef that belongs to a sector is checked out. The lines vertices
             // are used as the key in a Dictionary. While going through all the
@@ -89,9 +89,9 @@ namespace CodeImp.DoomBuilder.BuilderModes
             // the line between the two vertices has no side referencing the current sector,
             // then this falsely good vertex is added to the holes, too
 
-			// Go for all the sectors
-			foreach(Sector s in General.Map.Map.Sectors)
-			{
+            // Go for all the sectors
+            foreach (Sector s in General.Map.Map.Sectors)
+            {
                 List<Vertex> foundholes = new List<Vertex>();
                 Dictionary<Vertex, int> vertices = new Dictionary<Vertex, int>();
 
@@ -114,7 +114,8 @@ namespace CodeImp.DoomBuilder.BuilderModes
                     // This is from the sides point of view, where the side is always the "right" of line,
                     // so start and end are flipped depending if the current side is the front of the
                     // line or not
-                    if(sd.IsFront == true) {
+                    if (sd.IsFront == true)
+                    {
                         vertices[sd.Line.Start] |= 1;
                         vertices[sd.Line.End] |= 2;
                     }
@@ -161,23 +162,23 @@ namespace CodeImp.DoomBuilder.BuilderModes
                     }
                 }
 
-				// Add report when holes have been found
-				if(foundholes.Count > 0)
-					SubmitResult(new ResultSectorUnclosed(s, foundholes));
+                // Add report when holes have been found
+                if (foundholes.Count > 0)
+                    SubmitResult(new ResultSectorUnclosed(s, foundholes));
 
-				// Handle thread interruption
-				try { Thread.Sleep(0); }
-				catch(ThreadInterruptedException) { return; }
+                // Handle thread interruption
+                try { Thread.Sleep(0); }
+                catch (ThreadInterruptedException) { return; }
 
-				// We are making progress!
-				if((++progress / PROGRESS_STEP) > stepprogress)
-				{
-					stepprogress = (progress / PROGRESS_STEP);
-					AddProgress(1);
-				}
-			}
-		}
-		
-		#endregion
-	}
+                // We are making progress!
+                if ((++progress / PROGRESS_STEP) > stepprogress)
+                {
+                    stepprogress = (progress / PROGRESS_STEP);
+                    AddProgress(1);
+                }
+            }
+        }
+
+        #endregion
+    }
 }

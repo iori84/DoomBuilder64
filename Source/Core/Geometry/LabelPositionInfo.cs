@@ -26,17 +26,17 @@ using System.Text;
 
 namespace CodeImp.DoomBuilder.Geometry
 {
-	public struct LabelPositionInfo
-	{
-		// Members
-		public Vector2D position;
-		public float radius;
-		
-		// Constructor
-		public LabelPositionInfo(Vector2D position, float radius)
-		{
-			this.position = position;
-			this.radius = radius;
-		}
-	}
+    public struct LabelPositionInfo
+    {
+        // Members
+        public Vector2D position;
+        public float radius;
+
+        // Constructor
+        public LabelPositionInfo(Vector2D position, float radius)
+        {
+            this.position = position;
+            this.radius = radius;
+        }
+    }
 }

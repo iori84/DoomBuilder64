@@ -32,78 +32,78 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	/// <summary>
-	/// Option in generalized types.
-	/// </summary>
-	public class GeneralizedOption
-	{
-		#region ================== Constants
+    /// <summary>
+    /// Option in generalized types.
+    /// </summary>
+    public class GeneralizedOption
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Properties
-		private string name;
-		private List<GeneralizedBit> bits;
-		
-		#endregion
+        // Properties
+        private string name;
+        private List<GeneralizedBit> bits;
 
-		#region ================== Properties
+        #endregion
 
-		public string Name { get { return name; } }
-		public List<GeneralizedBit> Bits { get { return bits; } }
+        #region ================== Properties
 
-		#endregion
+        public string Name { get { return name; } }
+        public List<GeneralizedBit> Bits { get { return bits; } }
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		// Constructor
-		internal GeneralizedOption(string structure, string cat, string name, IDictionary bitslist)
-		{
-			int index;
-			string fullpath;
-			
-			// Determine path
-			if(cat.Length > 0) fullpath = structure + "." + cat;
-				else fullpath = structure;
+        #region ================== Constructor / Disposer
 
-			// Initialize
-			this.name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
-			this.bits = new List<GeneralizedBit>();
+        // Constructor
+        internal GeneralizedOption(string structure, string cat, string name, IDictionary bitslist)
+        {
+            int index;
+            string fullpath;
 
-			// Go for all bits
-			foreach(DictionaryEntry de in bitslist)
-			{
-				// Check if the item key is numeric
-				if(int.TryParse(de.Key.ToString(), NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, CultureInfo.InvariantCulture, out index))
-				{
-					// Add to list
-					this.bits.Add(new GeneralizedBit(index, de.Value.ToString()));
-				}
-				else
-				{
-					General.ErrorLogger.Add(ErrorType.Warning, "Structure '" + fullpath + "." + name + "' contains invalid entries. The keys must be numeric.");
-				}
-			}
-			
-			// Sort the list
-			bits.Sort();
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+            // Determine path
+            if (cat.Length > 0) fullpath = structure + "." + cat;
+            else fullpath = structure;
 
-		#endregion
+            // Initialize
+            this.name = CultureInfo.CurrentCulture.TextInfo.ToTitleCase(name);
+            this.bits = new List<GeneralizedBit>();
 
-		#region ================== Methods
+            // Go for all bits
+            foreach (DictionaryEntry de in bitslist)
+            {
+                // Check if the item key is numeric
+                if (int.TryParse(de.Key.ToString(), NumberStyles.AllowLeadingWhite | NumberStyles.AllowTrailingWhite, CultureInfo.InvariantCulture, out index))
+                {
+                    // Add to list
+                    this.bits.Add(new GeneralizedBit(index, de.Value.ToString()));
+                }
+                else
+                {
+                    General.ErrorLogger.Add(ErrorType.Warning, "Structure '" + fullpath + "." + name + "' contains invalid entries. The keys must be numeric.");
+                }
+            }
 
-		// This presents the item as string
-		public override string ToString()
-		{
-			return name;
-		}
-		
-		#endregion
-	}
+            // Sort the list
+            bits.Sort();
+
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // This presents the item as string
+        public override string ToString()
+        {
+            return name;
+        }
+
+        #endregion
+    }
 }

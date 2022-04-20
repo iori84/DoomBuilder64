@@ -36,407 +36,407 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	public abstract class DragGeometryMode : BaseClassicMode
-	{
-		#region ================== Constants
+    public abstract class DragGeometryMode : BaseClassicMode
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
-		
-		// Mouse position on map where dragging started
-		private Vector2D dragstartmappos;
+        #region ================== Variables
 
-		// Item used as reference for snapping to the grid
-		protected Vertex dragitem;
-		private Vector2D dragitemposition;
+        // Mouse position on map where dragging started
+        private Vector2D dragstartmappos;
 
-		// List of old vertex positions
-		private List<Vector2D> oldpositions;
+        // Item used as reference for snapping to the grid
+        protected Vertex dragitem;
+        private Vector2D dragitemposition;
 
-		// List of selected items
-		protected ICollection<Vertex> selectedverts;
+        // List of old vertex positions
+        private List<Vector2D> oldpositions;
 
-		// List of non-selected items
-		protected ICollection<Vertex> unselectedverts;
+        // List of selected items
+        protected ICollection<Vertex> selectedverts;
 
-		// List of unstable lines
-		protected ICollection<Linedef> unstablelines;
-		
-		// List of unselected lines
-		protected ICollection<Linedef> snaptolines;
-		
-		// Text labels for all unstable lines
-		protected LineLengthLabel[] labels;
-		
-		// Keep track of view changes
-		private float lastoffsetx;
-		private float lastoffsety;
-		private float lastscale;
-		
-		// Options
-		private bool snaptogrid;		// SHIFT to toggle
-		private bool snaptonearest;		// CTRL to enable
+        // List of non-selected items
+        protected ICollection<Vertex> unselectedverts;
 
-		#endregion
+        // List of unstable lines
+        protected ICollection<Linedef> unstablelines;
 
-		#region ================== Properties
+        // List of unselected lines
+        protected ICollection<Linedef> snaptolines;
 
-		// Just keep the base mode button checked
-		public override string EditModeButtonName { get { return General.Editing.PreviousStableMode.Name; } }
-		
-		#endregion
+        // Text labels for all unstable lines
+        protected LineLengthLabel[] labels;
 
-		#region ================== Constructor / Disposer
+        // Keep track of view changes
+        private float lastoffsetx;
+        private float lastoffsety;
+        private float lastscale;
 
-		// Disposer
-		public override void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
-				if(labels != null)
-					foreach(LineLengthLabel l in labels) l.Dispose();
-				
-				// Done
-				base.Dispose();
-			}
-		}
+        // Options
+        private bool snaptogrid;        // SHIFT to toggle
+        private bool snaptonearest;     // CTRL to enable
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Properties
 
-		// Constructor to start dragging immediately
-		protected void StartDrag(Vector2D dragstartmappos)
-		{
-			// Initialize
-			this.dragstartmappos = dragstartmappos;
-			
-			Cursor.Current = Cursors.AppStarting;
-			
-			// We don't want to record this for undoing while we move the geometry around.
-			// This will be set back to normal when we're done.
-			General.Map.UndoRedo.IgnorePropChanges = true;
+        // Just keep the base mode button checked
+        public override string EditModeButtonName { get { return General.Editing.PreviousStableMode.Name; } }
 
-			// Make list of selected vertices
-			selectedverts = General.Map.Map.GetMarkedVertices(true);
+        #endregion
 
-			// Make list of non-selected vertices
-			// This will be used for snapping to nearest items
-			unselectedverts = General.Map.Map.GetMarkedVertices(false);
+        #region ================== Constructor / Disposer
 
-			// Get the nearest vertex for snapping
-			dragitem = MapSet.NearestVertex(selectedverts, dragstartmappos);
-			
-			// Lines to snap to
-			snaptolines = General.Map.Map.LinedefsFromMarkedVertices(true, false, false);
-			
-			// Make old positions list
-			// We will use this as reference to move the vertices, or to move them back on cancel
-			oldpositions = new List<Vector2D>(selectedverts.Count);
-			foreach(Vertex v in selectedverts) oldpositions.Add(v.Position);
+        // Disposer
+        public override void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
+                if (labels != null)
+                    foreach (LineLengthLabel l in labels) l.Dispose();
 
-			// Also keep old position of the dragged item
-			dragitemposition = dragitem.Position;
+                // Done
+                base.Dispose();
+            }
+        }
 
-			// Keep view information
-			lastoffsetx = renderer.OffsetX;
-			lastoffsety = renderer.OffsetY;
-			lastscale = renderer.Scale;
+        #endregion
 
-			// Make list of unstable lines only
-			// These will have their length displayed during the drag
-			unstablelines = MapSet.UnstableLinedefsFromVertices(selectedverts);
+        #region ================== Methods
 
-			// Make text labels
-			labels = new LineLengthLabel[unstablelines.Count];
-			int index = 0;
-			foreach(Linedef l in unstablelines)
-				labels[index++] = new LineLengthLabel(l.Start.Position, l.End.Position);
-			
-			Cursor.Current = Cursors.Default;
-		}
+        // Constructor to start dragging immediately
+        protected void StartDrag(Vector2D dragstartmappos)
+        {
+            // Initialize
+            this.dragstartmappos = dragstartmappos;
 
-		// This moves the selected geometry relatively
-		// Returns true when geometry has actually moved
-		private bool MoveGeometryRelative(Vector2D offset, bool snapgrid, bool snapnearest)
-		{
-			Vector2D oldpos = dragitem.Position;
-			Vector2D anchorpos = dragitemposition + offset;
-			Vector2D tl, br;
+            Cursor.Current = Cursors.AppStarting;
 
-			// don't move if the offset contains invalid data
-			if (!offset.IsFinite()) return false;
+            // We don't want to record this for undoing while we move the geometry around.
+            // This will be set back to normal when we're done.
+            General.Map.UndoRedo.IgnorePropChanges = true;
 
-			// Find the outmost vertices
-			tl = br = oldpositions[0];
-			for (int i = 0; i < oldpositions.Count; i++)
-			{
-				if (oldpositions[i].x < tl.x) tl.x = (int)oldpositions[i].x;
-				if (oldpositions[i].x > br.x) br.x = (int)oldpositions[i].x;
-				if (oldpositions[i].y > tl.y) tl.y = (int)oldpositions[i].y;
-				if (oldpositions[i].y < br.y) br.y = (int)oldpositions[i].y;
-			}
-			
-			// Snap to nearest?
-			if(snapnearest)
-			{
-				// Find nearest unselected vertex within range
-				Vertex nv = MapSet.NearestVertexSquareRange(unselectedverts, anchorpos, BuilderPlug.Me.StitchRange / renderer.Scale);
-				if(nv != null)
-				{
-					// Move the dragged item
-					dragitem.Move(nv.Position);
+            // Make list of selected vertices
+            selectedverts = General.Map.Map.GetMarkedVertices(true);
 
-					// Adjust the offset
-					offset = nv.Position - dragitemposition;
+            // Make list of non-selected vertices
+            // This will be used for snapping to nearest items
+            unselectedverts = General.Map.Map.GetMarkedVertices(false);
 
-					// Do not snap to grid!
-					snapgrid = false;
-				}
-				else
-				{
-					// Find the nearest unselected line within range
-					Linedef nl = MapSet.NearestLinedefRange(snaptolines, anchorpos, BuilderPlug.Me.StitchRange / renderer.Scale);
-					if(nl != null)
-					{
-						// Snap to grid?
-						if(snaptogrid)
-						{
-							// Get grid intersection coordinates
-							List<Vector2D> coords = nl.GetGridIntersections();
+            // Get the nearest vertex for snapping
+            dragitem = MapSet.NearestVertex(selectedverts, dragstartmappos);
 
-							// Find nearest grid intersection
-							float found_distance = float.MaxValue;
-							Vector2D found_coord = new Vector2D();
-							foreach(Vector2D v in coords)
-							{
-								Vector2D delta = anchorpos - v;
-								if(delta.GetLengthSq() < found_distance)
-								{
-									found_distance = delta.GetLengthSq();
-									found_coord = v;
-								}
-							}
-							
-							// Move the dragged item
-							dragitem.Move(found_coord);
+            // Lines to snap to
+            snaptolines = General.Map.Map.LinedefsFromMarkedVertices(true, false, false);
 
-							// Align to line here
-							offset = found_coord - dragitemposition;
+            // Make old positions list
+            // We will use this as reference to move the vertices, or to move them back on cancel
+            oldpositions = new List<Vector2D>(selectedverts.Count);
+            foreach (Vertex v in selectedverts) oldpositions.Add(v.Position);
 
-							// Do not snap to grid anymore
-							snapgrid = false;
-						}
-						else
-						{
-							// Move the dragged item
-							dragitem.Move(nl.NearestOnLine(anchorpos));
+            // Also keep old position of the dragged item
+            dragitemposition = dragitem.Position;
 
-							// Align to line here
-							offset = nl.NearestOnLine(anchorpos) - dragitemposition;
-						}
-					}
-				}
-			}
+            // Keep view information
+            lastoffsetx = renderer.OffsetX;
+            lastoffsety = renderer.OffsetY;
+            lastscale = renderer.Scale;
 
-			// Snap to grid?
-			if(snapgrid)
-			{
-				// Move the dragged item
-				dragitem.Move(anchorpos);
+            // Make list of unstable lines only
+            // These will have their length displayed during the drag
+            unstablelines = MapSet.UnstableLinedefsFromVertices(selectedverts);
 
-				// Snap item to grid
-				dragitem.SnapToGrid();
+            // Make text labels
+            labels = new LineLengthLabel[unstablelines.Count];
+            int index = 0;
+            foreach (Linedef l in unstablelines)
+                labels[index++] = new LineLengthLabel(l.Start.Position, l.End.Position);
 
-				// Adjust the offset
-				offset += dragitem.Position - anchorpos;
-			}
+            Cursor.Current = Cursors.Default;
+        }
 
-			// Make sure the offset is inside the map boundaries
-			if (offset.x + tl.x < General.Map.Config.LeftBoundary) offset.x = General.Map.Config.LeftBoundary - tl.x;
-			if (offset.x + br.x > General.Map.Config.RightBoundary) offset.x = General.Map.Config.RightBoundary - br.x;
-			if (offset.y + tl.y > General.Map.Config.TopBoundary) offset.y = General.Map.Config.TopBoundary - tl.y;
-			if (offset.y + br.y < General.Map.Config.BottomBoundary) offset.y = General.Map.Config.BottomBoundary - br.y;
+        // This moves the selected geometry relatively
+        // Returns true when geometry has actually moved
+        private bool MoveGeometryRelative(Vector2D offset, bool snapgrid, bool snapnearest)
+        {
+            Vector2D oldpos = dragitem.Position;
+            Vector2D anchorpos = dragitemposition + offset;
+            Vector2D tl, br;
 
-			// Drag item moved?
-			if(!snapgrid || (dragitem.Position != oldpos))
-			{
-				int i = 0;
+            // don't move if the offset contains invalid data
+            if (!offset.IsFinite()) return false;
 
-				// Move selected geometry
-				foreach(Vertex v in selectedverts)
-				{
-					// Move vertex from old position relative to the
-					// mouse position change since drag start
-					v.Move(oldpositions[i] + offset);
+            // Find the outmost vertices
+            tl = br = oldpositions[0];
+            for (int i = 0; i < oldpositions.Count; i++)
+            {
+                if (oldpositions[i].x < tl.x) tl.x = (int)oldpositions[i].x;
+                if (oldpositions[i].x > br.x) br.x = (int)oldpositions[i].x;
+                if (oldpositions[i].y > tl.y) tl.y = (int)oldpositions[i].y;
+                if (oldpositions[i].y < br.y) br.y = (int)oldpositions[i].y;
+            }
 
-					// Next
-					i++;
-				}
+            // Snap to nearest?
+            if (snapnearest)
+            {
+                // Find nearest unselected vertex within range
+                Vertex nv = MapSet.NearestVertexSquareRange(unselectedverts, anchorpos, BuilderPlug.Me.StitchRange / renderer.Scale);
+                if (nv != null)
+                {
+                    // Move the dragged item
+                    dragitem.Move(nv.Position);
 
-				// Update labels
-				int index = 0;
-				foreach(Linedef l in unstablelines)
-					labels[index++].Move(l.Start.Position, l.End.Position);
+                    // Adjust the offset
+                    offset = nv.Position - dragitemposition;
 
-				// Moved
-				return true;
-			}
-			else
-			{
-				// No changes
-				return false;
-			}
-		}
-		
-		// Cancelled
-		public override void OnCancel()
-		{
-			// Move geometry back to original position
-			MoveGeometryRelative(new Vector2D(0f, 0f), false, false);
-			
-			// Resume normal undo/redo recording
-			General.Map.UndoRedo.IgnorePropChanges = false;
+                    // Do not snap to grid!
+                    snapgrid = false;
+                }
+                else
+                {
+                    // Find the nearest unselected line within range
+                    Linedef nl = MapSet.NearestLinedefRange(snaptolines, anchorpos, BuilderPlug.Me.StitchRange / renderer.Scale);
+                    if (nl != null)
+                    {
+                        // Snap to grid?
+                        if (snaptogrid)
+                        {
+                            // Get grid intersection coordinates
+                            List<Vector2D> coords = nl.GetGridIntersections();
 
-			// If only a single vertex was selected, deselect it now
-			if(selectedverts.Count == 1) General.Map.Map.ClearSelectedVertices();
-			
-			// Update cached values
-			General.Map.Map.Update();
-			
-			// Cancel base class
-			base.OnCancel();
-			
-			// Return to vertices mode
-			General.Editing.ChangeMode(General.Editing.PreviousStableMode.Name);
-		}
+                            // Find nearest grid intersection
+                            float found_distance = float.MaxValue;
+                            Vector2D found_coord = new Vector2D();
+                            foreach (Vector2D v in coords)
+                            {
+                                Vector2D delta = anchorpos - v;
+                                if (delta.GetLengthSq() < found_distance)
+                                {
+                                    found_distance = delta.GetLengthSq();
+                                    found_coord = v;
+                                }
+                            }
 
-		// Mode engages
-		public override void OnEngage()
-		{
-			base.OnEngage();
-			EnableAutoPanning();
-			renderer.SetPresentation(Presentation.Standard);
-		}
-		
-		// Disenagaging
-		public override void OnDisengage()
-		{
-			base.OnDisengage();
-			DisableAutoPanning();
-			
-			// When not cancelled
-			if(!cancelled)
-			{
-				Cursor.Current = Cursors.AppStarting;
-				
-				// Move geometry back to original position
-				MoveGeometryRelative(new Vector2D(0f, 0f), false, false);
+                            // Move the dragged item
+                            dragitem.Move(found_coord);
 
-				// Resume normal undo/redo recording
-				General.Map.UndoRedo.IgnorePropChanges = false;
+                            // Align to line here
+                            offset = found_coord - dragitemposition;
 
-				// Make undo for the dragging
-				General.Map.UndoRedo.CreateUndo("Drag geometry");
+                            // Do not snap to grid anymore
+                            snapgrid = false;
+                        }
+                        else
+                        {
+                            // Move the dragged item
+                            dragitem.Move(nl.NearestOnLine(anchorpos));
 
-				// Move selected geometry to final position
-				MoveGeometryRelative(mousemappos - dragstartmappos, snaptogrid, snaptonearest);
+                            // Align to line here
+                            offset = nl.NearestOnLine(anchorpos) - dragitemposition;
+                        }
+                    }
+                }
+            }
 
-				// Stitch geometry
-				if(snaptonearest) General.Map.Map.StitchGeometry();
+            // Snap to grid?
+            if (snapgrid)
+            {
+                // Move the dragged item
+                dragitem.Move(anchorpos);
 
-				// Make corrections for backward linedefs
-				MapSet.FlipBackwardLinedefs(General.Map.Map.Linedefs);
-				
-				// Snap to map format accuracy
-				General.Map.Map.SnapAllToAccuracy();
-				
-				// Update cached values
-				General.Map.Map.Update();
+                // Snap item to grid
+                dragitem.SnapToGrid();
 
-				// Done
-				Cursor.Current = Cursors.Default;
-				General.Map.IsChanged = true;
-			}
-		}
+                // Adjust the offset
+                offset += dragitem.Position - anchorpos;
+            }
 
-		// This checks if the view offset/zoom changed and updates the check
-		protected bool CheckViewChanged()
-		{
-			bool viewchanged = false;
-			
-			// View changed?
-			if(renderer.OffsetX != lastoffsetx) viewchanged = true;
-			if(renderer.OffsetY != lastoffsety) viewchanged = true;
-			if(renderer.Scale != lastscale) viewchanged = true;
+            // Make sure the offset is inside the map boundaries
+            if (offset.x + tl.x < General.Map.Config.LeftBoundary) offset.x = General.Map.Config.LeftBoundary - tl.x;
+            if (offset.x + br.x > General.Map.Config.RightBoundary) offset.x = General.Map.Config.RightBoundary - br.x;
+            if (offset.y + tl.y > General.Map.Config.TopBoundary) offset.y = General.Map.Config.TopBoundary - tl.y;
+            if (offset.y + br.y < General.Map.Config.BottomBoundary) offset.y = General.Map.Config.BottomBoundary - br.y;
 
-			// Keep view information
-			lastoffsetx = renderer.OffsetX;
-			lastoffsety = renderer.OffsetY;
-			lastscale = renderer.Scale;
+            // Drag item moved?
+            if (!snapgrid || (dragitem.Position != oldpos))
+            {
+                int i = 0;
 
-			// Return result
-			return viewchanged;
-		}
+                // Move selected geometry
+                foreach (Vertex v in selectedverts)
+                {
+                    // Move vertex from old position relative to the
+                    // mouse position change since drag start
+                    v.Move(oldpositions[i] + offset);
 
-		// This updates the dragging
-		private void Update()
-		{
-			snaptogrid = General.Interface.ShiftState ^ General.Interface.SnapToGrid;
-			snaptonearest = General.Interface.CtrlState ^ General.Interface.AutoMerge;
-			
-			// Move selected geometry
-			if(MoveGeometryRelative(mousemappos - dragstartmappos, snaptogrid, snaptonearest))
-			{
-				// Update cached values
-				General.Map.Map.Update(true, false);
+                    // Next
+                    i++;
+                }
 
-				// Redraw
-				UpdateRedraw();
-				renderer.Present();
-				//General.Interface.RedrawDisplay();
-			}
-		}
+                // Update labels
+                int index = 0;
+                foreach (Linedef l in unstablelines)
+                    labels[index++].Move(l.Start.Position, l.End.Position);
 
-		// This redraws only the required things
-		protected virtual void UpdateRedraw()
-		{
-		}
+                // Moved
+                return true;
+            }
+            else
+            {
+                // No changes
+                return false;
+            }
+        }
 
-		// When edit button is released
-		protected override void OnEditEnd()
-		{
-			// Just return to base mode, Disengage will be called automatically.
-			General.Editing.ChangeMode(General.Editing.PreviousStableMode.Name);
+        // Cancelled
+        public override void OnCancel()
+        {
+            // Move geometry back to original position
+            MoveGeometryRelative(new Vector2D(0f, 0f), false, false);
 
-			base.OnEditEnd();
-		}
-		
-		// Mouse moving
-		public override void OnMouseMove(MouseEventArgs e)
-		{
-			base.OnMouseMove(e);
-			Update();
-		}
-		// When a key is released
-		public override void OnKeyUp(KeyEventArgs e)
-		{
-			base.OnKeyUp(e);
-			if((snaptogrid != (General.Interface.ShiftState ^ General.Interface.SnapToGrid)) ||
-			   (snaptonearest != (General.Interface.CtrlState ^ General.Interface.AutoMerge))) Update();
-		}
+            // Resume normal undo/redo recording
+            General.Map.UndoRedo.IgnorePropChanges = false;
 
-		// When a key is pressed
-		public override void OnKeyDown(KeyEventArgs e)
-		{
-			base.OnKeyDown(e);
-			if((snaptogrid != (General.Interface.ShiftState ^ General.Interface.SnapToGrid)) ||
-			   (snaptonearest != (General.Interface.CtrlState ^ General.Interface.AutoMerge))) Update();
-		}
-		
-		#endregion
-	}
+            // If only a single vertex was selected, deselect it now
+            if (selectedverts.Count == 1) General.Map.Map.ClearSelectedVertices();
+
+            // Update cached values
+            General.Map.Map.Update();
+
+            // Cancel base class
+            base.OnCancel();
+
+            // Return to vertices mode
+            General.Editing.ChangeMode(General.Editing.PreviousStableMode.Name);
+        }
+
+        // Mode engages
+        public override void OnEngage()
+        {
+            base.OnEngage();
+            EnableAutoPanning();
+            renderer.SetPresentation(Presentation.Standard);
+        }
+
+        // Disenagaging
+        public override void OnDisengage()
+        {
+            base.OnDisengage();
+            DisableAutoPanning();
+
+            // When not cancelled
+            if (!cancelled)
+            {
+                Cursor.Current = Cursors.AppStarting;
+
+                // Move geometry back to original position
+                MoveGeometryRelative(new Vector2D(0f, 0f), false, false);
+
+                // Resume normal undo/redo recording
+                General.Map.UndoRedo.IgnorePropChanges = false;
+
+                // Make undo for the dragging
+                General.Map.UndoRedo.CreateUndo("Drag geometry");
+
+                // Move selected geometry to final position
+                MoveGeometryRelative(mousemappos - dragstartmappos, snaptogrid, snaptonearest);
+
+                // Stitch geometry
+                if (snaptonearest) General.Map.Map.StitchGeometry();
+
+                // Make corrections for backward linedefs
+                MapSet.FlipBackwardLinedefs(General.Map.Map.Linedefs);
+
+                // Snap to map format accuracy
+                General.Map.Map.SnapAllToAccuracy();
+
+                // Update cached values
+                General.Map.Map.Update();
+
+                // Done
+                Cursor.Current = Cursors.Default;
+                General.Map.IsChanged = true;
+            }
+        }
+
+        // This checks if the view offset/zoom changed and updates the check
+        protected bool CheckViewChanged()
+        {
+            bool viewchanged = false;
+
+            // View changed?
+            if (renderer.OffsetX != lastoffsetx) viewchanged = true;
+            if (renderer.OffsetY != lastoffsety) viewchanged = true;
+            if (renderer.Scale != lastscale) viewchanged = true;
+
+            // Keep view information
+            lastoffsetx = renderer.OffsetX;
+            lastoffsety = renderer.OffsetY;
+            lastscale = renderer.Scale;
+
+            // Return result
+            return viewchanged;
+        }
+
+        // This updates the dragging
+        private void Update()
+        {
+            snaptogrid = General.Interface.ShiftState ^ General.Interface.SnapToGrid;
+            snaptonearest = General.Interface.CtrlState ^ General.Interface.AutoMerge;
+
+            // Move selected geometry
+            if (MoveGeometryRelative(mousemappos - dragstartmappos, snaptogrid, snaptonearest))
+            {
+                // Update cached values
+                General.Map.Map.Update(true, false);
+
+                // Redraw
+                UpdateRedraw();
+                renderer.Present();
+                //General.Interface.RedrawDisplay();
+            }
+        }
+
+        // This redraws only the required things
+        protected virtual void UpdateRedraw()
+        {
+        }
+
+        // When edit button is released
+        protected override void OnEditEnd()
+        {
+            // Just return to base mode, Disengage will be called automatically.
+            General.Editing.ChangeMode(General.Editing.PreviousStableMode.Name);
+
+            base.OnEditEnd();
+        }
+
+        // Mouse moving
+        public override void OnMouseMove(MouseEventArgs e)
+        {
+            base.OnMouseMove(e);
+            Update();
+        }
+        // When a key is released
+        public override void OnKeyUp(KeyEventArgs e)
+        {
+            base.OnKeyUp(e);
+            if ((snaptogrid != (General.Interface.ShiftState ^ General.Interface.SnapToGrid)) ||
+               (snaptonearest != (General.Interface.CtrlState ^ General.Interface.AutoMerge))) Update();
+        }
+
+        // When a key is pressed
+        public override void OnKeyDown(KeyEventArgs e)
+        {
+            base.OnKeyDown(e);
+            if ((snaptogrid != (General.Interface.ShiftState ^ General.Interface.SnapToGrid)) ||
+               (snaptonearest != (General.Interface.CtrlState ^ General.Interface.AutoMerge))) Update();
+        }
+
+        #endregion
+    }
 }

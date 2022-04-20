@@ -36,107 +36,107 @@ using System.Drawing.Imaging;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	internal class ShaderManager : ID3DResource
-	{
-		#region ================== Constants
+    internal class ShaderManager : ID3DResource
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Settings
-		private string shadertechnique;
-		private bool useshaders;
-		
-		// Shaders
-		private Display2DShader display2dshader;
-		private Things2DShader things2dshader;
-		private World3DShader world3dshader;
-		
-		// Device
-		private D3DDevice device;
-		
-		// Disposing
-		private bool isdisposed = false;
+        // Settings
+        private string shadertechnique;
+        private bool useshaders;
 
-		#endregion
+        // Shaders
+        private Display2DShader display2dshader;
+        private Things2DShader things2dshader;
+        private World3DShader world3dshader;
 
-		#region ================== Properties
+        // Device
+        private D3DDevice device;
 
-		public bool Enabled { get { return useshaders; } }
-		public string ShaderTechnique { get { return shadertechnique; } }
-		public Display2DShader Display2D { get { return display2dshader; } }
-		public Things2DShader Things2D { get { return things2dshader; } }
-		public World3DShader World3D { get { return world3dshader; } }
-		public bool IsDisposed { get { return isdisposed; } }
-		internal D3DDevice D3DDevice { get { return device; } }
+        // Disposing
+        private bool isdisposed = false;
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Properties
 
-		// Constructor
-		public ShaderManager(D3DDevice device)
-		{
-			// Initialize
-			this.device = device;
-			
-			// Load
-			ReloadResource();
+        public bool Enabled { get { return useshaders; } }
+        public string ShaderTechnique { get { return shadertechnique; } }
+        public Display2DShader Display2D { get { return display2dshader; } }
+        public Things2DShader Things2D { get { return things2dshader; } }
+        public World3DShader World3D { get { return world3dshader; } }
+        public bool IsDisposed { get { return isdisposed; } }
+        internal D3DDevice D3DDevice { get { return device; } }
 
-			// Register as resource
-			device.RegisterResource(this);
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        #endregion
 
-		// Disposer
-		public void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
-				UnloadResource();
+        #region ================== Constructor / Disposer
 
-				// Unregister as resource
-				device.UnregisterResource(this);
-				
-				// Done
-				device = null;
-				isdisposed = true;
-			}
-		}
+        // Constructor
+        public ShaderManager(D3DDevice device)
+        {
+            // Initialize
+            this.device = device;
 
-		#endregion
+            // Load
+            ReloadResource();
 
-		#region ================== Resources
+            // Register as resource
+            device.RegisterResource(this);
 
-		// Clean up resources
-		public void UnloadResource()
-		{
-			display2dshader.Dispose();
-			things2dshader.Dispose();
-			world3dshader.Dispose();
-		}
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		// Load resources
-		public void ReloadResource()
-		{
-			Capabilities caps;
+        // Disposer
+        public void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
+                UnloadResource();
 
-			// Check if we can use shaders
-			caps = General.Map.Graphics.Device.Capabilities;
-			useshaders = (caps.PixelShaderVersion.Major >= 2);
-			shadertechnique = "SM20";
+                // Unregister as resource
+                device.UnregisterResource(this);
 
-			// Initialize effects
-			display2dshader = new Display2DShader(this);
-			things2dshader = new Things2DShader(this);
-			world3dshader = new World3DShader(this);
-		}
-		
-		#endregion
-	}
+                // Done
+                device = null;
+                isdisposed = true;
+            }
+        }
+
+        #endregion
+
+        #region ================== Resources
+
+        // Clean up resources
+        public void UnloadResource()
+        {
+            display2dshader.Dispose();
+            things2dshader.Dispose();
+            world3dshader.Dispose();
+        }
+
+        // Load resources
+        public void ReloadResource()
+        {
+            Capabilities caps;
+
+            // Check if we can use shaders
+            caps = General.Map.Graphics.Device.Capabilities;
+            useshaders = (caps.PixelShaderVersion.Major >= 2);
+            shadertechnique = "SM20";
+
+            // Initialize effects
+            display2dshader = new Display2DShader(this);
+            things2dshader = new Things2DShader(this);
+            world3dshader = new World3DShader(this);
+        }
+
+        #endregion
+    }
 }

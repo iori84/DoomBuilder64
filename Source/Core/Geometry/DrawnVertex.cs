@@ -35,10 +35,10 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Geometry
 {
-	public struct DrawnVertex
-	{
-		public Vector2D pos;
-		public bool stitch;
-		public bool stitchline;
-	}
+    public struct DrawnVertex
+    {
+        public Vector2D pos;
+        public bool stitch;
+        public bool stitchline;
+    }
 }

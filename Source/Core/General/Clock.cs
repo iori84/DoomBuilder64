@@ -28,123 +28,123 @@ using System.Diagnostics;
 
 namespace CodeImp.DoomBuilder
 {
-	public class Clock
-	{
-		#region ================== Declarations
-		
-		//#if !LINUX
-		
-		[DllImport("kernel32.dll")]
-		private static extern short QueryPerformanceCounter(ref long x);
-		
-		[DllImport("kernel32.dll")]
-		private static extern short QueryPerformanceFrequency(ref long x);
-		
-		//#endif
+    public class Clock
+    {
+        #region ================== Declarations
 
-		#endregion
-		
-		#region ================== Constants
+        //#if !LINUX
 
-		// Set to true enable QPC if possible
-		private const bool USE_QPC = true;
-		
-		// Frequency indicating QPC unavailable
-		private const long FREQ_NO_QPC = -1;
-		
-		#endregion
+        [DllImport("kernel32.dll")]
+        private static extern short QueryPerformanceCounter(ref long x);
 
-		#region ================== Variables
+        [DllImport("kernel32.dll")]
+        private static extern short QueryPerformanceFrequency(ref long x);
 
-		// Settings
-		private long timefrequency = FREQ_NO_QPC;
-		private double timescale;
-		private double currenttime;
-		
-		// Disposing
-		private bool isdisposed = false;
+        //#endif
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Constants
 
-		// Settings
-		public bool IsUsingQPC { get { return (timefrequency != FREQ_NO_QPC); } }
-		public double CurrentTime { get { return currenttime; } }
+        // Set to true enable QPC if possible
+        private const bool USE_QPC = true;
 
-		// Disposing
-		public bool IsDisposed { get { return isdisposed; } }
+        // Frequency indicating QPC unavailable
+        private const long FREQ_NO_QPC = -1;
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Variables
 
-		// Constructor
-		public Clock()
-		{
-			// Only windows has QPC
-			//#if !LINUX
-			if(Environment.OSVersion.Platform != PlatformID.Unix)
-			{
-				// Get the high resolution clock frequency
-				if((QueryPerformanceFrequency(ref timefrequency) == 0) || !USE_QPC)
-				{
-					// No high resolution clock available
-					timefrequency = FREQ_NO_QPC;
-				}
-				else
-				{
-					// Calculate the time scale
-					timescale = (1d / (double)timefrequency) * 1000d;
-				}
-			}
-			//#endif
+        // Settings
+        private long timefrequency = FREQ_NO_QPC;
+        private double timescale;
+        private double currenttime;
 
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
-		
-		// Disposer
-		public void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
+        // Disposing
+        private bool isdisposed = false;
 
-				// Done
-				isdisposed = true;
-			}
-		}
+        #endregion
 
-		#endregion
+        #region ================== Properties
 
-		#region ================== Methods
+        // Settings
+        public bool IsUsingQPC { get { return (timefrequency != FREQ_NO_QPC); } }
+        public double CurrentTime { get { return currenttime; } }
 
-		// This queries the system for the current time
-		public double GetCurrentTime()
-		{
-			// Only windows has QPC
-			//#if !LINUX
-			
-			long timecount = 0;
+        // Disposing
+        public bool IsDisposed { get { return isdisposed; } }
 
-			// High resolution clock available?
-			if(timefrequency != FREQ_NO_QPC)
-			{
-				// Get the high resolution count
-				QueryPerformanceCounter(ref timecount);
-				
-				// Calculate high resolution time in milliseconds
-				currenttime = (double)timecount * timescale;
-			}
-			else
-			{
-				// Use standard clock
-				currenttime = (double)Environment.TickCount;
-			}
-			
-			/*
+        #endregion
+
+        #region ================== Constructor / Disposer
+
+        // Constructor
+        public Clock()
+        {
+            // Only windows has QPC
+            //#if !LINUX
+            if (Environment.OSVersion.Platform != PlatformID.Unix)
+            {
+                // Get the high resolution clock frequency
+                if ((QueryPerformanceFrequency(ref timefrequency) == 0) || !USE_QPC)
+                {
+                    // No high resolution clock available
+                    timefrequency = FREQ_NO_QPC;
+                }
+                else
+                {
+                    // Calculate the time scale
+                    timescale = (1d / (double)timefrequency) * 1000d;
+                }
+            }
+            //#endif
+
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
+
+        // Disposer
+        public void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
+
+                // Done
+                isdisposed = true;
+            }
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // This queries the system for the current time
+        public double GetCurrentTime()
+        {
+            // Only windows has QPC
+            //#if !LINUX
+
+            long timecount = 0;
+
+            // High resolution clock available?
+            if (timefrequency != FREQ_NO_QPC)
+            {
+                // Get the high resolution count
+                QueryPerformanceCounter(ref timecount);
+
+                // Calculate high resolution time in milliseconds
+                currenttime = (double)timecount * timescale;
+            }
+            else
+            {
+                // Use standard clock
+                currenttime = (double)Environment.TickCount;
+            }
+
+            /*
 			#else
 			
 			// In LINUX always use standard clock
@@ -153,10 +153,10 @@ namespace CodeImp.DoomBuilder
 			#endif
 			*/
 
-			// Return the current time
-			return currenttime;
-		}
-		
-		#endregion
-	}
+            // Return the current time
+            return currenttime;
+        }
+
+        #endregion
+    }
 }

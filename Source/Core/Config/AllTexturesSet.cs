@@ -33,53 +33,53 @@ using System.Collections.Specialized;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	internal sealed class AllTextureSet : TextureSet, IFilledTextureSet
-	{
-		#region ================== Constants
+    internal sealed class AllTextureSet : TextureSet, IFilledTextureSet
+    {
+        #region ================== Constants
 
-		public const string NAME = "All";
+        public const string NAME = "All";
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Matching textures and flats
-		private List<ImageData> textures;
-		private List<ImageData> flats;
+        // Matching textures and flats
+        private List<ImageData> textures;
+        private List<ImageData> flats;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public ICollection<ImageData> Textures { get { return textures; } }
-		public ICollection<ImageData> Flats { get { return flats; } }
+        public ICollection<ImageData> Textures { get { return textures; } }
+        public ICollection<ImageData> Flats { get { return flats; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Destructor
+        #region ================== Constructor / Destructor
 
-		// New texture set constructor
-		public AllTextureSet()
-		{
-			this.name = NAME;
-			this.textures = new List<ImageData>();
-			this.flats = new List<ImageData>();
-		}
+        // New texture set constructor
+        public AllTextureSet()
+        {
+            this.name = NAME;
+            this.textures = new List<ImageData>();
+            this.flats = new List<ImageData>();
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		internal void AddTexture(ImageData image)
-		{
-			textures.Add(image);
-		}
+        internal void AddTexture(ImageData image)
+        {
+            textures.Add(image);
+        }
 
-		internal void AddFlat(ImageData image)
-		{
-			flats.Add(image);
-		}
+        internal void AddFlat(ImageData image)
+        {
+            flats.Add(image);
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

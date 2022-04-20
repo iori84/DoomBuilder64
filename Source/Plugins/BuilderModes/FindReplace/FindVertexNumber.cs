@@ -36,97 +36,97 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	[FindReplace("Vertex Index", BrowseButton = false, Replacable = false)]
-	internal class FindVertexNumber : FindReplaceType
-	{
-		#region ================== Constants
+    [FindReplace("Vertex Index", BrowseButton = false, Replacable = false)]
+    internal class FindVertexNumber : FindReplaceType
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Destructor
+        #region ================== Constructor / Destructor
 
-		// Constructor
-		public FindVertexNumber()
-		{
-			// Initialize
+        // Constructor
+        public FindVertexNumber()
+        {
+            // Initialize
 
-		}
+        }
 
-		// Destructor
-		~FindVertexNumber()
-		{
-		}
+        // Destructor
+        ~FindVertexNumber()
+        {
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// This is called when the browse button is pressed
-		public override string Browse(string initialvalue)
-		{
-			return "";
-		}
+        // This is called when the browse button is pressed
+        public override string Browse(string initialvalue)
+        {
+            return "";
+        }
 
 
-		// This is called to perform a search (and replace)
-		// Returns a list of items to show in the results list
-		// replacewith is null when not replacing
-		public override FindReplaceObject[] Find(string value, bool withinselection, string replacewith, bool keepselection)
-		{
-			List<FindReplaceObject> objs = new List<FindReplaceObject>();
+        // This is called to perform a search (and replace)
+        // Returns a list of items to show in the results list
+        // replacewith is null when not replacing
+        public override FindReplaceObject[] Find(string value, bool withinselection, string replacewith, bool keepselection)
+        {
+            List<FindReplaceObject> objs = new List<FindReplaceObject>();
 
-			// Interpret the number given
-			int index = 0;
-			if(int.TryParse(value, out index))
-			{
-				Vertex v = General.Map.Map.GetVertexByIndex(index);
-				if(v != null) objs.Add(new FindReplaceObject(v, "Vertex " + index));
-			}
-			
-			return objs.ToArray();
-		}
+            // Interpret the number given
+            int index = 0;
+            if (int.TryParse(value, out index))
+            {
+                Vertex v = General.Map.Map.GetVertexByIndex(index);
+                if (v != null) objs.Add(new FindReplaceObject(v, "Vertex " + index));
+            }
 
-		// This is called when a specific object is selected from the list
-		public override void ObjectSelected(FindReplaceObject[] selection)
-		{
-			if(selection.Length == 1)
-			{
-				ZoomToSelection(selection);
-				General.Interface.ShowVertexInfo(selection[0].Vertex);
-			}
-			else
-				General.Interface.HideInfo();
+            return objs.ToArray();
+        }
 
-			General.Map.Map.ClearAllSelected();
-			foreach(FindReplaceObject obj in selection) obj.Vertex.Selected = true;
-		}
+        // This is called when a specific object is selected from the list
+        public override void ObjectSelected(FindReplaceObject[] selection)
+        {
+            if (selection.Length == 1)
+            {
+                ZoomToSelection(selection);
+                General.Interface.ShowVertexInfo(selection[0].Vertex);
+            }
+            else
+                General.Interface.HideInfo();
 
-		// Render selection
-		public override void PlotSelection(IRenderer2D renderer, FindReplaceObject[] selection)
-		{
-			foreach(FindReplaceObject o in selection)
-			{
-				renderer.PlotVertex(o.Vertex, ColorCollection.SELECTION);
-			}
-		}
+            General.Map.Map.ClearAllSelected();
+            foreach (FindReplaceObject obj in selection) obj.Vertex.Selected = true;
+        }
 
-		// Edit objects
-		public override void EditObjects(FindReplaceObject[] selection)
-		{
-			List<Vertex> vertices = new List<Vertex>(selection.Length);
-			foreach(FindReplaceObject o in selection) vertices.Add(o.Vertex);
-			General.Interface.ShowEditVertices(vertices);
-			General.Map.Map.Update();
-		}
+        // Render selection
+        public override void PlotSelection(IRenderer2D renderer, FindReplaceObject[] selection)
+        {
+            foreach (FindReplaceObject o in selection)
+            {
+                renderer.PlotVertex(o.Vertex, ColorCollection.SELECTION);
+            }
+        }
 
-		#endregion
-	}
+        // Edit objects
+        public override void EditObjects(FindReplaceObject[] selection)
+        {
+            List<Vertex> vertices = new List<Vertex>(selection.Length);
+            foreach (FindReplaceObject o in selection) vertices.Add(o.Vertex);
+            General.Interface.ShowEditVertices(vertices);
+            General.Map.Map.Update();
+        }
+
+        #endregion
+    }
 }

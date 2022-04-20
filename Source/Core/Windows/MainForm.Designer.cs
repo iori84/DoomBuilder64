@@ -1,33 +1,33 @@
 namespace CodeImp.DoomBuilder.Windows
 {
-	partial class MainForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class MainForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if(disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             this.components = new System.ComponentModel.Container();
             System.Windows.Forms.ToolStripSeparator toolStripMenuItem1;
             System.Windows.Forms.ToolStripSeparator toolStripMenuItem3;
@@ -1723,149 +1723,149 @@ namespace CodeImp.DoomBuilder.Windows
             this.ResumeLayout(false);
             this.PerformLayout();
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.MenuStrip menumain;
-		private System.Windows.Forms.ToolStrip toolbar;
-		private System.Windows.Forms.StatusStrip statusbar;
-		private System.Windows.Forms.Panel panelinfo;
-		private System.Windows.Forms.ToolStripMenuItem menufile;
-		private System.Windows.Forms.ToolStripMenuItem itemnewmap;
-		private System.Windows.Forms.ToolStripMenuItem itemopenmap;
-		private System.Windows.Forms.ToolStripMenuItem itemsavemap;
-		private System.Windows.Forms.ToolStripMenuItem itemsavemapas;
-		private System.Windows.Forms.ToolStripMenuItem itemsavemapinto;
-		private System.Windows.Forms.ToolStripMenuItem itemexit;
-		private System.Windows.Forms.ToolStripStatusLabel statuslabel;
-		private System.Windows.Forms.ToolStripMenuItem itemclosemap;
-		private System.Windows.Forms.Timer redrawtimer;
-		private System.Windows.Forms.ToolStripMenuItem menuhelp;
-		private System.Windows.Forms.ToolStripMenuItem itemhelpabout;
-		private CodeImp.DoomBuilder.Controls.RenderTargetControl display;
-		private System.Windows.Forms.ToolStripMenuItem itemnorecent;
-		private System.Windows.Forms.ToolStripStatusLabel xposlabel;
-		private System.Windows.Forms.ToolStripStatusLabel yposlabel;
-		private System.Windows.Forms.ToolStripButton buttonnewmap;
-		private System.Windows.Forms.ToolStripButton buttonopenmap;
-		private System.Windows.Forms.ToolStripButton buttonsavemap;
-		private System.Windows.Forms.ToolStripStatusLabel zoomlabel;
-		private System.Windows.Forms.ToolStripDropDownButton buttonzoom;
-		private System.Windows.Forms.ToolStripMenuItem itemzoomfittoscreen;
-		private System.Windows.Forms.ToolStripMenuItem itemzoom100;
-		private System.Windows.Forms.ToolStripMenuItem itemzoom200;
-		private System.Windows.Forms.ToolStripMenuItem itemzoom50;
-		private System.Windows.Forms.ToolStripMenuItem itemzoom25;
-		private System.Windows.Forms.ToolStripMenuItem itemzoom10;
-		private System.Windows.Forms.ToolStripMenuItem itemzoom5;
-		private System.Windows.Forms.ToolStripMenuItem menutools;
-		private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
-		private System.Windows.Forms.ToolStripMenuItem menuedit;
-		private System.Windows.Forms.ToolStripMenuItem itemmapoptions;
-		private System.Windows.Forms.ToolStripButton buttonmapoptions;
-		private System.Windows.Forms.ToolStripMenuItem itemreloadresources;
-		private CodeImp.DoomBuilder.Controls.LinedefInfoPanel linedefinfo;
-		private CodeImp.DoomBuilder.Controls.VertexInfoPanel vertexinfo;
-		private CodeImp.DoomBuilder.Controls.SectorInfoPanel sectorinfo;
-		private CodeImp.DoomBuilder.Controls.ThingInfoPanel thinginfo;
-		private System.Windows.Forms.ToolStripButton buttonthingsfilter;
-		private System.Windows.Forms.ToolStripComboBox thingfilters;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
-		private System.Windows.Forms.ToolStripStatusLabel gridlabel;
-		private System.Windows.Forms.ToolStripDropDownButton buttongrid;
-		private System.Windows.Forms.ToolStripMenuItem itemgrid1024;
-		private System.Windows.Forms.ToolStripMenuItem itemgrid256;
-		private System.Windows.Forms.ToolStripMenuItem itemgrid128;
-		private System.Windows.Forms.ToolStripMenuItem itemgrid64;
-		private System.Windows.Forms.ToolStripMenuItem itemgrid32;
-		private System.Windows.Forms.ToolStripMenuItem itemgrid16;
-		private System.Windows.Forms.ToolStripMenuItem itemgrid4;
-		private System.Windows.Forms.ToolStripMenuItem itemgrid8;
-		private System.Windows.Forms.ToolStripMenuItem itemgridcustom;
-		private System.Windows.Forms.ToolStripMenuItem itemgrid512;
-		private System.Windows.Forms.ToolStripStatusLabel poscommalabel;
-		private System.Windows.Forms.ToolStripMenuItem itemundo;
-		private System.Windows.Forms.ToolStripMenuItem itemredo;
-		private System.Windows.Forms.ToolStripButton buttonundo;
-		private System.Windows.Forms.ToolStripButton buttonredo;
-		private System.Windows.Forms.ToolStripButton buttonsnaptogrid;
-		private System.Windows.Forms.ToolStripMenuItem itemsnaptogrid;
-		private System.Windows.Forms.ToolStripButton buttonautomerge;
-		private System.Windows.Forms.ToolStripMenuItem itemautomerge;
-		private System.Windows.Forms.ToolStripSeparator buttoneditmodesseperator;
-		private System.Windows.Forms.Timer processor;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
-		private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
-		private System.Windows.Forms.ToolStripMenuItem itemgridinc;
-		private System.Windows.Forms.ToolStripMenuItem itemgriddec;
-		private System.Windows.Forms.ToolStripMenuItem itemgridsetup;
-		private System.Windows.Forms.Label modename;
-		private System.Windows.Forms.Timer statusflasher;
-		private System.Windows.Forms.ToolStripSplitButton buttontest;
-		private System.Windows.Forms.ToolStripButton buttoncut;
-		private System.Windows.Forms.ToolStripButton buttoncopy;
-		private System.Windows.Forms.ToolStripButton buttonpaste;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
-		private System.Windows.Forms.ToolStripMenuItem itemcut;
-		private System.Windows.Forms.ToolStripMenuItem itemcopy;
-		private System.Windows.Forms.ToolStripMenuItem itempaste;
-		private System.Windows.Forms.ToolStripStatusLabel configlabel;
-		private System.Windows.Forms.ToolStripMenuItem menumode;
-		private System.Windows.Forms.ToolStripButton buttonviewnormal;
-		//private System.Windows.Forms.ToolStripButton buttonviewbrightness;
-		private System.Windows.Forms.ToolStripButton buttonviewfloors;
-		private System.Windows.Forms.ToolStripButton buttonviewceilings;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
-		private System.Windows.Forms.ToolStripButton buttonscripteditor;
-		private System.Windows.Forms.ToolStripMenuItem menuview;
-		private System.Windows.Forms.ToolStripMenuItem itemthingsfilter;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
-		private System.Windows.Forms.ToolStripMenuItem itemviewnormal;
-		private System.Windows.Forms.ToolStripMenuItem itemviewbrightness;
-		private System.Windows.Forms.ToolStripMenuItem itemviewfloors;
-		private System.Windows.Forms.ToolStripMenuItem itemviewceilings;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem10;
-		private System.Windows.Forms.ToolStripMenuItem itemscripteditor;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem11;
-		private System.Windows.Forms.ToolStripMenuItem itemtestmap;
-		private System.Windows.Forms.ToolStripMenuItem menuprefabs;
-		private System.Windows.Forms.ToolStripMenuItem itemcreateprefab;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem12;
-		private System.Windows.Forms.ToolStripMenuItem iteminsertprefabfile;
-		private System.Windows.Forms.ToolStripMenuItem iteminsertpreviousprefab;
-		private System.Windows.Forms.ToolStripButton buttoninsertprefabfile;
-		private System.Windows.Forms.ToolStripButton buttoninsertpreviousprefab;
-		private System.Windows.Forms.Button buttontoggleinfo;
-		private System.Windows.Forms.Label labelcollapsedinfo;
-		private System.Windows.Forms.Timer statusresetter;
-		private System.Windows.Forms.ToolStripMenuItem itemshowerrors;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
-		private System.Windows.Forms.ToolStripMenuItem menuzoom;
-		private System.Windows.Forms.ToolStripMenuItem item2zoom5;
-		private System.Windows.Forms.ToolStripMenuItem item2zoom10;
-		private System.Windows.Forms.ToolStripMenuItem itemfittoscreen;
-		private System.Windows.Forms.ToolStripMenuItem item2zoom200;
-		private System.Windows.Forms.ToolStripMenuItem item2zoom100;
-		private System.Windows.Forms.ToolStripMenuItem item2zoom50;
-		private System.Windows.Forms.ToolStripMenuItem item2zoom25;
-		private System.Windows.Forms.ToolStripMenuItem itemhelprefmanual;
-		private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
-		private System.Windows.Forms.ToolStripMenuItem itemhelpeditmode;
-		private System.Windows.Forms.ToolStripMenuItem itemtoggleinfo;
-		private System.Windows.Forms.ToolStripMenuItem itempastespecial;
-		private System.Windows.Forms.Panel heightpanel1;
-		private System.Windows.Forms.Panel dockersspace;
-		private CodeImp.DoomBuilder.Controls.DockersControl dockerspanel;
-		private System.Windows.Forms.Timer dockerscollapser;
+        private System.Windows.Forms.MenuStrip menumain;
+        private System.Windows.Forms.ToolStrip toolbar;
+        private System.Windows.Forms.StatusStrip statusbar;
+        private System.Windows.Forms.Panel panelinfo;
+        private System.Windows.Forms.ToolStripMenuItem menufile;
+        private System.Windows.Forms.ToolStripMenuItem itemnewmap;
+        private System.Windows.Forms.ToolStripMenuItem itemopenmap;
+        private System.Windows.Forms.ToolStripMenuItem itemsavemap;
+        private System.Windows.Forms.ToolStripMenuItem itemsavemapas;
+        private System.Windows.Forms.ToolStripMenuItem itemsavemapinto;
+        private System.Windows.Forms.ToolStripMenuItem itemexit;
+        private System.Windows.Forms.ToolStripStatusLabel statuslabel;
+        private System.Windows.Forms.ToolStripMenuItem itemclosemap;
+        private System.Windows.Forms.Timer redrawtimer;
+        private System.Windows.Forms.ToolStripMenuItem menuhelp;
+        private System.Windows.Forms.ToolStripMenuItem itemhelpabout;
+        private CodeImp.DoomBuilder.Controls.RenderTargetControl display;
+        private System.Windows.Forms.ToolStripMenuItem itemnorecent;
+        private System.Windows.Forms.ToolStripStatusLabel xposlabel;
+        private System.Windows.Forms.ToolStripStatusLabel yposlabel;
+        private System.Windows.Forms.ToolStripButton buttonnewmap;
+        private System.Windows.Forms.ToolStripButton buttonopenmap;
+        private System.Windows.Forms.ToolStripButton buttonsavemap;
+        private System.Windows.Forms.ToolStripStatusLabel zoomlabel;
+        private System.Windows.Forms.ToolStripDropDownButton buttonzoom;
+        private System.Windows.Forms.ToolStripMenuItem itemzoomfittoscreen;
+        private System.Windows.Forms.ToolStripMenuItem itemzoom100;
+        private System.Windows.Forms.ToolStripMenuItem itemzoom200;
+        private System.Windows.Forms.ToolStripMenuItem itemzoom50;
+        private System.Windows.Forms.ToolStripMenuItem itemzoom25;
+        private System.Windows.Forms.ToolStripMenuItem itemzoom10;
+        private System.Windows.Forms.ToolStripMenuItem itemzoom5;
+        private System.Windows.Forms.ToolStripMenuItem menutools;
+        private System.Windows.Forms.ToolStripMenuItem configurationToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem preferencesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem menuedit;
+        private System.Windows.Forms.ToolStripMenuItem itemmapoptions;
+        private System.Windows.Forms.ToolStripButton buttonmapoptions;
+        private System.Windows.Forms.ToolStripMenuItem itemreloadresources;
+        private CodeImp.DoomBuilder.Controls.LinedefInfoPanel linedefinfo;
+        private CodeImp.DoomBuilder.Controls.VertexInfoPanel vertexinfo;
+        private CodeImp.DoomBuilder.Controls.SectorInfoPanel sectorinfo;
+        private CodeImp.DoomBuilder.Controls.ThingInfoPanel thinginfo;
+        private System.Windows.Forms.ToolStripButton buttonthingsfilter;
+        private System.Windows.Forms.ToolStripComboBox thingfilters;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator8;
+        private System.Windows.Forms.ToolStripStatusLabel gridlabel;
+        private System.Windows.Forms.ToolStripDropDownButton buttongrid;
+        private System.Windows.Forms.ToolStripMenuItem itemgrid1024;
+        private System.Windows.Forms.ToolStripMenuItem itemgrid256;
+        private System.Windows.Forms.ToolStripMenuItem itemgrid128;
+        private System.Windows.Forms.ToolStripMenuItem itemgrid64;
+        private System.Windows.Forms.ToolStripMenuItem itemgrid32;
+        private System.Windows.Forms.ToolStripMenuItem itemgrid16;
+        private System.Windows.Forms.ToolStripMenuItem itemgrid4;
+        private System.Windows.Forms.ToolStripMenuItem itemgrid8;
+        private System.Windows.Forms.ToolStripMenuItem itemgridcustom;
+        private System.Windows.Forms.ToolStripMenuItem itemgrid512;
+        private System.Windows.Forms.ToolStripStatusLabel poscommalabel;
+        private System.Windows.Forms.ToolStripMenuItem itemundo;
+        private System.Windows.Forms.ToolStripMenuItem itemredo;
+        private System.Windows.Forms.ToolStripButton buttonundo;
+        private System.Windows.Forms.ToolStripButton buttonredo;
+        private System.Windows.Forms.ToolStripButton buttonsnaptogrid;
+        private System.Windows.Forms.ToolStripMenuItem itemsnaptogrid;
+        private System.Windows.Forms.ToolStripButton buttonautomerge;
+        private System.Windows.Forms.ToolStripMenuItem itemautomerge;
+        private System.Windows.Forms.ToolStripSeparator buttoneditmodesseperator;
+        private System.Windows.Forms.Timer processor;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem5;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator6;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem6;
+        private System.Windows.Forms.ToolStripMenuItem itemgridinc;
+        private System.Windows.Forms.ToolStripMenuItem itemgriddec;
+        private System.Windows.Forms.ToolStripMenuItem itemgridsetup;
+        private System.Windows.Forms.Label modename;
+        private System.Windows.Forms.Timer statusflasher;
+        private System.Windows.Forms.ToolStripSplitButton buttontest;
+        private System.Windows.Forms.ToolStripButton buttoncut;
+        private System.Windows.Forms.ToolStripButton buttoncopy;
+        private System.Windows.Forms.ToolStripButton buttonpaste;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem7;
+        private System.Windows.Forms.ToolStripMenuItem itemcut;
+        private System.Windows.Forms.ToolStripMenuItem itemcopy;
+        private System.Windows.Forms.ToolStripMenuItem itempaste;
+        private System.Windows.Forms.ToolStripStatusLabel configlabel;
+        private System.Windows.Forms.ToolStripMenuItem menumode;
+        private System.Windows.Forms.ToolStripButton buttonviewnormal;
+        //private System.Windows.Forms.ToolStripButton buttonviewbrightness;
+        private System.Windows.Forms.ToolStripButton buttonviewfloors;
+        private System.Windows.Forms.ToolStripButton buttonviewceilings;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
+        private System.Windows.Forms.ToolStripButton buttonscripteditor;
+        private System.Windows.Forms.ToolStripMenuItem menuview;
+        private System.Windows.Forms.ToolStripMenuItem itemthingsfilter;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
+        private System.Windows.Forms.ToolStripMenuItem itemviewnormal;
+        private System.Windows.Forms.ToolStripMenuItem itemviewbrightness;
+        private System.Windows.Forms.ToolStripMenuItem itemviewfloors;
+        private System.Windows.Forms.ToolStripMenuItem itemviewceilings;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem10;
+        private System.Windows.Forms.ToolStripMenuItem itemscripteditor;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem11;
+        private System.Windows.Forms.ToolStripMenuItem itemtestmap;
+        private System.Windows.Forms.ToolStripMenuItem menuprefabs;
+        private System.Windows.Forms.ToolStripMenuItem itemcreateprefab;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem12;
+        private System.Windows.Forms.ToolStripMenuItem iteminsertprefabfile;
+        private System.Windows.Forms.ToolStripMenuItem iteminsertpreviousprefab;
+        private System.Windows.Forms.ToolStripButton buttoninsertprefabfile;
+        private System.Windows.Forms.ToolStripButton buttoninsertpreviousprefab;
+        private System.Windows.Forms.Button buttontoggleinfo;
+        private System.Windows.Forms.Label labelcollapsedinfo;
+        private System.Windows.Forms.Timer statusresetter;
+        private System.Windows.Forms.ToolStripMenuItem itemshowerrors;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem2;
+        private System.Windows.Forms.ToolStripMenuItem menuzoom;
+        private System.Windows.Forms.ToolStripMenuItem item2zoom5;
+        private System.Windows.Forms.ToolStripMenuItem item2zoom10;
+        private System.Windows.Forms.ToolStripMenuItem itemfittoscreen;
+        private System.Windows.Forms.ToolStripMenuItem item2zoom200;
+        private System.Windows.Forms.ToolStripMenuItem item2zoom100;
+        private System.Windows.Forms.ToolStripMenuItem item2zoom50;
+        private System.Windows.Forms.ToolStripMenuItem item2zoom25;
+        private System.Windows.Forms.ToolStripMenuItem itemhelprefmanual;
+        private System.Windows.Forms.ToolStripSeparator toolStripMenuItem13;
+        private System.Windows.Forms.ToolStripMenuItem itemhelpeditmode;
+        private System.Windows.Forms.ToolStripMenuItem itemtoggleinfo;
+        private System.Windows.Forms.ToolStripMenuItem itempastespecial;
+        private System.Windows.Forms.Panel heightpanel1;
+        private System.Windows.Forms.Panel dockersspace;
+        private CodeImp.DoomBuilder.Controls.DockersControl dockerspanel;
+        private System.Windows.Forms.Timer dockerscollapser;
         private System.Windows.Forms.ToolStripButton buttonviewfloorcolor;
         private System.Windows.Forms.ToolStripMenuItem itemviewfloorcolor;
         private System.Windows.Forms.ToolStripButton buttonviewceilingcolor;
         private System.Windows.Forms.ToolStripMenuItem itemviewceilingcolor;
         private System.Windows.Forms.ToolStripButton buttonviewthingcolor;
         private System.Windows.Forms.ToolStripMenuItem itemviewthingcolor;
-	}
+    }
 }

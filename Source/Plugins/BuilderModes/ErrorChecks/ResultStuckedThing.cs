@@ -38,58 +38,58 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	public class ResultStuckedThing : ErrorResult
-	{
-		#region ================== Variables
+    public class ResultStuckedThing : ErrorResult
+    {
+        #region ================== Variables
 
-		private Thing thing;
-		
-		#endregion
-		
-		#region ================== Properties
+        private Thing thing;
 
-		public override int Buttons { get { return 1; } }
-		public override string Button1Text { get { return "Delete Thing"; } }
+        #endregion
 
-		#endregion
-		
-		#region ================== Constructor / Destructor
-		
-		// Constructor
-		public ResultStuckedThing(Thing t)
-		{
-			// Initialize
-			this.thing = t;
-			this.viewobjects.Add(t);
-			this.description = "This thing is stucked in a wall (single-sided line) and will likely not be able to move around.";
-		}
-		
-		#endregion
-		
-		#region ================== Methods
-		
-		// This must return the string that is displayed in the listbox
-		public override string ToString()
-		{
-			return General.Map.Data.GetThingInfo(thing.Type).Title + " is stucked in a wall at " + thing.Position.x + ", " + thing.Position.y;
-		}
+        #region ================== Properties
 
-		// Rendering
-		public override void RenderOverlaySelection(IRenderer2D renderer)
-		{
-			renderer.RenderThing(thing, renderer.DetermineThingColor(thing), 1.0f);
-		}
+        public override int Buttons { get { return 1; } }
+        public override string Button1Text { get { return "Delete Thing"; } }
 
-		// This removes the thing
-		public override bool Button1Click()
-		{
-			General.Map.UndoRedo.CreateUndo("Delete thing");
-			thing.Dispose();
-			General.Map.IsChanged = true;
-			General.Map.ThingsFilter.Update();
-			return true;
-		}
-		
-		#endregion
-	}
+        #endregion
+
+        #region ================== Constructor / Destructor
+
+        // Constructor
+        public ResultStuckedThing(Thing t)
+        {
+            // Initialize
+            this.thing = t;
+            this.viewobjects.Add(t);
+            this.description = "This thing is stucked in a wall (single-sided line) and will likely not be able to move around.";
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // This must return the string that is displayed in the listbox
+        public override string ToString()
+        {
+            return General.Map.Data.GetThingInfo(thing.Type).Title + " is stucked in a wall at " + thing.Position.x + ", " + thing.Position.y;
+        }
+
+        // Rendering
+        public override void RenderOverlaySelection(IRenderer2D renderer)
+        {
+            renderer.RenderThing(thing, renderer.DetermineThingColor(thing), 1.0f);
+        }
+
+        // This removes the thing
+        public override bool Button1Click()
+        {
+            General.Map.UndoRedo.CreateUndo("Delete thing");
+            thing.Dispose();
+            General.Map.IsChanged = true;
+            General.Map.ThingsFilter.Update();
+            return true;
+        }
+
+        #endregion
+    }
 }

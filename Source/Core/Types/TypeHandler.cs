@@ -32,141 +32,141 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	/// <summary>
-	/// Type Handler base class. A Type Handler takes care of editing, validating and
-	/// displaying values of different types for UDMF fields and hexen arguments.
-	/// </summary>
-	internal abstract class TypeHandler
-	{
-		#region ================== Constants
+    /// <summary>
+    /// Type Handler base class. A Type Handler takes care of editing, validating and
+    /// displaying values of different types for UDMF fields and hexen arguments.
+    /// </summary>
+    internal abstract class TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		protected int index;
-		protected string typename;
-		protected bool customusable;
-		protected bool forargument;
-		protected ArgumentInfo arginfo;
-		protected TypeHandlerAttribute attribute;
-		
-		#endregion
+        protected int index;
+        protected string typename;
+        protected bool customusable;
+        protected bool forargument;
+        protected ArgumentInfo arginfo;
+        protected TypeHandlerAttribute attribute;
 
-		#region ================== Properties
+        #endregion
 
-		public int Index { get { return index; } }
-		public string TypeName { get { return typename; } }
-		public bool IsCustomUsable { get { return customusable; } }
-		public bool IsForArgument { get { return forargument; } }
-		public TypeHandlerAttribute Attribute { get { return attribute; } }
+        #region ================== Properties
 
-		public virtual bool IsBrowseable { get { return false; } }
-		public virtual bool IsEnumerable { get { return false; } }
-		public virtual bool IsLimitedToEnums { get { return false; } }
+        public int Index { get { return index; } }
+        public string TypeName { get { return typename; } }
+        public bool IsCustomUsable { get { return customusable; } }
+        public bool IsForArgument { get { return forargument; } }
+        public TypeHandlerAttribute Attribute { get { return attribute; } }
 
-		#endregion
+        public virtual bool IsBrowseable { get { return false; } }
+        public virtual bool IsEnumerable { get { return false; } }
+        public virtual bool IsLimitedToEnums { get { return false; } }
 
-		#region ================== Constructor
+        #endregion
 
-		// Constructor
-		public TypeHandler()
-		{
-		}
+        #region ================== Constructor
 
-		// This sets up the handler for arguments
-		public virtual void SetupArgument(TypeHandlerAttribute attr, ArgumentInfo arginfo)
-		{
-			// Setup
-			this.forargument = true;
-			this.arginfo = arginfo;
-			if(attr != null)
-			{
-				// Set attributes
-				this.attribute = attr;
-				this.index = attr.Index;
-				this.typename = attr.Name;
-				this.customusable = attr.IsCustomUsable;
-			}
-			else
-			{
-				// Indexless
-				this.attribute = null;
-				this.index = -1;
-				this.typename = "Unknown";
-				this.customusable = false;
-			}
-		}
+        // Constructor
+        public TypeHandler()
+        {
+        }
 
-		// This sets up the handler for arguments
-		public virtual void SetupField(TypeHandlerAttribute attr, UniversalFieldInfo fieldinfo)
-		{
-			// Setup
-			this.forargument = false;
-			this.arginfo = arginfo;
-			if(attr != null)
-			{
-				// Set attributes
-				this.attribute = attr;
-				this.index = attr.Index;
-				this.typename = attr.Name;
-				this.customusable = attr.IsCustomUsable;
-			}
-			else
-			{
-				// Indexless
-				this.attribute = null;
-				this.index = -1;
-				this.typename = "Unknown";
-				this.customusable = false;
-			}
-		}
-		
-		#endregion
+        // This sets up the handler for arguments
+        public virtual void SetupArgument(TypeHandlerAttribute attr, ArgumentInfo arginfo)
+        {
+            // Setup
+            this.forargument = true;
+            this.arginfo = arginfo;
+            if (attr != null)
+            {
+                // Set attributes
+                this.attribute = attr;
+                this.index = attr.Index;
+                this.typename = attr.Name;
+                this.customusable = attr.IsCustomUsable;
+            }
+            else
+            {
+                // Indexless
+                this.attribute = null;
+                this.index = -1;
+                this.typename = "Unknown";
+                this.customusable = false;
+            }
+        }
 
-		#region ================== Methods
+        // This sets up the handler for arguments
+        public virtual void SetupField(TypeHandlerAttribute attr, UniversalFieldInfo fieldinfo)
+        {
+            // Setup
+            this.forargument = false;
+            this.arginfo = arginfo;
+            if (attr != null)
+            {
+                // Set attributes
+                this.attribute = attr;
+                this.index = attr.Index;
+                this.typename = attr.Name;
+                this.customusable = attr.IsCustomUsable;
+            }
+            else
+            {
+                // Indexless
+                this.attribute = null;
+                this.index = -1;
+                this.typename = "Unknown";
+                this.customusable = false;
+            }
+        }
 
-		// This must set the value
-		// How the value is actually validated and stored is up to the implementation
-		public abstract void SetValue(object value);
+        #endregion
 
-		// This must return the value as one of the primitive data types
-		// supported by UDMF: int, string, float or bool
-		public abstract object GetValue();
-		
-		// This must return the value as integer (for arguments)
-		public virtual int GetIntValue()
-		{
-			throw new NotSupportedException("Override this method to support it as integer for arguments");
-		}
+        #region ================== Methods
 
-		// This must return the value as a string for displaying
-		public abstract string GetStringValue();
+        // This must set the value
+        // How the value is actually validated and stored is up to the implementation
+        public abstract void SetValue(object value);
 
-		// This is called when the user presses the browse button
-		public virtual void Browse(IWin32Window parent)
-		{
-		}
-		
-		// This must returns an enum list when IsEnumerable is true
-		public virtual EnumList GetEnumList()
-		{
-			return null;
-		}
-		
-		// String representation
-		public override string ToString()
-		{
-			return this.GetStringValue();
-		}
+        // This must return the value as one of the primitive data types
+        // supported by UDMF: int, string, float or bool
+        public abstract object GetValue();
 
-		// This returns the type to display for fixed fields
-		// Must be a custom usable type
-		public virtual TypeHandlerAttribute GetDisplayType()
-		{
-			return this.attribute;
-		}
-		
-		#endregion
-	}
+        // This must return the value as integer (for arguments)
+        public virtual int GetIntValue()
+        {
+            throw new NotSupportedException("Override this method to support it as integer for arguments");
+        }
+
+        // This must return the value as a string for displaying
+        public abstract string GetStringValue();
+
+        // This is called when the user presses the browse button
+        public virtual void Browse(IWin32Window parent)
+        {
+        }
+
+        // This must returns an enum list when IsEnumerable is true
+        public virtual EnumList GetEnumList()
+        {
+            return null;
+        }
+
+        // String representation
+        public override string ToString()
+        {
+            return this.GetStringValue();
+        }
+
+        // This returns the type to display for fixed fields
+        // Must be a custom usable type
+        public virtual TypeHandlerAttribute GetDisplayType()
+        {
+            return this.attribute;
+        }
+
+        #endregion
+    }
 }

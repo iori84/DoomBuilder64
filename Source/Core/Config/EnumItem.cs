@@ -31,56 +31,56 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public class EnumItem
-	{
-		#region ================== Constants
+    public class EnumItem
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private string value;
-		private string title;
+        private string value;
+        private string title;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public string Value { get { return value; } }
-		public string Title { get { return title; } }
+        public string Value { get { return value; } }
+        public string Title { get { return title; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor
+        #region ================== Constructor
 
-		// Constructor
-		public EnumItem(string value, string title)
-		{
-			// Initialize
-			this.value = value;
-			this.title = title;
-		}
-		
-		#endregion
+        // Constructor
+        public EnumItem(string value, string title)
+        {
+            // Initialize
+            this.value = value;
+            this.title = title;
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// String representation
-		public override string ToString()
-		{
-			return title;
-		}
+        #region ================== Methods
 
-		// This returns the value as int
-		public int GetIntValue()
-		{
-			int result;
-			if(int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result))
-				return result;
-			else
-				return 0;
-		}
-		
-		#endregion
-	}
+        // String representation
+        public override string ToString()
+        {
+            return title;
+        }
+
+        // This returns the value as int
+        public int GetIntValue()
+        {
+            int result;
+            if (int.TryParse(value, NumberStyles.Integer, CultureInfo.InvariantCulture, out result))
+                return result;
+            else
+                return 0;
+        }
+
+        #endregion
+    }
 }

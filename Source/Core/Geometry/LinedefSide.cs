@@ -31,87 +31,87 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Geometry
 {
-	/// <summary>
-	/// This is used to indicate a side of a line without the need for a sidedef.
-	/// </summary>
-	public sealed class LinedefSide
-	{
-		#region ================== Constants
+    /// <summary>
+    /// This is used to indicate a side of a line without the need for a sidedef.
+    /// </summary>
+    public sealed class LinedefSide
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private Linedef line;
-		private bool front;
-		
-		#endregion
+        private Linedef line;
+        private bool front;
 
-		#region ================== Properties
+        #endregion
 
-		public Linedef Line { get { return line; } set { line = value; } }
-		public bool Front { get { return front; } set { front = value; } }
+        #region ================== Properties
 
-		#endregion
+        public Linedef Line { get { return line; } set { line = value; } }
+        public bool Front { get { return front; } set { front = value; } }
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		/// <summary>
-		/// This is used to indicate a side of a line without the need for a sidedef.
-		/// </summary>
-		public LinedefSide()
-		{
-			// Initialize
+        #region ================== Constructor / Disposer
 
-		}
+        /// <summary>
+        /// This is used to indicate a side of a line without the need for a sidedef.
+        /// </summary>
+        public LinedefSide()
+        {
+            // Initialize
 
-		/// <summary>
-		/// This is used to indicate a side of a line without the need for a sidedef.
-		/// </summary>
-		public LinedefSide(Linedef line, bool front)
-		{
-			// Initialize
-			this.line = line;
-			this.front = front;
-		}
+        }
 
-		/// <summary>
-		/// This makes a copy of the linedef side.
-		/// </summary>
-		public LinedefSide(LinedefSide original)
-		{
-			// Initialize
-			this.line = original.line;
-			this.front = original.front;
-		}
+        /// <summary>
+        /// This is used to indicate a side of a line without the need for a sidedef.
+        /// </summary>
+        public LinedefSide(Linedef line, bool front)
+        {
+            // Initialize
+            this.line = line;
+            this.front = front;
+        }
 
-		// Destructor
-		~LinedefSide()
-		{
-		}
+        /// <summary>
+        /// This makes a copy of the linedef side.
+        /// </summary>
+        public LinedefSide(LinedefSide original)
+        {
+            // Initialize
+            this.line = original.line;
+            this.front = original.front;
+        }
 
-		#endregion
+        // Destructor
+        ~LinedefSide()
+        {
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// This compares a linedef side
-		public static bool operator ==(LinedefSide a, LinedefSide b)
-		{
-			if((object.Equals(a, null)) && (object.Equals(b, null))) return true;
-			if((!object.Equals(a, null)) && (object.Equals(b, null))) return false;
-			if((object.Equals(a, null)) && (!object.Equals(b, null))) return false;
-			return (a.line == b.line) && (a.front == b.front);
-		}
+        #region ================== Methods
 
-		// This compares a linedef side
-		public static bool operator !=(LinedefSide a, LinedefSide b)
-		{
-			if((object.Equals(a, null)) && (object.Equals(b, null))) return false;
-			if((!object.Equals(a, null)) && (object.Equals(b, null))) return true;
-			if((object.Equals(a, null)) && (!object.Equals(b, null))) return true;
-			return (a.line != b.line) || (a.front != b.front);
-		}
+        // This compares a linedef side
+        public static bool operator ==(LinedefSide a, LinedefSide b)
+        {
+            if ((object.Equals(a, null)) && (object.Equals(b, null))) return true;
+            if ((!object.Equals(a, null)) && (object.Equals(b, null))) return false;
+            if ((object.Equals(a, null)) && (!object.Equals(b, null))) return false;
+            return (a.line == b.line) && (a.front == b.front);
+        }
 
-		#endregion
-	}
+        // This compares a linedef side
+        public static bool operator !=(LinedefSide a, LinedefSide b)
+        {
+            if ((object.Equals(a, null)) && (object.Equals(b, null))) return false;
+            if ((!object.Equals(a, null)) && (object.Equals(b, null))) return true;
+            if ((object.Equals(a, null)) && (!object.Equals(b, null))) return true;
+            return (a.line != b.line) || (a.front != b.front);
+        }
+
+        #endregion
+    }
 }

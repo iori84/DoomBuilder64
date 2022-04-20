@@ -31,165 +31,165 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	internal class TypesManager : IDisposable
-	{
-		#region ================== Constants
+    internal class TypesManager : IDisposable
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// List of handler types
-		private Dictionary<int, TypeHandlerAttribute> handlertypes;
-		
-		// Disposing
-		private bool isdisposed = false;
+        // List of handler types
+        private Dictionary<int, TypeHandlerAttribute> handlertypes;
 
-		#endregion
+        // Disposing
+        private bool isdisposed = false;
 
-		#region ================== Properties
+        #endregion
 
-		public bool IsDisposed { get { return isdisposed; } }
+        #region ================== Properties
 
-		#endregion
+        public bool IsDisposed { get { return isdisposed; } }
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		// Constructor
-		public TypesManager()
-		{
-			// Initialize
-			handlertypes = new Dictionary<int, TypeHandlerAttribute>();
+        #region ================== Constructor / Disposer
 
-			// Go for all types in this assembly
-			Type[] types = General.ThisAssembly.GetTypes();
-			foreach(Type tp in types)
-			{
-				// Check if this type is a class
-				if(tp.IsClass && !tp.IsAbstract && !tp.IsArray)
-				{
-					// Check if class has an TypeHandler attribute
-					if(Attribute.IsDefined(tp, typeof(TypeHandlerAttribute), false))
-					{
-						// Add the type to the list
-						object[] attribs = tp.GetCustomAttributes(typeof(TypeHandlerAttribute), false);
-						TypeHandlerAttribute attr = (attribs[0] as TypeHandlerAttribute);
-						attr.Type = tp;
-						handlertypes.Add(attr.Index, attr);
-					}
-				}
-			}
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        // Constructor
+        public TypesManager()
+        {
+            // Initialize
+            handlertypes = new Dictionary<int, TypeHandlerAttribute>();
 
-		// Disposer
-		public void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
-				handlertypes.Clear();
-				
-				// Done
-				isdisposed = true;
-			}
-		}
+            // Go for all types in this assembly
+            Type[] types = General.ThisAssembly.GetTypes();
+            foreach (Type tp in types)
+            {
+                // Check if this type is a class
+                if (tp.IsClass && !tp.IsAbstract && !tp.IsArray)
+                {
+                    // Check if class has an TypeHandler attribute
+                    if (Attribute.IsDefined(tp, typeof(TypeHandlerAttribute), false))
+                    {
+                        // Add the type to the list
+                        object[] attribs = tp.GetCustomAttributes(typeof(TypeHandlerAttribute), false);
+                        TypeHandlerAttribute attr = (attribs[0] as TypeHandlerAttribute);
+                        attr.Type = tp;
+                        handlertypes.Add(attr.Index, attr);
+                    }
+                }
+            }
 
-		#endregion
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		#region ================== Methods
+        // Disposer
+        public void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
+                handlertypes.Clear();
 
-		// This returns the type handler for the given argument
-		public TypeHandler GetArgumentHandler(ArgumentInfo arginfo)
-		{
-			Type t = typeof(NullHandler);
-			TypeHandlerAttribute ta = null;
-			
-			// Do we have a handler type for this?
-			if(handlertypes.ContainsKey(arginfo.Type))
-			{
-				ta = handlertypes[arginfo.Type];
-				t = ta.Type;
-			}
+                // Done
+                isdisposed = true;
+            }
+        }
 
-			// Create instance
-			TypeHandler th = (TypeHandler)General.ThisAssembly.CreateInstance(t.FullName);
-			th.SetupArgument(ta, arginfo);
-			return th;
-		}
+        #endregion
 
-		// This returns the type handler for a custom universal field
-		public TypeHandler GetFieldHandler(int type, object defaultsetting)
-		{
-			Type t = typeof(NullHandler);
-			TypeHandlerAttribute ta = null;
+        #region ================== Methods
 
-			// Do we have a handler type for this?
-			if(handlertypes.ContainsKey(type))
-			{
-				ta = handlertypes[type];
-				t = ta.Type;
-			}
+        // This returns the type handler for the given argument
+        public TypeHandler GetArgumentHandler(ArgumentInfo arginfo)
+        {
+            Type t = typeof(NullHandler);
+            TypeHandlerAttribute ta = null;
 
-			// Create instance
-			TypeHandler th = (TypeHandler)General.ThisAssembly.CreateInstance(t.FullName);
-			th.SetupField(ta, null);
-			th.SetValue(defaultsetting);
-			return th;
-		}
+            // Do we have a handler type for this?
+            if (handlertypes.ContainsKey(arginfo.Type))
+            {
+                ta = handlertypes[arginfo.Type];
+                t = ta.Type;
+            }
 
-		// This returns the type handler for a given universal field
-		public TypeHandler GetFieldHandler(UniversalFieldInfo fieldinfo)
-		{
-			Type t = typeof(NullHandler);
-			TypeHandlerAttribute ta = null;
+            // Create instance
+            TypeHandler th = (TypeHandler)General.ThisAssembly.CreateInstance(t.FullName);
+            th.SetupArgument(ta, arginfo);
+            return th;
+        }
 
-			// Do we have a handler type for this?
-			if(handlertypes.ContainsKey(fieldinfo.Type))
-			{
-				ta = handlertypes[fieldinfo.Type];
-				t = ta.Type;
-			}
+        // This returns the type handler for a custom universal field
+        public TypeHandler GetFieldHandler(int type, object defaultsetting)
+        {
+            Type t = typeof(NullHandler);
+            TypeHandlerAttribute ta = null;
 
-			// Create instance
-			TypeHandler th = (TypeHandler)General.ThisAssembly.CreateInstance(t.FullName);
-			th.SetupField(ta, fieldinfo);
-			th.SetValue(fieldinfo.Default);
-			return th;
-		}
-		
-		// This returns all custom attributes
-		public TypeHandlerAttribute[] GetCustomUseAttributes()
-		{
-			List<TypeHandlerAttribute> attribs = new List<TypeHandlerAttribute>();
-			foreach(KeyValuePair<int, TypeHandlerAttribute> ta in handlertypes)
-				if(ta.Value.IsCustomUsable) attribs.Add(ta.Value);
-			return attribs.ToArray();
-		}
+            // Do we have a handler type for this?
+            if (handlertypes.ContainsKey(type))
+            {
+                ta = handlertypes[type];
+                t = ta.Type;
+            }
 
-		// This returns the attribute with the give name
-		public TypeHandlerAttribute GetNamedAttribute(string name)
-		{
-			foreach(KeyValuePair<int, TypeHandlerAttribute> ta in handlertypes)
-			{
-				if(ta.Value.Name == name) return ta.Value;
-			}
+            // Create instance
+            TypeHandler th = (TypeHandler)General.ThisAssembly.CreateInstance(t.FullName);
+            th.SetupField(ta, null);
+            th.SetValue(defaultsetting);
+            return th;
+        }
 
-			// Nothing found
-			return null;
-		}
+        // This returns the type handler for a given universal field
+        public TypeHandler GetFieldHandler(UniversalFieldInfo fieldinfo)
+        {
+            Type t = typeof(NullHandler);
+            TypeHandlerAttribute ta = null;
 
-		// This returns the attribute with the give type
-		public TypeHandlerAttribute GetAttribute(int type)
-		{
-			// Do we have a handler type for this?
-			if(handlertypes.ContainsKey(type)) return handlertypes[type];
-				else return null;
-		}
-		
-		#endregion
-	}
+            // Do we have a handler type for this?
+            if (handlertypes.ContainsKey(fieldinfo.Type))
+            {
+                ta = handlertypes[fieldinfo.Type];
+                t = ta.Type;
+            }
+
+            // Create instance
+            TypeHandler th = (TypeHandler)General.ThisAssembly.CreateInstance(t.FullName);
+            th.SetupField(ta, fieldinfo);
+            th.SetValue(fieldinfo.Default);
+            return th;
+        }
+
+        // This returns all custom attributes
+        public TypeHandlerAttribute[] GetCustomUseAttributes()
+        {
+            List<TypeHandlerAttribute> attribs = new List<TypeHandlerAttribute>();
+            foreach (KeyValuePair<int, TypeHandlerAttribute> ta in handlertypes)
+                if (ta.Value.IsCustomUsable) attribs.Add(ta.Value);
+            return attribs.ToArray();
+        }
+
+        // This returns the attribute with the give name
+        public TypeHandlerAttribute GetNamedAttribute(string name)
+        {
+            foreach (KeyValuePair<int, TypeHandlerAttribute> ta in handlertypes)
+            {
+                if (ta.Value.Name == name) return ta.Value;
+            }
+
+            // Nothing found
+            return null;
+        }
+
+        // This returns the attribute with the give type
+        public TypeHandlerAttribute GetAttribute(int type)
+        {
+            // Do we have a handler type for this?
+            if (handlertypes.ContainsKey(type)) return handlertypes[type];
+            else return null;
+        }
+
+        #endregion
+    }
 }

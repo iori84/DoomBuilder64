@@ -34,93 +34,93 @@ using System.Drawing;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.Color, "Color", true)]
-	internal class ColorHandler : TypeHandler
-	{
-		#region ================== Constants
+    [TypeHandler(UniversalType.Color, "Color", true)]
+    internal class ColorHandler : TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private int value;		// XXRRGGBB color
+        private int value;      // XXRRGGBB color
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public override bool IsBrowseable { get { return true; } }
+        public override bool IsBrowseable { get { return true; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor
+        #region ================== Constructor
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		public override void Browse(IWin32Window parent)
-		{
-			ColorDialog dialog = new ColorDialog();
-			dialog.AllowFullOpen = true;
-			dialog.AnyColor = true;
-			dialog.Color = Color.FromArgb((value >> 16) & 0xFF, (value >> 8) & 0xFF, value & 0xFF);
-			dialog.FullOpen = true;
-			if(dialog.ShowDialog(parent) == DialogResult.OK)
-			{
-				value = dialog.Color.ToArgb() & 0x00FFFFFF;
-			}
-		}
+        public override void Browse(IWin32Window parent)
+        {
+            ColorDialog dialog = new ColorDialog();
+            dialog.AllowFullOpen = true;
+            dialog.AnyColor = true;
+            dialog.Color = Color.FromArgb((value >> 16) & 0xFF, (value >> 8) & 0xFF, value & 0xFF);
+            dialog.FullOpen = true;
+            if (dialog.ShowDialog(parent) == DialogResult.OK)
+            {
+                value = dialog.Color.ToArgb() & 0x00FFFFFF;
+            }
+        }
 
-		public override void SetValue(object value)
-		{
-			int result;
+        public override void SetValue(object value)
+        {
+            int result;
 
-			// Null?
-			if(value == null)
-			{
-				this.value = 0;
-			}
-			// Compatible type?
-			else if((value is int) || (value is float) || (value is bool))
-			{
-				// Set directly
-				this.value = Convert.ToInt32(value);
-			}
-			// String?
-			else if(value is string)
-			{
-				// Try parsing as string
-				if(int.TryParse(value.ToString(), NumberStyles.HexNumber, CultureInfo.CurrentCulture, out result))
-				{
-					this.value = result;
-				}
-				else
-				{
-					this.value = 0;
-				}
-			}
-			else
-			{
-				this.value = 0;
-			}
-		}
+            // Null?
+            if (value == null)
+            {
+                this.value = 0;
+            }
+            // Compatible type?
+            else if ((value is int) || (value is float) || (value is bool))
+            {
+                // Set directly
+                this.value = Convert.ToInt32(value);
+            }
+            // String?
+            else if (value is string)
+            {
+                // Try parsing as string
+                if (int.TryParse(value.ToString(), NumberStyles.HexNumber, CultureInfo.CurrentCulture, out result))
+                {
+                    this.value = result;
+                }
+                else
+                {
+                    this.value = 0;
+                }
+            }
+            else
+            {
+                this.value = 0;
+            }
+        }
 
-		public override object GetValue()
-		{
-			return this.value;
-		}
+        public override object GetValue()
+        {
+            return this.value;
+        }
 
-		public override int GetIntValue()
-		{
-			return this.value;
-		}
+        public override int GetIntValue()
+        {
+            return this.value;
+        }
 
-		public override string GetStringValue()
-		{
-			return this.value.ToString("X6");
-		}
+        public override string GetStringValue()
+        {
+            return this.value.ToString("X6");
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

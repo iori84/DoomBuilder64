@@ -1,33 +1,33 @@
 namespace CodeImp.DoomBuilder.Controls
 {
-	partial class SectorInfoPanel
-	{
-		/// <summary> 
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class SectorInfoPanel
+    {
+        /// <summary> 
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary> 
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if(disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary> 
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Component Designer generated code
+        #region Component Designer generated code
 
-		/// <summary> 
-		/// Required method for Designer support - do not modify 
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary> 
+        /// Required method for Designer support - do not modify 
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.Windows.Forms.Label label5;
             System.Windows.Forms.Label label4;
             System.Windows.Forms.Label label3;
@@ -393,23 +393,23 @@ namespace CodeImp.DoomBuilder.Controls
             this.lightInfo.PerformLayout();
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Label brightness;
-		private System.Windows.Forms.Label height;
-		private System.Windows.Forms.Label tag;
-		private System.Windows.Forms.Label floor;
-		private System.Windows.Forms.Label ceiling;
-		private System.Windows.Forms.Label effect;
-		private System.Windows.Forms.GroupBox ceilingpanel;
-		private System.Windows.Forms.Label ceilingname;
-		private System.Windows.Forms.Panel ceilingtex;
-		private System.Windows.Forms.GroupBox floorpanel;
-		private System.Windows.Forms.Label floorname;
-		private System.Windows.Forms.Panel floortex;
-		private System.Windows.Forms.GroupBox sectorinfo;
+        private System.Windows.Forms.Label brightness;
+        private System.Windows.Forms.Label height;
+        private System.Windows.Forms.Label tag;
+        private System.Windows.Forms.Label floor;
+        private System.Windows.Forms.Label ceiling;
+        private System.Windows.Forms.Label effect;
+        private System.Windows.Forms.GroupBox ceilingpanel;
+        private System.Windows.Forms.Label ceilingname;
+        private System.Windows.Forms.Panel ceilingtex;
+        private System.Windows.Forms.GroupBox floorpanel;
+        private System.Windows.Forms.Label floorname;
+        private System.Windows.Forms.Panel floortex;
+        private System.Windows.Forms.GroupBox sectorinfo;
         private System.Windows.Forms.Label brightLabel;
         private System.Windows.Forms.GroupBox lightInfo;
         private System.Windows.Forms.Label label8;
@@ -422,5 +422,5 @@ namespace CodeImp.DoomBuilder.Controls
         private System.Windows.Forms.Panel thingcolor;
         private System.Windows.Forms.Label label9;
         private System.Windows.Forms.Panel lowercolor;
-	}
+    }
 }

@@ -38,45 +38,45 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Windows
 {
-	public struct StatusInfo
-	{
-		public StatusType type;
-		public string message;
-		internal bool displayed;
-		
-		internal StatusInfo(StatusType type, string message)
-		{
-			this.type = type;
-			this.message = message;
-			this.displayed = false;
-		}
-	}
-	
-	public enum StatusType : int
-	{
-		/// <summary>
-		/// When no particular information is to be displayed. The messages displayed depends on running background processes.
-		/// </summary>
-		Ready,
-		
-		/// <summary>
-		/// Shows action information and flashes up the status icon once.
-		/// </summary>
-		Action,
-		
-		/// <summary>
-		/// Shows information without flashing the icon.
-		/// </summary>
-		Info,
-		
-		/// <summary>
-		/// Shows information with the busy icon.
-		/// </summary>
-		Busy,
-		
-		/// <summary>
-		/// Shows a warning, makes a warning sound and flashes a warning icon.
-		/// </summary>
-		Warning
-	}
+    public struct StatusInfo
+    {
+        public StatusType type;
+        public string message;
+        internal bool displayed;
+
+        internal StatusInfo(StatusType type, string message)
+        {
+            this.type = type;
+            this.message = message;
+            this.displayed = false;
+        }
+    }
+
+    public enum StatusType : int
+    {
+        /// <summary>
+        /// When no particular information is to be displayed. The messages displayed depends on running background processes.
+        /// </summary>
+        Ready,
+
+        /// <summary>
+        /// Shows action information and flashes up the status icon once.
+        /// </summary>
+        Action,
+
+        /// <summary>
+        /// Shows information without flashing the icon.
+        /// </summary>
+        Info,
+
+        /// <summary>
+        /// Shows information with the busy icon.
+        /// </summary>
+        Busy,
+
+        /// <summary>
+        /// Shows a warning, makes a warning sound and flashes a warning icon.
+        /// </summary>
+        Warning
+    }
 }

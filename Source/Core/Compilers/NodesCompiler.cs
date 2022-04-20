@@ -31,95 +31,95 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Compilers
 {
-	internal sealed class NodesCompiler : Compiler
-	{
-		#region ================== Constants
+    internal sealed class NodesCompiler : Compiler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		public NodesCompiler(CompilerInfo info) : base(info)
-		{
-			// Initialize
+        // Constructor
+        public NodesCompiler(CompilerInfo info) : base(info)
+        {
+            // Initialize
 
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		// Disposer
-		public override void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
+        // Disposer
+        public override void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
 
-				// Done
-				base.Dispose();
-			}
-		}
+                // Done
+                base.Dispose();
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// This runs the compiler with a file as input.
-		public override bool Run()
-		{
-			ProcessStartInfo processinfo;
-			Process process;
-			TimeSpan deltatime;
-			
-			// Create parameters
-			string args = this.parameters;
-			args = args.Replace("%FI", inputfile);
-			args = args.Replace("%FO", outputfile);
-			
-			// Setup process info
-			processinfo = new ProcessStartInfo();
-			processinfo.Arguments = args;
-			processinfo.FileName = Path.Combine(this.tempdir.FullName, info.ProgramFile);
-			processinfo.CreateNoWindow = false;
-			processinfo.ErrorDialog = false;
-			processinfo.UseShellExecute = true;
-			processinfo.WindowStyle = ProcessWindowStyle.Hidden;
-			processinfo.WorkingDirectory = this.workingdir;
-			
-			// Output info
-			General.WriteLogLine("Running compiler...");
-			General.WriteLogLine("Program:    " + processinfo.FileName);
-			General.WriteLogLine("Arguments:  " + processinfo.Arguments);
-			
-			try
-			{
-				// Start the compiler
-				process = Process.Start(processinfo);
-			}
-			catch(Exception e)
-			{
-				// Unable to start the compiler
-				General.ShowErrorMessage("Unable to start the compiler (" + info.Name + "). " + e.GetType().Name + ": " + e.Message, MessageBoxButtons.OK);
-				return false;
-			}
-			
-			// Wait for compiler to complete
-			process.WaitForExit();
-			deltatime = TimeSpan.FromTicks(process.ExitTime.Ticks - process.StartTime.Ticks);
-			General.WriteLogLine("Compiler process has finished.");
-			General.WriteLogLine("Compile time: " + deltatime.TotalSeconds.ToString("########0.00") + " seconds");
-			return true;
-		}
-		
-		#endregion
-	}
+        // This runs the compiler with a file as input.
+        public override bool Run()
+        {
+            ProcessStartInfo processinfo;
+            Process process;
+            TimeSpan deltatime;
+
+            // Create parameters
+            string args = this.parameters;
+            args = args.Replace("%FI", inputfile);
+            args = args.Replace("%FO", outputfile);
+
+            // Setup process info
+            processinfo = new ProcessStartInfo();
+            processinfo.Arguments = args;
+            processinfo.FileName = Path.Combine(this.tempdir.FullName, info.ProgramFile);
+            processinfo.CreateNoWindow = false;
+            processinfo.ErrorDialog = false;
+            processinfo.UseShellExecute = true;
+            processinfo.WindowStyle = ProcessWindowStyle.Hidden;
+            processinfo.WorkingDirectory = this.workingdir;
+
+            // Output info
+            General.WriteLogLine("Running compiler...");
+            General.WriteLogLine("Program:    " + processinfo.FileName);
+            General.WriteLogLine("Arguments:  " + processinfo.Arguments);
+
+            try
+            {
+                // Start the compiler
+                process = Process.Start(processinfo);
+            }
+            catch (Exception e)
+            {
+                // Unable to start the compiler
+                General.ShowErrorMessage("Unable to start the compiler (" + info.Name + "). " + e.GetType().Name + ": " + e.Message, MessageBoxButtons.OK);
+                return false;
+            }
+
+            // Wait for compiler to complete
+            process.WaitForExit();
+            deltatime = TimeSpan.FromTicks(process.ExitTime.Ticks - process.StartTime.Ticks);
+            General.WriteLogLine("Compiler process has finished.");
+            General.WriteLogLine("Compile time: " + deltatime.TotalSeconds.ToString("########0.00") + " seconds");
+            return true;
+        }
+
+        #endregion
+    }
 }

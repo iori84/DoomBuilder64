@@ -30,51 +30,51 @@ using System.Diagnostics;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	internal class TypeHandlerAttribute : Attribute
-	{
-		#region ================== Constants
+    internal class TypeHandlerAttribute : Attribute
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private int index;
-		private string name;
-		private Type type;
-		private bool customusable;
-		
-		#endregion
+        private int index;
+        private string name;
+        private Type type;
+        private bool customusable;
 
-		#region ================== Properties
+        #endregion
 
-		public int Index { get { return index; } }
-		public string Name { get { return name; } }
-		public bool IsCustomUsable { get { return customusable; } }
-		public Type Type { get { return type; } set { type = value; } }
-		
-		#endregion
+        #region ================== Properties
 
-		#region ================== Constructor / Destructor
+        public int Index { get { return index; } }
+        public string Name { get { return name; } }
+        public bool IsCustomUsable { get { return customusable; } }
+        public Type Type { get { return type; } set { type = value; } }
 
-		// Constructor
-		public TypeHandlerAttribute(UniversalType index, string name, bool customusable)
-		{
-			// Initialize
-			this.index = (int)index;
-			this.name = name;
-			this.customusable = customusable;
-		}
+        #endregion
 
-		#endregion
+        #region ================== Constructor / Destructor
 
-		#region ================== Methods
+        // Constructor
+        public TypeHandlerAttribute(UniversalType index, string name, bool customusable)
+        {
+            // Initialize
+            this.index = (int)index;
+            this.name = name;
+            this.customusable = customusable;
+        }
 
-		// String representation
-		public override string ToString()
-		{
-			return name;
-		}
-		
-		#endregion
-	}
+        #endregion
+
+        #region ================== Methods
+
+        // String representation
+        public override string ToString()
+        {
+            return name;
+        }
+
+        #endregion
+    }
 }

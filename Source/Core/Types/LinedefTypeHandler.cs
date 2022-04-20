@@ -33,80 +33,80 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.LinedefType, "Linedef Action", true)]
-	internal class LinedefTypeHandler : TypeHandler
-	{
-		#region ================== Constants
+    [TypeHandler(UniversalType.LinedefType, "Linedef Action", true)]
+    internal class LinedefTypeHandler : TypeHandler
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private int value;
+        private int value;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public override bool IsBrowseable { get { return true; } }
+        public override bool IsBrowseable { get { return true; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor
+        #region ================== Constructor
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		public override void Browse(IWin32Window parent)
-		{
-			this.value = ActionBrowserForm.BrowseAction(parent, this.value);
-		}
-		
-		public override void SetValue(object value)
-		{
-			int result;
+        public override void Browse(IWin32Window parent)
+        {
+            this.value = ActionBrowserForm.BrowseAction(parent, this.value);
+        }
 
-			// Null?
-			if(value == null)
-			{
-				this.value = 0;
-			}
-			// Compatible type?
-			else if((value is int) || (value is float) || (value is bool))
-			{
-				// Set directly
-				this.value = Convert.ToInt32(value);
-			}
-			else
-			{
-				// Try parsing as string
-				if(int.TryParse(value.ToString(), NumberStyles.Integer, CultureInfo.CurrentCulture, out result))
-				{
-					this.value = result;
-				}
-				else
-				{
-					this.value = 0;
-				}
-			}
-		}
+        public override void SetValue(object value)
+        {
+            int result;
 
-		public override object GetValue()
-		{
-			return this.value;
-		}
+            // Null?
+            if (value == null)
+            {
+                this.value = 0;
+            }
+            // Compatible type?
+            else if ((value is int) || (value is float) || (value is bool))
+            {
+                // Set directly
+                this.value = Convert.ToInt32(value);
+            }
+            else
+            {
+                // Try parsing as string
+                if (int.TryParse(value.ToString(), NumberStyles.Integer, CultureInfo.CurrentCulture, out result))
+                {
+                    this.value = result;
+                }
+                else
+                {
+                    this.value = 0;
+                }
+            }
+        }
 
-		public override int GetIntValue()
-		{
-			return this.value;
-		}
+        public override object GetValue()
+        {
+            return this.value;
+        }
 
-		public override string GetStringValue()
-		{
-			return this.value.ToString();
-		}
+        public override int GetIntValue()
+        {
+            return this.value;
+        }
 
-		#endregion
-	}
+        public override string GetStringValue()
+        {
+            return this.value.ToString();
+        }
+
+        #endregion
+    }
 }

@@ -36,60 +36,60 @@ using CodeImp.DoomBuilder.VisualModes;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	// This doesn't do jack shit.
-	internal class NullVisualEventReceiver : IVisualEventReceiver
-	{
-		public NullVisualEventReceiver()
-		{
-		}
-		
-		public void OnSelectBegin()
-		{
-		}
+    // This doesn't do jack shit.
+    internal class NullVisualEventReceiver : IVisualEventReceiver
+    {
+        public NullVisualEventReceiver()
+        {
+        }
 
-		public void OnSelectEnd()
-		{
-		}
+        public void OnSelectBegin()
+        {
+        }
 
-		public void OnEditBegin()
-		{
-		}
+        public void OnSelectEnd()
+        {
+        }
 
-		public void OnEditEnd()
-		{
-		}
+        public void OnEditBegin()
+        {
+        }
 
-		public void OnMouseMove(MouseEventArgs e)
-		{
-		}
+        public void OnEditEnd()
+        {
+        }
 
-		public void OnChangeTargetHeight(int amount)
-		{
-		}
+        public void OnMouseMove(MouseEventArgs e)
+        {
+        }
 
-		public void OnChangeTargetBrightness(bool up)
-		{
-		}
+        public void OnChangeTargetHeight(int amount)
+        {
+        }
 
-		public void OnChangeTextureOffset(int horizontal, int vertical)
-		{
-		}
+        public void OnChangeTargetBrightness(bool up)
+        {
+        }
 
-		public void OnResetTextureOffset()
-		{
-		}
+        public void OnChangeTextureOffset(int horizontal, int vertical)
+        {
+        }
 
-		public void OnSelectTexture()
-		{
-		}
+        public void OnResetTextureOffset()
+        {
+        }
 
-		public void OnCopyTexture()
-		{
-		}
+        public void OnSelectTexture()
+        {
+        }
 
-		public void OnPasteTexture()
-		{
-		}
+        public void OnCopyTexture()
+        {
+        }
+
+        public void OnPasteTexture()
+        {
+        }
 
         // villsa
         public void OnCopyLight()
@@ -101,65 +101,65 @@ namespace CodeImp.DoomBuilder.BuilderModes
         {
         }
 
-		public void OnCopyTextureOffsets()
-		{
-		}
+        public void OnCopyTextureOffsets()
+        {
+        }
 
-		public void OnPasteTextureOffsets()
-		{
-		}
+        public void OnPasteTextureOffsets()
+        {
+        }
 
-		public void OnCopyProperties()
-		{
-		}
+        public void OnCopyProperties()
+        {
+        }
 
-		public void OnPasteProperties()
-		{
-		}
+        public void OnPasteProperties()
+        {
+        }
 
-		public void OnTextureAlign(bool alignx, bool aligny)
-		{
-		}
+        public void OnTextureAlign(bool alignx, bool aligny)
+        {
+        }
 
-		public void OnTextureFloodfill()
-		{
-		}
+        public void OnTextureFloodfill()
+        {
+        }
 
-		public void OnToggleUpperUnpegged()
-		{
-		}
+        public void OnToggleUpperUnpegged()
+        {
+        }
 
-		public void OnToggleLowerUnpegged()
-		{
-		}
+        public void OnToggleLowerUnpegged()
+        {
+        }
 
-		public void OnProcess(double deltatime)
-		{
-		}
+        public void OnProcess(double deltatime)
+        {
+        }
 
-		public void OnInsert()
-		{
-		}
+        public void OnInsert()
+        {
+        }
 
-		public void OnDelete()
-		{
-		}
+        public void OnDelete()
+        {
+        }
 
-		public void ApplyTexture(string texture)
-		{
-		}
+        public void ApplyTexture(string texture)
+        {
+        }
 
-		public void ApplyUpperUnpegged(bool set)
-		{
-		}
+        public void ApplyUpperUnpegged(bool set)
+        {
+        }
 
-		public void ApplyLowerUnpegged(bool set)
-		{
-		}
+        public void ApplyLowerUnpegged(bool set)
+        {
+        }
 
-		public string GetTextureName()
-		{
-			return "";
-		}
-	}
+        public string GetTextureName()
+        {
+            return "";
+        }
+    }
 }

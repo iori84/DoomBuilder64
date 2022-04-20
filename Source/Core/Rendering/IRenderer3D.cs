@@ -39,32 +39,32 @@ using CodeImp.DoomBuilder.VisualModes;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	public interface IRenderer3D
-	{
-		// Properties
-		ProjectedFrustum2D Frustum2D { get; }
-		bool DrawThingCages { get; set; }
-		bool FullBrightness { get; set; }
-		bool ShowSelection { get; set; }
-		bool ShowHighlight { get; set; }
+    public interface IRenderer3D
+    {
+        // Properties
+        ProjectedFrustum2D Frustum2D { get; }
+        bool DrawThingCages { get; set; }
+        bool FullBrightness { get; set; }
+        bool ShowSelection { get; set; }
+        bool ShowHighlight { get; set; }
         bool ShowLightOnly { get; set; }    // villsa
-		
-		// General methods
-		void PositionAndLookAt(Vector3D pos, Vector3D lookat);
-		
-		// Presenting methods
-		void Finish();
-		bool Start();
-		void StartGeometry();
-		void FinishGeometry();
 
-		// Rendering methods
-		int CalculateBrightness(int level);
-		void SetHighlightedObject(IVisualPickable obj);
-		void AddSectorGeometry(VisualGeometry g);
-		void AddThingGeometry(VisualThing t);
-		void RenderCrosshair();
-		void SetFogMode(bool usefog);
-		void SetCrosshairBusy(bool busy);
-	}
+        // General methods
+        void PositionAndLookAt(Vector3D pos, Vector3D lookat);
+
+        // Presenting methods
+        void Finish();
+        bool Start();
+        void StartGeometry();
+        void FinishGeometry();
+
+        // Rendering methods
+        int CalculateBrightness(int level);
+        void SetHighlightedObject(IVisualPickable obj);
+        void AddSectorGeometry(VisualGeometry g);
+        void AddThingGeometry(VisualThing t);
+        void RenderCrosshair();
+        void SetFogMode(bool usefog);
+        void SetCrosshairBusy(bool busy);
+    }
 }

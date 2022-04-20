@@ -37,46 +37,46 @@ using SlimDX;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	public class Docker
-	{
-		#region ================== Variables
-		
-		private string shortname;
-		private string fullname;
-		private string title;
-		private Control control;
-		
-		#endregion
-		
-		#region ================== Variables
-		
-		public string Name { get { return shortname; } }
-		internal string FullName { get { return fullname; } }
-		public string Title { get { return title; } }
-		public Control Control { get { return control; } }
-		
-		#endregion
-		
-		#region ================== Constructor
-		
-		// Constructor
-		public Docker(string name, string title, Control control)
-		{
-			this.shortname = name;
-			this.title = title;
-			this.control = control;
-		}
-		
-		#endregion
-		
-		#region ================== Methods
-		
-		// This makes the full name
-		internal void MakeFullName(string prefix)
-		{
-			fullname = prefix + "_" + shortname;
-		}
-		
-		#endregion
-	}
+    public class Docker
+    {
+        #region ================== Variables
+
+        private string shortname;
+        private string fullname;
+        private string title;
+        private Control control;
+
+        #endregion
+
+        #region ================== Variables
+
+        public string Name { get { return shortname; } }
+        internal string FullName { get { return fullname; } }
+        public string Title { get { return title; } }
+        public Control Control { get { return control; } }
+
+        #endregion
+
+        #region ================== Constructor
+
+        // Constructor
+        public Docker(string name, string title, Control control)
+        {
+            this.shortname = name;
+            this.title = title;
+            this.control = control;
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // This makes the full name
+        internal void MakeFullName(string prefix)
+        {
+            fullname = prefix + "_" + shortname;
+        }
+
+        #endregion
+    }
 }

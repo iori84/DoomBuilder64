@@ -34,119 +34,119 @@ using CodeImp.DoomBuilder.Geometry;
 
 namespace CodeImp.DoomBuilder.Actions
 {
-	internal class MouseInput : IDisposable
-	{
-		#region ================== Variables
+    internal class MouseInput : IDisposable
+    {
+        #region ================== Variables
 
-		// Mouse input
-		private DirectInput dinput;
+        // Mouse input
+        private DirectInput dinput;
         private Mouse mouse;
-		
-		// Disposing
-		private bool isdisposed = false;
 
-		#endregion
+        // Disposing
+        private bool isdisposed = false;
 
-		#region ================== Properties
+        #endregion
 
-		public bool IsDisposed { get { return isdisposed; } }
+        #region ================== Properties
 
-		#endregion
+        public bool IsDisposed { get { return isdisposed; } }
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		// Constructor
-		public MouseInput(Control source)
-		{
-			// Initialize
-			dinput = new DirectInput();
-			
-			// Start mouse input
+        #region ================== Constructor / Disposer
+
+        // Constructor
+        public MouseInput(Control source)
+        {
+            // Initialize
+            dinput = new DirectInput();
+
+            // Start mouse input
             mouse = new Mouse(dinput);
             if (mouse == null) throw new Exception("No mouse device found.");
-			
-			// Set mouse input settings
-			mouse.Properties.AxisMode = DeviceAxisMode.Relative;
-			
-			// Set cooperative level
-			mouse.SetCooperativeLevel(source,
-				CooperativeLevel.Nonexclusive | CooperativeLevel.Foreground);
-			
-			// Aquire device
-			try { mouse.Acquire(); }
-			catch(Exception) { }
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
 
-		// Disposer
-		public void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Dispose
-				mouse.Unacquire();
-				mouse.Dispose();
-				dinput.Dispose();
-				
-				// Clean up
-				mouse = null;
-				dinput = null;
-				
-				// Done
-				isdisposed = true;
-			}
-		}
+            // Set mouse input settings
+            mouse.Properties.AxisMode = DeviceAxisMode.Relative;
 
-		#endregion
+            // Set cooperative level
+            mouse.SetCooperativeLevel(source,
+                CooperativeLevel.Nonexclusive | CooperativeLevel.Foreground);
 
-		#region ================== Methods
+            // Aquire device
+            try { mouse.Acquire(); }
+            catch (Exception) { }
 
-		#endregion
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		#region ================== Processing
+        // Disposer
+        public void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Dispose
+                mouse.Unacquire();
+                mouse.Dispose();
+                dinput.Dispose();
 
-		// This processes the input
-		public Vector2D Process()
-		{
-			MouseState ms;
-			float changex, changey;
-			
-			// Poll the device
-			try
-			{
-				Result result = mouse.Poll();
-				if(result.IsSuccess)
-				{
-					// Get the changes since previous poll
-					ms = mouse.GetCurrentState();
+                // Clean up
+                mouse = null;
+                dinput = null;
 
-					// Calculate changes depending on sensitivity
-					changex = (float)ms.X * General.Settings.VisualMouseSensX * (float)General.Settings.MouseSpeed * 0.01f;
-					changey = (float)ms.Y * General.Settings.VisualMouseSensY * (float)General.Settings.MouseSpeed * 0.01f;
+                // Done
+                isdisposed = true;
+            }
+        }
 
-					// Return changes
-					return new Vector2D(changex, changey);
-				}
-				else
-				{
-					// Reaquire device
-					try { mouse.Acquire(); }
-					catch(Exception) { }
-					return new Vector2D();
-				}
-			}
-			catch(DirectInputException)
-			{
-				// Reaquire device
-				try { mouse.Acquire(); }
-				catch(Exception) { }
-				return new Vector2D();
-			}
-		}
+        #endregion
 
-		#endregion
-	}
+        #region ================== Methods
+
+        #endregion
+
+        #region ================== Processing
+
+        // This processes the input
+        public Vector2D Process()
+        {
+            MouseState ms;
+            float changex, changey;
+
+            // Poll the device
+            try
+            {
+                Result result = mouse.Poll();
+                if (result.IsSuccess)
+                {
+                    // Get the changes since previous poll
+                    ms = mouse.GetCurrentState();
+
+                    // Calculate changes depending on sensitivity
+                    changex = (float)ms.X * General.Settings.VisualMouseSensX * (float)General.Settings.MouseSpeed * 0.01f;
+                    changey = (float)ms.Y * General.Settings.VisualMouseSensY * (float)General.Settings.MouseSpeed * 0.01f;
+
+                    // Return changes
+                    return new Vector2D(changex, changey);
+                }
+                else
+                {
+                    // Reaquire device
+                    try { mouse.Acquire(); }
+                    catch (Exception) { }
+                    return new Vector2D();
+                }
+            }
+            catch (DirectInputException)
+            {
+                // Reaquire device
+                try { mouse.Acquire(); }
+                catch (Exception) { }
+                return new Vector2D();
+            }
+        }
+
+        #endregion
+    }
 }

@@ -30,92 +30,92 @@ using CodeImp.DoomBuilder.IO;
 
 namespace CodeImp.DoomBuilder.Data
 {
-	public sealed class PK3FileImage : ImageData
-	{
-		#region ================== Variables
+    public sealed class PK3FileImage : ImageData
+    {
+        #region ================== Variables
 
-		private PK3Reader datareader;
-		private string filepathname;
-		private int probableformat;
-		
-		#endregion
+        private PK3Reader datareader;
+        private string filepathname;
+        private int probableformat;
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		// Constructor
-		internal PK3FileImage(PK3Reader datareader, string name, string filepathname, bool asflat)
-		{
-			// Initialize
-			this.datareader = datareader;
-			this.filepathname = filepathname;
-			SetName(name);
+        #region ================== Constructor / Disposer
 
-			if(asflat)
-			{
-				probableformat = ImageDataFormat.DOOMFLAT;
-				this.scale.x = General.Map.Config.DefaultFlatScale;
-				this.scale.y = General.Map.Config.DefaultFlatScale;
-			}
-			else
-			{
-				probableformat = ImageDataFormat.DOOMPICTURE;
-				this.scale.x = General.Map.Config.DefaultTextureScale;
-				this.scale.y = General.Map.Config.DefaultTextureScale;
-			}
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        // Constructor
+        internal PK3FileImage(PK3Reader datareader, string name, string filepathname, bool asflat)
+        {
+            // Initialize
+            this.datareader = datareader;
+            this.filepathname = filepathname;
+            SetName(name);
 
-		#endregion
+            if (asflat)
+            {
+                probableformat = ImageDataFormat.DOOMFLAT;
+                this.scale.x = General.Map.Config.DefaultFlatScale;
+                this.scale.y = General.Map.Config.DefaultFlatScale;
+            }
+            else
+            {
+                probableformat = ImageDataFormat.DOOMPICTURE;
+                this.scale.x = General.Map.Config.DefaultTextureScale;
+                this.scale.y = General.Map.Config.DefaultTextureScale;
+            }
 
-		#region ================== Methods
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		// This loads the image
-		protected override void LocalLoadImage()
-		{
-			// Leave when already loaded
-			if(this.IsImageLoaded) return;
+        #endregion
 
-			lock(this)
-			{
-				// Load file data
-				if(bitmap != null) bitmap.Dispose(); bitmap = null;
-				MemoryStream filedata = datareader.ExtractFile(filepathname);
+        #region ================== Methods
 
-				// Get a reader for the data
-				IImageReader reader = ImageDataFormat.GetImageReader(filedata, probableformat, General.Map.Data.Palette);
-				if(!(reader is UnknownImageReader))
-				{
-					// Load the image
-					filedata.Seek(0, SeekOrigin.Begin);
-					try { bitmap = reader.ReadAsBitmap(filedata); }
-					catch(InvalidDataException)
-					{
-						// Data cannot be read!
-						bitmap = null;
-					}
-				}
-				
-				// Not loaded?
-				if(bitmap == null)
-				{
-					General.ErrorLogger.Add(ErrorType.Error, "Image file '" + filepathname + "' data format could not be read, while loading texture '" + this.Name + "'");
-					loadfailed = true;
-				}
-				else
-				{
-					// Get width and height from image
-					width = bitmap.Size.Width;
-					height = bitmap.Size.Height;
-				}
-				
-				// Pass on to base
-				filedata.Dispose();
-				base.LocalLoadImage();
-			}
-		}
-		
-		#endregion
-	}
+        // This loads the image
+        protected override void LocalLoadImage()
+        {
+            // Leave when already loaded
+            if (this.IsImageLoaded) return;
+
+            lock (this)
+            {
+                // Load file data
+                if (bitmap != null) bitmap.Dispose(); bitmap = null;
+                MemoryStream filedata = datareader.ExtractFile(filepathname);
+
+                // Get a reader for the data
+                IImageReader reader = ImageDataFormat.GetImageReader(filedata, probableformat, General.Map.Data.Palette);
+                if (!(reader is UnknownImageReader))
+                {
+                    // Load the image
+                    filedata.Seek(0, SeekOrigin.Begin);
+                    try { bitmap = reader.ReadAsBitmap(filedata); }
+                    catch (InvalidDataException)
+                    {
+                        // Data cannot be read!
+                        bitmap = null;
+                    }
+                }
+
+                // Not loaded?
+                if (bitmap == null)
+                {
+                    General.ErrorLogger.Add(ErrorType.Error, "Image file '" + filepathname + "' data format could not be read, while loading texture '" + this.Name + "'");
+                    loadfailed = true;
+                }
+                else
+                {
+                    // Get width and height from image
+                    width = bitmap.Size.Width;
+                    height = bitmap.Size.Height;
+                }
+
+                // Pass on to base
+                filedata.Dispose();
+                base.LocalLoadImage();
+            }
+        }
+
+        #endregion
+    }
 }

@@ -26,54 +26,54 @@ using System.Text;
 
 namespace CodeImp.DoomBuilder.Data
 {
-	internal struct DataLocation : IComparable<DataLocation>, IComparable, IEquatable<DataLocation>
-	{
-		// Constants
-		public const int RESOURCE_WAD = 0;
-		public const int RESOURCE_DIRECTORY = 1;
-		public const int RESOURCE_PK3 = 2;
-		
-		// Members
-		public int type;
-		public string location;
-		public bool option1;
-		public bool option2;
-		public bool notfortesting;
-		
-		// Constructor
-		public DataLocation(int type, string location, bool option1, bool option2, bool notfortesting)
-		{
-			// Initialize
-			this.type = type;
-			this.location = location;
-			this.option1 = option1;
-			this.option2 = option2;
-			this.notfortesting = notfortesting;
-		}
+    internal struct DataLocation : IComparable<DataLocation>, IComparable, IEquatable<DataLocation>
+    {
+        // Constants
+        public const int RESOURCE_WAD = 0;
+        public const int RESOURCE_DIRECTORY = 1;
+        public const int RESOURCE_PK3 = 2;
 
-		// This displays the struct as string
-		public override string ToString()
-		{
-			// Simply show location
-			return location;
-		}
+        // Members
+        public int type;
+        public string location;
+        public bool option1;
+        public bool option2;
+        public bool notfortesting;
 
-		// This compares two locations
-		public int CompareTo(DataLocation other)
-		{
-			return string.Compare(this.location, other.location, true);
-		}
-		
-		// This compares two locations
-		public int CompareTo(object obj)
-		{
-			return string.Compare(this.location, ((DataLocation)obj).location, true);
-		}
-		
-		// This compares two locations
-		public bool Equals(DataLocation other)
-		{
-			return (this.CompareTo(other) == 0);
-		}
-	}
+        // Constructor
+        public DataLocation(int type, string location, bool option1, bool option2, bool notfortesting)
+        {
+            // Initialize
+            this.type = type;
+            this.location = location;
+            this.option1 = option1;
+            this.option2 = option2;
+            this.notfortesting = notfortesting;
+        }
+
+        // This displays the struct as string
+        public override string ToString()
+        {
+            // Simply show location
+            return location;
+        }
+
+        // This compares two locations
+        public int CompareTo(DataLocation other)
+        {
+            return string.Compare(this.location, other.location, true);
+        }
+
+        // This compares two locations
+        public int CompareTo(object obj)
+        {
+            return string.Compare(this.location, ((DataLocation)obj).location, true);
+        }
+
+        // This compares two locations
+        public bool Equals(DataLocation other)
+        {
+            return (this.CompareTo(other) == 0);
+        }
+    }
 }

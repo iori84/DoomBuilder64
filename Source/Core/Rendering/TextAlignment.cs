@@ -38,19 +38,19 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	// This enumeration defines horizontal alignment
-	public enum TextAlignmentX : int
-	{
-		Left = 0,
-		Center = 1,
-		Right = 2
-	}
+    // This enumeration defines horizontal alignment
+    public enum TextAlignmentX : int
+    {
+        Left = 0,
+        Center = 1,
+        Right = 2
+    }
 
-	// This enumeration defines vertical alignment
-	public enum TextAlignmentY : int
-	{
-		Top = 0,
-		Middle = 1,
-		Bottom = 2
-	}
+    // This enumeration defines vertical alignment
+    public enum TextAlignmentY : int
+    {
+        Top = 0,
+        Middle = 1,
+        Bottom = 2
+    }
 }

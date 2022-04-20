@@ -35,26 +35,26 @@ using CodeImp.DoomBuilder.Rendering; // villsa
 
 namespace CodeImp.DoomBuilder.Windows
 {
-	internal partial class SectorEditForm : DelayedForm
-	{
-		// Variables
-		private ICollection<Sector> sectors;
+    internal partial class SectorEditForm : DelayedForm
+    {
+        // Variables
+        private ICollection<Sector> sectors;
         private PixelColor color;
         private PixelColor[] initialcolor;
         private const float LIGHTINCVALUE = 0.235f;
         private const float LIGHTDECVALUE = -0.1825f;
 
-		// Constructor
-		public SectorEditForm()
-		{
-			// Initialize
-			InitializeComponent();
+        // Constructor
+        public SectorEditForm()
+        {
+            // Initialize
+            InitializeComponent();
 
             color = new PixelColor(255, 255, 255, 255);
             initialcolor = new PixelColor[Sector.NUM_COLORS];
 
-			// Fill effects list
-			effect.AddInfo(General.Map.Config.SortedSectorEffects.ToArray());
+            // Fill effects list
+            effect.AddInfo(General.Map.Config.SortedSectorEffects.ToArray());
 
             // villsa
             if (General.Map.FormatInterface.InDoom64Mode)
@@ -70,44 +70,44 @@ namespace CodeImp.DoomBuilder.Windows
                 settingsgroup.Top = groupaction.Bottom + groupaction.Margin.Bottom + settingsgroup.Margin.Top;
                 this.Height = settingsgroup.Bottom + settingsgroup.Margin.Bottom + 120;
             }
-			
-			// Fill universal fields list
-			fieldslist.ListFixedFields(General.Map.Config.SectorFields);
 
-			// Initialize image selectors
-			floortex.Initialize();
-			ceilingtex.Initialize();
+            // Fill universal fields list
+            fieldslist.ListFixedFields(General.Map.Config.SectorFields);
 
-			// Set steps for brightness field
-			brightness.StepValues = General.Map.Config.BrightnessLevels;
+            // Initialize image selectors
+            floortex.Initialize();
+            ceilingtex.Initialize();
 
-			// Custom fields?
-			if(!General.Map.FormatInterface.HasCustomFields)
-				tabs.TabPages.Remove(tabcustom);
+            // Set steps for brightness field
+            brightness.StepValues = General.Map.Config.BrightnessLevels;
+
+            // Custom fields?
+            if (!General.Map.FormatInterface.HasCustomFields)
+                tabs.TabPages.Remove(tabcustom);
 
             // villsa
             if (!General.Map.FormatInterface.InDoom64Mode)
                 tabs.TabPages.Remove(tabLights);
-			
-			// Initialize custom fields editor
-			fieldslist.Setup("sector");
-		}
-		
-		// This sets up the form to edit the given sectors
-		public void Setup(ICollection<Sector> sectors)
-		{
-			Sector sc;
-			
-			// Keep this list
-			this.sectors = sectors;
-			if(sectors.Count > 1) this.Text = "Edit Sectors (" + sectors.Count + ")";
 
-			////////////////////////////////////////////////////////////////////////
-			// Set all options to the first sector properties
-			////////////////////////////////////////////////////////////////////////
+            // Initialize custom fields editor
+            fieldslist.Setup("sector");
+        }
 
-			// Get first sector
-			sc = General.GetByIndex(sectors, 0);
+        // This sets up the form to edit the given sectors
+        public void Setup(ICollection<Sector> sectors)
+        {
+            Sector sc;
+
+            // Keep this list
+            this.sectors = sectors;
+            if (sectors.Count > 1) this.Text = "Edit Sectors (" + sectors.Count + ")";
+
+            ////////////////////////////////////////////////////////////////////////
+            // Set all options to the first sector properties
+            ////////////////////////////////////////////////////////////////////////
+
+            // Get first sector
+            sc = General.GetByIndex(sectors, 0);
 
             if (General.Map.FormatInterface.InDoom64Mode)
             {
@@ -122,29 +122,29 @@ namespace CodeImp.DoomBuilder.Windows
                 floorcolor.Color = initialcolor[4] = sc.FloorColor.color;
             }
 
-			// Effects
-			effect.Value = sc.Effect;
-			brightness.Text = sc.Brightness.ToString();
+            // Effects
+            effect.Value = sc.Effect;
+            brightness.Text = sc.Brightness.ToString();
 
-			// Floor/ceiling
-			floorheight.Text = sc.FloorHeight.ToString();
-			ceilingheight.Text = sc.CeilHeight.ToString();
-			floortex.TextureName = sc.FloorTexture;
-			ceilingtex.TextureName = sc.CeilTexture;
+            // Floor/ceiling
+            floorheight.Text = sc.FloorHeight.ToString();
+            ceilingheight.Text = sc.CeilHeight.ToString();
+            floortex.TextureName = sc.FloorTexture;
+            ceilingtex.TextureName = sc.CeilTexture;
 
-			// Action
-			tag.Text = sc.Tag.ToString();
+            // Action
+            tag.Text = sc.Tag.ToString();
 
-			// Custom fields
-			fieldslist.SetValues(sc.Fields, true);
-			
-			////////////////////////////////////////////////////////////////////////
-			// Now go for all sectors and change the options when a setting is different
-			////////////////////////////////////////////////////////////////////////
+            // Custom fields
+            fieldslist.SetValues(sc.Fields, true);
 
-			// Go for all sectors
-			foreach(Sector s in sectors)
-			{
+            ////////////////////////////////////////////////////////////////////////
+            // Now go for all sectors and change the options when a setting is different
+            ////////////////////////////////////////////////////////////////////////
+
+            // Go for all sectors
+            foreach (Sector s in sectors)
+            {
                 // Flags
                 foreach (CheckBox c in flags.Checkboxes)
                 {
@@ -158,105 +158,105 @@ namespace CodeImp.DoomBuilder.Windows
                     }
                 }
 
-				// Effects
-				if(s.Effect != effect.Value) effect.Empty = true;
-				if(s.Brightness.ToString() != brightness.Text) brightness.Text = "";
+                // Effects
+                if (s.Effect != effect.Value) effect.Empty = true;
+                if (s.Brightness.ToString() != brightness.Text) brightness.Text = "";
 
-				// Floor/Ceiling
-				if(s.FloorHeight.ToString() != floorheight.Text) floorheight.Text = "";
-				if(s.CeilHeight.ToString() != ceilingheight.Text) ceilingheight.Text = "";
-				if(s.FloorTexture != floortex.TextureName) floortex.TextureName = "";
-				if(s.CeilTexture != ceilingtex.TextureName) ceilingtex.TextureName = "";
+                // Floor/Ceiling
+                if (s.FloorHeight.ToString() != floorheight.Text) floorheight.Text = "";
+                if (s.CeilHeight.ToString() != ceilingheight.Text) ceilingheight.Text = "";
+                if (s.FloorTexture != floortex.TextureName) floortex.TextureName = "";
+                if (s.CeilTexture != ceilingtex.TextureName) ceilingtex.TextureName = "";
 
-				// Action
-				if(s.Tag.ToString() != tag.Text) tag.Text = "";
+                // Action
+                if (s.Tag.ToString() != tag.Text) tag.Text = "";
 
-				// Custom fields
-				fieldslist.SetValues(s.Fields, false);
-			}
+                // Custom fields
+                fieldslist.SetValues(s.Fields, false);
+            }
 
-			// Show sector height
-			UpdateSectorHeight();
-		}
+            // Show sector height
+            UpdateSectorHeight();
+        }
 
-		// This updates the sector height field
-		private void UpdateSectorHeight()
-		{
-			bool showheight = true;
-			int delta = 0;
-			Sector first = null;
-			
-			// Check all selected sectors
-			foreach(Sector s in sectors)
-			{
-				if(first == null)
-				{
-					// First sector in list
-					delta = s.CeilHeight - s.FloorHeight;
-					showheight = true;
-					first = s;
-				}
-				else
-				{
-					if(delta != (s.CeilHeight - s.FloorHeight))
-					{
-						// We can't show heights because the delta
-						// heights for the sectors is different
-						showheight = false;
-						break;
-					}
-				}
-			}
+        // This updates the sector height field
+        private void UpdateSectorHeight()
+        {
+            bool showheight = true;
+            int delta = 0;
+            Sector first = null;
 
-			if(showheight)
-			{
-				int fh = floorheight.GetResult(first.FloorHeight);
-				int ch = ceilingheight.GetResult(first.CeilHeight);
-				int height = ch - fh;
-				sectorheight.Text = height.ToString();
-				sectorheight.Visible = true;
-				sectorheightlabel.Visible = true;
-			}
-			else
-			{
-				sectorheight.Visible = false;
-				sectorheightlabel.Visible = false;
-			}
-		}
+            // Check all selected sectors
+            foreach (Sector s in sectors)
+            {
+                if (first == null)
+                {
+                    // First sector in list
+                    delta = s.CeilHeight - s.FloorHeight;
+                    showheight = true;
+                    first = s;
+                }
+                else
+                {
+                    if (delta != (s.CeilHeight - s.FloorHeight))
+                    {
+                        // We can't show heights because the delta
+                        // heights for the sectors is different
+                        showheight = false;
+                        break;
+                    }
+                }
+            }
 
-		// OK clicked
-		private void apply_Click(object sender, EventArgs e)
-		{
-			string undodesc = "sector";
-			
-			// Verify the tag
-			if((tag.GetResult(0) < General.Map.FormatInterface.MinTag) || (tag.GetResult(0) > General.Map.FormatInterface.MaxTag))
-			{
-				General.ShowWarningMessage("Sector tag must be between " + General.Map.FormatInterface.MinTag + " and " + General.Map.FormatInterface.MaxTag + ".", MessageBoxButtons.OK);
-				return;
-			}
+            if (showheight)
+            {
+                int fh = floorheight.GetResult(first.FloorHeight);
+                int ch = ceilingheight.GetResult(first.CeilHeight);
+                int height = ch - fh;
+                sectorheight.Text = height.ToString();
+                sectorheight.Visible = true;
+                sectorheightlabel.Visible = true;
+            }
+            else
+            {
+                sectorheight.Visible = false;
+                sectorheightlabel.Visible = false;
+            }
+        }
 
-			// Verify the effect
-			if((effect.Value < General.Map.FormatInterface.MinEffect) || (effect.Value > General.Map.FormatInterface.MaxEffect))
-			{
-				General.ShowWarningMessage("Sector effect must be between " + General.Map.FormatInterface.MinEffect + " and " + General.Map.FormatInterface.MaxEffect + ".", MessageBoxButtons.OK);
-				return;
-			}
+        // OK clicked
+        private void apply_Click(object sender, EventArgs e)
+        {
+            string undodesc = "sector";
 
-			// Verify the brightness
-			if((brightness.GetResult(0) < General.Map.FormatInterface.MinBrightness) || (brightness.GetResult(0) > General.Map.FormatInterface.MaxBrightness))
-			{
-				General.ShowWarningMessage("Sector brightness must be between " + General.Map.FormatInterface.MinBrightness + " and " + General.Map.FormatInterface.MaxBrightness + ".", MessageBoxButtons.OK);
-				return;
-			}
-			
-			// Make undo
-			if(sectors.Count > 1) undodesc = sectors.Count + " sectors";
-			General.Map.UndoRedo.CreateUndo("Edit " + undodesc);
+            // Verify the tag
+            if ((tag.GetResult(0) < General.Map.FormatInterface.MinTag) || (tag.GetResult(0) > General.Map.FormatInterface.MaxTag))
+            {
+                General.ShowWarningMessage("Sector tag must be between " + General.Map.FormatInterface.MinTag + " and " + General.Map.FormatInterface.MaxTag + ".", MessageBoxButtons.OK);
+                return;
+            }
 
-			// Go for all sectors
-			foreach(Sector s in sectors)
-			{
+            // Verify the effect
+            if ((effect.Value < General.Map.FormatInterface.MinEffect) || (effect.Value > General.Map.FormatInterface.MaxEffect))
+            {
+                General.ShowWarningMessage("Sector effect must be between " + General.Map.FormatInterface.MinEffect + " and " + General.Map.FormatInterface.MaxEffect + ".", MessageBoxButtons.OK);
+                return;
+            }
+
+            // Verify the brightness
+            if ((brightness.GetResult(0) < General.Map.FormatInterface.MinBrightness) || (brightness.GetResult(0) > General.Map.FormatInterface.MaxBrightness))
+            {
+                General.ShowWarningMessage("Sector brightness must be between " + General.Map.FormatInterface.MinBrightness + " and " + General.Map.FormatInterface.MaxBrightness + ".", MessageBoxButtons.OK);
+                return;
+            }
+
+            // Make undo
+            if (sectors.Count > 1) undodesc = sectors.Count + " sectors";
+            General.Map.UndoRedo.CreateUndo("Edit " + undodesc);
+
+            // Go for all sectors
+            foreach (Sector s in sectors)
+            {
                 // villsa - Apply all flags
                 if (General.Map.FormatInterface.InDoom64Mode)
                 {
@@ -304,70 +304,70 @@ namespace CodeImp.DoomBuilder.Windows
                     }
                 }
 
-				// Effects
-				if(!effect.Empty) s.Effect = effect.Value;
-				s.Brightness = General.Clamp(brightness.GetResult(s.Brightness), General.Map.FormatInterface.MinBrightness, General.Map.FormatInterface.MaxBrightness);
+                // Effects
+                if (!effect.Empty) s.Effect = effect.Value;
+                s.Brightness = General.Clamp(brightness.GetResult(s.Brightness), General.Map.FormatInterface.MinBrightness, General.Map.FormatInterface.MaxBrightness);
 
-				// Floor/Ceiling
-				s.FloorHeight = floorheight.GetResult(s.FloorHeight);
-				s.CeilHeight = ceilingheight.GetResult(s.CeilHeight);
-				s.SetFloorTexture(floortex.GetResult(s.FloorTexture));
-				s.SetCeilTexture(ceilingtex.GetResult(s.CeilTexture));
+                // Floor/Ceiling
+                s.FloorHeight = floorheight.GetResult(s.FloorHeight);
+                s.CeilHeight = ceilingheight.GetResult(s.CeilHeight);
+                s.SetFloorTexture(floortex.GetResult(s.FloorTexture));
+                s.SetCeilTexture(ceilingtex.GetResult(s.CeilTexture));
 
-				// Action
-				s.Tag = General.Clamp(tag.GetResult(s.Tag), General.Map.FormatInterface.MinTag, General.Map.FormatInterface.MaxTag);
+                // Action
+                s.Tag = General.Clamp(tag.GetResult(s.Tag), General.Map.FormatInterface.MinTag, General.Map.FormatInterface.MaxTag);
 
-				// Custom fields
-				fieldslist.Apply(s.Fields);
-			}
-			
-			// Update the used textures
-			General.Map.Data.UpdateUsedTextures();
-			
-			// Done
-			General.Map.IsChanged = true;
-			this.DialogResult = DialogResult.OK;
-			this.Close();
-		}
+                // Custom fields
+                fieldslist.Apply(s.Fields);
+            }
 
-		// Cancel clicked
-		private void cancel_Click(object sender, EventArgs e)
-		{
-			// Be gone
-			this.DialogResult = DialogResult.Cancel;
-			this.Close();
-		}
+            // Update the used textures
+            General.Map.Data.UpdateUsedTextures();
 
-		// This finds a new (unused) tag
-		private void newtag_Click(object sender, EventArgs e)
-		{
-			tag.Text = General.Map.Map.GetNewTag().ToString();
-		}
+            // Done
+            General.Map.IsChanged = true;
+            this.DialogResult = DialogResult.OK;
+            this.Close();
+        }
 
-		// Browse Effect clicked
-		private void browseeffect_Click(object sender, EventArgs e)
-		{
-			effect.Value = EffectBrowserForm.BrowseEffect(this, effect.Value);
-		}
+        // Cancel clicked
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            // Be gone
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
 
-		// Ceiling height changes
-		private void ceilingheight_TextChanged(object sender, EventArgs e)
-		{
-			UpdateSectorHeight();
-		}
+        // This finds a new (unused) tag
+        private void newtag_Click(object sender, EventArgs e)
+        {
+            tag.Text = General.Map.Map.GetNewTag().ToString();
+        }
 
-		// Floor height changes
-		private void floorheight_TextChanged(object sender, EventArgs e)
-		{
-			UpdateSectorHeight();
-		}
+        // Browse Effect clicked
+        private void browseeffect_Click(object sender, EventArgs e)
+        {
+            effect.Value = EffectBrowserForm.BrowseEffect(this, effect.Value);
+        }
 
-		// Help
-		private void SectorEditForm_HelpRequested(object sender, HelpEventArgs hlpevent)
-		{
-			General.ShowHelp("w_sectoredit.html");
-			hlpevent.Handled = true;
-		}
+        // Ceiling height changes
+        private void ceilingheight_TextChanged(object sender, EventArgs e)
+        {
+            UpdateSectorHeight();
+        }
+
+        // Floor height changes
+        private void floorheight_TextChanged(object sender, EventArgs e)
+        {
+            UpdateSectorHeight();
+        }
+
+        // Help
+        private void SectorEditForm_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            General.ShowHelp("w_sectoredit.html");
+            hlpevent.Handled = true;
+        }
 
         private void button1_Click(object sender, EventArgs e)
         {
@@ -438,5 +438,5 @@ namespace CodeImp.DoomBuilder.Windows
             light.SetIntensity(LIGHTDECVALUE);
             floorcolor.Color = light.color;
         }
-	}
+    }
 }

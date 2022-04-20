@@ -31,74 +31,74 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public class EnumList : List<EnumItem>
-	{
-		#region ================== Constants
+    public class EnumList : List<EnumItem>
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor
+        #region ================== Constructor
 
-		// Constructor for custom list
-		internal EnumList()
-		{
-		}
+        // Constructor for custom list
+        internal EnumList()
+        {
+        }
 
-		// Constructor to load from dictionary
-		internal EnumList(IDictionary dic)
-		{
-			int index;
+        // Constructor to load from dictionary
+        internal EnumList(IDictionary dic)
+        {
+            int index;
 
-			// Read the dictionary
-			foreach(DictionaryEntry de in dic)
-			{
-				// Add item
-				EnumItem item = new EnumItem(de.Key.ToString(), de.Value.ToString());
-				base.Add(item);
-			}
-		}
+            // Read the dictionary
+            foreach (DictionaryEntry de in dic)
+            {
+                // Add item
+                EnumItem item = new EnumItem(de.Key.ToString(), de.Value.ToString());
+                base.Add(item);
+            }
+        }
 
-		// Constructor to load from configuration
-		internal EnumList(string name, Configuration cfg)
-		{
-			int index;
-			
-			// Read the list from configuration
-			IDictionary dic = cfg.ReadSetting("enums." + name, new Hashtable());
-			foreach(DictionaryEntry de in dic)
-			{
-				// Add item
-				EnumItem item = new EnumItem(de.Key.ToString(), de.Value.ToString());
-				base.Add(item);
-			}
-		}
+        // Constructor to load from configuration
+        internal EnumList(string name, Configuration cfg)
+        {
+            int index;
 
-		#endregion
+            // Read the list from configuration
+            IDictionary dic = cfg.ReadSetting("enums." + name, new Hashtable());
+            foreach (DictionaryEntry de in dic)
+            {
+                // Add item
+                EnumItem item = new EnumItem(de.Key.ToString(), de.Value.ToString());
+                base.Add(item);
+            }
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// This gets an item by value
-		// Returns null when item could not be found
-		public EnumItem GetByEnumIndex(string value)
-		{
-			// Find the item
-			foreach(EnumItem i in this)
-			{
-				if(i.Value == value) return i;
-			}
+        #region ================== Methods
 
-			// Nothing found
-			return null;
-		}
+        // This gets an item by value
+        // Returns null when item could not be found
+        public EnumItem GetByEnumIndex(string value)
+        {
+            // Find the item
+            foreach (EnumItem i in this)
+            {
+                if (i.Value == value) return i;
+            }
 
-		#endregion
-	}
+            // Nothing found
+            return null;
+        }
+
+        #endregion
+    }
 }

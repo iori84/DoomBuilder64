@@ -26,86 +26,86 @@ using System.Text;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	internal abstract class Renderer : ID3DResource
-	{
-		#region ================== Constants
+    internal abstract class Renderer : ID3DResource
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Graphics
-		protected D3DDevice graphics;
+        // Graphics
+        protected D3DDevice graphics;
 
-		// Disposing
-		protected bool isdisposed = false;
+        // Disposing
+        protected bool isdisposed = false;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		// Disposing
-		public bool IsDisposed { get { return isdisposed; } }
+        // Disposing
+        public bool IsDisposed { get { return isdisposed; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		internal Renderer(D3DDevice g)
-		{
-			// Initialize
-			this.graphics = g;
+        // Constructor
+        internal Renderer(D3DDevice g)
+        {
+            // Initialize
+            this.graphics = g;
 
-			// Register as resource
-			g.RegisterResource(this);
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+            // Register as resource
+            g.RegisterResource(this);
 
-		// Disposer
-		internal virtual void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-				// Unregister resource
-				graphics.UnregisterResource(this);
-				
-				// Done
-				graphics = null;
-				isdisposed = true;
-			}
-		}
+        // Disposer
+        internal virtual void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
 
-		#endregion
+                // Unregister resource
+                graphics.UnregisterResource(this);
 
-		#region ================== Methods
+                // Done
+                graphics = null;
+                isdisposed = true;
+            }
+        }
 
-		// This calculates the sector brightness level
-		public int CalculateBrightness(int level)
-		{
-			float flevel = level;
+        #endregion
 
-			// Simulat doom light levels
-			if((level < 192) && General.Map.Config.DoomLightLevels)
-				flevel = (192.0f - (float)(192 - level) * 1.5f);
-			
-			byte blevel = (byte)General.Clamp((int)flevel, 0, 255);
-			PixelColor c = new PixelColor(255, blevel, blevel, blevel);
-			return c.ToInt();
-		}
+        #region ================== Methods
 
-		// This is called when the graphics need to be reset
-		public virtual void Reset() { }
+        // This calculates the sector brightness level
+        public int CalculateBrightness(int level)
+        {
+            float flevel = level;
 
-		// For DirectX resources
-		public virtual void UnloadResource() { }
-		public virtual void ReloadResource() { }
+            // Simulat doom light levels
+            if ((level < 192) && General.Map.Config.DoomLightLevels)
+                flevel = (192.0f - (float)(192 - level) * 1.5f);
 
-		#endregion
-	}
+            byte blevel = (byte)General.Clamp((int)flevel, 0, 255);
+            PixelColor c = new PixelColor(255, blevel, blevel, blevel);
+            return c.ToInt();
+        }
+
+        // This is called when the graphics need to be reset
+        public virtual void Reset() { }
+
+        // For DirectX resources
+        public virtual void UnloadResource() { }
+        public virtual void ReloadResource() { }
+
+        #endregion
+    }
 }

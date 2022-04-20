@@ -28,67 +28,67 @@ using CodeImp.DoomBuilder.Rendering;
 
 namespace CodeImp.DoomBuilder.Data
 {
-	public sealed class Playpal
-	{
-		#region ================== Constants
+    public sealed class Playpal
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		private PixelColor[] colors;
+        private PixelColor[] colors;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public PixelColor this[int index] { get { return colors[index]; } }
+        public PixelColor this[int index] { get { return colors[index]; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		public Playpal()
-		{
-			// Create array
-			colors = new PixelColor[256];
+        // Constructor
+        public Playpal()
+        {
+            // Create array
+            colors = new PixelColor[256];
 
-			// Set all palette entries
-			for(int i = 0; i < 256; i++)
-			{
-				// Set colors to gray
-				colors[i].r = 127;
-				colors[i].g = 127;
-				colors[i].b = 127;
-				colors[i].a = 255;
-			}
-		}
+            // Set all palette entries
+            for (int i = 0; i < 256; i++)
+            {
+                // Set colors to gray
+                colors[i].r = 127;
+                colors[i].g = 127;
+                colors[i].b = 127;
+                colors[i].a = 255;
+            }
+        }
 
-		// Constructor
-		public Playpal(Stream stream)
-		{
-			BinaryReader reader = new BinaryReader(stream);
-			
-			// Create array
-			colors = new PixelColor[256];
+        // Constructor
+        public Playpal(Stream stream)
+        {
+            BinaryReader reader = new BinaryReader(stream);
 
-			// Read all palette entries
-			stream.Seek(0, SeekOrigin.Begin);
-			for(int i = 0; i < 256; i++)
-			{
-				// Read colors
-				colors[i].r = reader.ReadByte();
-				colors[i].g = reader.ReadByte();
-				colors[i].b = reader.ReadByte();
-				colors[i].a = 255;
-			}
-		}
+            // Create array
+            colors = new PixelColor[256];
 
-		#endregion
+            // Read all palette entries
+            stream.Seek(0, SeekOrigin.Begin);
+            for (int i = 0; i < 256; i++)
+            {
+                // Read colors
+                colors[i].r = reader.ReadByte();
+                colors[i].g = reader.ReadByte();
+                colors[i].b = reader.ReadByte();
+                colors[i].a = 255;
+            }
+        }
 
-		#region ================== Methods
+        #endregion
 
-		#endregion
-	}
+        #region ================== Methods
+
+        #endregion
+    }
 }

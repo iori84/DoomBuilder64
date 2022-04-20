@@ -30,63 +30,63 @@ using System.Runtime.InteropServices;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	public unsafe class PixelColorBlock
-	{
-		#region ================== Variables
+    public unsafe class PixelColorBlock
+    {
+        #region ================== Variables
 
-		private int width;
-		private int height;
-		private int memorysize;
-		private PixelColor* memory;
-		
-		#endregion
+        private int width;
+        private int height;
+        private int memorysize;
+        private PixelColor* memory;
 
-		#region ================== Properties
+        #endregion
 
-		public int Width { get { return width; } }
-		public int Height { get { return height; } }
-		public int Length { get { return memorysize; } }
-		public PixelColor this[int index] { get { return memory[index]; } set { memory[index] = value; } }
-		public PixelColor* Pointer { get { return memory; } }
+        #region ================== Properties
 
-		#endregion
+        public int Width { get { return width; } }
+        public int Height { get { return height; } }
+        public int Length { get { return memorysize; } }
+        public PixelColor this[int index] { get { return memory[index]; } set { memory[index] = value; } }
+        public PixelColor* Pointer { get { return memory; } }
 
-		#region ================== Constructor / Destructor
+        #endregion
 
-		// Constructor
-		public PixelColorBlock(int width, int height)
-		{
-			// Check input
-			if((width <= 0) || (height <= 0)) throw new ArgumentException("Cannot allocate a memory block of zero size!");
-			
-			// Initialize
-			this.width = width;
-			this.height = height;
-			this.memorysize = width * height * sizeof(PixelColor);
-			this.memory = (PixelColor*)Marshal.AllocCoTaskMem(memorysize);
-			if(this.memory == (PixelColor*)0) throw new OutOfMemoryException();
-			GC.AddMemoryPressure(memorysize);
-		}
+        #region ================== Constructor / Destructor
 
-		// Destructor
-		~PixelColorBlock()
-		{
-			// Terminate
-			Marshal.FreeCoTaskMem(new IntPtr(memory));
-			GC.RemoveMemoryPressure(memorysize);
-			memorysize = 0;
-		}
+        // Constructor
+        public PixelColorBlock(int width, int height)
+        {
+            // Check input
+            if ((width <= 0) || (height <= 0)) throw new ArgumentException("Cannot allocate a memory block of zero size!");
 
-		#endregion
+            // Initialize
+            this.width = width;
+            this.height = height;
+            this.memorysize = width * height * sizeof(PixelColor);
+            this.memory = (PixelColor*)Marshal.AllocCoTaskMem(memorysize);
+            if (this.memory == (PixelColor*)0) throw new OutOfMemoryException();
+            GC.AddMemoryPressure(memorysize);
+        }
 
-		#region ================== Methods
+        // Destructor
+        ~PixelColorBlock()
+        {
+            // Terminate
+            Marshal.FreeCoTaskMem(new IntPtr(memory));
+            GC.RemoveMemoryPressure(memorysize);
+            memorysize = 0;
+        }
 
-		// This clears the memory black
-		public void Clear()
-		{
-			if(memorysize > 0) General.ZeroMemory(new IntPtr(memory), (int)memorysize);
-		}
+        #endregion
 
-		#endregion
-	}
+        #region ================== Methods
+
+        // This clears the memory black
+        public void Clear()
+        {
+            if (memorysize > 0) General.ZeroMemory(new IntPtr(memory), (int)memorysize);
+        }
+
+        #endregion
+    }
 }

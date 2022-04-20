@@ -31,75 +31,75 @@ using CodeImp.DoomBuilder.Rendering;
 
 namespace CodeImp.DoomBuilder.Data
 {
-	internal sealed unsafe class ColorImage : ImageData
-	{
-		#region ================== Variables
+    internal sealed unsafe class ColorImage : ImageData
+    {
+        #region ================== Variables
 
-		private PixelColor color;
+        private PixelColor color;
 
-		#endregion
-		
-		#region ================== Constructor / Disposer
+        #endregion
 
-		// Constructor
-		public ColorImage(PixelColor color, int width, int height)
-		{
-			// Initialize
-			this.width = width;
-			this.height = height;
-			this.color = color;
-			SetName(color.ToColorValue().ToString());
+        #region ================== Constructor / Disposer
 
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        // Constructor
+        public ColorImage(PixelColor color, int width, int height)
+        {
+            // Initialize
+            this.width = width;
+            this.height = height;
+            this.color = color;
+            SetName(color.ToColorValue().ToString());
 
-		#endregion
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// This loads the image
-		protected override void LocalLoadImage()
-		{
-			// Leave when already loaded
-			if(this.IsImageLoaded) return;
-			if((width == 0) || (height == 0)) return;
+        #region ================== Methods
 
-			lock(this)
-			{
-				// Create bitmap
-				try
-				{
-					if(bitmap != null) bitmap.Dispose();
-					bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
-					BitmapData bitmapdata = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
-					PixelColor* pixels = (PixelColor*)bitmapdata.Scan0.ToPointer();
-					for(int i = 0; i < (width * height); i++)
-					{
-						*pixels = color;
-						pixels++;
-					}
-					bitmap.UnlockBits(bitmapdata);
-				}
-				catch(Exception e)
-				{
-					// Unable to make bitmap
-					General.ErrorLogger.Add(ErrorType.Error, "Unable to create color image '" + this.Name + "'. " + e.GetType().Name + ": " + e.Message);
-					loadfailed = true;
-				}
+        // This loads the image
+        protected override void LocalLoadImage()
+        {
+            // Leave when already loaded
+            if (this.IsImageLoaded) return;
+            if ((width == 0) || (height == 0)) return;
 
-				// Dispose bitmap if load failed
-				if(loadfailed && (bitmap != null))
-				{
-					bitmap.Dispose();
-					bitmap = null;
-				}
-				
-				// Pass on to base
-				base.LocalLoadImage();
-			}
-		}
+            lock (this)
+            {
+                // Create bitmap
+                try
+                {
+                    if (bitmap != null) bitmap.Dispose();
+                    bitmap = new Bitmap(width, height, PixelFormat.Format32bppArgb);
+                    BitmapData bitmapdata = bitmap.LockBits(new Rectangle(0, 0, width, height), ImageLockMode.WriteOnly, PixelFormat.Format32bppArgb);
+                    PixelColor* pixels = (PixelColor*)bitmapdata.Scan0.ToPointer();
+                    for (int i = 0; i < (width * height); i++)
+                    {
+                        *pixels = color;
+                        pixels++;
+                    }
+                    bitmap.UnlockBits(bitmapdata);
+                }
+                catch (Exception e)
+                {
+                    // Unable to make bitmap
+                    General.ErrorLogger.Add(ErrorType.Error, "Unable to create color image '" + this.Name + "'. " + e.GetType().Name + ": " + e.Message);
+                    loadfailed = true;
+                }
 
-		#endregion
-	}
+                // Dispose bitmap if load failed
+                if (loadfailed && (bitmap != null))
+                {
+                    bitmap.Dispose();
+                    bitmap = null;
+                }
+
+                // Pass on to base
+                base.LocalLoadImage();
+            }
+        }
+
+        #endregion
+    }
 }

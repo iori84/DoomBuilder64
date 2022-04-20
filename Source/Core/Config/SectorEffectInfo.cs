@@ -32,65 +32,65 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public class SectorEffectInfo : INumberedTitle, IComparable<SectorEffectInfo>
-	{
-		#region ================== Constants
+    public class SectorEffectInfo : INumberedTitle, IComparable<SectorEffectInfo>
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Properties
-		private int index;
-		private string title;
-		private bool isknown;
-		private bool isgeneralized;
-		
-		#endregion
+        // Properties
+        private int index;
+        private string title;
+        private bool isknown;
+        private bool isgeneralized;
 
-		#region ================== Properties
+        #endregion
 
-		public int Index { get { return index; } }
-		public string Title { get { return title; } }
-		public bool IsGeneralized { get { return isgeneralized; } }
-		public bool IsKnown { get { return isknown; } }
-		public bool IsNull { get { return (index == 0); } }
+        #region ================== Properties
 
-		#endregion
+        public int Index { get { return index; } }
+        public string Title { get { return title; } }
+        public bool IsGeneralized { get { return isgeneralized; } }
+        public bool IsKnown { get { return isknown; } }
+        public bool IsNull { get { return (index == 0); } }
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		// Constructor
-		internal SectorEffectInfo(int index, string title, bool isknown, bool isgeneralized)
-		{
-			// Initialize
-			this.index = index;
-			this.title = title;
-			this.isknown = isknown;
-			this.isgeneralized = isgeneralized;
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        #region ================== Constructor / Disposer
 
-		#endregion
+        // Constructor
+        internal SectorEffectInfo(int index, string title, bool isknown, bool isgeneralized)
+        {
+            // Initialize
+            this.index = index;
+            this.title = title;
+            this.isknown = isknown;
+            this.isgeneralized = isgeneralized;
 
-		#region ================== Methods
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		// This presents the item as string
-		public override string ToString()
-		{
-			return index + " - " + title;
-		}
+        #endregion
 
-		// This compares against another action info
-		public int CompareTo(SectorEffectInfo other)
-		{
-			if(this.index < other.index) return -1;
-			else if(this.index > other.index) return 1;
-			else return 0;
-		}
+        #region ================== Methods
 
-		#endregion
-	}
+        // This presents the item as string
+        public override string ToString()
+        {
+            return index + " - " + title;
+        }
+
+        // This compares against another action info
+        public int CompareTo(SectorEffectInfo other)
+        {
+            if (this.index < other.index) return -1;
+            else if (this.index > other.index) return 1;
+            else return 0;
+        }
+
+        #endregion
+    }
 }

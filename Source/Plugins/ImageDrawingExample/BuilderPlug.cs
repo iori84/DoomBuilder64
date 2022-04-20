@@ -39,45 +39,45 @@ using CodeImp.DoomBuilder.Data;
 
 namespace CodeImp.DoomBuilder.Plugins.ImageDrawingExample
 {
-	//
-	// MANDATORY: The plug!
-	// This is an important class to the Doom Builder core. Every plugin must
-	// have exactly 1 class that inherits from Plug. When the plugin is loaded,
-	// this class is instantiated and used to receive events from the core.
-	// Make sure the class is public, because only public classes can be seen
-	// by the core.
-	//
+    //
+    // MANDATORY: The plug!
+    // This is an important class to the Doom Builder core. Every plugin must
+    // have exactly 1 class that inherits from Plug. When the plugin is loaded,
+    // this class is instantiated and used to receive events from the core.
+    // Make sure the class is public, because only public classes can be seen
+    // by the core.
+    //
 
-	// In this example we don't really do anything interesting here. This is the bare
-	// minimum you need for a Plug class. You may as well ignore this whole file.
-	
-	public class BuilderPlug : Plug
-	{
-		// Static instance. We can't use a real static class, because BuilderPlug must
-		// be instantiated by the core, so we keep a static reference. (this technique
-		// should be familiar to object-oriented programmers)
-		private static BuilderPlug me;
+    // In this example we don't really do anything interesting here. This is the bare
+    // minimum you need for a Plug class. You may as well ignore this whole file.
 
-		// Static property to access the BuilderPlug
-		public static BuilderPlug Me { get { return me; } }
-		
-		// Override this property if you want to give your plugin a name other
-		// than the filename without extention.
-		public override string Name { get { return "Image Drawing Example"; } }
-		
-		// This event is called when the plugin is initialized
-		public override void OnInitialize()
-		{
-			base.OnInitialize();
+    public class BuilderPlug : Plug
+    {
+        // Static instance. We can't use a real static class, because BuilderPlug must
+        // be instantiated by the core, so we keep a static reference. (this technique
+        // should be familiar to object-oriented programmers)
+        private static BuilderPlug me;
 
-			// Keep a static reference
-			me = this;
-		}
+        // Static property to access the BuilderPlug
+        public static BuilderPlug Me { get { return me; } }
 
-		// This is called when the plugin is terminated
-		public override void Dispose()
-		{
-			base.Dispose();
-		}
-	}
+        // Override this property if you want to give your plugin a name other
+        // than the filename without extention.
+        public override string Name { get { return "Image Drawing Example"; } }
+
+        // This event is called when the plugin is initialized
+        public override void OnInitialize()
+        {
+            base.OnInitialize();
+
+            // Keep a static reference
+            me = this;
+        }
+
+        // This is called when the plugin is terminated
+        public override void Dispose()
+        {
+            base.Dispose();
+        }
+    }
 }

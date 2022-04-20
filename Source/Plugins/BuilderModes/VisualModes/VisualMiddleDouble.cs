@@ -39,38 +39,38 @@ using CodeImp.DoomBuilder.VisualModes;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	internal sealed class VisualMiddleDouble : BaseVisualGeometrySidedef
-	{
-		#region ================== Constants
+    internal sealed class VisualMiddleDouble : BaseVisualGeometrySidedef
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Setup
+        #region ================== Constructor / Setup
 
-		// Constructor
-		public VisualMiddleDouble(BaseVisualMode mode, VisualSector vs, Sidedef s) : base(mode, vs, s)
-		{
-			// Set render pass
-			this.RenderPass = RenderPass.Mask;
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
-		
-		// This builds the geometry. Returns false when no geometry created.
-		public override bool Setup()
-		{
-			WorldVertex[] verts;
+        // Constructor
+        public VisualMiddleDouble(BaseVisualMode mode, VisualSector vs, Sidedef s) : base(mode, vs, s)
+        {
+            // Set render pass
+            this.RenderPass = RenderPass.Mask;
 
-			//int brightness = mode.CalculateBrightness(Sidedef.Sector.Brightness);
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
+
+        // This builds the geometry. Returns false when no geometry created.
+        public override bool Setup()
+        {
+            WorldVertex[] verts;
+
+            //int brightness = mode.CalculateBrightness(Sidedef.Sector.Brightness);
             int c1;
             int c2;
 
@@ -84,15 +84,15 @@ namespace CodeImp.DoomBuilder.BuilderModes
                 c1 = Sidedef.Sector.TopColor.GetColor();
                 c2 = Sidedef.Sector.LowerColor.GetColor();
             }
-			
-			// Calculate size of this wall part
-			float geotop = (float)Math.Min(Sidedef.Sector.CeilHeight, Sidedef.Other.Sector.CeilHeight);
-			float geobottom = (float)Math.Max(Sidedef.Sector.FloorHeight, Sidedef.Other.Sector.FloorHeight);
-			float geoheight = geotop - geobottom;
-			if(geoheight > 0.001f)
-			{
-				// Texture given?
-				if((Sidedef.MiddleTexture.Length > 0) && (Sidedef.MiddleTexture[0] != '-'))
+
+            // Calculate size of this wall part
+            float geotop = (float)Math.Min(Sidedef.Sector.CeilHeight, Sidedef.Other.Sector.CeilHeight);
+            float geobottom = (float)Math.Max(Sidedef.Sector.FloorHeight, Sidedef.Other.Sector.FloorHeight);
+            float geoheight = geotop - geobottom;
+            if (geoheight > 0.001f)
+            {
+                // Texture given?
+                if ((Sidedef.MiddleTexture.Length > 0) && (Sidedef.MiddleTexture[0] != '-'))
                 {
                     Vector2D t1 = new Vector2D();
                     Vector2D t2 = new Vector2D();
@@ -203,34 +203,34 @@ namespace CodeImp.DoomBuilder.BuilderModes
                         return true;
                     }
                 }
-			}
-			
-			// No geometry for invisible wall
-			base.top = geotop;
-			base.bottom = geotop;	// bottom same as top so that it has a height of 0 (otherwise it will still be picked up by object picking)
-			verts = new WorldVertex[0];
-			base.SetVertices(verts);
-			return false;
-		}
-		
-		#endregion
+            }
 
-		#region ================== Methods
+            // No geometry for invisible wall
+            base.top = geotop;
+            base.bottom = geotop;   // bottom same as top so that it has a height of 0 (otherwise it will still be picked up by object picking)
+            verts = new WorldVertex[0];
+            base.SetVertices(verts);
+            return false;
+        }
 
-		// Return texture name
-		public override string GetTextureName()
-		{
-			return this.Sidedef.MiddleTexture;
-		}
+        #endregion
 
-		// This changes the texture
-		protected override void SetTexture(string texturename)
-		{
-			this.Sidedef.SetTextureMid(texturename);
-			General.Map.Data.UpdateUsedTextures();
-			this.Setup();
-		}
-		
-		#endregion
-	}
+        #region ================== Methods
+
+        // Return texture name
+        public override string GetTextureName()
+        {
+            return this.Sidedef.MiddleTexture;
+        }
+
+        // This changes the texture
+        protected override void SetTexture(string texturename)
+        {
+            this.Sidedef.SetTextureMid(texturename);
+            General.Map.Data.UpdateUsedTextures();
+            this.Setup();
+        }
+
+        #endregion
+    }
 }

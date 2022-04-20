@@ -17,327 +17,327 @@ using CodeImp.DoomBuilder.Config;
 
 namespace CodeImp.DoomBuilder.Plugins
 {
-	/// <summary>
-	/// This is the key link between the Doom Builder core and the plugin.
-	/// Every plugin must expose a single class that inherits this class.
-	/// </summary>
-	public class Plug : IDisposable
-	{
-		#region ================== Constants
+    /// <summary>
+    /// This is the key link between the Doom Builder core and the plugin.
+    /// Every plugin must expose a single class that inherits this class.
+    /// </summary>
+    public class Plug : IDisposable
+    {
+        #region ================== Constants
 
-		#endregion
-		
-		#region ================== Variables
+        #endregion
 
-		// Internals
-		private Plugin plugin;
-		
-		// Disposing
-		private bool isdisposed = false;
+        #region ================== Variables
 
-		#endregion
-		
-		#region ================== Properties
-		
-		// Internals
-		internal Plugin Plugin { get { return plugin; } set { plugin = value; } }
-		
-		/// <summary>
-		/// Indicates if the plugin has been disposed.
-		/// </summary>
-		public bool IsDisposed { get { return isdisposed; } }
-		
-		/// <summary>
-		/// Override this to return a more descriptive name for your plugin.
-		/// Default is the library filename without extension.
-		/// </summary>
-		public virtual string Name { get { return plugin.Name; } }
+        // Internals
+        private Plugin plugin;
 
-		/// <summary>
-		/// Override this to return the minimum revision of the Doom Builder 2 core that is
-		/// required to use this plugin. You can find the revision number in the About dialog,
-		/// it is the right most part of the version number.
-		/// </summary>
-		public virtual int MinimumRevision { get { return 0; } }
-		
-		#endregion
+        // Disposing
+        private bool isdisposed = false;
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		/// <summary>
-		/// This is the key link between the Doom Builder core and the plugin.
-		/// Every plugin must expose a single class that inherits this class.
-		/// <para>
-		/// NOTE: Some methods cannot be used in this constructor, because the plugin
-		/// is not yet fully initialized. Instead, use the Initialize method to do
-		/// your initializations.
-		/// </para>
-		/// </summary>
-		public Plug()
-		{
-			// Initialize
+        #region ================== Properties
 
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        // Internals
+        internal Plugin Plugin { get { return plugin; } set { plugin = value; } }
 
-		/// <summary>
-		/// This is called by the Doom Builder core when the plugin is being disposed.
-		/// </summary>
-		public virtual void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
-				plugin = null;
-				
-				// Done
-				isdisposed = true;
-			}
-		}
+        /// <summary>
+        /// Indicates if the plugin has been disposed.
+        /// </summary>
+        public bool IsDisposed { get { return isdisposed; } }
 
-		#endregion
+        /// <summary>
+        /// Override this to return a more descriptive name for your plugin.
+        /// Default is the library filename without extension.
+        /// </summary>
+        public virtual string Name { get { return plugin.Name; } }
 
-		#region ================== Methods
+        /// <summary>
+        /// Override this to return the minimum revision of the Doom Builder 2 core that is
+        /// required to use this plugin. You can find the revision number in the About dialog,
+        /// it is the right most part of the version number.
+        /// </summary>
+        public virtual int MinimumRevision { get { return 0; } }
 
-		/// <summary>
-		/// This finds the embedded resource with the specified name in the plugin and creates
-		/// a Stream from it. Returns null when the embedded resource cannot be found.
-		/// </summary>
-		/// <param name="resourcename">Name of the resource in the plugin.</param>
-		/// <returns>Returns a Stream of the embedded resource,
-		/// or null when the resource cannot be found.</returns>
-		public Stream GetResourceStream(string resourcename)
-		{
-			return plugin.GetResourceStream(resourcename);
-		}
+        #endregion
 
-		#endregion
+        #region ================== Constructor / Disposer
 
-		#region ================== Events
+        /// <summary>
+        /// This is the key link between the Doom Builder core and the plugin.
+        /// Every plugin must expose a single class that inherits this class.
+        /// <para>
+        /// NOTE: Some methods cannot be used in this constructor, because the plugin
+        /// is not yet fully initialized. Instead, use the Initialize method to do
+        /// your initializations.
+        /// </para>
+        /// </summary>
+        public Plug()
+        {
+            // Initialize
 
-		/// <summary>
-		/// This iscalled when the ceiling surface buffer is updated for a sector. The plugin can
-		/// modify the vertices to change how the surface is presented to the user.
-		/// </summary>
-		public virtual void OnSectorCeilingSurfaceUpdate(Sector s, ref FlatVertex[] vertices)
-		{
-		}
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		/// <summary>
-		/// This iscalled when the floor surface buffer is updated for a sector. The plugin can
-		/// modify the vertices to change how the surface is presented to the user.
-		/// </summary>
-		public virtual void OnSectorFloorSurfaceUpdate(Sector s, ref FlatVertex[] vertices)
-		{
-		}
+        /// <summary>
+        /// This is called by the Doom Builder core when the plugin is being disposed.
+        /// </summary>
+        public virtual void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
+                plugin = null;
 
-		/// <summary>
-		/// Occurs before a map is opened.
-		/// </summary>
-		public virtual void OnMapOpenBegin()
-		{
-		}
+                // Done
+                isdisposed = true;
+            }
+        }
 
-		/// <summary>
-		/// Occurs after a map is opened.
-		/// </summary>
-		public virtual void OnMapOpenEnd()
-		{
-		}
+        #endregion
 
-		/// <summary>
-		/// Occurs before a new map is created.
-		/// </summary>
-		public virtual void OnMapNewBegin()
-		{
-		}
+        #region ================== Methods
 
-		/// <summary>
-		/// Occurs after a new map is created.
-		/// </summary>
-		public virtual void OnMapNewEnd()
-		{
-		}
+        /// <summary>
+        /// This finds the embedded resource with the specified name in the plugin and creates
+        /// a Stream from it. Returns null when the embedded resource cannot be found.
+        /// </summary>
+        /// <param name="resourcename">Name of the resource in the plugin.</param>
+        /// <returns>Returns a Stream of the embedded resource,
+        /// or null when the resource cannot be found.</returns>
+        public Stream GetResourceStream(string resourcename)
+        {
+            return plugin.GetResourceStream(resourcename);
+        }
 
-		/// <summary>
-		/// Occurs before the map is closed.
-		/// </summary>
-		public virtual void OnMapCloseBegin()
-		{
-		}
+        #endregion
 
-		/// <summary>
-		/// Occurs after a the map is closed.
-		/// </summary>
-		public virtual void OnMapCloseEnd()
-		{
-		}
+        #region ================== Events
 
-		/// <summary>
-		/// Occurs before a map is saved.
-		/// </summary>
-		public virtual void OnMapSaveBegin(SavePurpose purpose)
-		{
-		}
+        /// <summary>
+        /// This iscalled when the ceiling surface buffer is updated for a sector. The plugin can
+        /// modify the vertices to change how the surface is presented to the user.
+        /// </summary>
+        public virtual void OnSectorCeilingSurfaceUpdate(Sector s, ref FlatVertex[] vertices)
+        {
+        }
 
-		/// <summary>
-		/// Occurs after a map is saved.
-		/// </summary>
-		public virtual void OnMapSaveEnd(SavePurpose purpose)
-		{
-		}
+        /// <summary>
+        /// This iscalled when the floor surface buffer is updated for a sector. The plugin can
+        /// modify the vertices to change how the surface is presented to the user.
+        /// </summary>
+        public virtual void OnSectorFloorSurfaceUpdate(Sector s, ref FlatVertex[] vertices)
+        {
+        }
 
-		/// <summary>
-		/// Occurs before the MapSet is changed. This means that the active MapSet will be disposed and changed to a new one.
-		/// </summary>
-		public virtual void OnMapSetChangeBegin()
-		{
-		}
+        /// <summary>
+        /// Occurs before a map is opened.
+        /// </summary>
+        public virtual void OnMapOpenBegin()
+        {
+        }
 
-		/// <summary>
-		/// Occurs after the MapSet is changed.
-		/// </summary>
-		public virtual void OnMapSetChangeEnd()
-		{
-		}
+        /// <summary>
+        /// Occurs after a map is opened.
+        /// </summary>
+        public virtual void OnMapOpenEnd()
+        {
+        }
 
-		/// <summary>
-		/// This is called after the constructor to allow a plugin to initialize.
-		/// </summary>
-		public virtual void OnInitialize()
-		{
-		}
+        /// <summary>
+        /// Occurs before a new map is created.
+        /// </summary>
+        public virtual void OnMapNewBegin()
+        {
+        }
 
-		/// <summary>
-		/// This is called when the user chose to reload the resources.
-		/// </summary>
-		public virtual void OnReloadResources()
-		{
-		}
+        /// <summary>
+        /// Occurs after a new map is created.
+        /// </summary>
+        public virtual void OnMapNewEnd()
+        {
+        }
 
-		/// <summary>
-		/// This is called by the Doom Builder core when the editing mode changes.
-		/// Return false to abort the mode change.
-		/// </summary>
-		/// <param name="oldmode">The previous editing mode</param>
-		/// <param name="newmode">The new editing mode</param>
-		public virtual bool OnModeChange(EditMode oldmode, EditMode newmode)
-		{
-			return true;
-		}
+        /// <summary>
+        /// Occurs before the map is closed.
+        /// </summary>
+        public virtual void OnMapCloseBegin()
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user changes the program configuration (F5).
-		/// </summary>
-		public virtual void OnProgramReconfigure()
-		{
-		}
+        /// <summary>
+        /// Occurs after a the map is closed.
+        /// </summary>
+        public virtual void OnMapCloseEnd()
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user changes the map settings (F2).
-		/// </summary>
-		public virtual void OnMapReconfigure()
-		{
-		}
+        /// <summary>
+        /// Occurs before a map is saved.
+        /// </summary>
+        public virtual void OnMapSaveBegin(SavePurpose purpose)
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user wants to copy selected geometry.
-		/// Return false to abort the copy operation.
-		/// The result parameter is false when the operation was already aborted by another plugin.
-		/// </summary>
-		public virtual bool OnCopyBegin(bool result)
-		{
-			return true;
-		}
+        /// <summary>
+        /// Occurs after a map is saved.
+        /// </summary>
+        public virtual void OnMapSaveEnd(SavePurpose purpose)
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user has copied geometry.
-		/// </summary>
-		public virtual void OnCopyEnd()
-		{
-		}
+        /// <summary>
+        /// Occurs before the MapSet is changed. This means that the active MapSet will be disposed and changed to a new one.
+        /// </summary>
+        public virtual void OnMapSetChangeBegin()
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user wants to paste geometry into the map.
-		/// Return false to abort the paste operation.
-		/// The result parameter is false when the operation was already aborted by another plugin.
-		/// </summary>
-		public virtual bool OnPasteBegin(PasteOptions options, bool result)
-		{
-			return true;
-		}
+        /// <summary>
+        /// Occurs after the MapSet is changed.
+        /// </summary>
+        public virtual void OnMapSetChangeEnd()
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user pastes geometry into the map. The new geometry is created and marked before this method is called.
-		/// </summary>
-		public virtual void OnPasteEnd(PasteOptions options)
-		{
-		}
+        /// <summary>
+        /// This is called after the constructor to allow a plugin to initialize.
+        /// </summary>
+        public virtual void OnInitialize()
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user wants to undo the previous action.
-		/// Return false to abort the operation.
-		/// The result parameter is false when the operation was already aborted by another plugin.
-		/// </summary>
-		public virtual bool OnUndoBegin(bool result)
-		{
-			return true;
-		}
+        /// <summary>
+        /// This is called when the user chose to reload the resources.
+        /// </summary>
+        public virtual void OnReloadResources()
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user has undone the previous action.
-		/// </summary>
-		public virtual void OnUndoEnd()
-		{
-		}
+        /// <summary>
+        /// This is called by the Doom Builder core when the editing mode changes.
+        /// Return false to abort the mode change.
+        /// </summary>
+        /// <param name="oldmode">The previous editing mode</param>
+        /// <param name="newmode">The new editing mode</param>
+        public virtual bool OnModeChange(EditMode oldmode, EditMode newmode)
+        {
+            return true;
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user wants to redo the previously undone action.
-		/// Return false to abort the operation.
-		/// The result parameter is false when the operation was already aborted by another plugin.
-		/// </summary>
-		public virtual bool OnRedoBegin(bool result)
-		{
-			return true;
-		}
+        /// <summary>
+        /// Called by the Doom Builder core when the user changes the program configuration (F5).
+        /// </summary>
+        public virtual void OnProgramReconfigure()
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when the user has redone the action.
-		/// </summary>
-		public virtual void OnRedoEnd()
-		{
-		}
+        /// <summary>
+        /// Called by the Doom Builder core when the user changes the map settings (F2).
+        /// </summary>
+        public virtual void OnMapReconfigure()
+        {
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when a new undo level has been created.
-		/// </summary>
-		public virtual void OnUndoCreated()
-		{
-		}
+        /// <summary>
+        /// Called by the Doom Builder core when the user wants to copy selected geometry.
+        /// Return false to abort the copy operation.
+        /// The result parameter is false when the operation was already aborted by another plugin.
+        /// </summary>
+        public virtual bool OnCopyBegin(bool result)
+        {
+            return true;
+        }
 
-		/// <summary>
-		/// Called by the Doom Builder core when an undo level has been withdrawn.
-		/// </summary>
-		public virtual void OnUndoWithdrawn()
-		{
-		}
+        /// <summary>
+        /// Called by the Doom Builder core when the user has copied geometry.
+        /// </summary>
+        public virtual void OnCopyEnd()
+        {
+        }
 
-		/// <summary>
-		/// Called when the user opens the Preferences dialog.
-		/// </summary>
-		public virtual void OnShowPreferences(PreferencesController controller)
-		{
-		}
+        /// <summary>
+        /// Called by the Doom Builder core when the user wants to paste geometry into the map.
+        /// Return false to abort the paste operation.
+        /// The result parameter is false when the operation was already aborted by another plugin.
+        /// </summary>
+        public virtual bool OnPasteBegin(PasteOptions options, bool result)
+        {
+            return true;
+        }
 
-		/// <summary>
-		/// Called when the user closes the Preferences dialog by either accepting the changes or cancelling.
-		/// </summary>
-		public virtual void OnClosePreferences(PreferencesController controller)
-		{
-		}
+        /// <summary>
+        /// Called by the Doom Builder core when the user pastes geometry into the map. The new geometry is created and marked before this method is called.
+        /// </summary>
+        public virtual void OnPasteEnd(PasteOptions options)
+        {
+        }
 
-		#endregion
-	}
+        /// <summary>
+        /// Called by the Doom Builder core when the user wants to undo the previous action.
+        /// Return false to abort the operation.
+        /// The result parameter is false when the operation was already aborted by another plugin.
+        /// </summary>
+        public virtual bool OnUndoBegin(bool result)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Called by the Doom Builder core when the user has undone the previous action.
+        /// </summary>
+        public virtual void OnUndoEnd()
+        {
+        }
+
+        /// <summary>
+        /// Called by the Doom Builder core when the user wants to redo the previously undone action.
+        /// Return false to abort the operation.
+        /// The result parameter is false when the operation was already aborted by another plugin.
+        /// </summary>
+        public virtual bool OnRedoBegin(bool result)
+        {
+            return true;
+        }
+
+        /// <summary>
+        /// Called by the Doom Builder core when the user has redone the action.
+        /// </summary>
+        public virtual void OnRedoEnd()
+        {
+        }
+
+        /// <summary>
+        /// Called by the Doom Builder core when a new undo level has been created.
+        /// </summary>
+        public virtual void OnUndoCreated()
+        {
+        }
+
+        /// <summary>
+        /// Called by the Doom Builder core when an undo level has been withdrawn.
+        /// </summary>
+        public virtual void OnUndoWithdrawn()
+        {
+        }
+
+        /// <summary>
+        /// Called when the user opens the Preferences dialog.
+        /// </summary>
+        public virtual void OnShowPreferences(PreferencesController controller)
+        {
+        }
+
+        /// <summary>
+        /// Called when the user closes the Preferences dialog by either accepting the changes or cancelling.
+        /// </summary>
+        public virtual void OnClosePreferences(PreferencesController controller)
+        {
+        }
+
+        #endregion
+    }
 }

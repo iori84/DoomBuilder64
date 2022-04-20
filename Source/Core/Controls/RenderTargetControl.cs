@@ -32,50 +32,50 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	public class RenderTargetControl : Panel
-	{
-		#region ================== Constants
+    public class RenderTargetControl : Panel
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Reference to image to render from
-		private Image img = null;
+        // Reference to image to render from
+        private Image img = null;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		internal RenderTargetControl()
-		{
-			// Initialize
-			this.SetStyle(ControlStyles.FixedWidth, true);
-			this.SetStyle(ControlStyles.FixedHeight, true);
-		}
-		
-		// Disposer
-		protected override void Dispose(bool disposing)
-		{
-			// Clean up
-			
-			// Done
-			base.Dispose(disposing);
-		}
+        // Constructor
+        internal RenderTargetControl()
+        {
+            // Initialize
+            this.SetStyle(ControlStyles.FixedWidth, true);
+            this.SetStyle(ControlStyles.FixedHeight, true);
+        }
 
-		#endregion
+        // Disposer
+        protected override void Dispose(bool disposing)
+        {
+            // Clean up
 
-		#region ================== Overrides
-		
-		// Paint method
-		protected override void OnPaint(PaintEventArgs pe)
-		{
-			/*
+            // Done
+            base.Dispose(disposing);
+        }
+
+        #endregion
+
+        #region ================== Overrides
+
+        // Paint method
+        protected override void OnPaint(PaintEventArgs pe)
+        {
+            /*
 			// Copy area that needs to be redrawn
 			if(img != null)
 			{
@@ -84,49 +84,49 @@ namespace CodeImp.DoomBuilder.Controls
 				
 			}
 			*/
-			
-			// Pass on to base
-			// Do we really want this?
-			base.RaisePaintEvent(this, pe);
-		}
 
-		#endregion
+            // Pass on to base
+            // Do we really want this?
+            base.RaisePaintEvent(this, pe);
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// This sets the render source
-		public void SetImageSource(Image srcimg)
-		{
-			// Set new source image
-			img = srcimg;
-			//this.Image = img;
-		}
+        #region ================== Methods
 
-		// This sets up the control to display the splash logo
-		public void SetSplashLogoDisplay()
-		{
-			// Remove render image
-			this.img = null;
-			
-			// Change display to show splash logo
-			this.SetStyle(ControlStyles.SupportsTransparentBackColor, false);
-			this.SetStyle(ControlStyles.ContainerControl, true);
-			this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-			this.SetStyle(ControlStyles.UserPaint, true);
-			this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-			this.SetStyle(ControlStyles.Opaque, false);
-			this.UpdateStyles();
-			this.BackColor = System.Drawing.SystemColors.AppWorkspace;
-			this.BackgroundImage = global::CodeImp.DoomBuilder.Properties.Resources.Splash3_trans;
-			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
-			//this.Image = null;
-		}
-		
-		// This sets up the control for manual rendering
-		public void SetManualRendering()
-		{
-			// Change display for rendering
-			/*
+        // This sets the render source
+        public void SetImageSource(Image srcimg)
+        {
+            // Set new source image
+            img = srcimg;
+            //this.Image = img;
+        }
+
+        // This sets up the control to display the splash logo
+        public void SetSplashLogoDisplay()
+        {
+            // Remove render image
+            this.img = null;
+
+            // Change display to show splash logo
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, false);
+            this.SetStyle(ControlStyles.ContainerControl, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.Opaque, false);
+            this.UpdateStyles();
+            this.BackColor = System.Drawing.SystemColors.AppWorkspace;
+            this.BackgroundImage = global::CodeImp.DoomBuilder.Properties.Resources.Splash3_trans;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Center;
+            //this.Image = null;
+        }
+
+        // This sets up the control for manual rendering
+        public void SetManualRendering()
+        {
+            // Change display for rendering
+            /*
 			this.SetStyle(ControlStyles.SupportsTransparentBackColor, false);
 			this.SetStyle(ControlStyles.ContainerControl, true);
 			this.SetStyle(ControlStyles.OptimizedDoubleBuffer, false);
@@ -134,21 +134,21 @@ namespace CodeImp.DoomBuilder.Controls
 			this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
 			this.SetStyle(ControlStyles.Opaque, true);
 			*/
-			this.SetStyle(ControlStyles.SupportsTransparentBackColor, false);
-			this.SetStyle(ControlStyles.ContainerControl, true);
-			this.SetStyle(ControlStyles.OptimizedDoubleBuffer, false);
-			this.SetStyle(ControlStyles.UserPaint, true);
-			this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
-			this.SetStyle(ControlStyles.Opaque, true);
-			this.UpdateStyles();
-			this.BackColor = Color.Black;
-			this.BackgroundImage = null;
-			this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
-			//this.BackgroundImage = global::CodeImp.DoomBuilder.Properties.Resources.floor0_3;
-			//this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Tile;
-			//this.Image = img;
-		}
+            this.SetStyle(ControlStyles.SupportsTransparentBackColor, false);
+            this.SetStyle(ControlStyles.ContainerControl, true);
+            this.SetStyle(ControlStyles.OptimizedDoubleBuffer, false);
+            this.SetStyle(ControlStyles.UserPaint, true);
+            this.SetStyle(ControlStyles.AllPaintingInWmPaint, true);
+            this.SetStyle(ControlStyles.Opaque, true);
+            this.UpdateStyles();
+            this.BackColor = Color.Black;
+            this.BackgroundImage = null;
+            this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.None;
+            //this.BackgroundImage = global::CodeImp.DoomBuilder.Properties.Resources.floor0_3;
+            //this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Tile;
+            //this.Image = img;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

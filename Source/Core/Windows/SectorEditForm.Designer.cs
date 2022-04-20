@@ -1,33 +1,33 @@
 namespace CodeImp.DoomBuilder.Windows
 {
-	partial class SectorEditForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class SectorEditForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if(disposing && (components != null))
-			{
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.Windows.Forms.Label label1;
             System.Windows.Forms.Label label3;
             System.Windows.Forms.Label taglabel;
@@ -140,7 +140,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // groupfloorceiling
             // 
-            groupfloorceiling.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            groupfloorceiling.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             groupfloorceiling.Controls.Add(this.floorheight);
             groupfloorceiling.Controls.Add(this.ceilingheight);
@@ -450,7 +450,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // groupaction
             // 
-            this.groupaction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupaction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupaction.Controls.Add(this.tag);
             this.groupaction.Controls.Add(taglabel);
@@ -486,7 +486,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // groupeffect
             // 
-            this.groupeffect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            this.groupeffect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupeffect.Controls.Add(this.brightness);
             this.groupeffect.Controls.Add(this.browseeffect);
@@ -572,8 +572,8 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // tabs
             // 
-            this.tabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.tabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabs.Controls.Add(this.tabproperties);
             this.tabs.Controls.Add(this.tabcustom);
@@ -614,8 +614,8 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // flags
             // 
-            this.flags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.flags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flags.AutoScroll = true;
             this.flags.Columns = 3;
@@ -638,8 +638,8 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // fieldslist
             // 
-            this.fieldslist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
+            this.fieldslist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
+            | System.Windows.Forms.AnchorStyles.Left)
             | System.Windows.Forms.AnchorStyles.Right)));
             this.fieldslist.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
             this.fieldslist.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
@@ -713,29 +713,29 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabLights.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Button cancel;
-		private System.Windows.Forms.Button apply;
-		private System.Windows.Forms.TabControl tabs;
-		private System.Windows.Forms.TabPage tabproperties;
-		private System.Windows.Forms.TabPage tabcustom;
-		private CodeImp.DoomBuilder.Controls.FlatSelectorControl floortex;
-		private CodeImp.DoomBuilder.Controls.FlatSelectorControl ceilingtex;
-		private CodeImp.DoomBuilder.Controls.FlatSelectorControl flatSelectorControl2;
-		private CodeImp.DoomBuilder.Controls.FlatSelectorControl flatSelectorControl1;
-		private CodeImp.DoomBuilder.Controls.FieldsEditorControl fieldslist;
-		private System.Windows.Forms.Label sectorheight;
-		private CodeImp.DoomBuilder.Controls.ActionSelectorControl effect;
-		private System.Windows.Forms.Button newtag;
-		private System.Windows.Forms.Button browseeffect;
-		private System.Windows.Forms.Label sectorheightlabel;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox ceilingheight;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox floorheight;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox brightness;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox tag;
+        private System.Windows.Forms.Button cancel;
+        private System.Windows.Forms.Button apply;
+        private System.Windows.Forms.TabControl tabs;
+        private System.Windows.Forms.TabPage tabproperties;
+        private System.Windows.Forms.TabPage tabcustom;
+        private CodeImp.DoomBuilder.Controls.FlatSelectorControl floortex;
+        private CodeImp.DoomBuilder.Controls.FlatSelectorControl ceilingtex;
+        private CodeImp.DoomBuilder.Controls.FlatSelectorControl flatSelectorControl2;
+        private CodeImp.DoomBuilder.Controls.FlatSelectorControl flatSelectorControl1;
+        private CodeImp.DoomBuilder.Controls.FieldsEditorControl fieldslist;
+        private System.Windows.Forms.Label sectorheight;
+        private CodeImp.DoomBuilder.Controls.ActionSelectorControl effect;
+        private System.Windows.Forms.Button newtag;
+        private System.Windows.Forms.Button browseeffect;
+        private System.Windows.Forms.Label sectorheightlabel;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox ceilingheight;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox floorheight;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox brightness;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox tag;
         private System.Windows.Forms.GroupBox settingsgroup;
         private CodeImp.DoomBuilder.Controls.CheckboxArrayControl flags;
         private System.Windows.Forms.Label label9;
@@ -757,5 +757,5 @@ namespace CodeImp.DoomBuilder.Windows
         private System.Windows.Forms.Button button16;
         private System.Windows.Forms.Button button3;
         private System.Windows.Forms.Button button4;
-	}
+    }
 }

@@ -1,34 +1,34 @@
 namespace CodeImp.DoomBuilder.Windows
 {
-	partial class PreferencesForm
-	{
-		/// <summary>
-		/// Required designer variable.
-		/// </summary>
-		private System.ComponentModel.IContainer components = null;
+    partial class PreferencesForm
+    {
+        /// <summary>
+        /// Required designer variable.
+        /// </summary>
+        private System.ComponentModel.IContainer components = null;
 
-		/// <summary>
-		/// Clean up any resources being used.
-		/// </summary>
-		/// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
-		protected override void Dispose(bool disposing)
-		{
-			if(disposing && (components != null))
-			{
-				controller = null;
-				components.Dispose();
-			}
-			base.Dispose(disposing);
-		}
+        /// <summary>
+        /// Clean up any resources being used.
+        /// </summary>
+        /// <param name="disposing">true if managed resources should be disposed; otherwise, false.</param>
+        protected override void Dispose(bool disposing)
+        {
+            if (disposing && (components != null))
+            {
+                controller = null;
+                components.Dispose();
+            }
+            base.Dispose(disposing);
+        }
 
-		#region Windows Form Designer generated code
+        #region Windows Form Designer generated code
 
-		/// <summary>
-		/// Required method for Designer support - do not modify
-		/// the contents of this method with the code editor.
-		/// </summary>
-		private void InitializeComponent()
-		{
+        /// <summary>
+        /// Required method for Designer support - do not modify
+        /// the contents of this method with the code editor.
+        /// </summary>
+        private void InitializeComponent()
+        {
             System.Windows.Forms.Label label7;
             System.Windows.Forms.Label label6;
             System.Windows.Forms.Label label5;
@@ -1569,112 +1569,112 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabpasting.ResumeLayout(false);
             this.ResumeLayout(false);
 
-		}
+        }
 
-		#endregion
+        #endregion
 
-		private System.Windows.Forms.Button cancel;
-		private System.Windows.Forms.Button apply;
-		private System.Windows.Forms.TabControl tabs;
-		private System.Windows.Forms.TabPage tabinterface;
-		private System.Windows.Forms.TabPage tabkeys;
-		private System.Windows.Forms.ListView listactions;
-		private System.Windows.Forms.ColumnHeader columncontrolaction;
-		private System.Windows.Forms.ColumnHeader columncontrolkey;
-		private System.Windows.Forms.GroupBox actioncontrolpanel;
-		private System.Windows.Forms.ComboBox actioncontrol;
-		private System.Windows.Forms.Label actiontitle;
-		private System.Windows.Forms.Button actioncontrolclear;
-		private System.Windows.Forms.TextBox actionkey;
-		private System.Windows.Forms.Label actiondescription;
-		private System.Windows.Forms.TabPage tabcolors;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorselection;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorhighlight;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorlinedefs;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorvertices;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorbackcolor;
-		private System.Windows.Forms.GroupBox colorsgroup3;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorscriptbackground;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorkeywords;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorlinenumbers;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorcomments;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorplaintext;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorliterals;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorconstants;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorspeciallinedefs;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorsoundlinedefs;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorindication;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorgrid64;
-		private CodeImp.DoomBuilder.Controls.ColorControl colorgrid;
-		private System.Windows.Forms.GroupBox colorsgroup1;
-		private System.Windows.Forms.CheckBox blackbrowsers;
-		private System.Windows.Forms.Label label2;
-		private System.Windows.Forms.Label doublesidedalphalabel;
-		private System.Windows.Forms.Label imagebrightnesslabel;
-		private System.Windows.Forms.GroupBox groupBox2;
-		private System.Windows.Forms.Label fieldofviewlabel;
-		private System.Windows.Forms.Label label4;
-		private System.Windows.Forms.Label movespeedlabel;
-		private System.Windows.Forms.Label label11;
-		private System.Windows.Forms.Label mousespeedlabel;
-		private System.Windows.Forms.Label label9;
-		private System.Windows.Forms.Label viewdistancelabel;
-		private System.Windows.Forms.Label label13;
-		private System.Windows.Forms.CheckBox invertyaxis;
-		private System.Windows.Forms.ComboBox defaultviewmode;
-		private System.Windows.Forms.Label label14;
-		private Dotnetrix.Controls.TrackBar fieldofview;
-		private Dotnetrix.Controls.TrackBar movespeed;
-		private Dotnetrix.Controls.TrackBar mousespeed;
-		private Dotnetrix.Controls.TrackBar viewdistance;
-		private Dotnetrix.Controls.TrackBar doublesidedalpha;
-		private Dotnetrix.Controls.TrackBar imagebrightness;
-		private System.Windows.Forms.Label disregardshiftlabel;
-		private System.Windows.Forms.ListBox keyusedlist;
-		private System.Windows.Forms.Label keyusedlabel;
-		private System.Windows.Forms.CheckBox qualitydisplay;
-		private System.Windows.Forms.CheckBox visualbilinear;
-		private System.Windows.Forms.CheckBox classicbilinear;
-		private Dotnetrix.Controls.TrackBar previewsize;
-		private System.Windows.Forms.Label previewsizelabel;
-		private System.Windows.Forms.Label label12;
-		private System.Windows.Forms.CheckBox squarethings;
-		private Dotnetrix.Controls.TrackBar autoscrollspeed;
-		private System.Windows.Forms.Label autoscrollspeedlabel;
-		private System.Windows.Forms.Label label15;
-		private System.Windows.Forms.CheckBox animatevisualselection;
-		private System.Windows.Forms.TabPage tabpasting;
-		private CodeImp.DoomBuilder.Controls.PasteOptionsControl pasteoptions;
-		private System.Windows.Forms.Label label16;
-		private System.Windows.Forms.GroupBox appearancegroup1;
-		private System.Windows.Forms.GroupBox groupBox4;
-		private System.Windows.Forms.ComboBox dockersposition;
-		private System.Windows.Forms.Label label17;
-		private System.Windows.Forms.CheckBox collapsedockers;
-		private Dotnetrix.Controls.TrackBar zoomfactor;
-		private System.Windows.Forms.Label zoomfactorlabel;
-		private System.Windows.Forms.Label label19;
-		private System.Windows.Forms.GroupBox groupBox5;
-		private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox scripttabwidth;
-		private System.Windows.Forms.CheckBox scriptautoindent;
-		private System.Windows.Forms.Label label10;
-		private System.Windows.Forms.Panel panel1;
-		private System.Windows.Forms.Label scriptfontlabel;
-		private System.Windows.Forms.ComboBox scriptfontsize;
-		private System.Windows.Forms.Label label8;
-		private System.Windows.Forms.CheckBox scriptfontbold;
-		private System.Windows.Forms.ComboBox scriptfontname;
-		private System.Windows.Forms.Label label3;
-		private System.Windows.Forms.CheckBox scriptontop;
-		private System.Windows.Forms.CheckBox toolbar_script;
-		private System.Windows.Forms.CheckBox toolbar_copy;
-		private System.Windows.Forms.CheckBox toolbar_undo;
-		private System.Windows.Forms.CheckBox toolbar_viewmodes;
-		private System.Windows.Forms.CheckBox toolbar_filter;
-		private System.Windows.Forms.CheckBox toolbar_prefabs;
-		private System.Windows.Forms.CheckBox toolbar_geometry;
-		private System.Windows.Forms.CheckBox toolbar_testing;
-		private System.Windows.Forms.CheckBox toolbar_file;
+        private System.Windows.Forms.Button cancel;
+        private System.Windows.Forms.Button apply;
+        private System.Windows.Forms.TabControl tabs;
+        private System.Windows.Forms.TabPage tabinterface;
+        private System.Windows.Forms.TabPage tabkeys;
+        private System.Windows.Forms.ListView listactions;
+        private System.Windows.Forms.ColumnHeader columncontrolaction;
+        private System.Windows.Forms.ColumnHeader columncontrolkey;
+        private System.Windows.Forms.GroupBox actioncontrolpanel;
+        private System.Windows.Forms.ComboBox actioncontrol;
+        private System.Windows.Forms.Label actiontitle;
+        private System.Windows.Forms.Button actioncontrolclear;
+        private System.Windows.Forms.TextBox actionkey;
+        private System.Windows.Forms.Label actiondescription;
+        private System.Windows.Forms.TabPage tabcolors;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorselection;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorhighlight;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorlinedefs;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorvertices;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorbackcolor;
+        private System.Windows.Forms.GroupBox colorsgroup3;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorscriptbackground;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorkeywords;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorlinenumbers;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorcomments;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorplaintext;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorliterals;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorconstants;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorspeciallinedefs;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorsoundlinedefs;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorindication;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorgrid64;
+        private CodeImp.DoomBuilder.Controls.ColorControl colorgrid;
+        private System.Windows.Forms.GroupBox colorsgroup1;
+        private System.Windows.Forms.CheckBox blackbrowsers;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Label doublesidedalphalabel;
+        private System.Windows.Forms.Label imagebrightnesslabel;
+        private System.Windows.Forms.GroupBox groupBox2;
+        private System.Windows.Forms.Label fieldofviewlabel;
+        private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Label movespeedlabel;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Label mousespeedlabel;
+        private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.Label viewdistancelabel;
+        private System.Windows.Forms.Label label13;
+        private System.Windows.Forms.CheckBox invertyaxis;
+        private System.Windows.Forms.ComboBox defaultviewmode;
+        private System.Windows.Forms.Label label14;
+        private Dotnetrix.Controls.TrackBar fieldofview;
+        private Dotnetrix.Controls.TrackBar movespeed;
+        private Dotnetrix.Controls.TrackBar mousespeed;
+        private Dotnetrix.Controls.TrackBar viewdistance;
+        private Dotnetrix.Controls.TrackBar doublesidedalpha;
+        private Dotnetrix.Controls.TrackBar imagebrightness;
+        private System.Windows.Forms.Label disregardshiftlabel;
+        private System.Windows.Forms.ListBox keyusedlist;
+        private System.Windows.Forms.Label keyusedlabel;
+        private System.Windows.Forms.CheckBox qualitydisplay;
+        private System.Windows.Forms.CheckBox visualbilinear;
+        private System.Windows.Forms.CheckBox classicbilinear;
+        private Dotnetrix.Controls.TrackBar previewsize;
+        private System.Windows.Forms.Label previewsizelabel;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.CheckBox squarethings;
+        private Dotnetrix.Controls.TrackBar autoscrollspeed;
+        private System.Windows.Forms.Label autoscrollspeedlabel;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.CheckBox animatevisualselection;
+        private System.Windows.Forms.TabPage tabpasting;
+        private CodeImp.DoomBuilder.Controls.PasteOptionsControl pasteoptions;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.GroupBox appearancegroup1;
+        private System.Windows.Forms.GroupBox groupBox4;
+        private System.Windows.Forms.ComboBox dockersposition;
+        private System.Windows.Forms.Label label17;
+        private System.Windows.Forms.CheckBox collapsedockers;
+        private Dotnetrix.Controls.TrackBar zoomfactor;
+        private System.Windows.Forms.Label zoomfactorlabel;
+        private System.Windows.Forms.Label label19;
+        private System.Windows.Forms.GroupBox groupBox5;
+        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox scripttabwidth;
+        private System.Windows.Forms.CheckBox scriptautoindent;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.Panel panel1;
+        private System.Windows.Forms.Label scriptfontlabel;
+        private System.Windows.Forms.ComboBox scriptfontsize;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.CheckBox scriptfontbold;
+        private System.Windows.Forms.ComboBox scriptfontname;
+        private System.Windows.Forms.Label label3;
+        private System.Windows.Forms.CheckBox scriptontop;
+        private System.Windows.Forms.CheckBox toolbar_script;
+        private System.Windows.Forms.CheckBox toolbar_copy;
+        private System.Windows.Forms.CheckBox toolbar_undo;
+        private System.Windows.Forms.CheckBox toolbar_viewmodes;
+        private System.Windows.Forms.CheckBox toolbar_filter;
+        private System.Windows.Forms.CheckBox toolbar_prefabs;
+        private System.Windows.Forms.CheckBox toolbar_geometry;
+        private System.Windows.Forms.CheckBox toolbar_testing;
+        private System.Windows.Forms.CheckBox toolbar_file;
         private Dotnetrix.Controls.TrackBar lightintensity;
         private System.Windows.Forms.Label label18;
         private System.Windows.Forms.Label lightintensitylabel;
@@ -1682,5 +1682,5 @@ namespace CodeImp.DoomBuilder.Windows
         private CodeImp.DoomBuilder.Controls.ColorControl colorSecret;
         private CodeImp.DoomBuilder.Controls.ColorControl colorMblock;
         private CodeImp.DoomBuilder.Controls.ColorControl coloinvisiblelinedef;
-	}
+    }
 }

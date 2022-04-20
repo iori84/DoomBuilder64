@@ -30,67 +30,67 @@ using SlimDX;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	public struct PixelColor
-	{
-		#region ================== Constants
-		
-		public const float BYTE_TO_FLOAT = 0.00392156862745098f;
-		
-		#endregion
+    public struct PixelColor
+    {
+        #region ================== Constants
 
-		#region ================== Statics
+        public const float BYTE_TO_FLOAT = 0.00392156862745098f;
 
-		public static readonly PixelColor Transparent = new PixelColor(0, 0, 0, 0);
-		
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Statics
 
-		// Members
-		public byte b;
-		public byte g;
-		public byte r;
-		public byte a;
+        public static readonly PixelColor Transparent = new PixelColor(0, 0, 0, 0);
 
-		#endregion
+        #endregion
 
-		#region ================== Constructors
+        #region ================== Variables
 
-		// Constructor
-		public PixelColor(byte a, byte r, byte g, byte b)
-		{
-			// Initialize
-			this.a = a;
-			this.r = r;
-			this.g = g;
-			this.b = b;
-		}
+        // Members
+        public byte b;
+        public byte g;
+        public byte r;
+        public byte a;
 
-		// Constructor
-		public PixelColor(PixelColor p, byte a)
-		{
-			// Initialize
-			this.a = a;
-			this.r = p.r;
-			this.g = p.g;
-			this.b = p.b;
-		}
+        #endregion
 
-		#endregion
+        #region ================== Constructors
 
-		#region ================== Methods
-		
-		// Construct from color
-		public static PixelColor FromColor(Color c)
-		{
-			return new PixelColor(c.A, c.R, c.G, c.B);
-		}
-		
-		// Construct from int
-		public static PixelColor FromInt(int c)
-		{
-			return FromColor(Color.FromArgb(c));
-		}
+        // Constructor
+        public PixelColor(byte a, byte r, byte g, byte b)
+        {
+            // Initialize
+            this.a = a;
+            this.r = r;
+            this.g = g;
+            this.b = b;
+        }
+
+        // Constructor
+        public PixelColor(PixelColor p, byte a)
+        {
+            // Initialize
+            this.a = a;
+            this.r = p.r;
+            this.g = p.g;
+            this.b = p.b;
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // Construct from color
+        public static PixelColor FromColor(Color c)
+        {
+            return new PixelColor(c.A, c.R, c.G, c.B);
+        }
+
+        // Construct from int
+        public static PixelColor FromInt(int c)
+        {
+            return FromColor(Color.FromArgb(c));
+        }
 
         // Construct from Hex
         public static PixelColor FromHex(string h)
@@ -99,24 +99,24 @@ namespace CodeImp.DoomBuilder.Rendering
             int value = int.Parse("FF" + h, System.Globalization.NumberStyles.HexNumber);
             return FromInt(value);
         }
-		
-		// Return the inverse color
-		public PixelColor Inverse()
-		{
-			return new PixelColor((byte)(255 - a), (byte)(255 - r), (byte)(255 - g), (byte)(255 - b));
-		}
-		
-		// Return the inverse color, but keep same alpha
-		public PixelColor InverseKeepAlpha()
-		{
-			return new PixelColor(a, (byte)(255 - r), (byte)(255 - g), (byte)(255 - b));
-		}
-		
-		// To int
-		public int ToInt()
-		{
-			return Color.FromArgb(a, r, g, b).ToArgb();
-		}
+
+        // Return the inverse color
+        public PixelColor Inverse()
+        {
+            return new PixelColor((byte)(255 - a), (byte)(255 - r), (byte)(255 - g), (byte)(255 - b));
+        }
+
+        // Return the inverse color, but keep same alpha
+        public PixelColor InverseKeepAlpha()
+        {
+            return new PixelColor(a, (byte)(255 - r), (byte)(255 - g), (byte)(255 - b));
+        }
+
+        // To int
+        public int ToInt()
+        {
+            return Color.FromArgb(a, r, g, b).ToArgb();
+        }
 
         // To Hex
         public string ToHex()
@@ -127,75 +127,75 @@ namespace CodeImp.DoomBuilder.Rendering
 
         }
 
-		// To Color
-		public Color ToColor()
-		{
-			return Color.FromArgb(a, r, g, b);
-		}
-		
-		// To ColorRef (alpha-less)
-		public int ToColorRef()
-		{
-			return ((int)r + ((int)b << 16) + ((int)g << 8));
-		}
-		
-		// To ColorValue
-		public Color4 ToColorValue()
-		{
-			return new Color4((float)a * BYTE_TO_FLOAT,
-							  (float)r * BYTE_TO_FLOAT,
-							  (float)g * BYTE_TO_FLOAT,
-							  (float)b * BYTE_TO_FLOAT);
-		}
+        // To Color
+        public Color ToColor()
+        {
+            return Color.FromArgb(a, r, g, b);
+        }
 
-		// To ColorValue
-		public Color4 ToColorValue(float withalpha)
-		{
-			return new Color4(withalpha,
-							  (float)r * BYTE_TO_FLOAT,
-							  (float)g * BYTE_TO_FLOAT,
-							  (float)b * BYTE_TO_FLOAT);
-		}
-		
-		// This returns a new PixelColor with adjusted alpha
-		public PixelColor WithAlpha(byte a)
-		{
-			return new PixelColor(this, a);
-		}
-		
-		// This blends two colors with respect to alpha
-		public PixelColor Blend(PixelColor a, PixelColor b)
-		{
-			PixelColor c = new PixelColor();
-			float ba;
-			
-			ba = (float)a.a * BYTE_TO_FLOAT;
-			c.r = (byte)((float)a.r * (1f - ba) + (float)b.r * ba);
-			c.g = (byte)((float)a.g * (1f - ba) + (float)b.g * ba);
-			c.b = (byte)((float)a.b * (1f - ba) + (float)b.b * ba);
-			c.a = (byte)((float)a.a * (1f - ba) + ba);
-			
-			return c;
-		}
-		
-		// This modulates two colors
-		public static PixelColor Modulate(PixelColor a, PixelColor b)
-		{
-			float aa = (float)a.a * BYTE_TO_FLOAT;
-			float ar = (float)a.r * BYTE_TO_FLOAT;
-			float ag = (float)a.g * BYTE_TO_FLOAT;
-			float ab = (float)a.b * BYTE_TO_FLOAT;
-			float ba = (float)b.a * BYTE_TO_FLOAT;
-			float br = (float)b.r * BYTE_TO_FLOAT;
-			float bg = (float)b.g * BYTE_TO_FLOAT;
-			float bb = (float)b.b * BYTE_TO_FLOAT;
-			PixelColor c = new PixelColor();
-			c.a = (byte)((aa * ba) * 255.0f);
-			c.r = (byte)((ar * br) * 255.0f);
-			c.g = (byte)((ag * bg) * 255.0f);
-			c.b = (byte)((ab * bb) * 255.0f);
-			return c;
-		}
+        // To ColorRef (alpha-less)
+        public int ToColorRef()
+        {
+            return ((int)r + ((int)b << 16) + ((int)g << 8));
+        }
+
+        // To ColorValue
+        public Color4 ToColorValue()
+        {
+            return new Color4((float)a * BYTE_TO_FLOAT,
+                              (float)r * BYTE_TO_FLOAT,
+                              (float)g * BYTE_TO_FLOAT,
+                              (float)b * BYTE_TO_FLOAT);
+        }
+
+        // To ColorValue
+        public Color4 ToColorValue(float withalpha)
+        {
+            return new Color4(withalpha,
+                              (float)r * BYTE_TO_FLOAT,
+                              (float)g * BYTE_TO_FLOAT,
+                              (float)b * BYTE_TO_FLOAT);
+        }
+
+        // This returns a new PixelColor with adjusted alpha
+        public PixelColor WithAlpha(byte a)
+        {
+            return new PixelColor(this, a);
+        }
+
+        // This blends two colors with respect to alpha
+        public PixelColor Blend(PixelColor a, PixelColor b)
+        {
+            PixelColor c = new PixelColor();
+            float ba;
+
+            ba = (float)a.a * BYTE_TO_FLOAT;
+            c.r = (byte)((float)a.r * (1f - ba) + (float)b.r * ba);
+            c.g = (byte)((float)a.g * (1f - ba) + (float)b.g * ba);
+            c.b = (byte)((float)a.b * (1f - ba) + (float)b.b * ba);
+            c.a = (byte)((float)a.a * (1f - ba) + ba);
+
+            return c;
+        }
+
+        // This modulates two colors
+        public static PixelColor Modulate(PixelColor a, PixelColor b)
+        {
+            float aa = (float)a.a * BYTE_TO_FLOAT;
+            float ar = (float)a.r * BYTE_TO_FLOAT;
+            float ag = (float)a.g * BYTE_TO_FLOAT;
+            float ab = (float)a.b * BYTE_TO_FLOAT;
+            float ba = (float)b.a * BYTE_TO_FLOAT;
+            float br = (float)b.r * BYTE_TO_FLOAT;
+            float bg = (float)b.g * BYTE_TO_FLOAT;
+            float bb = (float)b.b * BYTE_TO_FLOAT;
+            PixelColor c = new PixelColor();
+            c.a = (byte)((aa * ba) * 255.0f);
+            c.r = (byte)((ar * br) * 255.0f);
+            c.g = (byte)((ag * bg) * 255.0f);
+            c.b = (byte)((ab * bb) * 255.0f);
+            return c;
+        }
 
         public static PixelColor Modulate(PixelColor a, float multiplier)
         {
@@ -212,7 +212,7 @@ namespace CodeImp.DoomBuilder.Rendering
             c.b = (byte)(((ab * x) * 255.0f) * multiplier);
             return c;
         }
-		
-		#endregion
-	}
+
+        #endregion
+    }
 }

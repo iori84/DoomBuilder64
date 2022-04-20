@@ -1,4 +1,4 @@
-	
+
 #region ================== Copyright (c) 2007 Pascal vd Heiden
 
 /*
@@ -26,68 +26,68 @@ using System.Text;
 
 namespace CodeImp.DoomBuilder.Geometry
 {
-	public struct Angle2D
-	{
-		#region ================== Constants
+    public struct Angle2D
+    {
+        #region ================== Constants
 
-		public const float PI = (float)Math.PI;
-		public const float PIHALF = (float)Math.PI * 0.5f;
-		public const float PI2 = (float)Math.PI * 2f;
-		public const float PIDEG = 57.295779513082320876798154814105f;
-		public const float SQRT2 = 1.4142135623730950488016887242097f;
-		
-		#endregion
+        public const float PI = (float)Math.PI;
+        public const float PIHALF = (float)Math.PI * 0.5f;
+        public const float PI2 = (float)Math.PI * 2f;
+        public const float PIDEG = 57.295779513082320876798154814105f;
+        public const float SQRT2 = 1.4142135623730950488016887242097f;
 
-		#region ================== Methods
+        #endregion
 
-		// This converts doom angle to real angle
-		public static float DoomToReal(int doomangle)
-		{
-			return Normalized(DegToRad((float)(doomangle + 90)));
-		}
+        #region ================== Methods
 
-		// This converts real angle to doom angle
-		public static int RealToDoom(float realangle)
-		{
-			return (int)Math.Round(RadToDeg(Normalized(realangle - PIHALF)));
-		}
+        // This converts doom angle to real angle
+        public static float DoomToReal(int doomangle)
+        {
+            return Normalized(DegToRad((float)(doomangle + 90)));
+        }
 
-		// This converts degrees to radians
-		public static float DegToRad(float deg)
-		{
-			return deg / PIDEG;
-		}
+        // This converts real angle to doom angle
+        public static int RealToDoom(float realangle)
+        {
+            return (int)Math.Round(RadToDeg(Normalized(realangle - PIHALF)));
+        }
 
-		// This converts radians to degrees
-		public static float RadToDeg(float rad)
-		{
-			return rad * PIDEG;
-		}
+        // This converts degrees to radians
+        public static float DegToRad(float deg)
+        {
+            return deg / PIDEG;
+        }
 
-		// This normalizes an angle
-		public static float Normalized(float a)
-		{
-			while(a < 0f) a += PI2;
-			while(a >= PI2) a -= PI2;
-			return a;
-		}
+        // This converts radians to degrees
+        public static float RadToDeg(float rad)
+        {
+            return rad * PIDEG;
+        }
 
-		// This returns the difference between two angles
-		public static float Difference(float a, float b)
-		{
-			float d;
+        // This normalizes an angle
+        public static float Normalized(float a)
+        {
+            while (a < 0f) a += PI2;
+            while (a >= PI2) a -= PI2;
+            return a;
+        }
 
-			// Calculate delta angle
-			d = Normalized(a) - Normalized(b);
+        // This returns the difference between two angles
+        public static float Difference(float a, float b)
+        {
+            float d;
 
-			// Make corrections for zero barrier
-			if(d < 0f) d += PI2;
-			if(d > PI) d = PI2 - d;
+            // Calculate delta angle
+            d = Normalized(a) - Normalized(b);
 
-			// Return result
-			return d;
-		}
-		
-		#endregion
-	}
+            // Make corrections for zero barrier
+            if (d < 0f) d += PI2;
+            if (d > PI) d = PI2 - d;
+
+            // Return result
+            return d;
+        }
+
+        #endregion
+    }
 }

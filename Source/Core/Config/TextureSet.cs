@@ -33,46 +33,46 @@ using System.Collections.Specialized;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public abstract class TextureSet : IComparable<TextureSet>
-	{
-		#region ================== Variables
+    public abstract class TextureSet : IComparable<TextureSet>
+    {
+        #region ================== Variables
 
-		protected string name;
-		protected List<string> filters;
-		
-		#endregion
-		
-		#region ================== Properties
-		
-		public string Name { get { return name; } set { name = value; } }
-		internal List<string> Filters { get { return filters; } }
-		
-		#endregion
-		
-		#region ================== Constructor / Destructor
-		
-		public TextureSet()
-		{
-			this.name = "Unnamed Set";
-			this.filters = new List<string>();
-		}
-		
-		#endregion
-		
-		#region ================== Methods
-		
-		// This returns the name
-		public override string ToString()
-		{
-			return name;
-		}
-		
-		// Comparer for sorting alphabetically
-		public int CompareTo(TextureSet other)
-		{
-			return string.Compare(this.name, other.name);
-		}
-		
-		#endregion
-	}
+        protected string name;
+        protected List<string> filters;
+
+        #endregion
+
+        #region ================== Properties
+
+        public string Name { get { return name; } set { name = value; } }
+        internal List<string> Filters { get { return filters; } }
+
+        #endregion
+
+        #region ================== Constructor / Destructor
+
+        public TextureSet()
+        {
+            this.name = "Unnamed Set";
+            this.filters = new List<string>();
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // This returns the name
+        public override string ToString()
+        {
+            return name;
+        }
+
+        // Comparer for sorting alphabetically
+        public int CompareTo(TextureSet other)
+        {
+            return string.Compare(this.name, other.name);
+        }
+
+        #endregion
+    }
 }

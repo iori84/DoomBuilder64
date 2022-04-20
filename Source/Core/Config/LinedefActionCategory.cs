@@ -32,86 +32,86 @@ using CodeImp.DoomBuilder.Rendering;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public class LinedefActionCategory : IComparable<LinedefActionCategory>
-	{
-		#region ================== Constants
+    public class LinedefActionCategory : IComparable<LinedefActionCategory>
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Category properties
-		private string name;
-		private string title;
+        // Category properties
+        private string name;
+        private string title;
 
-		// Actions
-		private List<LinedefActionInfo> actions;
+        // Actions
+        private List<LinedefActionInfo> actions;
 
-		// Disposing
-		private bool isdisposed = false;
+        // Disposing
+        private bool isdisposed = false;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public string Name { get { return name; } }
-		public string Title { get { return title; } }
-		public List<LinedefActionInfo> Actions { get { return actions; } }
-		public bool IsDisposed { get { return isdisposed; } }
+        public string Name { get { return name; } }
+        public string Title { get { return title; } }
+        public List<LinedefActionInfo> Actions { get { return actions; } }
+        public bool IsDisposed { get { return isdisposed; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		internal LinedefActionCategory(string name, string title)
-		{
-			// Initialize
-			this.name = name;
-			this.title = title;
-			this.actions = new List<LinedefActionInfo>();
+        // Constructor
+        internal LinedefActionCategory(string name, string title)
+        {
+            // Initialize
+            this.name = name;
+            this.title = title;
+            this.actions = new List<LinedefActionInfo>();
 
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		// Disposer
-		internal void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
-				actions = null;
-				
-				// Done
-				isdisposed = true;
-			}
-		}
+        // Disposer
+        internal void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
+                actions = null;
 
-		#endregion
+                // Done
+                isdisposed = true;
+            }
+        }
 
-		#region ================== Methods
+        #endregion
 
-		// This adds an action to this category
-		internal void Add(LinedefActionInfo a)
-		{
-			// Make it so.
-			actions.Add(a);
-		}
+        #region ================== Methods
 
-		// This compares against another action category
-		public int CompareTo(LinedefActionCategory other)
-		{
-			return string.Compare(this.name, other.name);
-		}
-		
-		// String representation
-		public override string ToString()
-		{
-			return title;
-		}
-		
-		#endregion
-	}
+        // This adds an action to this category
+        internal void Add(LinedefActionInfo a)
+        {
+            // Make it so.
+            actions.Add(a);
+        }
+
+        // This compares against another action category
+        public int CompareTo(LinedefActionCategory other)
+        {
+            return string.Compare(this.name, other.name);
+        }
+
+        // String representation
+        public override string ToString()
+        {
+            return title;
+        }
+
+        #endregion
+    }
 }

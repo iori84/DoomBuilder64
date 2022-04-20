@@ -36,152 +36,152 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	// No action or button for this mode, it is automatic.
-	// The EditMode attribute does not have to be specified unless the
-	// mode must be activated by class name rather than direct instance.
-	// In that case, just specifying the attribute like this is enough:
-	// [EditMode]
+    // No action or button for this mode, it is automatic.
+    // The EditMode attribute does not have to be specified unless the
+    // mode must be activated by class name rather than direct instance.
+    // In that case, just specifying the attribute like this is enough:
+    // [EditMode]
 
-	[EditMode(DisplayName = "Linedefs",
-			  Volatile = true)]
-	
-	public sealed class DragLinedefsMode : DragGeometryMode
-	{
-		#region ================== Constants
+    [EditMode(DisplayName = "Linedefs",
+              Volatile = true)]
 
-		#endregion
+    public sealed class DragLinedefsMode : DragGeometryMode
+    {
+        #region ================== Constants
 
-		#region ================== Variables
+        #endregion
 
-		private ICollection<Linedef> selectedlines;
-		private ICollection<Linedef> unselectedlines;
+        #region ================== Variables
 
-		#endregion
+        private ICollection<Linedef> selectedlines;
+        private ICollection<Linedef> unselectedlines;
 
-		#region ================== Properties
-		
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Properties
 
-		// Constructor to start dragging immediately
-		public DragLinedefsMode(Vector2D dragstartmappos)
-		{
-			// Mark what we are dragging
-			General.Map.Map.ClearAllMarks(false);
-			General.Map.Map.MarkSelectedLinedefs(true, true);
-			ICollection<Vertex> verts = General.Map.Map.GetVerticesFromLinesMarks(true);
-			foreach(Vertex v in verts) v.Marked = true;
-			
-			// Get line collections
-			selectedlines = General.Map.Map.GetSelectedLinedefs(true);
-			unselectedlines = General.Map.Map.GetSelectedLinedefs(false);
+        #endregion
 
-			// Initialize
-			base.StartDrag(dragstartmappos);
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
+        #region ================== Constructor / Disposer
 
-		// Disposer
-		public override void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Clean up
+        // Constructor to start dragging immediately
+        public DragLinedefsMode(Vector2D dragstartmappos)
+        {
+            // Mark what we are dragging
+            General.Map.Map.ClearAllMarks(false);
+            General.Map.Map.MarkSelectedLinedefs(true, true);
+            ICollection<Vertex> verts = General.Map.Map.GetVerticesFromLinesMarks(true);
+            foreach (Vertex v in verts) v.Marked = true;
 
-				// Done
-				base.Dispose();
-			}
-		}
+            // Get line collections
+            selectedlines = General.Map.Map.GetSelectedLinedefs(true);
+            unselectedlines = General.Map.Map.GetSelectedLinedefs(false);
 
-		#endregion
+            // Initialize
+            base.StartDrag(dragstartmappos);
 
-		#region ================== Methods
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		// Mode engages
-		public override void OnEngage()
-		{
-			base.OnEngage();
-		}
-		
-		// Disenagaging
-		public override void OnDisengage()
-		{
-			// Select vertices from lines selection
-			General.Map.Map.ClearSelectedVertices();
-			ICollection<Vertex> verts = General.Map.Map.GetVerticesFromLinesMarks(true);
-			foreach(Vertex v in verts) v.Selected = true;
+        // Disposer
+        public override void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Clean up
 
-			// Perform normal disengage
-			base.OnDisengage();
+                // Done
+                base.Dispose();
+            }
+        }
 
-			// Clear vertex selection
-			General.Map.Map.ClearSelectedVertices();
-			
-			// When not cancelled
-			if(!cancelled)
-			{
-				// If only a single linedef was selected, deselect it now
-				if(selectedlines.Count == 1) General.Map.Map.ClearSelectedLinedefs();
-			}
-		}
+        #endregion
 
-		// This redraws the display
-		public override void OnRedrawDisplay()
-		{
-			bool viewchanged = CheckViewChanged();
+        #region ================== Methods
 
-			renderer.RedrawSurface();
+        // Mode engages
+        public override void OnEngage()
+        {
+            base.OnEngage();
+        }
 
-			UpdateRedraw();
+        // Disenagaging
+        public override void OnDisengage()
+        {
+            // Select vertices from lines selection
+            General.Map.Map.ClearSelectedVertices();
+            ICollection<Vertex> verts = General.Map.Map.GetVerticesFromLinesMarks(true);
+            foreach (Vertex v in verts) v.Selected = true;
 
-			if(viewchanged)
-			{
-				// Start rendering things
-				if(renderer.StartThings(true))
-				{
-					renderer.RenderThingSet(General.Map.Map.Things, 1.0f);
-					renderer.Finish();
-				}
-			}
+            // Perform normal disengage
+            base.OnDisengage();
 
-			renderer.Present();
-		}
+            // Clear vertex selection
+            General.Map.Map.ClearSelectedVertices();
 
-		// This redraws only the required things
-		protected override void UpdateRedraw()
-		{
-			// Start rendering structure
-			if(renderer.StartPlotter(true))
-			{
-				// Render lines and vertices
-				renderer.PlotLinedefSet(unselectedlines);
-				renderer.PlotLinedefSet(selectedlines);
-				renderer.PlotVerticesSet(General.Map.Map.Vertices);
+            // When not cancelled
+            if (!cancelled)
+            {
+                // If only a single linedef was selected, deselect it now
+                if (selectedlines.Count == 1) General.Map.Map.ClearSelectedLinedefs();
+            }
+        }
 
-				// Draw the dragged item highlighted
-				// This is important to know, because this item is used
-				// for snapping to the grid and snapping to nearest items
-				renderer.PlotVertex(dragitem, ColorCollection.HIGHLIGHT);
+        // This redraws the display
+        public override void OnRedrawDisplay()
+        {
+            bool viewchanged = CheckViewChanged();
 
-				// Done
-				renderer.Finish();
-			}
+            renderer.RedrawSurface();
 
-			// Redraw overlay
-			if(renderer.StartOverlay(true))
-			{
-				foreach(LineLengthLabel l in labels)
-				{
-					renderer.RenderText(l.TextLabel);
-				}
-				renderer.Finish();
-			}
-		}
-		
-		#endregion
-	}
+            UpdateRedraw();
+
+            if (viewchanged)
+            {
+                // Start rendering things
+                if (renderer.StartThings(true))
+                {
+                    renderer.RenderThingSet(General.Map.Map.Things, 1.0f);
+                    renderer.Finish();
+                }
+            }
+
+            renderer.Present();
+        }
+
+        // This redraws only the required things
+        protected override void UpdateRedraw()
+        {
+            // Start rendering structure
+            if (renderer.StartPlotter(true))
+            {
+                // Render lines and vertices
+                renderer.PlotLinedefSet(unselectedlines);
+                renderer.PlotLinedefSet(selectedlines);
+                renderer.PlotVerticesSet(General.Map.Map.Vertices);
+
+                // Draw the dragged item highlighted
+                // This is important to know, because this item is used
+                // for snapping to the grid and snapping to nearest items
+                renderer.PlotVertex(dragitem, ColorCollection.HIGHLIGHT);
+
+                // Done
+                renderer.Finish();
+            }
+
+            // Redraw overlay
+            if (renderer.StartOverlay(true))
+            {
+                foreach (LineLengthLabel l in labels)
+                {
+                    renderer.RenderText(l.TextLabel);
+                }
+                renderer.Finish();
+            }
+        }
+
+        #endregion
+    }
 }

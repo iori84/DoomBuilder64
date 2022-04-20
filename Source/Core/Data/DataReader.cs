@@ -32,130 +32,130 @@ using CodeImp.DoomBuilder.Rendering;
 
 namespace CodeImp.DoomBuilder.Data
 {
-	internal abstract class DataReader
-	{
-		#region ================== Variables
+    internal abstract class DataReader
+    {
+        #region ================== Variables
 
-		protected DataLocation location;
-		protected bool issuspended = false;
-		protected bool isdisposed = false;
-		protected ResourceTextureSet textureset;
+        protected DataLocation location;
+        protected bool issuspended = false;
+        protected bool isdisposed = false;
+        protected ResourceTextureSet textureset;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public DataLocation Location { get { return location; } }
-		public bool IsDisposed { get { return isdisposed; } }
-		public bool IsSuspended { get { return issuspended; } }
-		public ResourceTextureSet TextureSet { get { return textureset; } }
+        public DataLocation Location { get { return location; } }
+        public bool IsDisposed { get { return isdisposed; } }
+        public bool IsSuspended { get { return issuspended; } }
+        public ResourceTextureSet TextureSet { get { return textureset; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		public DataReader(DataLocation dl)
-		{
-			// Keep information
-			location = dl;
-			textureset = new ResourceTextureSet(GetTitle(), dl);
-		}
+        // Constructor
+        public DataReader(DataLocation dl)
+        {
+            // Keep information
+            location = dl;
+            textureset = new ResourceTextureSet(GetTitle(), dl);
+        }
 
-		// Disposer
-		public virtual void Dispose()
-		{
-			// Not already disposed?
-			if(!isdisposed)
-			{
-				// Done
-				textureset = null;
-				isdisposed = true;
-			}
-		}
+        // Disposer
+        public virtual void Dispose()
+        {
+            // Not already disposed?
+            if (!isdisposed)
+            {
+                // Done
+                textureset = null;
+                isdisposed = true;
+            }
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Management
+        #region ================== Management
 
-		// This returns a short name
-		public abstract string GetTitle();
+        // This returns a short name
+        public abstract string GetTitle();
 
-		// This suspends use of this resource
-		public virtual void Suspend()
-		{
-			issuspended = true;
-		}
+        // This suspends use of this resource
+        public virtual void Suspend()
+        {
+            issuspended = true;
+        }
 
-		// This resumes use of this resource
-		public virtual void Resume()
-		{
-			issuspended = false;
-		}
+        // This resumes use of this resource
+        public virtual void Resume()
+        {
+            issuspended = false;
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Palette
+        #region ================== Palette
 
-		// When implemented, this should find and load a PLAYPAL palette
-		public virtual Playpal LoadPalette() { return null; }
+        // When implemented, this should find and load a PLAYPAL palette
+        public virtual Playpal LoadPalette() { return null; }
 
         // villsa
         public virtual Playpal LoadThingPalette(string palname) { return null; }
-		
-		#endregion
 
-		#region ================== Colormaps
+        #endregion
 
-		// When implemented, this loads the colormaps
-		public virtual ICollection<ImageData> LoadColormaps() { return null; }
+        #region ================== Colormaps
 
-		// When implemented, this returns the colormap lump
-		public virtual Stream GetColormapData(string pname) { return null; }
+        // When implemented, this loads the colormaps
+        public virtual ICollection<ImageData> LoadColormaps() { return null; }
 
-		#endregion
+        // When implemented, this returns the colormap lump
+        public virtual Stream GetColormapData(string pname) { return null; }
 
-		#region ================== Textures
+        #endregion
 
-		// When implemented, this should read the patch names
-		public virtual PatchNames LoadPatchNames() { return null; }
+        #region ================== Textures
 
-		// When implemented, this returns the patch lump
-		public virtual Stream GetPatchData(string pname) { return null; }
+        // When implemented, this should read the patch names
+        public virtual PatchNames LoadPatchNames() { return null; }
 
-		// When implemented, this returns the texture lump
-		public virtual Stream GetTextureData(string pname) { return null; }
+        // When implemented, this returns the patch lump
+        public virtual Stream GetPatchData(string pname) { return null; }
 
-		// When implemented, this loads the textures
-		public virtual ICollection<ImageData> LoadTextures(PatchNames pnames) { return null; }
-		
-		#endregion
+        // When implemented, this returns the texture lump
+        public virtual Stream GetTextureData(string pname) { return null; }
 
-		#region ================== Flats
-		
-		// When implemented, this loads the flats
-		public virtual ICollection<ImageData> LoadFlats() { return null; }
+        // When implemented, this loads the textures
+        public virtual ICollection<ImageData> LoadTextures(PatchNames pnames) { return null; }
 
-		// When implemented, this returns the flat lump
-		public virtual Stream GetFlatData(string pname) { return null; }
-		
-		#endregion
-		
-		#region ================== Sprites
-		
-		// When implemented, this returns the sprite lump
-		public virtual Stream GetSpriteData(string pname) { return null; }
+        #endregion
 
-		// When implemented, this checks if the given sprite lump exists
-		public virtual bool GetSpriteExists(string pname) { return false; }
-		
-		#endregion
+        #region ================== Flats
 
-		#region ================== Decorate
+        // When implemented, this loads the flats
+        public virtual ICollection<ImageData> LoadFlats() { return null; }
 
-		// When implemented, this returns the decorate lump
-		public virtual List<Stream> GetDecorateData(string pname) { return new List<Stream>(); }
+        // When implemented, this returns the flat lump
+        public virtual Stream GetFlatData(string pname) { return null; }
 
-		#endregion
-	}
+        #endregion
+
+        #region ================== Sprites
+
+        // When implemented, this returns the sprite lump
+        public virtual Stream GetSpriteData(string pname) { return null; }
+
+        // When implemented, this checks if the given sprite lump exists
+        public virtual bool GetSpriteExists(string pname) { return false; }
+
+        #endregion
+
+        #region ================== Decorate
+
+        // When implemented, this returns the decorate lump
+        public virtual List<Stream> GetDecorateData(string pname) { return new List<Stream>(); }
+
+        #endregion
+    }
 }

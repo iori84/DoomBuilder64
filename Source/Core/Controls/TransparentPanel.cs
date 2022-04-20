@@ -32,37 +32,37 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	public class TransparentPanel : Panel
-	{
-		#region ================== Constructor / Disposer
+    public class TransparentPanel : Panel
+    {
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		public TransparentPanel()
-		{
-		}
+        // Constructor
+        public TransparentPanel()
+        {
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
-		
-		// Override this property
-		protected override CreateParams CreateParams
-		{
-			get
-			{
-				CreateParams cp = base.CreateParams;
-				cp.ExStyle |= 0x20;
-				return cp;
-			}
-		}
+        #region ================== Methods
 
-		// Disable background drawing by overriding this
-		protected override void OnPaintBackground(PaintEventArgs e)
-		{
-			if(BackColor != Color.Transparent)
-				e.Graphics.Clear(BackColor);
-		}
-		
-		#endregion
-	}
+        // Override this property
+        protected override CreateParams CreateParams
+        {
+            get
+            {
+                CreateParams cp = base.CreateParams;
+                cp.ExStyle |= 0x20;
+                return cp;
+            }
+        }
+
+        // Disable background drawing by overriding this
+        protected override void OnPaintBackground(PaintEventArgs e)
+        {
+            if (BackColor != Color.Transparent)
+                e.Graphics.Clear(BackColor);
+        }
+
+        #endregion
+    }
 }

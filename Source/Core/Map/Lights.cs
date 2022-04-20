@@ -78,7 +78,7 @@ namespace CodeImp.DoomBuilder.Map
         public int GetLowerColor(Sidedef s)
         {
             //if (s.Line.IsFlagSet("67108864"))
-                //return s.Sector.TopColor.color.ToInt();
+            //return s.Sector.TopColor.color.ToInt();
 
             return GetColor(s.Sector.LowerColor);
         }
@@ -174,8 +174,8 @@ namespace CodeImp.DoomBuilder.Map
             //}
             //else
             //{
-                ltop = s.Sector.TopColor;
-                lbottom = s.Sector.LowerColor;
+            ltop = s.Sector.TopColor;
+            lbottom = s.Sector.LowerColor;
             //}
 
             ltop.color = GetFactor(ltop);

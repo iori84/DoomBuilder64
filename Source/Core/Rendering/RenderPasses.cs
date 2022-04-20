@@ -37,12 +37,12 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	public enum RenderPass : int
-	{
-		Solid = 0,
-		Mask = 1,
-		Alpha = 2,
-		Additive = 3
-	}
+    public enum RenderPass : int
+    {
+        Solid = 0,
+        Mask = 1,
+        Alpha = 2,
+        Additive = 3
+    }
 }
 

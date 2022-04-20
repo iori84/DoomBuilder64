@@ -32,98 +32,98 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public class LinedefActionInfo : INumberedTitle, IComparable<LinedefActionInfo>
-	{
-		#region ================== Constants
+    public class LinedefActionInfo : INumberedTitle, IComparable<LinedefActionInfo>
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Properties
-		private int index;
-		private string prefix;
-		private string category;
-		private string name;
-		private string title;
-		private ArgumentInfo[] args;
-		private bool isgeneralized;
-		private bool isknown;
-		
-		#endregion
+        // Properties
+        private int index;
+        private string prefix;
+        private string category;
+        private string name;
+        private string title;
+        private ArgumentInfo[] args;
+        private bool isgeneralized;
+        private bool isknown;
 
-		#region ================== Properties
+        #endregion
 
-		public int Index { get { return index; } }
-		public string Prefix { get { return prefix; } }
-		public string Category { get { return category; } }
-		public string Name { get { return name; } }
-		public string Title { get { return title; } }
-		public bool IsGeneralized { get { return isgeneralized; } }
-		public bool IsKnown { get { return isknown; } }
-		public bool IsNull { get { return (index == 0); } }
-		public ArgumentInfo[] Args { get { return args; } }
+        #region ================== Properties
 
-		#endregion
+        public int Index { get { return index; } }
+        public string Prefix { get { return prefix; } }
+        public string Category { get { return category; } }
+        public string Name { get { return name; } }
+        public string Title { get { return title; } }
+        public bool IsGeneralized { get { return isgeneralized; } }
+        public bool IsKnown { get { return isknown; } }
+        public bool IsNull { get { return (index == 0); } }
+        public ArgumentInfo[] Args { get { return args; } }
 
-		#region ================== Constructor / Disposer
+        #endregion
 
-		// Constructor
-		internal LinedefActionInfo(int index, Configuration cfg, string categoryname, IDictionary<string, EnumList> enums)
-		{
-			string actionsetting = "linedeftypes." + categoryname + "." + index.ToString(CultureInfo.InvariantCulture);
-			
-			// Initialize
-			this.index = index;
-			this.category = categoryname;
-			this.args = new ArgumentInfo[Linedef.NUM_ARGS];
-			this.isgeneralized = false;
-			this.isknown = true;
-			
-			// Read settings
-			this.name = cfg.ReadSetting(actionsetting + ".title", "Unnamed");
-			this.prefix = cfg.ReadSetting(actionsetting + ".prefix", "");
-			this.title = this.prefix + " " + this.name;
-			this.title = this.title.Trim();
+        #region ================== Constructor / Disposer
 
-			// Read the args
-			for(int i = 0; i < Linedef.NUM_ARGS; i++)
-				this.args[i] = new ArgumentInfo(cfg, actionsetting, i, enums);
-			
-			// We have no destructor
-			GC.SuppressFinalize(this);
-		}
-		
-		// Constructor for generalized type display
-		internal LinedefActionInfo(int index, string title, bool isknown, bool isgeneralized)
-		{
-			this.index = index;
-			this.isgeneralized = isgeneralized;
-			this.isknown = isknown;
-			this.title = title;
-			this.args = new ArgumentInfo[Linedef.NUM_ARGS];
-			for(int i = 0; i < Linedef.NUM_ARGS; i++)
-				this.args[i] = new ArgumentInfo(i);
-		}
+        // Constructor
+        internal LinedefActionInfo(int index, Configuration cfg, string categoryname, IDictionary<string, EnumList> enums)
+        {
+            string actionsetting = "linedeftypes." + categoryname + "." + index.ToString(CultureInfo.InvariantCulture);
 
-		#endregion
+            // Initialize
+            this.index = index;
+            this.category = categoryname;
+            this.args = new ArgumentInfo[Linedef.NUM_ARGS];
+            this.isgeneralized = false;
+            this.isknown = true;
 
-		#region ================== Methods
+            // Read settings
+            this.name = cfg.ReadSetting(actionsetting + ".title", "Unnamed");
+            this.prefix = cfg.ReadSetting(actionsetting + ".prefix", "");
+            this.title = this.prefix + " " + this.name;
+            this.title = this.title.Trim();
 
-		// This presents the item as string
-		public override string ToString()
-		{
-			return index + " - " + title;
-		}
+            // Read the args
+            for (int i = 0; i < Linedef.NUM_ARGS; i++)
+                this.args[i] = new ArgumentInfo(cfg, actionsetting, i, enums);
 
-		// This compares against another action info
-		public int CompareTo(LinedefActionInfo other)
-		{
-			if(this.index < other.index) return -1;
-			else if(this.index > other.index) return 1;
-			else return 0;
-		}
+            // We have no destructor
+            GC.SuppressFinalize(this);
+        }
 
-		#endregion
-	}
+        // Constructor for generalized type display
+        internal LinedefActionInfo(int index, string title, bool isknown, bool isgeneralized)
+        {
+            this.index = index;
+            this.isgeneralized = isgeneralized;
+            this.isknown = isknown;
+            this.title = title;
+            this.args = new ArgumentInfo[Linedef.NUM_ARGS];
+            for (int i = 0; i < Linedef.NUM_ARGS; i++)
+                this.args[i] = new ArgumentInfo(i);
+        }
+
+        #endregion
+
+        #region ================== Methods
+
+        // This presents the item as string
+        public override string ToString()
+        {
+            return index + " - " + title;
+        }
+
+        // This compares against another action info
+        public int CompareTo(LinedefActionInfo other)
+        {
+            if (this.index < other.index) return -1;
+            else if (this.index > other.index) return 1;
+            else return 0;
+        }
+
+        #endregion
+    }
 }

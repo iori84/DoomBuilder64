@@ -32,55 +32,55 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public class SkillInfo : INumberedTitle, IComparable<SkillInfo>
-	{
-		#region ================== Constants
+    public class SkillInfo : INumberedTitle, IComparable<SkillInfo>
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Properties
-		private int index;
-		private string title;
+        // Properties
+        private int index;
+        private string title;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public int Index { get { return index; } }
-		public string Title { get { return title; } }
+        public int Index { get { return index; } }
+        public string Title { get { return title; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
-		internal SkillInfo(int index, string title)
-		{
-			// Initialize
-			this.index = index;
-			this.title = title;
-		}
+        // Constructor
+        internal SkillInfo(int index, string title)
+        {
+            // Initialize
+            this.index = index;
+            this.title = title;
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// This presents the item as string
-		public override string ToString()
-		{
-			return index + " - " + title;
-		}
+        // This presents the item as string
+        public override string ToString()
+        {
+            return index + " - " + title;
+        }
 
-		// This compares against another skill
-		public int CompareTo(SkillInfo other)
-		{
-			if(this.index < other.index) return -1;
-			else if(this.index > other.index) return 1;
-			else return 0;
-		}
+        // This compares against another skill
+        public int CompareTo(SkillInfo other)
+        {
+            if (this.index < other.index) return -1;
+            else if (this.index > other.index) return 1;
+            else return 0;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

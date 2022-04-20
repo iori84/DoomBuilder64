@@ -38,13 +38,13 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Windows
 {
-	public enum MessageBeepType : int
-	{
-		Default = -1,
-		Ok = 0x00000000,
-		Error = 0x00000010,
-		Question = 0x00000020,
-		Warning = 0x00000030,
-		Information = 0x00000040,
-	}
+    public enum MessageBeepType : int
+    {
+        Default = -1,
+        Ok = 0x00000000,
+        Error = 0x00000010,
+        Question = 0x00000020,
+        Warning = 0x00000030,
+        Information = 0x00000040,
+    }
 }

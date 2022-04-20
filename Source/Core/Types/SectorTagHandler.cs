@@ -33,8 +33,8 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.SectorTag, "Sector Tag", true)]
-	internal class SectorTagHandler : IntegerHandler
-	{
-	}
+    [TypeHandler(UniversalType.SectorTag, "Sector Tag", true)]
+    internal class SectorTagHandler : IntegerHandler
+    {
+    }
 }

@@ -32,33 +32,33 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	public class OptimizedListView : ListView
-	{
-		#region ================== Constants
+    public class OptimizedListView : ListView
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor
+        #region ================== Constructor
 
-		// Constructor
-		public OptimizedListView() : base()
-		{
-			this.DoubleBuffered = true;
-			SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
-		}
+        // Constructor
+        public OptimizedListView() : base()
+        {
+            this.DoubleBuffered = true;
+            SetStyle(ControlStyles.OptimizedDoubleBuffer, true);
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		#endregion
-	}
+        #endregion
+    }
 }

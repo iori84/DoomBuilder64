@@ -36,41 +36,41 @@ using CodeImp.DoomBuilder.VisualModes;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	internal interface IVisualEventReceiver
-	{
-		// The events that must be handled
-		void OnSelectBegin();
-		void OnSelectEnd();
-		void OnEditBegin();
-		void OnEditEnd();
-		void OnMouseMove(MouseEventArgs e);
-		void OnChangeTargetHeight(int amount);
-		void OnChangeTargetBrightness(bool up);
-		void OnChangeTextureOffset(int horizontal, int vertical);
-		void OnResetTextureOffset();
-		void OnSelectTexture();
-		void OnCopyTexture();
-		void OnPasteTexture();
+    internal interface IVisualEventReceiver
+    {
+        // The events that must be handled
+        void OnSelectBegin();
+        void OnSelectEnd();
+        void OnEditBegin();
+        void OnEditEnd();
+        void OnMouseMove(MouseEventArgs e);
+        void OnChangeTargetHeight(int amount);
+        void OnChangeTargetBrightness(bool up);
+        void OnChangeTextureOffset(int horizontal, int vertical);
+        void OnResetTextureOffset();
+        void OnSelectTexture();
+        void OnCopyTexture();
+        void OnPasteTexture();
         void OnCopyLight();
         void OnPasteLight();
-		void OnCopyTextureOffsets();
-		void OnPasteTextureOffsets();
-		void OnCopyProperties();
-		void OnPasteProperties();
-		void OnTextureAlign(bool alignx, bool aligny);
-		void OnTextureFloodfill();
-		void OnToggleUpperUnpegged();
-		void OnToggleLowerUnpegged();
-		void OnProcess(double deltatime);
-		void OnInsert();
-		void OnDelete();
+        void OnCopyTextureOffsets();
+        void OnPasteTextureOffsets();
+        void OnCopyProperties();
+        void OnPasteProperties();
+        void OnTextureAlign(bool alignx, bool aligny);
+        void OnTextureFloodfill();
+        void OnToggleUpperUnpegged();
+        void OnToggleLowerUnpegged();
+        void OnProcess(double deltatime);
+        void OnInsert();
+        void OnDelete();
 
-		// Assist functions
-		void ApplyTexture(string texture);
-		void ApplyUpperUnpegged(bool set);
-		void ApplyLowerUnpegged(bool set);
-		
-		// Other methods
-		string GetTextureName();
-	}
+        // Assist functions
+        void ApplyTexture(string texture);
+        void ApplyUpperUnpegged(bool set);
+        void ApplyLowerUnpegged(bool set);
+
+        // Other methods
+        string GetTextureName();
+    }
 }

@@ -31,20 +31,20 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Controls
 {
-	internal partial class SectorInfoPanel : UserControl
-	{
-		// Constructor
-		public SectorInfoPanel()
-		{
-			// Initialize
-			InitializeComponent();
-		}
+    internal partial class SectorInfoPanel : UserControl
+    {
+        // Constructor
+        public SectorInfoPanel()
+        {
+            // Initialize
+            InitializeComponent();
+        }
 
-		// This shows the info
-		public void ShowInfo(Sector s)
-		{
-			string effectinfo = "";
-			int sheight = s.CeilHeight - s.FloorHeight;
+        // This shows the info
+        public void ShowInfo(Sector s)
+        {
+            string effectinfo = "";
+            int sheight = s.CeilHeight - s.FloorHeight;
 
             // villsa
             if (General.Map.FormatInterface.InDoom64Mode)
@@ -55,26 +55,26 @@ namespace CodeImp.DoomBuilder.Controls
             else
                 lightInfo.Hide();
 
-			// Lookup effect description in config
-			if(General.Map.Config.SectorEffects.ContainsKey(s.Effect))
-				effectinfo = General.Map.Config.SectorEffects[s.Effect].ToString();
-			else if(s.Effect == 0)
-				effectinfo = s.Effect.ToString() + " - Normal";
-			else
-				effectinfo = s.Effect.ToString() + " - Unknown";
+            // Lookup effect description in config
+            if (General.Map.Config.SectorEffects.ContainsKey(s.Effect))
+                effectinfo = General.Map.Config.SectorEffects[s.Effect].ToString();
+            else if (s.Effect == 0)
+                effectinfo = s.Effect.ToString() + " - Normal";
+            else
+                effectinfo = s.Effect.ToString() + " - Unknown";
 
-			// Sector info
-			sectorinfo.Text = " Sector " + s.Index + " ";
-			effect.Text = effectinfo;
-			ceiling.Text = s.CeilHeight.ToString();
-			floor.Text = s.FloorHeight.ToString();
-			tag.Text = s.Tag.ToString();
-			height.Text = sheight.ToString();
-			brightness.Text = s.Brightness.ToString();
-			floorname.Text = s.FloorTexture;
-			ceilingname.Text = s.CeilTexture;
-			General.DisplayZoomedImage(floortex, General.Map.Data.GetFlatImage(s.FloorTexture).GetPreview());
-			General.DisplayZoomedImage(ceilingtex, General.Map.Data.GetFlatImage(s.CeilTexture).GetPreview());
+            // Sector info
+            sectorinfo.Text = " Sector " + s.Index + " ";
+            effect.Text = effectinfo;
+            ceiling.Text = s.CeilHeight.ToString();
+            floor.Text = s.FloorHeight.ToString();
+            tag.Text = s.Tag.ToString();
+            height.Text = sheight.ToString();
+            brightness.Text = s.Brightness.ToString();
+            floorname.Text = s.FloorTexture;
+            ceilingname.Text = s.CeilTexture;
+            General.DisplayZoomedImage(floortex, General.Map.Data.GetFlatImage(s.FloorTexture).GetPreview());
+            General.DisplayZoomedImage(ceilingtex, General.Map.Data.GetFlatImage(s.CeilTexture).GetPreview());
 
             //villsa
             ceilingcolor.BackColor = s.CeilColor.color.ToColor();
@@ -83,23 +83,23 @@ namespace CodeImp.DoomBuilder.Controls
             uppercolor.BackColor = s.TopColor.color.ToColor();
             lowercolor.BackColor = s.LowerColor.color.ToColor();
 
-			// Show the whole thing
-			this.Show();
-			this.Update();
-		}
+            // Show the whole thing
+            this.Show();
+            this.Update();
+        }
 
-		// When visible changed
-		protected override void OnVisibleChanged(EventArgs e)
-		{
-			// Hiding panels
-			if(!this.Visible)
-			{
-				floortex.BackgroundImage = null;
-				ceilingtex.BackgroundImage = null;
-			}
+        // When visible changed
+        protected override void OnVisibleChanged(EventArgs e)
+        {
+            // Hiding panels
+            if (!this.Visible)
+            {
+                floortex.BackgroundImage = null;
+                ceilingtex.BackgroundImage = null;
+            }
 
-			// Call base
-			base.OnVisibleChanged(e);
-		}
-	}
+            // Call base
+            base.OnVisibleChanged(e);
+        }
+    }
 }

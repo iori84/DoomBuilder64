@@ -36,11 +36,11 @@ using CodeImp.DoomBuilder.VisualModes;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	public struct VisualActionResult
-	{
-		/// <summary>
-		/// Status description to show after action hasbeen performed. Set to null to show no message.
-		/// </summary>
-		public string displaystatus;
-	}
+    public struct VisualActionResult
+    {
+        /// <summary>
+        /// Status description to show after action hasbeen performed. Set to null to show no message.
+        /// </summary>
+        public string displaystatus;
+    }
 }

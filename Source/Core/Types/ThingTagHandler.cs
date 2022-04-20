@@ -33,8 +33,8 @@ using System.Windows.Forms;
 
 namespace CodeImp.DoomBuilder.Types
 {
-	[TypeHandler(UniversalType.ThingTag, "Thing Tag", true)]
-	internal class ThingTagHandler : IntegerHandler
-	{
-	}
+    [TypeHandler(UniversalType.ThingTag, "Thing Tag", true)]
+    internal class ThingTagHandler : IntegerHandler
+    {
+    }
 }

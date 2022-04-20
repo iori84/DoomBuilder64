@@ -32,55 +32,55 @@ using CodeImp.DoomBuilder.Map;
 
 namespace CodeImp.DoomBuilder.Config
 {
-	public class TextureIndexInfo : INumberedTitle, IComparable<TextureIndexInfo>
-	{
-		#region ================== Constants
+    public class TextureIndexInfo : INumberedTitle, IComparable<TextureIndexInfo>
+    {
+        #region ================== Constants
 
-		#endregion
+        #endregion
 
-		#region ================== Variables
+        #region ================== Variables
 
-		// Properties
-		private int index;
-		private string title;
+        // Properties
+        private int index;
+        private string title;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public int Index { get { return index; } }
-		public string Title { get { return title; } }
+        public int Index { get { return index; } }
+        public string Title { get { return title; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Disposer
+        #region ================== Constructor / Disposer
 
-		// Constructor
+        // Constructor
         internal TextureIndexInfo(int index, string title)
-		{
-			// Initialize
-			this.index = index;
-			this.title = title;
-		}
+        {
+            // Initialize
+            this.index = index;
+            this.title = title;
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// This presents the item as string
-		public override string ToString()
-		{
-			return index + " - " + title;
-		}
+        // This presents the item as string
+        public override string ToString()
+        {
+            return index + " - " + title;
+        }
 
-		// This compares against another skill
+        // This compares against another skill
         public int CompareTo(TextureIndexInfo other)
-		{
-			if(this.index < other.index) return -1;
-			else if(this.index > other.index) return 1;
-			else return 0;
-		}
+        {
+            if (this.index < other.index) return -1;
+            else if (this.index > other.index) return 1;
+            else return 0;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

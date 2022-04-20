@@ -37,65 +37,65 @@ using System.Globalization;
 
 namespace CodeImp.DoomBuilder.BuilderModes.Interface
 {
-	public partial class MakeDoorForm : DelayedForm
-	{
-		#region ================== Properties
+    public partial class MakeDoorForm : DelayedForm
+    {
+        #region ================== Properties
 
-		public string DoorTexture { get { return doortexture.TextureName; } }
-		public string CeilingTexture { get { return ceilingtexture.TextureName; } }
-		public string FloorTexture { get { return floortexture.TextureName; } }
+        public string DoorTexture { get { return doortexture.TextureName; } }
+        public string CeilingTexture { get { return ceilingtexture.TextureName; } }
+        public string FloorTexture { get { return floortexture.TextureName; } }
 
-		#endregion
-		
-		#region ================== Constructor / Show
+        #endregion
 
-		// Constructor
-		public MakeDoorForm()
-		{
-			InitializeComponent();
-		}
+        #region ================== Constructor / Show
 
-		// This sets the properties and shows the form
-		public DialogResult Show(IWin32Window owner, string doortex, string ceilingtex, string floortex)
-		{
-			this.doortexture.TextureName = doortex;
-			this.ceilingtexture.TextureName = ceilingtex;
-			this.floortexture.TextureName = floortex;
-			return this.ShowDialog(owner);
-		}
-		
-		#endregion
-		
-		#region ================== Events
+        // Constructor
+        public MakeDoorForm()
+        {
+            InitializeComponent();
+        }
 
-		// Cancel clicked
-		private void cancel_Click(object sender, EventArgs e)
-		{
-			this.DialogResult = DialogResult.Cancel;
-			this.Close();
-		}
+        // This sets the properties and shows the form
+        public DialogResult Show(IWin32Window owner, string doortex, string ceilingtex, string floortex)
+        {
+            this.doortexture.TextureName = doortex;
+            this.ceilingtexture.TextureName = ceilingtex;
+            this.floortexture.TextureName = floortex;
+            return this.ShowDialog(owner);
+        }
 
-		// OK clicked
-		private void apply_Click(object sender, EventArgs e)
-		{
-			// No door texture selected?
-			if(doortexture.TextureName.Length == 0)
-			{
-				MessageBox.Show(this, "You have to select at least a texture for the door!", "Make Door", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
-				doortexture.Focus();
-			}
-			else
-			{
-				this.DialogResult = DialogResult.OK;
-				this.Close();
-			}
-		}
+        #endregion
 
-		private void MakeDoorForm_HelpRequested(object sender, HelpEventArgs hlpevent)
-		{
-			General.ShowHelp("e_sectors.html");
-		}
-		
-		#endregion
-	}
+        #region ================== Events
+
+        // Cancel clicked
+        private void cancel_Click(object sender, EventArgs e)
+        {
+            this.DialogResult = DialogResult.Cancel;
+            this.Close();
+        }
+
+        // OK clicked
+        private void apply_Click(object sender, EventArgs e)
+        {
+            // No door texture selected?
+            if (doortexture.TextureName.Length == 0)
+            {
+                MessageBox.Show(this, "You have to select at least a texture for the door!", "Make Door", MessageBoxButtons.OK, MessageBoxIcon.Exclamation);
+                doortexture.Focus();
+            }
+            else
+            {
+                this.DialogResult = DialogResult.OK;
+                this.Close();
+            }
+        }
+
+        private void MakeDoorForm_HelpRequested(object sender, HelpEventArgs hlpevent)
+        {
+            General.ShowHelp("e_sectors.html");
+        }
+
+        #endregion
+    }
 }

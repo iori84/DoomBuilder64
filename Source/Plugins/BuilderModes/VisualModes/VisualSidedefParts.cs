@@ -36,39 +36,39 @@ using CodeImp.DoomBuilder.VisualModes;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	internal struct VisualSidedefParts
-	{
-		// Members
-		public VisualUpper upper;
-		public VisualLower lower;
-		public VisualMiddleDouble middledouble;
-		public VisualMiddleSingle middlesingle;
+    internal struct VisualSidedefParts
+    {
+        // Members
+        public VisualUpper upper;
+        public VisualLower lower;
+        public VisualMiddleDouble middledouble;
+        public VisualMiddleSingle middlesingle;
 
-		// Constructor
-		public VisualSidedefParts(VisualUpper u, VisualLower l, VisualMiddleDouble m)
-		{
-			this.upper = u;
-			this.lower = l;
-			this.middledouble = m;
-			this.middlesingle = null;
-		}
+        // Constructor
+        public VisualSidedefParts(VisualUpper u, VisualLower l, VisualMiddleDouble m)
+        {
+            this.upper = u;
+            this.lower = l;
+            this.middledouble = m;
+            this.middlesingle = null;
+        }
 
-		// Constructor
-		public VisualSidedefParts(VisualMiddleSingle m)
-		{
-			this.upper = null;
-			this.lower = null;
-			this.middledouble = null;
-			this.middlesingle = m;
-		}
+        // Constructor
+        public VisualSidedefParts(VisualMiddleSingle m)
+        {
+            this.upper = null;
+            this.lower = null;
+            this.middledouble = null;
+            this.middlesingle = m;
+        }
 
-		// This calls Setup() on all parts
-		public void SetupAllParts()
-		{
-			if(lower != null) lower.Setup();
-			if(middledouble != null) middledouble.Setup();
-			if(middlesingle != null) middlesingle.Setup();
-			if(upper != null) upper.Setup();
-		}
-	}
+        // This calls Setup() on all parts
+        public void SetupAllParts()
+        {
+            if (lower != null) lower.Setup();
+            if (middledouble != null) middledouble.Setup();
+            if (middlesingle != null) middlesingle.Setup();
+            if (upper != null) upper.Setup();
+        }
+    }
 }

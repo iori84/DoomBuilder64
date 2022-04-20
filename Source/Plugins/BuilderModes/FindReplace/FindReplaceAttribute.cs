@@ -36,45 +36,45 @@ using CodeImp.DoomBuilder.Editing;
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-	[AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
-	internal class FindReplaceAttribute : Attribute
-	{
-		#region ================== Variables
+    [AttributeUsage(AttributeTargets.Class, Inherited = true, AllowMultiple = false)]
+    internal class FindReplaceAttribute : Attribute
+    {
+        #region ================== Variables
 
-		private string displayname;
-		private bool browsebutton;
-		private bool replacable;
+        private string displayname;
+        private bool browsebutton;
+        private bool replacable;
 
-		#endregion
+        #endregion
 
-		#region ================== Properties
+        #region ================== Properties
 
-		public string DisplayName { get { return displayname; } set { displayname = value; } }
-		public bool BrowseButton { get { return browsebutton; } set { browsebutton = value; } }
-		public bool Replacable { get { return replacable; } set { replacable = value; } }
+        public string DisplayName { get { return displayname; } set { displayname = value; } }
+        public bool BrowseButton { get { return browsebutton; } set { browsebutton = value; } }
+        public bool Replacable { get { return replacable; } set { replacable = value; } }
 
-		#endregion
+        #endregion
 
-		#region ================== Constructor / Destructor
+        #region ================== Constructor / Destructor
 
-		// Constructor
-		public FindReplaceAttribute(string displayname)
-		{
-			// Initialize
-			this.displayname = displayname;
-			this.replacable = true;
-		}
+        // Constructor
+        public FindReplaceAttribute(string displayname)
+        {
+            // Initialize
+            this.displayname = displayname;
+            this.replacable = true;
+        }
 
-		#endregion
+        #endregion
 
-		#region ================== Methods
+        #region ================== Methods
 
-		// String representation
-		public override string ToString()
-		{
-			return displayname;
-		}
+        // String representation
+        public override string ToString()
+        {
+            return displayname;
+        }
 
-		#endregion
-	}
+        #endregion
+    }
 }

@@ -36,18 +36,18 @@ using System.Drawing.Imaging;
 
 namespace CodeImp.DoomBuilder.Rendering
 {
-	// FlatVertex
-	public struct FlatVertex
-	{
-		// Vertex format
-		public static readonly int Stride = 6 * 4;
+    // FlatVertex
+    public struct FlatVertex
+    {
+        // Vertex format
+        public static readonly int Stride = 6 * 4;
 
-		// Members
-		public float x;
-		public float y;
-		public float z;
-		public int c;
-		public float u;
-		public float v;
-	}
+        // Members
+        public float x;
+        public float y;
+        public float z;
+        public int c;
+        public float u;
+        public float v;
+    }
 }
