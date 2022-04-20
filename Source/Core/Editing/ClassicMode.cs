@@ -798,7 +798,8 @@ namespace CodeImp.DoomBuilder.Editing
                     s.UpdateNeeded = true;
 
                 General.Map.Map.Update();
-            }
+				General.MainWindow.RedrawDisplay();
+			}
 		}
 
 		[BeginAction("viewmodeceilings", BaseAction = true)]
@@ -813,7 +814,8 @@ namespace CodeImp.DoomBuilder.Editing
                     s.UpdateNeeded = true;
 
                 General.Map.Map.Update();
-            }
+				General.MainWindow.RedrawDisplay();
+			}
 		}
 
 		#endregion

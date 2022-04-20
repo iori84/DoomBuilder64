@@ -351,7 +351,7 @@ namespace CodeImp.DoomBuilder.Map
 			if(updateneeded)
 			{
 				// Brightness color
-				int brightint = General.Map.Renderer2D.CalculateBrightness(brightness);
+				int brightint = this.flrColor.color.ToInt();
 
                 // villsa
                 switch (General.Map.Renderer2D.ViewMode)
