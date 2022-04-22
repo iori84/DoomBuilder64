@@ -1201,7 +1201,7 @@ namespace CodeImp.DoomBuilder.BuilderModes
             {
                 Lights startlight;
                 Lights endlight;
-                int delta = (255 / orderedselection.Count);
+                int delta = (256 / (orderedselection.Count - 1));
                 int index;
 
                 // FLOOR
