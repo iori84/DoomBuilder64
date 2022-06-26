@@ -1,5 +1,4 @@
-
-.vs/Builder/v16/.suo
+.vs
 Source/Core/obj
 Source/Plugins/BuilderModes/obj
 Source/Plugins/Statistics/obj
@@ -8,3 +7,4 @@ Source/Plugins/ImageDrawingExample/obj
 Build/Plugins/Sharpzip.dll
 Build/Plugins/SlimDX.dll
 Build/Plugins/TrackBar.dll
+*.zip

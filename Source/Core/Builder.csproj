@@ -11,7 +11,7 @@
     <RootNamespace>CodeImp.DoomBuilder</RootNamespace>
     <AssemblyName>Builder</AssemblyName>
     <StartupObject>CodeImp.DoomBuilder.General</StartupObject>
-    <ApplicationIcon>Resources\DB2.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\DB64.ico</ApplicationIcon>
     <Win32Resource>
     </Win32Resource>
     <RunPostBuildEvent>Always</RunPostBuildEvent>
@@ -792,7 +792,7 @@
     <Compile Include="General\StepsList.cs" />
     <None Include="Resources\Builder16.png" />
     <None Include="Resources\CLogo.png" />
-    <Content Include="Resources\DB2.ico" />
+    <Content Include="Resources\DB64.ico" />
     <EmbeddedResource Include="Resources\ThingTrigger.png" />
     <EmbeddedResource Include="Resources\ThingCamera.png" />
     <None Include="Resources\ViewColorFloor.png" />
