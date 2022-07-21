@@ -46,7 +46,8 @@
     <PlatformTarget>x86</PlatformTarget>
     <UseVSHostingProcess>false</UseVSHostingProcess>
     <ErrorReport>prompt</ErrorReport>
-    <DocumentationFile>..\..\Build\Builder.xml</DocumentationFile>
+    <DocumentationFile>
+    </DocumentationFile>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
     <OutputPath>..\..\Build\</OutputPath>
@@ -135,6 +136,9 @@
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Controls\ScriptLumpDocumentTab.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="Controls\TransparentTrackBar.cs">
       <SubType>Component</SubType>
     </Compile>
     <Compile Include="Data\DirectoryReader.cs" />
