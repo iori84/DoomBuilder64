@@ -70,6 +70,9 @@ namespace CodeImp.DoomBuilder.VisualModes
         private bool keyup;
         private bool keydown;
 
+        private static Vector2D initialCameraPosition;
+        private bool keepPreviousPosition;
+
         // Map
         protected VisualBlockMap blockmap;
         protected Dictionary<Thing, VisualThing> allthings;
@@ -108,6 +111,21 @@ namespace CodeImp.DoomBuilder.VisualModes
             this.visiblethings = new List<VisualThing>(100);
             this.processgeometry = true;
             this.processthings = true;
+
+            if ( (ClassicMode) General.Editing.Mode is ClassicMode)
+            {
+                ClassicMode oldMode = (ClassicMode) General.Editing.Mode;
+
+                if (oldMode.IsMouseInside)
+                {
+                    initialCameraPosition = new Vector2D(oldMode.MouseMapPos.x, oldMode.MouseMapPos.y);
+                    keepPreviousPosition = false;
+                }
+                else
+                {
+                    keepPreviousPosition = true;
+                }
+            }
         }
 
         // Disposer
@@ -141,13 +159,48 @@ namespace CodeImp.DoomBuilder.VisualModes
         {
             base.OnEngage();
 
-            General.Map.VisualCamera.PositionAtThing();
-
             // Update the used textures
             General.Map.Data.UpdateUsedTextures();
 
             // Fill the blockmap
             FillBlockMap();
+
+            if (!keepPreviousPosition)
+            {
+                //If initial position is inside or nearby a sector - adjust camera.z accordingly
+                float posz = General.Map.VisualCamera.Position.z;
+                Sector nearestSector = General.Map.Map.GetSectorByCoordinates(initialCameraPosition, blockmap);
+
+                if (nearestSector == null)
+                {
+                    Linedef nearestline = MapSet.NearestLinedef(General.Map.Map.Linedefs, initialCameraPosition);
+                    if (nearestline != null)
+                    {
+                        double side = nearestline.SideOfLine(initialCameraPosition);
+                        Sidedef nearestside = (side < 0.0f ? nearestline.Front : nearestline.Back) ?? (side < 0.0f ? nearestline.Back : nearestline.Front);
+                        if (nearestside != null) nearestSector = nearestside.Sector;
+                    }
+                }
+
+                if (nearestSector != null)
+                {
+                    int sectorheight = nearestSector.CeilHeight - nearestSector.FloorHeight;
+                    if (sectorheight < 56)
+                        posz = nearestSector.FloorHeight + Math.Max(16, sectorheight / 2);
+                    else if (General.Map.VisualCamera.Position.z < nearestSector.FloorHeight + 56)
+                        posz = nearestSector.FloorHeight + 56; // same as in DOOM 64
+                    else if (General.Map.VisualCamera.Position.z > nearestSector.CeilHeight)
+                        posz = nearestSector.CeilHeight - 4;
+                }
+
+                General.Map.VisualCamera.Position = new Vector3D(initialCameraPosition.x, initialCameraPosition.y, posz);
+            }
+            else
+            {
+                General.Map.VisualCamera.PositionAtThing();
+            }
+
+            
 
             // Start special input mode
             General.Interface.EnableProcessing();

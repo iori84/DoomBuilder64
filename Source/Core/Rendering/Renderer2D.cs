@@ -144,6 +144,7 @@ namespace CodeImp.DoomBuilder.Rendering
         public int VertexSize { get { return vertexsize; } }
         public ViewMode ViewMode { get { return viewmode; } }
         public SurfaceManager Surfaces { get { return surfaces; } }
+        public RectangleF Viewport { get { return viewport; } }
 
         #endregion
 

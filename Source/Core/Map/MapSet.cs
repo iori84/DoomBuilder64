@@ -32,6 +32,7 @@ using CodeImp.DoomBuilder.IO;
 using CodeImp.DoomBuilder.Types;
 using System.IO;
 using CodeImp.DoomBuilder.Config;
+using CodeImp.DoomBuilder.VisualModes;
 
 #endregion
 
@@ -2923,6 +2924,11 @@ namespace CodeImp.DoomBuilder.Map
                 else
                     index--;
             }
+        }
+
+        public Sector GetSectorByCoordinates (Vector2D pos, VisualBlockMap blockmap)
+        {
+            return blockmap.GetSectorAt(pos);
         }
 
         #endregion

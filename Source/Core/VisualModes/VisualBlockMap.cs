@@ -127,6 +127,44 @@ namespace CodeImp.DoomBuilder.VisualModes
             }
         }
 
+        public Sector GetSectorAt(Vector2D pos)
+        {
+            List<Sector> sectors = new List<Sector>(1);
+
+            foreach (Sector s in GetBlock(GetBlockCoordinates(pos)).Sectors)
+                if (s.Intersect(pos))
+                    sectors.Add(s);
+
+            if (sectors.Count == 0)
+            {
+                return null;
+            }
+            else if (sectors.Count == 1)
+            {
+                return sectors[0];
+            }
+            else
+            {
+                // Having multiple intersections indicates that there are self-referencing sectors in this spot.
+                // In this case we have to check which side of the nearest linedef pos is on, and then use that sector
+                HashSet<Linedef> linedefs = new HashSet<Linedef>();
+
+                foreach (Sector s in sectors)
+                    foreach (Sidedef sd in s.Sidedefs)
+                        linedefs.Add(sd.Line);
+
+                Linedef nearest = MapSet.NearestLinedef(linedefs, pos);
+                double d = nearest.SideOfLine(pos);
+
+                if (d <= 0.0 && nearest.Front != null)
+                    return nearest.Front.Sector;
+                else if (nearest.Back != null)
+                    return nearest.Back.Sector;
+            }
+
+            return null;
+        }
+
         // This clears the blockmap
         public void Clear()
         {
