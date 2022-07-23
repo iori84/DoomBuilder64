@@ -44,7 +44,6 @@ namespace CodeImp.DoomBuilder.Rendering
         // Properties
         ProjectedFrustum2D Frustum2D { get; }
         bool DrawThingCages { get; set; }
-        bool FullBrightness { get; set; }
         bool ShowSelection { get; set; }
         bool ShowHighlight { get; set; }
         bool ShowLightOnly { get; set; }    // villsa

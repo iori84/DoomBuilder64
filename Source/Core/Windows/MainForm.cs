@@ -193,7 +193,6 @@ namespace CodeImp.DoomBuilder.Windows
             // Make array for view modes
             viewmodesbuttons = new ToolStripButton[Renderer2D.NUM_VIEW_MODES];
             viewmodesbuttons[(int)ViewMode.Normal] = buttonviewnormal;
-            //viewmodesbuttons[(int)ViewMode.Brightness] = buttonviewbrightness;
             viewmodesbuttons[(int)ViewMode.FloorTextures] = buttonviewfloors;
             viewmodesbuttons[(int)ViewMode.CeilingTextures] = buttonviewceilings;
             viewmodesbuttons[(int)ViewMode.FloorColor] = buttonviewfloorcolor; // villsa
@@ -201,7 +200,6 @@ namespace CodeImp.DoomBuilder.Windows
             viewmodesbuttons[(int)ViewMode.ThingColor] = buttonviewthingcolor; // villsa
             viewmodesitems = new ToolStripMenuItem[Renderer2D.NUM_VIEW_MODES];
             viewmodesitems[(int)ViewMode.Normal] = itemviewnormal;
-            //viewmodesitems[(int)ViewMode.Brightness] = itemviewbrightness;
             viewmodesitems[(int)ViewMode.FloorTextures] = itemviewfloors;
             viewmodesitems[(int)ViewMode.CeilingTextures] = itemviewceilings;
             viewmodesitems[(int)ViewMode.FloorColor] = itemviewfloorcolor; // villsa
@@ -910,6 +908,10 @@ namespace CodeImp.DoomBuilder.Windows
         {
             if ((General.Map != null) && (General.Editing.Mode != null))
             {
+                foreach (Sector s in General.Map.Map.Sectors)
+                    s.UpdateNeeded = true;
+
+                General.Map.Map.Update();
                 General.Editing.Mode.OnRedrawDisplay();
             }
             else
@@ -1941,6 +1943,7 @@ namespace CodeImp.DoomBuilder.Windows
             itemmapoptions.Enabled = (General.Map != null);
             itemsnaptogrid.Enabled = (General.Map != null);
             itemautomerge.Enabled = (General.Map != null);
+            itemfullbrightness.Enabled = (General.Map != null);
             itemgridsetup.Enabled = (General.Map != null);
             itemgridinc.Enabled = (General.Map != null);
             itemgriddec.Enabled = (General.Map != null);
@@ -1965,6 +1968,8 @@ namespace CodeImp.DoomBuilder.Windows
             buttonredo.ToolTipText = itemredo.Text;
             buttonsnaptogrid.Enabled = (General.Map != null);
             buttonautomerge.Enabled = (General.Map != null);
+            buttonfullbrightness.Enabled = (General.Map != null);
+            buttonfullbrightness.Checked = Renderer.FullBrightness;
             buttoncut.Enabled = itemcut.Enabled;
             buttoncopy.Enabled = itemcopy.Enabled;
             buttonpaste.Enabled = itempaste.Enabled;
@@ -1988,6 +1993,18 @@ namespace CodeImp.DoomBuilder.Windows
             itemautomerge.Checked = buttonautomerge.Checked;
             string onoff = buttonautomerge.Checked ? "ON" : "OFF";
             DisplayStatus(StatusType.Action, "Snap to geometry is now " + onoff + " by default.");
+        }
+
+        [BeginAction("togglefullbrightness")]
+        public void ToggleFullBrightness()
+        {
+            Renderer.FullBrightness = !Renderer.FullBrightness;
+            buttonfullbrightness.Checked = Renderer.FullBrightness;
+            itemfullbrightness.Checked = Renderer.FullBrightness;
+            General.Interface.DisplayStatus(StatusType.Action, "Full Brightness is now " + (Renderer.FullBrightness ? "ON" : "OFF"));
+
+            // Redraw display to show changes
+            General.Interface.RedrawDisplay();
         }
 
         #endregion

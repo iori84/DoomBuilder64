@@ -45,7 +45,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ClassicModes\BaseClassicMode.cs" />
-    <Compile Include="ClassicModes\BrightnessMode.cs" />
     <Compile Include="ClassicModes\ErrorCheckMode.cs" />
     <Compile Include="ClassicModes\EditSelectionMode.cs" />
     <Compile Include="ClassicModes\CurveLinedefsMode.cs" />
@@ -176,9 +175,6 @@
       <Name>Builder</Name>
       <Private>False</Private>
     </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
-    <EmbeddedResource Include="Resources\BrightnessMode.png" />
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Interface\ErrorCheckForm.resx">

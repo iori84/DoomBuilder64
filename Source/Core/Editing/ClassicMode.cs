@@ -731,22 +731,6 @@ namespace CodeImp.DoomBuilder.Editing
             SetViewMode(ViewMode.Normal);
         }
 
-        [BeginAction("viewmodebrightness", BaseAction = true)]
-        protected virtual void ViewModeBrightness()
-        {
-            /*SetViewMode(ViewMode.Brightness);
-
-            // villsa
-            if (General.Map.FormatInterface.InDoom64Mode)
-            {
-                foreach (Sector s in General.Map.Map.Sectors)
-                    s.UpdateNeeded = true;
-
-                General.Map.Map.Update();
-                General.MainWindow.RedrawDisplay();
-            }*/
-        }
-
         // villsa
         [BeginAction("viewmodefloorcolor", BaseAction = true)]
         protected virtual void ViewModeFloorColor()
