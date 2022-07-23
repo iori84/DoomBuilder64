@@ -1205,9 +1205,6 @@ namespace CodeImp.DoomBuilder.Rendering
                     // Prepare for rendering
                     switch (viewmode)
                     {
-                        //case ViewMode.Brightness:
-                        //surfaces.RenderSectorBrightness(yviewport);
-                        //break;
                         case ViewMode.FloorColor:   // villsa
                         case ViewMode.CeilingColor:   // villsa
                         case ViewMode.ThingColor:   // villsa

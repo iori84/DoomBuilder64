@@ -351,7 +351,7 @@ namespace CodeImp.DoomBuilder.Map
             if (updateneeded)
             {
                 // Brightness color
-                int brightint = this.flrColor.color.ToInt();
+                int brightint;
 
                 // villsa
                 switch (General.Map.Renderer2D.ViewMode)
@@ -365,7 +365,28 @@ namespace CodeImp.DoomBuilder.Map
                     case ViewMode.ThingColor:
                         brightint = this.thingColor.color.ToInt();
                         break;
+                    case ViewMode.FloorTextures:
+                        if (Renderer.FullBrightness)
+                        {
+                            brightint = General.Map.Renderer2D.CalculateBrightness(brightness);
+                        }
+                        else
+                        {
+                            brightint = this.flrColor.color.ToInt();
+                        }
+                        break;
+                    case ViewMode.CeilingTextures:
+                        if (Renderer.FullBrightness)
+                        {
+                            brightint = General.Map.Renderer2D.CalculateBrightness(brightness);
+                        }
+                        else
+                        {
+                            brightint = this.ceilColor.color.ToInt();
+                        }
+                        break;
                     default:
+                        brightint = this.flrColor.color.ToInt();
                         break;
                 }
 

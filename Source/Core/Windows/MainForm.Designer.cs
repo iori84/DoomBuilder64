@@ -68,6 +68,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.itempastespecial = new System.Windows.Forms.ToolStripMenuItem();
             this.itemsnaptogrid = new System.Windows.Forms.ToolStripMenuItem();
             this.itemautomerge = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemfullbrightness = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripSeparator();
             this.itemgridinc = new System.Windows.Forms.ToolStripMenuItem();
             this.itemgriddec = new System.Windows.Forms.ToolStripMenuItem();
@@ -77,7 +78,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.itemthingsfilter = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem9 = new System.Windows.Forms.ToolStripSeparator();
             this.itemviewnormal = new System.Windows.Forms.ToolStripMenuItem();
-            //this.itemviewbrightness = new System.Windows.Forms.ToolStripMenuItem();
             this.itemviewfloors = new System.Windows.Forms.ToolStripMenuItem();
             this.itemviewceilings = new System.Windows.Forms.ToolStripMenuItem();
             this.itemviewfloorcolor = new System.Windows.Forms.ToolStripMenuItem();
@@ -130,7 +130,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.buttonthingsfilter = new System.Windows.Forms.ToolStripButton();
             this.thingfilters = new System.Windows.Forms.ToolStripComboBox();
             this.buttonviewnormal = new System.Windows.Forms.ToolStripButton();
-            //this.buttonviewbrightness = new System.Windows.Forms.ToolStripButton();
             this.buttonviewfloors = new System.Windows.Forms.ToolStripButton();
             this.buttonviewceilings = new System.Windows.Forms.ToolStripButton();
             this.buttonviewfloorcolor = new System.Windows.Forms.ToolStripButton();
@@ -139,6 +138,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.toolStripSeparator8 = new System.Windows.Forms.ToolStripSeparator();
             this.buttonsnaptogrid = new System.Windows.Forms.ToolStripButton();
             this.buttonautomerge = new System.Windows.Forms.ToolStripButton();
+            this.buttonfullbrightness = new System.Windows.Forms.ToolStripButton();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.buttontest = new System.Windows.Forms.ToolStripSplitButton();
             this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
@@ -439,6 +439,7 @@ namespace CodeImp.DoomBuilder.Windows
             toolstripSeperator6,
             this.itemsnaptogrid,
             this.itemautomerge,
+            this.itemfullbrightness,
             this.toolStripMenuItem6,
             this.itemgridinc,
             this.itemgriddec,
@@ -531,6 +532,17 @@ namespace CodeImp.DoomBuilder.Windows
             this.itemautomerge.Text = "Merge Geometry";
             this.itemautomerge.Click += new System.EventHandler(this.InvokeTaggedAction);
             // 
+            // itemfullbrightness
+            // 
+            this.itemfullbrightness.Checked = true;
+            this.itemfullbrightness.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.itemfullbrightness.Image = global::CodeImp.DoomBuilder.Properties.Resources.FullBrightness;
+            this.itemfullbrightness.Name = "itemfullbrightness";
+            this.itemfullbrightness.Size = new System.Drawing.Size(165, 22);
+            this.itemfullbrightness.Tag = "builder_togglefullbrightness";
+            this.itemfullbrightness.Text = "Toggle Full Brightness";
+            this.itemfullbrightness.Click += new System.EventHandler(this.InvokeTaggedAction);
+            // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Margin = new System.Windows.Forms.Padding(0, 3, 0, 3);
@@ -577,7 +589,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.itemthingsfilter,
             this.toolStripMenuItem9,
             this.itemviewnormal,
-            //this.itemviewbrightness,
             this.itemviewfloors,
             this.itemviewceilings,
             this.itemviewfloorcolor,
@@ -616,15 +627,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.itemviewnormal.Tag = "builder_viewmodenormal";
             this.itemviewnormal.Text = "Wireframe";
             this.itemviewnormal.Click += new System.EventHandler(this.InvokeTaggedAction);
-            // 
-            // itemviewbrightness
-            // 
-            /*this.itemviewbrightness.Image = global::CodeImp.DoomBuilder.Properties.Resources.ViewBrightness;
-            this.itemviewbrightness.Name = "itemviewbrightness";
-            this.itemviewbrightness.Size = new System.Drawing.Size(210, 22);
-            this.itemviewbrightness.Tag = "builder_viewmodebrightness";
-            this.itemviewbrightness.Text = "Brightness Levels";
-            this.itemviewbrightness.Click += new System.EventHandler(this.InvokeTaggedAction);*/
             // 
             // itemviewfloors
             // 
@@ -950,7 +952,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.buttonthingsfilter,
             this.thingfilters,
             this.buttonviewnormal,
-            //this.buttonviewbrightness,
             this.buttonviewfloors,
             this.buttonviewceilings,
             this.buttonviewfloorcolor,
@@ -959,6 +960,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.toolStripSeparator8,
             this.buttonsnaptogrid,
             this.buttonautomerge,
+            this.buttonfullbrightness,
             this.toolStripSeparator5,
             this.buttontest,
             this.toolStripSeparator6});
@@ -1141,18 +1143,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.buttonviewnormal.Text = "View Wireframe";
             this.buttonviewnormal.Click += new System.EventHandler(this.InvokeTaggedAction);
             // 
-            // buttonviewbrightness
-            // 
-            /*this.buttonviewbrightness.CheckOnClick = true;
-            this.buttonviewbrightness.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
-            this.buttonviewbrightness.Image = global::CodeImp.DoomBuilder.Properties.Resources.ViewBrightness;
-            this.buttonviewbrightness.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.buttonviewbrightness.Name = "buttonviewbrightness";
-            this.buttonviewbrightness.Size = new System.Drawing.Size(23, 22);
-            this.buttonviewbrightness.Tag = "builder_viewmodebrightness";
-            this.buttonviewbrightness.Text = "View Brightness Levels";
-            this.buttonviewbrightness.Click += new System.EventHandler(this.InvokeTaggedAction);*/
-            // 
             // buttonviewfloors
             // 
             this.buttonviewfloors.CheckOnClick = true;
@@ -1244,6 +1234,19 @@ namespace CodeImp.DoomBuilder.Windows
             this.buttonautomerge.Tag = "builder_toggleautomerge";
             this.buttonautomerge.Text = "Merge Geometry";
             this.buttonautomerge.Click += new System.EventHandler(this.InvokeTaggedAction);
+            // 
+            // buttonfullbrightness
+            // 
+            this.buttonfullbrightness.Checked = true;
+            this.buttonfullbrightness.CheckState = System.Windows.Forms.CheckState.Checked;
+            this.buttonfullbrightness.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Image;
+            this.buttonfullbrightness.Image = global::CodeImp.DoomBuilder.Properties.Resources.FullBrightness;
+            this.buttonfullbrightness.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.buttonfullbrightness.Name = "buttonfullbrightness";
+            this.buttonfullbrightness.Size = new System.Drawing.Size(23, 22);
+            this.buttonfullbrightness.Tag = "builder_togglefullbrightness";
+            this.buttonfullbrightness.Text = "Toggle Full Brightness";
+            this.buttonfullbrightness.Click += new System.EventHandler(this.InvokeTaggedAction);
             // 
             // toolStripSeparator5
             // 
@@ -1794,6 +1797,8 @@ namespace CodeImp.DoomBuilder.Windows
         private System.Windows.Forms.ToolStripMenuItem itemsnaptogrid;
         private System.Windows.Forms.ToolStripButton buttonautomerge;
         private System.Windows.Forms.ToolStripMenuItem itemautomerge;
+		private System.Windows.Forms.ToolStripButton buttonfullbrightness;
+		private System.Windows.Forms.ToolStripMenuItem itemfullbrightness;
         private System.Windows.Forms.ToolStripSeparator buttoneditmodesseperator;
         private System.Windows.Forms.Timer processor;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator5;
@@ -1816,7 +1821,6 @@ namespace CodeImp.DoomBuilder.Windows
         private System.Windows.Forms.ToolStripStatusLabel configlabel;
         private System.Windows.Forms.ToolStripMenuItem menumode;
         private System.Windows.Forms.ToolStripButton buttonviewnormal;
-        //private System.Windows.Forms.ToolStripButton buttonviewbrightness;
         private System.Windows.Forms.ToolStripButton buttonviewfloors;
         private System.Windows.Forms.ToolStripButton buttonviewceilings;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem8;
@@ -1825,7 +1829,6 @@ namespace CodeImp.DoomBuilder.Windows
         private System.Windows.Forms.ToolStripMenuItem itemthingsfilter;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem9;
         private System.Windows.Forms.ToolStripMenuItem itemviewnormal;
-        private System.Windows.Forms.ToolStripMenuItem itemviewbrightness;
         private System.Windows.Forms.ToolStripMenuItem itemviewfloors;
         private System.Windows.Forms.ToolStripMenuItem itemviewceilings;
         private System.Windows.Forms.ToolStripSeparator toolStripMenuItem10;

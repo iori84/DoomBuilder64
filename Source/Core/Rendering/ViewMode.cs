@@ -41,7 +41,6 @@ namespace CodeImp.DoomBuilder.Rendering
     public enum ViewMode : int
     {
         Normal = 0,
-        //Brightness = 1,
         FloorTextures = 1,
         CeilingTextures = 2,
         FloorColor = 3, // villsa

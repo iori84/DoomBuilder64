@@ -36,6 +36,7 @@ namespace CodeImp.DoomBuilder.Rendering
 
         // Graphics
         protected D3DDevice graphics;
+        protected static bool fullbrightness;
 
         // Disposing
         protected bool isdisposed = false;
@@ -46,6 +47,7 @@ namespace CodeImp.DoomBuilder.Rendering
 
         // Disposing
         public bool IsDisposed { get { return isdisposed; } }
+        public static bool FullBrightness { get { return fullbrightness; } set { fullbrightness = value; } }
 
         #endregion
 
