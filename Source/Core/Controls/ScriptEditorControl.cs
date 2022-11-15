@@ -683,8 +683,6 @@ namespace CodeImp.DoomBuilder.Controls
             if ((e.KeyCode == Keys.X) && ((e.Modifiers & Keys.Control) == Keys.Control) && ((e.Modifiers & Keys.Shift) == Keys.Shift)) e.Handled = true;
             if ((e.KeyCode == Keys.C) && ((e.Modifiers & Keys.Control) == Keys.Control) && ((e.Modifiers & Keys.Shift) == Keys.Shift)) e.Handled = true;
             if ((e.KeyCode == Keys.V) && ((e.Modifiers & Keys.Control) == Keys.Control) && ((e.Modifiers & Keys.Shift) == Keys.Shift)) e.Handled = true;
-            if ((e.KeyCode == Keys.B) && ((e.Modifiers & Keys.Control) == Keys.Control)) e.Handled = true;
-            if ((e.KeyCode == Keys.N) && ((e.Modifiers & Keys.Control) == Keys.Control)) e.Handled = true;
             if ((e.KeyCode == Keys.M) && ((e.Modifiers & Keys.Control) == Keys.Control)) e.Handled = true;
 
             // F3 for Find Next
