@@ -999,24 +999,6 @@ namespace CodeImp.DoomBuilder.BuilderModes
             if (BuilderPlug.Me.ShowVisualThings > 2) BuilderPlug.Me.ShowVisualThings = 0;
         }
 
-        [BeginAction("raisebrightness8")]
-        public void RaiseBrightness8()
-        {
-            PreAction(UndoGroup.SectorBrightnessChange);
-            List<IVisualEventReceiver> objs = GetSelectedObjects(true, true, true);
-            foreach (IVisualEventReceiver i in objs) i.OnChangeTargetBrightness(true);
-            PostAction();
-        }
-
-        [BeginAction("lowerbrightness8")]
-        public void LowerBrightness8()
-        {
-            PreAction(UndoGroup.SectorBrightnessChange);
-            List<IVisualEventReceiver> objs = GetSelectedObjects(true, true, true);
-            foreach (IVisualEventReceiver i in objs) i.OnChangeTargetBrightness(false);
-            PostAction();
-        }
-
         [BeginAction("movetextureleft")]
         public void MoveTextureLeft1()
         {
