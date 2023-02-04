@@ -115,8 +115,9 @@ namespace CodeImp.DoomBuilder
 
         // Files and Folders
         private const string SETTINGS_FILE = "Builder64.cfg";
+        private const string DEFAULT_SETTINGS_FILE = "Builder64.default.cfg";
         private const string SETTINGS_DIR = "Doom Builder";
-        private const string LOG_FILE = "Builder.log";
+        private const string LOG_FILE = "Builder64.log";
         private const string GAME_CONFIGS_DIR = "Configurations";
         private const string COMPILERS_DIR = "Compilers";
         private const string PLUGINS_DIR = "Plugins";
@@ -583,7 +584,7 @@ namespace CodeImp.DoomBuilder
             General.WriteLogLine("Loading program configuration...");
             settings = new ProgramConfiguration();
             if (settings.Load(Path.Combine(settingspath, SETTINGS_FILE),
-                             Path.Combine(apppath, SETTINGS_FILE)))
+                             Path.Combine(apppath, DEFAULT_SETTINGS_FILE)))
             {
                 // Create error logger
                 errorlogger = new ErrorLogger();

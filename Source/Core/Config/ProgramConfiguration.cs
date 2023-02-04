@@ -191,7 +191,7 @@ namespace CodeImp.DoomBuilder.Config
                 // Read the cache variables
                 blackbrowsers = cfg.ReadSetting("blackbrowsers", false);
                 //undolevels = cfg.ReadSetting("undolevels", 20);
-                visualfov = cfg.ReadSetting("visualfov", 80);
+                visualfov = cfg.ReadSetting("visualfov", 100);
                 lightintensity = cfg.ReadSetting("lightintensity", 0);  // villsa
                 visualmousesensx = cfg.ReadSetting("visualmousesensx", 40f);
                 visualmousesensy = cfg.ReadSetting("visualmousesensy", 40f);
@@ -203,10 +203,10 @@ namespace CodeImp.DoomBuilder.Config
                 squarethings = cfg.ReadSetting("squarethings", true);
                 testmonsters = cfg.ReadSetting("testmonsters", true);
                 defaultviewmode = cfg.ReadSetting("defaultviewmode", (int)ViewMode.Normal);
-                classicbilinear = cfg.ReadSetting("classicbilinear", false);
-                visualbilinear = cfg.ReadSetting("visualbilinear", false);
+                classicbilinear = cfg.ReadSetting("classicbilinear", true);
+                visualbilinear = cfg.ReadSetting("visualbilinear", true);
                 mousespeed = cfg.ReadSetting("mousespeed", 100);
-                movespeed = cfg.ReadSetting("movespeed", 100);
+                movespeed = cfg.ReadSetting("movespeed", 500);
                 viewdistance = cfg.ReadSetting("viewdistance", 3000.0f);
                 invertyaxis = cfg.ReadSetting("invertyaxis", false);
                 scriptfontname = cfg.ReadSetting("scriptfontname", "Lucida Console");
