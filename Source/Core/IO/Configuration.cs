@@ -360,22 +360,22 @@ namespace CodeImp.DoomBuilder.IO
             object item = dic;
 
             // Go for each item
-            for (int i = 0; i < keys.Length; i++)
+            foreach (string key in keys)
             {
                 // Check if the current item is of ConfigStruct type
                 if (item is IDictionary)
                 {
                     // Check if the key is valid
-                    if (ValidateKey(null, keys[i].Trim(), file, line) == true)
+                    if (ValidateKey(null, key.Trim(), file, line) == true)
                     {
                         // Cast to ConfigStruct
                         cs = (IDictionary)item;
 
                         // Check if the requested item exists
-                        if (cs.Contains(keys[i]) == true)
+                        if (cs.Contains(key) == true)
                         {
                             // Set the item to the next item
-                            item = cs[keys[i]];
+                            item = cs[key];
                         }
                         else
                         {

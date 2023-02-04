@@ -199,10 +199,10 @@ namespace CodeImp.DoomBuilder.BuilderModes
             ThingTypeInfo t2info = General.Map.Data.GetThingInfo(t2.Type);
 
             // simple bounding box collision detection
-            if (p1.x + t1.Size < p2.x - t2.Size ||
-                p1.x - t1.Size > p2.x + t2.Size ||
-                p1.y - t1.Size > p2.y + t2.Size ||
-                p1.y + t1.Size < p2.y - t2.Size)
+            if (p1.x + t1.Size <= p2.x - t2.Size ||
+                p1.x - t1.Size >= p2.x + t2.Size ||
+                p1.y - t1.Size >= p2.y + t2.Size ||
+                p1.y + t1.Size <= p2.y - t2.Size)
             {
                 return false;
             }
