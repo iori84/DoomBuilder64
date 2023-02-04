@@ -1,4 +1,4 @@
-
+﻿
 #region ================== Copyright (c) 2007 Pascal vd Heiden
 
 /*
@@ -17,32 +17,19 @@
 #region ================== Namespaces
 
 using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Globalization;
-using System.Text;
-using System.Windows.Forms;
-using System.IO;
-using System.Reflection;
-using CodeImp.DoomBuilder.Windows;
-using CodeImp.DoomBuilder.IO;
 using CodeImp.DoomBuilder.Map;
 using CodeImp.DoomBuilder.Rendering;
-using CodeImp.DoomBuilder.Geometry;
-using CodeImp.DoomBuilder.Editing;
-using CodeImp.DoomBuilder.Actions;
-using CodeImp.DoomBuilder.Types;
-using CodeImp.DoomBuilder.Config;
 
 #endregion
 
 namespace CodeImp.DoomBuilder.BuilderModes
 {
-    public class ResultStuckedThing : ErrorResult
+    public class ResultStuckThingInLine : ErrorResult
     {
         #region ================== Variables
 
-        private Thing thing;
+        private readonly Thing thing;
+        private readonly Linedef line; //mxd
 
         #endregion
 
@@ -56,12 +43,13 @@ namespace CodeImp.DoomBuilder.BuilderModes
         #region ================== Constructor / Destructor
 
         // Constructor
-        public ResultStuckedThing(Thing t)
+        public ResultStuckThingInLine(Thing t, Linedef l)
         {
             // Initialize
-            this.thing = t;
-            this.viewobjects.Add(t);
-            this.description = "This thing is stucked in a wall (single-sided line) and will likely not be able to move around.";
+            thing = t;
+            line = l; //mxd
+            viewobjects.Add(t);
+            description = "This thing is stuck in a wall (single-sided line) and will fail to spawn in the map.";
         }
 
         #endregion
@@ -71,13 +59,21 @@ namespace CodeImp.DoomBuilder.BuilderModes
         // This must return the string that is displayed in the listbox
         public override string ToString()
         {
-            return General.Map.Data.GetThingInfo(thing.Type).Title + " is stucked in a wall at " + thing.Position.x + ", " + thing.Position.y;
+            return "Thing " + thing.Index + " (" + General.Map.Data.GetThingInfo(thing.Type).Title + ") is stuck in linedef " + line.Index + " at " + thing.Position.x + ", " + thing.Position.y;
         }
 
         // Rendering
         public override void RenderOverlaySelection(IRenderer2D renderer)
         {
             renderer.RenderThing(thing, renderer.DetermineThingColor(thing), 1.0f);
+        }
+
+        // mxd. More rencering
+        public override void PlotSelection(IRenderer2D renderer)
+        {
+            renderer.PlotLinedef(line, General.Colors.Selection);
+            renderer.PlotVertex(line.Start, ColorCollection.VERTICES);
+            renderer.PlotVertex(line.End, ColorCollection.VERTICES);
         }
 
         // This removes the thing

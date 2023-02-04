@@ -94,6 +94,7 @@
     <Compile Include="Config\TagType.cs" />
     <Compile Include="Config\TextureSet.cs" />
     <Compile Include="Config\ThingCategory.cs" />
+    <Compile Include="Config\ThingsFlagsCompare.cs" />
     <Compile Include="Config\ThingTypeInfo.cs" />
     <Compile Include="Config\UniversalFieldInfo.cs" />
     <Compile Include="Actions\ActionAttribute.cs" />
