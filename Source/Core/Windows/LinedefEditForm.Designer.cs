@@ -40,17 +40,8 @@ namespace CodeImp.DoomBuilder.Windows
             System.Windows.Forms.Label label10;
             System.Windows.Forms.Label label11;
             System.Windows.Forms.Label label12;
-            System.Windows.Forms.GroupBox groupBox1;
-            System.Windows.Forms.GroupBox groupBox2;
             System.Windows.Forms.Label switchtexturelbl;
             System.Windows.Forms.Label displayswitchlbl;
-            this.mdelete = new System.Windows.Forms.Button();
-            this.maction = new System.Windows.Forms.Button();
-            this.mbatch = new System.Windows.Forms.Button();
-            this.mtree = new System.Windows.Forms.TreeView();
-            this.mapplytag = new System.Windows.Forms.Button();
-            this.mtag = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
-            this.mtagbutton = new System.Windows.Forms.Button();
             this.cancel = new System.Windows.Forms.Button();
             this.apply = new System.Windows.Forms.Button();
             this.actiongroup = new System.Windows.Forms.GroupBox();
@@ -99,9 +90,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.backlow = new CodeImp.DoomBuilder.Controls.TextureSelectorControl();
             this.backmid = new CodeImp.DoomBuilder.Controls.TextureSelectorControl();
             this.backhigh = new CodeImp.DoomBuilder.Controls.TextureSelectorControl();
-            this.tabcustom = new System.Windows.Forms.TabPage();
-            this.fieldslist = new CodeImp.DoomBuilder.Controls.FieldsEditorControl();
-            this.tabmacros = new System.Windows.Forms.TabPage();
             this.heightpanel1 = new System.Windows.Forms.Panel();
             this.heightpanel2 = new System.Windows.Forms.Panel();
             this.heightpanel3 = new System.Windows.Forms.Panel();
@@ -117,12 +105,8 @@ namespace CodeImp.DoomBuilder.Windows
             label10 = new System.Windows.Forms.Label();
             label11 = new System.Windows.Forms.Label();
             label12 = new System.Windows.Forms.Label();
-            groupBox1 = new System.Windows.Forms.GroupBox();
-            groupBox2 = new System.Windows.Forms.GroupBox();
             switchtexturelbl = new System.Windows.Forms.Label();
             displayswitchlbl = new System.Windows.Forms.Label();
-            groupBox1.SuspendLayout();
-            groupBox2.SuspendLayout();
             this.actiongroup.SuspendLayout();
             this.settingsgroup.SuspendLayout();
             this.tabs.SuspendLayout();
@@ -136,8 +120,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.splitter.SuspendLayout();
             this.frontgroup.SuspendLayout();
             this.backgroup.SuspendLayout();
-            this.tabcustom.SuspendLayout();
-            this.tabmacros.SuspendLayout();
             this.SuspendLayout();
             // 
             // label2
@@ -247,107 +229,6 @@ namespace CodeImp.DoomBuilder.Windows
             label12.Size = new System.Drawing.Size(71, 14);
             label12.TabIndex = 16;
             label12.Text = "Sector Index:";
-            // 
-            // groupBox1
-            // 
-            groupBox1.Controls.Add(this.mdelete);
-            groupBox1.Controls.Add(this.maction);
-            groupBox1.Controls.Add(this.mbatch);
-            groupBox1.Controls.Add(this.mtree);
-            groupBox1.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            groupBox1.Location = new System.Drawing.Point(8, 8);
-            groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(533, 313);
-            groupBox1.TabIndex = 0;
-            groupBox1.TabStop = false;
-            groupBox1.Text = "Macro Tree";
-            // 
-            // mdelete
-            // 
-            this.mdelete.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mdelete.Location = new System.Drawing.Point(189, 276);
-            this.mdelete.Name = "mdelete";
-            this.mdelete.Size = new System.Drawing.Size(76, 23);
-            this.mdelete.TabIndex = 6;
-            this.mdelete.Text = "Delete";
-            this.mdelete.UseVisualStyleBackColor = true;
-            this.mdelete.Click += new System.EventHandler(this.mdelete_Click);
-            // 
-            // maction
-            // 
-            this.maction.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.maction.Location = new System.Drawing.Point(108, 276);
-            this.maction.Name = "maction";
-            this.maction.Size = new System.Drawing.Size(76, 23);
-            this.maction.TabIndex = 5;
-            this.maction.Text = "Add Action";
-            this.maction.UseVisualStyleBackColor = true;
-            this.maction.Click += new System.EventHandler(this.maction_Click);
-            // 
-            // mbatch
-            // 
-            this.mbatch.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mbatch.Location = new System.Drawing.Point(26, 276);
-            this.mbatch.Name = "mbatch";
-            this.mbatch.Size = new System.Drawing.Size(76, 23);
-            this.mbatch.TabIndex = 4;
-            this.mbatch.Text = "New Batch";
-            this.mbatch.UseVisualStyleBackColor = true;
-            this.mbatch.Click += new System.EventHandler(this.mbatch_Click);
-            // 
-            // mtree
-            // 
-            this.mtree.Location = new System.Drawing.Point(6, 19);
-            this.mtree.Name = "mtree";
-            this.mtree.Size = new System.Drawing.Size(521, 251);
-            this.mtree.TabIndex = 0;
-            // 
-            // groupBox2
-            // 
-            groupBox2.Controls.Add(this.mapplytag);
-            groupBox2.Controls.Add(this.mtag);
-            groupBox2.Controls.Add(this.mtagbutton);
-            groupBox2.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            groupBox2.Location = new System.Drawing.Point(8, 327);
-            groupBox2.Name = "groupBox2";
-            groupBox2.Size = new System.Drawing.Size(533, 73);
-            groupBox2.TabIndex = 10;
-            groupBox2.TabStop = false;
-            groupBox2.Text = "Set Tag";
-            // 
-            // mapplytag
-            // 
-            this.mapplytag.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mapplytag.Location = new System.Drawing.Point(26, 31);
-            this.mapplytag.Name = "mapplytag";
-            this.mapplytag.Size = new System.Drawing.Size(76, 23);
-            this.mapplytag.TabIndex = 12;
-            this.mapplytag.Text = "Apply Tag";
-            this.mapplytag.UseVisualStyleBackColor = true;
-            this.mapplytag.Click += new System.EventHandler(this.mapplytag_Click);
-            // 
-            // mtag
-            // 
-            this.mtag.AllowDecimal = false;
-            this.mtag.AllowNegative = false;
-            this.mtag.AllowRelative = true;
-            this.mtag.ButtonStep = 1;
-            this.mtag.Location = new System.Drawing.Point(108, 30);
-            this.mtag.Name = "mtag";
-            this.mtag.Size = new System.Drawing.Size(75, 24);
-            this.mtag.StepValues = null;
-            this.mtag.TabIndex = 11;
-            // 
-            // mtagbutton
-            // 
-            this.mtagbutton.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.mtagbutton.Location = new System.Drawing.Point(189, 31);
-            this.mtagbutton.Name = "mtagbutton";
-            this.mtagbutton.Size = new System.Drawing.Size(76, 23);
-            this.mtagbutton.TabIndex = 10;
-            this.mtagbutton.Text = "New Tag";
-            this.mtagbutton.UseVisualStyleBackColor = true;
-            this.mtagbutton.Click += new System.EventHandler(this.mtagbutton_Click);
             // 
             // switchtexturelbl
             // 
@@ -481,8 +362,6 @@ namespace CodeImp.DoomBuilder.Windows
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabs.Controls.Add(this.tabproperties);
             this.tabs.Controls.Add(this.tabsidedefs);
-            this.tabs.Controls.Add(this.tabcustom);
-            this.tabs.Controls.Add(this.tabmacros);
             this.tabs.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabs.Location = new System.Drawing.Point(10, 10);
             this.tabs.Margin = new System.Windows.Forms.Padding(1);
@@ -491,7 +370,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabs.Size = new System.Drawing.Size(557, 586);
             this.tabs.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             this.tabs.TabIndex = 0;
-            this.tabs.Selected += new System.Windows.Forms.TabControlEventHandler(this.tabs_Selected);
             // 
             // tabproperties
             // 
@@ -713,7 +591,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabsidedefs.Location = new System.Drawing.Point(4, 23);
             this.tabsidedefs.Name = "tabsidedefs";
             this.tabsidedefs.Padding = new System.Windows.Forms.Padding(5);
-            this.tabsidedefs.Size = new System.Drawing.Size(549, 777);
+            this.tabsidedefs.Size = new System.Drawing.Size(549, 559);
             this.tabsidedefs.TabIndex = 1;
             this.tabsidedefs.Tag = "1";
             this.tabsidedefs.Text = "Sidedefs";
@@ -736,8 +614,8 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             this.splitter.Panel2.Controls.Add(this.backside);
             this.splitter.Panel2.Controls.Add(this.backgroup);
-            this.splitter.Size = new System.Drawing.Size(539, 767);
-            this.splitter.SplitterDistance = 368;
+            this.splitter.Size = new System.Drawing.Size(539, 549);
+            this.splitter.SplitterDistance = 263;
             this.splitter.TabIndex = 3;
             // 
             // frontside
@@ -771,7 +649,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.frontgroup.Enabled = false;
             this.frontgroup.Location = new System.Drawing.Point(3, 3);
             this.frontgroup.Name = "frontgroup";
-            this.frontgroup.Size = new System.Drawing.Size(533, 362);
+            this.frontgroup.Size = new System.Drawing.Size(533, 257);
             this.frontgroup.TabIndex = 1;
             this.frontgroup.TabStop = false;
             this.frontgroup.Text = "     ";
@@ -881,7 +759,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.backgroup.Enabled = false;
             this.backgroup.Location = new System.Drawing.Point(3, 3);
             this.backgroup.Name = "backgroup";
-            this.backgroup.Size = new System.Drawing.Size(535, 389);
+            this.backgroup.Size = new System.Drawing.Size(535, 276);
             this.backgroup.TabIndex = 1;
             this.backgroup.TabStop = false;
             this.backgroup.Text = "     ";
@@ -960,44 +838,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.backhigh.TabIndex = 4;
             this.backhigh.TextureName = "";
             // 
-            // tabcustom
-            // 
-            this.tabcustom.Controls.Add(this.fieldslist);
-            this.tabcustom.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabcustom.Location = new System.Drawing.Point(4, 23);
-            this.tabcustom.Name = "tabcustom";
-            this.tabcustom.Padding = new System.Windows.Forms.Padding(3);
-            this.tabcustom.Size = new System.Drawing.Size(549, 777);
-            this.tabcustom.TabIndex = 2;
-            this.tabcustom.Tag = "2";
-            this.tabcustom.Text = "Custom";
-            this.tabcustom.UseVisualStyleBackColor = true;
-            // 
-            // fieldslist
-            // 
-            this.fieldslist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldslist.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.fieldslist.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fieldslist.Location = new System.Drawing.Point(11, 11);
-            this.fieldslist.Margin = new System.Windows.Forms.Padding(8);
-            this.fieldslist.Name = "fieldslist";
-            this.fieldslist.Size = new System.Drawing.Size(511, 516);
-            this.fieldslist.TabIndex = 0;
-            // 
-            // tabmacros
-            // 
-            this.tabmacros.Controls.Add(groupBox2);
-            this.tabmacros.Controls.Add(groupBox1);
-            this.tabmacros.Location = new System.Drawing.Point(4, 23);
-            this.tabmacros.Name = "tabmacros";
-            this.tabmacros.Size = new System.Drawing.Size(549, 777);
-            this.tabmacros.TabIndex = 3;
-            this.tabmacros.Tag = "3";
-            this.tabmacros.Text = "Macros";
-            this.tabmacros.UseVisualStyleBackColor = true;
-            // 
             // heightpanel1
             // 
             this.heightpanel1.BackColor = System.Drawing.Color.Navy;
@@ -1049,8 +889,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
             this.Text = "Edit Linedef";
             this.HelpRequested += new System.Windows.Forms.HelpEventHandler(this.LinedefEditForm_HelpRequested);
-            groupBox1.ResumeLayout(false);
-            groupBox2.ResumeLayout(false);
             this.actiongroup.ResumeLayout(false);
             this.actiongroup.PerformLayout();
             this.settingsgroup.ResumeLayout(false);
@@ -1072,8 +910,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.frontgroup.PerformLayout();
             this.backgroup.ResumeLayout(false);
             this.backgroup.PerformLayout();
-            this.tabcustom.ResumeLayout(false);
-            this.tabmacros.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -1102,8 +938,6 @@ namespace CodeImp.DoomBuilder.Windows
         private CodeImp.DoomBuilder.Controls.TextureSelectorControl backlow;
         private CodeImp.DoomBuilder.Controls.TextureSelectorControl backmid;
         private CodeImp.DoomBuilder.Controls.TextureSelectorControl backhigh;
-        private System.Windows.Forms.TabPage tabcustom;
-        private CodeImp.DoomBuilder.Controls.FieldsEditorControl fieldslist;
         private System.Windows.Forms.GroupBox idgroup;
         private System.Windows.Forms.SplitContainer splitter;
         private System.Windows.Forms.Button customfrontbutton;
@@ -1126,14 +960,6 @@ namespace CodeImp.DoomBuilder.Windows
         private System.Windows.Forms.CheckBox activationtypeshoot;
         private System.Windows.Forms.CheckBox activationtypecross;
         private System.Windows.Forms.CheckBox activationtypeuse;
-        private System.Windows.Forms.TabPage tabmacros;
-        private System.Windows.Forms.TreeView mtree;
-        private System.Windows.Forms.Button mapplytag;
-        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox mtag;
-        private System.Windows.Forms.Button mtagbutton;
-        private System.Windows.Forms.Button mdelete;
-        private System.Windows.Forms.Button maction;
-        private System.Windows.Forms.Button mbatch;
         private System.Windows.Forms.GroupBox switchsetupbox;
         private System.Windows.Forms.CheckBox chkSwitchTextureLower;
         private System.Windows.Forms.CheckBox chkSwitchDisplayLower;

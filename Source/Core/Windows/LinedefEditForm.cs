@@ -48,9 +48,6 @@ namespace CodeImp.DoomBuilder.Windows
             action.GeneralizedCategories = General.Map.Config.GenActionCategories;
             action.AddInfo(General.Map.Config.SortedLinedefActions.ToArray());
 
-            // Fill universal fields list
-            fieldslist.ListFixedFields(General.Map.Config.LinedefFields);
-
             // Initialize image selectors
             fronthigh.Initialize();
             frontmid.Initialize();
@@ -58,17 +55,6 @@ namespace CodeImp.DoomBuilder.Windows
             backhigh.Initialize();
             backmid.Initialize();
             backlow.Initialize();
-
-            // Initialize custom fields editor
-            fieldslist.Setup("linedef");
-
-            // Custom fields?
-            if (!General.Map.FormatInterface.HasCustomFields)
-                tabs.TabPages.Remove(tabcustom);
-
-            // villsa
-            //if (!General.Map.FormatInterface.InDoom64Mode)
-            tabs.TabPages.Remove(tabmacros);
 
             customfrontbutton.Visible = General.Map.FormatInterface.HasCustomFields;
             custombackbutton.Visible = General.Map.FormatInterface.HasCustomFields;
@@ -303,9 +289,6 @@ namespace CodeImp.DoomBuilder.Windows
                 backoffsety.Text = fl.Back.OffsetY.ToString();
             }
 
-            // Custom fields
-            fieldslist.SetValues(fl.Fields, true);
-
             ////////////////////////////////////////////////////////////////////////
             // Now go for all lines and change the options when a setting is different
             ////////////////////////////////////////////////////////////////////////
@@ -395,9 +378,6 @@ namespace CodeImp.DoomBuilder.Windows
                     if (backoffsety.Text != l.Back.OffsetY.ToString()) backoffsety.Text = "";
                     if (General.Map.FormatInterface.HasCustomFields) custombackbutton.Visible = true;
                 }
-
-                // Custom fields
-                fieldslist.SetValues(l.Fields, false);
             }
 
             foreach (Linedef l in lines)
@@ -570,21 +550,6 @@ namespace CodeImp.DoomBuilder.Windows
                         }
                     }
                 }
-
-                // Custom fields
-                fieldslist.Apply(l.Fields);
-            }
-
-            // villsa
-            if (General.Map.FormatInterface.InDoom64Mode)
-            {
-                // 20120219 villsa - very ugly hack but it'll do for now...
-                /*if (action.Value >= 256 && tabs.SelectedTab.Text == "Macros")
-                {
-                    int id = action.Value - 256;
-
-                    General.Map.Map.Macros[id].SetDataFromTreeNode(mtree);
-                }*/
             }
 
             // Update the used textures
@@ -652,154 +617,6 @@ namespace CodeImp.DoomBuilder.Windows
         {
             General.ShowHelp("w_linedefedit.html");
             hlpevent.Handled = true;
-        }
-
-        private void mtagbutton_Click(object sender, EventArgs e)
-        {
-            mtag.Text = General.Map.Map.GetNewTag().ToString();
-        }
-
-        private void mapplytag_Click(object sender, EventArgs e)
-        {
-            if (mtree.SelectedNode == null)
-                return;
-
-            if (mtree.SelectedNode.Parent == null)
-                return;
-
-            TreeNode node;
-            MacroData data;
-
-            node = mtree.SelectedNode;
-            data = (MacroData)node.Tag;
-
-            data.tag = mtag.GetResult(0);
-
-            node.Text = data.SetName();
-            node.Tag = data;
-
-            mtag.Text = "";
-        }
-
-        private void mbatch_Click(object sender, EventArgs e)
-        {
-            int batchid = 10;
-
-            mtree.Nodes.Add("Batch");
-            mtree.Focus();
-
-            foreach (TreeNode n in mtree.Nodes)
-            {
-                n.Text = "Batch " + batchid;
-                batchid += 10;
-            }
-        }
-
-        private void maction_Click(object sender, EventArgs e)
-        {
-            TreeNode node;
-            MacroData data;
-
-            if (mtree.SelectedNode == null)
-                return;
-
-            if (mtree.SelectedNode.Parent != null)
-                return;
-
-            node = mtree.SelectedNode.Nodes.Add("Action");
-            mtree.ExpandAll();
-            mtree.Focus();
-
-            data = new MacroData();
-            data.batch = 0;
-            data.type = ActionBrowserForm.BrowseAction(this, action.Value);
-            data.tag = 0;
-
-            node.Text = data.SetName();
-            node.Tag = data;
-        }
-
-        private void tabs_Selected(Object sender, TabControlEventArgs e)
-        {
-            if (!General.Map.FormatInterface.InDoom64Mode)
-                return;
-
-            /*if (e.TabPage.Text != "Macros")  // eek! hack
-            {
-                if (action.Value >= 256)
-                {
-                    int id = action.Value - 256;
-
-                    if (General.Map.Map.Macros[id] != null)
-                        General.Map.Map.Macros[id].SetDataFromTreeNode(mtree);
-                }
-
-                return;
-            }*/
-
-            // fill in macros
-            mtree.Nodes.Clear();
-
-            /*if (action.Value >= 256)
-            {
-                int id = action.Value - 256;
-
-                if (General.Map.Map.Macros[id] == null)
-                    General.Map.Map.Macros[id] = new Macro(0);
-
-                General.Map.Map.Macros[id].SetNodeFromData(id, mtree);
-
-                mbatch.Enabled = true;
-                maction.Enabled = true;
-                mdelete.Enabled = true;
-                mtagbutton.Enabled = true;
-                mapplytag.Enabled = true;
-                mtag.Enabled = true;
-            }
-            else
-            {
-                mbatch.Enabled = false;
-                maction.Enabled = false;
-                mdelete.Enabled = false;
-                mtagbutton.Enabled = false;
-                mapplytag.Enabled = false;
-                mtag.Enabled = false;
-            }*/
-        }
-
-        private void mdelete_Click(object sender, EventArgs e)
-        {
-            TreeNode n = mtree.SelectedNode;
-            bool parentremoved = false;
-            int batchid = 10;
-
-            if (n == null)
-                return;
-
-            if (n.Parent != null)
-            {
-                if (n.Parent.Nodes.Count <= 1)
-                {
-                    n.Parent.Remove();
-                    parentremoved = true;
-                }
-                else
-                    n.Remove();
-            }
-            else
-            {
-                n.Remove();
-                parentremoved = true;
-            }
-
-            if (parentremoved == true)
-            {
-                foreach (TreeNode nn in mtree.Nodes)
-                {
-                    nn.Text = "Batch " + batchid;
-                    batchid += 10;
-                }
-            }
         }
 
         private void chkSwitchDisplayUpper_CheckedChanged_1(object sender, EventArgs e)
