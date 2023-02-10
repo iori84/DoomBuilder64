@@ -48,10 +48,6 @@ namespace CodeImp.DoomBuilder.Windows
             action.GeneralizedCategories = General.Map.Config.GenActionCategories;
             action.AddInfo(General.Map.Config.SortedLinedefActions.ToArray());
 
-            // Fill activations list
-            activation.Items.AddRange(General.Map.Config.LinedefActivates.ToArray());
-            foreach (LinedefActivateInfo ai in General.Map.Config.LinedefActivates) udmfactivates.Add(ai.Title, ai);
-
             // Fill universal fields list
             fieldslist.ListFixedFields(General.Map.Config.LinedefFields);
 
@@ -66,16 +62,6 @@ namespace CodeImp.DoomBuilder.Windows
             // Initialize custom fields editor
             fieldslist.Setup("linedef");
 
-            // Mixed activations? (UDMF)
-            if (General.Map.FormatInterface.HasMixedActivations)
-                udmfpanel.Visible = true;
-            else if (General.Map.FormatInterface.HasPresetActivations)
-                hexenpanel.Visible = true;
-
-            // Action arguments?
-            if (General.Map.FormatInterface.HasActionArgs)
-                argspanel.Visible = true;
-
             // Custom fields?
             if (!General.Map.FormatInterface.HasCustomFields)
                 tabs.TabPages.Remove(tabcustom);
@@ -88,12 +74,7 @@ namespace CodeImp.DoomBuilder.Windows
             custombackbutton.Visible = General.Map.FormatInterface.HasCustomFields;
 
             // Arrange panels
-            if (General.Map.FormatInterface.HasPresetActivations)
-            {
-                actiongroup.Height = hexenpanel.Bottom + action.Top + (actiongroup.Width - actiongroup.ClientRectangle.Width);
-                this.Height = heightpanel1.Height;
-            }
-            else if (!General.Map.FormatInterface.HasMixedActivations &&
+            if (!General.Map.FormatInterface.HasMixedActivations &&
                     !General.Map.FormatInterface.HasActionArgs &&
                     !General.Map.FormatInterface.HasPresetActivations)
             {
@@ -286,25 +267,9 @@ namespace CodeImp.DoomBuilder.Windows
             foreach (CheckBox c in flags.Checkboxes)
                 if (fl.Flags.ContainsKey(c.Tag.ToString())) c.Checked = fl.Flags[c.Tag.ToString()];
 
-            // Activations
-            foreach (LinedefActivateInfo ai in activation.Items)
-                if ((fl.Activate & ai.Index) == ai.Index) activation.SelectedItem = ai;
-
-            // UDMF Activations
-            foreach (CheckBox c in udmfactivates.Checkboxes)
-            {
-                LinedefActivateInfo ai = (c.Tag as LinedefActivateInfo);
-                if (fl.Flags.ContainsKey(ai.Key)) c.Checked = fl.Flags[ai.Key];
-            }
-
             // Action/tags
             action.Value = fl.Action;
             tag.Text = fl.Tag.ToString();
-            arg0.SetValue(fl.Args[0]);
-            arg1.SetValue(fl.Args[1]);
-            arg2.SetValue(fl.Args[2]);
-            arg3.SetValue(fl.Args[3]);
-            arg4.SetValue(fl.Args[4]);
 
             // Front side and back side checkboxes
             frontside.Checked = (fl.Front != null);
@@ -381,39 +346,10 @@ namespace CodeImp.DoomBuilder.Windows
 
                     SwitchTextureMask(l);
                 }
-                else
-                {
-                    if (activation.Items.Count > 0)
-                    {
-                        sai = (activation.Items[0] as LinedefActivateInfo);
-                        foreach (LinedefActivateInfo ai in activation.Items)
-                            if ((l.Activate & ai.Index) == ai.Index) sai = ai;
-                        if (sai != activation.SelectedItem) activation.SelectedIndex = -1;
-                    }
-                }
-
-                // UDMF Activations
-                foreach (CheckBox c in udmfactivates.Checkboxes)
-                {
-                    LinedefActivateInfo ai = (c.Tag as LinedefActivateInfo);
-                    if (l.Flags.ContainsKey(ai.Key))
-                    {
-                        if (c.Checked != l.Flags[ai.Key])
-                        {
-                            c.ThreeState = true;
-                            c.CheckState = CheckState.Indeterminate;
-                        }
-                    }
-                }
 
                 // Action/tags
                 if (l.Action != action.Value) action.Empty = true;
                 if (l.Tag.ToString() != tag.Text) tag.Text = "";
-                if (l.Args[0] != arg0.GetResult(-1)) arg0.ClearValue();
-                if (l.Args[1] != arg1.GetResult(-1)) arg1.ClearValue();
-                if (l.Args[2] != arg2.GetResult(-1)) arg2.ClearValue();
-                if (l.Args[3] != arg3.GetResult(-1)) arg3.ClearValue();
-                if (l.Args[4] != arg4.GetResult(-1)) arg4.ClearValue();
 
                 // Front side checkbox
                 if ((l.Front != null) != frontside.Checked)
@@ -554,10 +490,6 @@ namespace CodeImp.DoomBuilder.Windows
                     else if (c.CheckState == CheckState.Unchecked) l.SetFlag(c.Tag.ToString(), false);
                 }
 
-                // Apply chosen activation flag
-                if (activation.SelectedIndex > -1)
-                    l.Activate = (activation.SelectedItem as LinedefActivateInfo).Index;
-
                 l.Activate -= (l.Activate & 511);
                 SetActivationFlag(l, activationtypered, 512);
                 SetActivationFlag(l, activationtypeblue, 1024);
@@ -568,23 +500,6 @@ namespace CodeImp.DoomBuilder.Windows
                 SetActivationFlag(l, activationtyperepeat, 32768);
 
                 SetSwitchMask(l);
-
-                // UDMF activations
-                foreach (CheckBox c in udmfactivates.Checkboxes)
-                {
-                    LinedefActivateInfo ai = (c.Tag as LinedefActivateInfo);
-                    if (c.CheckState == CheckState.Checked) l.SetFlag(ai.Key, true);
-                    else if (c.CheckState == CheckState.Unchecked) l.SetFlag(ai.Key, false);
-                }
-
-                // Action/tags
-                l.Tag = General.Clamp(tag.GetResult(l.Tag), General.Map.FormatInterface.MinTag, General.Map.FormatInterface.MaxTag);
-                if (!action.Empty) l.Action = action.Value;
-                l.Args[0] = arg0.GetResult(l.Args[0]);
-                l.Args[1] = arg1.GetResult(l.Args[1]);
-                l.Args[2] = arg2.GetResult(l.Args[2]);
-                l.Args[3] = arg3.GetResult(l.Args[3]);
-                l.Args[4] = arg4.GetResult(l.Args[4]);
 
                 // Remove front side?
                 if ((l.Front != null) && (frontside.CheckState == CheckState.Unchecked))
@@ -702,28 +617,6 @@ namespace CodeImp.DoomBuilder.Windows
 
             // Only when line type is known
             if (General.Map.Config.LinedefActions.ContainsKey(action.Value)) showaction = action.Value;
-
-            // Change the argument descriptions
-            arg0label.Text = General.Map.Config.LinedefActions[showaction].Args[0].Title + ":";
-            arg1label.Text = General.Map.Config.LinedefActions[showaction].Args[1].Title + ":";
-            arg2label.Text = General.Map.Config.LinedefActions[showaction].Args[2].Title + ":";
-            arg3label.Text = General.Map.Config.LinedefActions[showaction].Args[3].Title + ":";
-            arg4label.Text = General.Map.Config.LinedefActions[showaction].Args[4].Title + ":";
-            arg0label.Enabled = General.Map.Config.LinedefActions[showaction].Args[0].Used;
-            arg1label.Enabled = General.Map.Config.LinedefActions[showaction].Args[1].Used;
-            arg2label.Enabled = General.Map.Config.LinedefActions[showaction].Args[2].Used;
-            arg3label.Enabled = General.Map.Config.LinedefActions[showaction].Args[3].Used;
-            arg4label.Enabled = General.Map.Config.LinedefActions[showaction].Args[4].Used;
-            if (arg0label.Enabled) arg0.ForeColor = SystemColors.WindowText; else arg0.ForeColor = SystemColors.GrayText;
-            if (arg1label.Enabled) arg1.ForeColor = SystemColors.WindowText; else arg1.ForeColor = SystemColors.GrayText;
-            if (arg2label.Enabled) arg2.ForeColor = SystemColors.WindowText; else arg2.ForeColor = SystemColors.GrayText;
-            if (arg3label.Enabled) arg3.ForeColor = SystemColors.WindowText; else arg3.ForeColor = SystemColors.GrayText;
-            if (arg4label.Enabled) arg4.ForeColor = SystemColors.WindowText; else arg4.ForeColor = SystemColors.GrayText;
-            arg0.Setup(General.Map.Config.LinedefActions[showaction].Args[0]);
-            arg1.Setup(General.Map.Config.LinedefActions[showaction].Args[1]);
-            arg2.Setup(General.Map.Config.LinedefActions[showaction].Args[2]);
-            arg3.Setup(General.Map.Config.LinedefActions[showaction].Args[3]);
-            arg4.Setup(General.Map.Config.LinedefActions[showaction].Args[4]);
         }
 
         // Browse Action clicked
