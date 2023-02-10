@@ -261,7 +261,7 @@ namespace CodeImp.DoomBuilder.Windows
             incdecIntensity.Controls.Add(this.button4);
             incdecIntensity.Controls.Add(this.button2);
             incdecIntensity.Controls.Add(this.button1);
-            incdecIntensity.Location = new System.Drawing.Point(324, 3);
+            incdecIntensity.Location = new System.Drawing.Point(324, 7);
             incdecIntensity.Name = "incdecIntensity";
             incdecIntensity.Size = new System.Drawing.Size(112, 167);
             incdecIntensity.TabIndex = 6;
@@ -365,7 +365,7 @@ namespace CodeImp.DoomBuilder.Windows
             coloredLightingInfo.Controls.Add(this.thingcolor);
             coloredLightingInfo.Controls.Add(this.topcolor);
             coloredLightingInfo.Controls.Add(this.ceilingcolor);
-            coloredLightingInfo.Location = new System.Drawing.Point(0, 3);
+            coloredLightingInfo.Location = new System.Drawing.Point(7, 162);
             coloredLightingInfo.Name = "coloredLightingInfo";
             coloredLightingInfo.Size = new System.Drawing.Size(294, 167);
             coloredLightingInfo.TabIndex = 5;
@@ -439,7 +439,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.groupaction.Controls.Add(this.tag);
             this.groupaction.Controls.Add(labelTag);
             this.groupaction.Controls.Add(this.newtag);
-            this.groupaction.Location = new System.Drawing.Point(7, 209);
+            this.groupaction.Location = new System.Drawing.Point(7, 394);
             this.groupaction.Name = "groupaction";
             this.groupaction.Size = new System.Drawing.Size(436, 49);
             this.groupaction.TabIndex = 2;
@@ -475,7 +475,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.groupeffect.Controls.Add(this.browseeffect);
             this.groupeffect.Controls.Add(this.effect);
             this.groupeffect.Controls.Add(labelSpecial);
-            this.groupeffect.Location = new System.Drawing.Point(7, 155);
+            this.groupeffect.Location = new System.Drawing.Point(7, 340);
             this.groupeffect.Name = "groupeffect";
             this.groupeffect.Size = new System.Drawing.Size(436, 48);
             this.groupeffect.TabIndex = 1;
@@ -533,32 +533,32 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // sectorproperties
             // 
+            this.sectorproperties.Controls.Add(coloredLightingInfo);
+            this.sectorproperties.Controls.Add(this.groupeffect);
             this.sectorproperties.Controls.Add(this.lightsPanel);
             this.sectorproperties.Controls.Add(this.settingsgroup);
             this.sectorproperties.Controls.Add(this.groupaction);
-            this.sectorproperties.Controls.Add(this.groupeffect);
             this.sectorproperties.Controls.Add(groupfloorceiling);
             this.sectorproperties.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.sectorproperties.Location = new System.Drawing.Point(12, 12);
             this.sectorproperties.Name = "sectorproperties";
             this.sectorproperties.Padding = new System.Windows.Forms.Padding(3);
-            this.sectorproperties.Size = new System.Drawing.Size(449, 586);
+            this.sectorproperties.Size = new System.Drawing.Size(449, 592);
             this.sectorproperties.TabIndex = 0;
             this.sectorproperties.Text = "Properties";
             // 
             // lightsPanel
             // 
-            this.lightsPanel.Controls.Add(coloredLightingInfo);
             this.lightsPanel.Controls.Add(incdecIntensity);
-            this.lightsPanel.Location = new System.Drawing.Point(7, 406);
+            this.lightsPanel.Location = new System.Drawing.Point(7, 155);
             this.lightsPanel.Name = "lightsPanel";
-            this.lightsPanel.Size = new System.Drawing.Size(436, 169);
+            this.lightsPanel.Size = new System.Drawing.Size(436, 179);
             this.lightsPanel.TabIndex = 4;
             // 
             // settingsgroup
             // 
             this.settingsgroup.Controls.Add(this.flags);
-            this.settingsgroup.Location = new System.Drawing.Point(7, 264);
+            this.settingsgroup.Location = new System.Drawing.Point(7, 449);
             this.settingsgroup.Name = "settingsgroup";
             this.settingsgroup.Size = new System.Drawing.Size(436, 136);
             this.settingsgroup.TabIndex = 3;
@@ -598,7 +598,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.heightpanel3.BackColor = System.Drawing.Color.Navy;
             this.heightpanel3.Location = new System.Drawing.Point(128, -19);
             this.heightpanel3.Name = "heightpanel3";
-            this.heightpanel3.Size = new System.Drawing.Size(78, 692);
+            this.heightpanel3.Size = new System.Drawing.Size(78, 677);
             this.heightpanel3.TabIndex = 5;
             this.heightpanel3.Visible = false;
             // 
