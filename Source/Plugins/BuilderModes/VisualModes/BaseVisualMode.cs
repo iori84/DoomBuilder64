@@ -1119,6 +1119,18 @@ namespace CodeImp.DoomBuilder.BuilderModes
         }
         // [villsa end]
 
+        //mxd
+        [BeginAction("visualautoalign")]
+        public void TextureAutoAlign()
+        {
+            PreAction(UndoGroup.None);
+            renderer.SetCrosshairBusy(true);
+            General.Interface.RedrawDisplay();
+            GetTargetEventReceiver(false).OnTextureAlign(true, true);
+            UpdateChangedObjects();
+            renderer.SetCrosshairBusy(false);
+            PostAction();
+        }
         [BeginAction("visualautoalignx")]
         public void TextureAutoAlignX()
         {
