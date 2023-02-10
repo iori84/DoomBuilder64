@@ -64,9 +64,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.tag = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
             this.newtag = new System.Windows.Forms.Button();
             this.groupeffect = new System.Windows.Forms.GroupBox();
-            this.brightness = new CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox();
             this.browseeffect = new System.Windows.Forms.Button();
-            this.label9 = new System.Windows.Forms.Label();
             this.effect = new CodeImp.DoomBuilder.Controls.ActionSelectorControl();
             this.cancel = new System.Windows.Forms.Button();
             this.apply = new System.Windows.Forms.Button();
@@ -74,8 +72,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabproperties = new System.Windows.Forms.TabPage();
             this.settingsgroup = new System.Windows.Forms.GroupBox();
             this.flags = new CodeImp.DoomBuilder.Controls.CheckboxArrayControl();
-            this.tabcustom = new System.Windows.Forms.TabPage();
-            this.fieldslist = new CodeImp.DoomBuilder.Controls.FieldsEditorControl();
             this.tabLights = new System.Windows.Forms.TabPage();
             this.flatSelectorControl2 = new CodeImp.DoomBuilder.Controls.FlatSelectorControl();
             this.flatSelectorControl1 = new CodeImp.DoomBuilder.Controls.FlatSelectorControl();
@@ -98,7 +94,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabs.SuspendLayout();
             this.tabproperties.SuspendLayout();
             this.settingsgroup.SuspendLayout();
-            this.tabcustom.SuspendLayout();
             this.tabLights.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -140,7 +135,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // groupfloorceiling
             // 
-            groupfloorceiling.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            groupfloorceiling.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             groupfloorceiling.Controls.Add(this.floorheight);
             groupfloorceiling.Controls.Add(this.ceilingheight);
@@ -264,7 +259,7 @@ namespace CodeImp.DoomBuilder.Windows
             groupBox1.Controls.Add(this.ceilingcolor);
             groupBox1.Location = new System.Drawing.Point(17, 20);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(294, 198);
+            groupBox1.Size = new System.Drawing.Size(294, 167);
             groupBox1.TabIndex = 2;
             groupBox1.TabStop = false;
             groupBox1.Text = "Colored Lighting Info";
@@ -274,7 +269,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.floorcolor.BackColor = System.Drawing.Color.Transparent;
             this.floorcolor.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.floorcolor.Label = "Floor:";
-            this.floorcolor.Location = new System.Drawing.Point(16, 151);
+            this.floorcolor.Location = new System.Drawing.Point(16, 135);
             this.floorcolor.MaximumSize = new System.Drawing.Size(10000, 23);
             this.floorcolor.MinimumSize = new System.Drawing.Size(100, 23);
             this.floorcolor.Name = "floorcolor";
@@ -286,7 +281,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.lowercolor.BackColor = System.Drawing.Color.Transparent;
             this.lowercolor.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.lowercolor.Label = "Bottom Half Wall:";
-            this.lowercolor.Location = new System.Drawing.Point(16, 122);
+            this.lowercolor.Location = new System.Drawing.Point(16, 106);
             this.lowercolor.MaximumSize = new System.Drawing.Size(10000, 23);
             this.lowercolor.MinimumSize = new System.Drawing.Size(100, 23);
             this.lowercolor.Name = "lowercolor";
@@ -298,7 +293,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.thingcolor.BackColor = System.Drawing.Color.Transparent;
             this.thingcolor.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.thingcolor.Label = "Thing:";
-            this.thingcolor.Location = new System.Drawing.Point(16, 93);
+            this.thingcolor.Location = new System.Drawing.Point(16, 77);
             this.thingcolor.MaximumSize = new System.Drawing.Size(10000, 23);
             this.thingcolor.MinimumSize = new System.Drawing.Size(100, 23);
             this.thingcolor.Name = "thingcolor";
@@ -310,7 +305,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.topcolor.BackColor = System.Drawing.Color.Transparent;
             this.topcolor.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.topcolor.Label = "Top Half Wall:";
-            this.topcolor.Location = new System.Drawing.Point(16, 64);
+            this.topcolor.Location = new System.Drawing.Point(16, 48);
             this.topcolor.MaximumSize = new System.Drawing.Size(10000, 23);
             this.topcolor.MinimumSize = new System.Drawing.Size(100, 23);
             this.topcolor.Name = "topcolor";
@@ -322,7 +317,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.ceilingcolor.BackColor = System.Drawing.Color.Transparent;
             this.ceilingcolor.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.ceilingcolor.Label = "Ceiling:";
-            this.ceilingcolor.Location = new System.Drawing.Point(16, 35);
+            this.ceilingcolor.Location = new System.Drawing.Point(16, 19);
             this.ceilingcolor.MaximumSize = new System.Drawing.Size(10000, 23);
             this.ceilingcolor.MinimumSize = new System.Drawing.Size(100, 23);
             this.ceilingcolor.Name = "ceilingcolor";
@@ -343,14 +338,14 @@ namespace CodeImp.DoomBuilder.Windows
             groupBox3.Controls.Add(this.button1);
             groupBox3.Location = new System.Drawing.Point(317, 20);
             groupBox3.Name = "groupBox3";
-            groupBox3.Size = new System.Drawing.Size(112, 198);
+            groupBox3.Size = new System.Drawing.Size(112, 167);
             groupBox3.TabIndex = 4;
             groupBox3.TabStop = false;
             groupBox3.Text = "Inc/Dec Intensity";
             // 
             // button19
             // 
-            this.button19.Location = new System.Drawing.Point(59, 151);
+            this.button19.Location = new System.Drawing.Point(59, 135);
             this.button19.Name = "button19";
             this.button19.Size = new System.Drawing.Size(42, 20);
             this.button19.TabIndex = 61;
@@ -360,7 +355,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // button20
             // 
-            this.button20.Location = new System.Drawing.Point(11, 151);
+            this.button20.Location = new System.Drawing.Point(11, 135);
             this.button20.Name = "button20";
             this.button20.Size = new System.Drawing.Size(42, 20);
             this.button20.TabIndex = 60;
@@ -370,7 +365,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // button17
             // 
-            this.button17.Location = new System.Drawing.Point(59, 122);
+            this.button17.Location = new System.Drawing.Point(59, 106);
             this.button17.Name = "button17";
             this.button17.Size = new System.Drawing.Size(42, 20);
             this.button17.TabIndex = 59;
@@ -380,7 +375,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // button18
             // 
-            this.button18.Location = new System.Drawing.Point(11, 122);
+            this.button18.Location = new System.Drawing.Point(11, 106);
             this.button18.Name = "button18";
             this.button18.Size = new System.Drawing.Size(42, 20);
             this.button18.TabIndex = 58;
@@ -390,7 +385,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // button5
             // 
-            this.button5.Location = new System.Drawing.Point(59, 93);
+            this.button5.Location = new System.Drawing.Point(59, 77);
             this.button5.Name = "button5";
             this.button5.Size = new System.Drawing.Size(42, 20);
             this.button5.TabIndex = 57;
@@ -400,7 +395,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // button16
             // 
-            this.button16.Location = new System.Drawing.Point(11, 93);
+            this.button16.Location = new System.Drawing.Point(11, 77);
             this.button16.Name = "button16";
             this.button16.Size = new System.Drawing.Size(42, 20);
             this.button16.TabIndex = 56;
@@ -410,7 +405,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // button3
             // 
-            this.button3.Location = new System.Drawing.Point(59, 64);
+            this.button3.Location = new System.Drawing.Point(59, 48);
             this.button3.Name = "button3";
             this.button3.Size = new System.Drawing.Size(42, 20);
             this.button3.TabIndex = 55;
@@ -420,7 +415,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // button4
             // 
-            this.button4.Location = new System.Drawing.Point(11, 64);
+            this.button4.Location = new System.Drawing.Point(11, 48);
             this.button4.Name = "button4";
             this.button4.Size = new System.Drawing.Size(42, 20);
             this.button4.TabIndex = 54;
@@ -430,7 +425,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // button2
             // 
-            this.button2.Location = new System.Drawing.Point(59, 35);
+            this.button2.Location = new System.Drawing.Point(59, 19);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(42, 20);
             this.button2.TabIndex = 53;
@@ -440,7 +435,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(11, 35);
+            this.button1.Location = new System.Drawing.Point(11, 19);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(42, 20);
             this.button1.TabIndex = 52;
@@ -450,7 +445,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // groupaction
             // 
-            this.groupaction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.groupaction.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.groupaction.Controls.Add(this.tag);
             this.groupaction.Controls.Add(taglabel);
@@ -486,31 +481,17 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // groupeffect
             // 
-            this.groupeffect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left)
+            this.groupeffect.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.groupeffect.Controls.Add(this.brightness);
             this.groupeffect.Controls.Add(this.browseeffect);
-            this.groupeffect.Controls.Add(this.label9);
             this.groupeffect.Controls.Add(this.effect);
             this.groupeffect.Controls.Add(label8);
             this.groupeffect.Location = new System.Drawing.Point(7, 176);
             this.groupeffect.Name = "groupeffect";
-            this.groupeffect.Size = new System.Drawing.Size(436, 105);
+            this.groupeffect.Size = new System.Drawing.Size(436, 64);
             this.groupeffect.TabIndex = 1;
             this.groupeffect.TabStop = false;
             this.groupeffect.Text = " Effects ";
-            // 
-            // brightness
-            // 
-            this.brightness.AllowDecimal = false;
-            this.brightness.AllowNegative = false;
-            this.brightness.AllowRelative = true;
-            this.brightness.ButtonStep = 8;
-            this.brightness.Location = new System.Drawing.Point(89, 61);
-            this.brightness.Name = "brightness";
-            this.brightness.Size = new System.Drawing.Size(73, 24);
-            this.brightness.StepValues = null;
-            this.brightness.TabIndex = 24;
             // 
             // browseeffect
             // 
@@ -524,15 +505,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.browseeffect.Text = " ";
             this.browseeffect.UseVisualStyleBackColor = true;
             this.browseeffect.Click += new System.EventHandler(this.browseeffect_Click);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(21, 66);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(62, 14);
-            this.label9.TabIndex = 2;
-            this.label9.Text = "Brightness:";
             // 
             // effect
             // 
@@ -572,11 +544,10 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // tabs
             // 
-            this.tabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.tabs.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.tabs.Controls.Add(this.tabproperties);
-            this.tabs.Controls.Add(this.tabcustom);
             this.tabs.Controls.Add(this.tabLights);
             this.tabs.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
             this.tabs.Location = new System.Drawing.Point(10, 10);
@@ -614,8 +585,8 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             // flags
             // 
-            this.flags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
+            this.flags.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.flags.AutoScroll = true;
             this.flags.Columns = 3;
@@ -623,31 +594,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.flags.Name = "flags";
             this.flags.Size = new System.Drawing.Size(424, 122);
             this.flags.TabIndex = 4;
-            // 
-            // tabcustom
-            // 
-            this.tabcustom.Controls.Add(this.fieldslist);
-            this.tabcustom.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.tabcustom.Location = new System.Drawing.Point(4, 23);
-            this.tabcustom.Name = "tabcustom";
-            this.tabcustom.Padding = new System.Windows.Forms.Padding(3);
-            this.tabcustom.Size = new System.Drawing.Size(449, 517);
-            this.tabcustom.TabIndex = 1;
-            this.tabcustom.Text = "Custom";
-            this.tabcustom.UseVisualStyleBackColor = true;
-            // 
-            // fieldslist
-            // 
-            this.fieldslist.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)
-            | System.Windows.Forms.AnchorStyles.Left)
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.fieldslist.BorderStyle = System.Windows.Forms.BorderStyle.Fixed3D;
-            this.fieldslist.Font = new System.Drawing.Font("Arial", 8.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.fieldslist.Location = new System.Drawing.Point(11, 11);
-            this.fieldslist.Margin = new System.Windows.Forms.Padding(8);
-            this.fieldslist.Name = "fieldslist";
-            this.fieldslist.Size = new System.Drawing.Size(427, 347);
-            this.fieldslist.TabIndex = 1;
             // 
             // tabLights
             // 
@@ -709,7 +655,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.tabs.ResumeLayout(false);
             this.tabproperties.ResumeLayout(false);
             this.settingsgroup.ResumeLayout(false);
-            this.tabcustom.ResumeLayout(false);
             this.tabLights.ResumeLayout(false);
             this.ResumeLayout(false);
 
@@ -721,12 +666,10 @@ namespace CodeImp.DoomBuilder.Windows
         private System.Windows.Forms.Button apply;
         private System.Windows.Forms.TabControl tabs;
         private System.Windows.Forms.TabPage tabproperties;
-        private System.Windows.Forms.TabPage tabcustom;
         private CodeImp.DoomBuilder.Controls.FlatSelectorControl floortex;
         private CodeImp.DoomBuilder.Controls.FlatSelectorControl ceilingtex;
         private CodeImp.DoomBuilder.Controls.FlatSelectorControl flatSelectorControl2;
         private CodeImp.DoomBuilder.Controls.FlatSelectorControl flatSelectorControl1;
-        private CodeImp.DoomBuilder.Controls.FieldsEditorControl fieldslist;
         private System.Windows.Forms.Label sectorheight;
         private CodeImp.DoomBuilder.Controls.ActionSelectorControl effect;
         private System.Windows.Forms.Button newtag;
@@ -734,11 +677,9 @@ namespace CodeImp.DoomBuilder.Windows
         private System.Windows.Forms.Label sectorheightlabel;
         private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox ceilingheight;
         private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox floorheight;
-        private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox brightness;
         private CodeImp.DoomBuilder.Controls.ButtonsNumericTextbox tag;
         private System.Windows.Forms.GroupBox settingsgroup;
         private CodeImp.DoomBuilder.Controls.CheckboxArrayControl flags;
-        private System.Windows.Forms.Label label9;
         private System.Windows.Forms.GroupBox groupeffect;
         private System.Windows.Forms.GroupBox groupaction;
         private System.Windows.Forms.TabPage tabLights;

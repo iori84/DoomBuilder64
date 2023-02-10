@@ -63,34 +63,19 @@ namespace CodeImp.DoomBuilder.Windows
                 foreach (KeyValuePair<string, string> lf in General.Map.Config.SectorFlags)
                     flags.Add(lf.Value, lf.Key);
 
-                brightness.Hide();
-                label9.Hide();
                 groupeffect.Height = 64;
                 groupaction.Top = groupeffect.Bottom + groupeffect.Margin.Bottom + groupaction.Margin.Top;
                 settingsgroup.Top = groupaction.Bottom + groupaction.Margin.Bottom + settingsgroup.Margin.Top;
                 this.Height = settingsgroup.Bottom + settingsgroup.Margin.Bottom + 120;
             }
 
-            // Fill universal fields list
-            fieldslist.ListFixedFields(General.Map.Config.SectorFields);
-
             // Initialize image selectors
             floortex.Initialize();
             ceilingtex.Initialize();
 
-            // Set steps for brightness field
-            brightness.StepValues = General.Map.Config.BrightnessLevels;
-
-            // Custom fields?
-            if (!General.Map.FormatInterface.HasCustomFields)
-                tabs.TabPages.Remove(tabcustom);
-
             // villsa
             if (!General.Map.FormatInterface.InDoom64Mode)
                 tabs.TabPages.Remove(tabLights);
-
-            // Initialize custom fields editor
-            fieldslist.Setup("sector");
         }
 
         // This sets up the form to edit the given sectors
@@ -124,7 +109,6 @@ namespace CodeImp.DoomBuilder.Windows
 
             // Effects
             effect.Value = sc.Effect;
-            brightness.Text = sc.Brightness.ToString();
 
             // Floor/ceiling
             floorheight.Text = sc.FloorHeight.ToString();
@@ -134,9 +118,6 @@ namespace CodeImp.DoomBuilder.Windows
 
             // Action
             tag.Text = sc.Tag.ToString();
-
-            // Custom fields
-            fieldslist.SetValues(sc.Fields, true);
 
             ////////////////////////////////////////////////////////////////////////
             // Now go for all sectors and change the options when a setting is different
@@ -160,7 +141,6 @@ namespace CodeImp.DoomBuilder.Windows
 
                 // Effects
                 if (s.Effect != effect.Value) effect.Empty = true;
-                if (s.Brightness.ToString() != brightness.Text) brightness.Text = "";
 
                 // Floor/Ceiling
                 if (s.FloorHeight.ToString() != floorheight.Text) floorheight.Text = "";
@@ -170,9 +150,6 @@ namespace CodeImp.DoomBuilder.Windows
 
                 // Action
                 if (s.Tag.ToString() != tag.Text) tag.Text = "";
-
-                // Custom fields
-                fieldslist.SetValues(s.Fields, false);
             }
 
             // Show sector height
@@ -243,13 +220,6 @@ namespace CodeImp.DoomBuilder.Windows
                 return;
             }
 
-            // Verify the brightness
-            if ((brightness.GetResult(0) < General.Map.FormatInterface.MinBrightness) || (brightness.GetResult(0) > General.Map.FormatInterface.MaxBrightness))
-            {
-                General.ShowWarningMessage("Sector brightness must be between " + General.Map.FormatInterface.MinBrightness + " and " + General.Map.FormatInterface.MaxBrightness + ".", MessageBoxButtons.OK);
-                return;
-            }
-
             // Make undo
             if (sectors.Count > 1) undodesc = sectors.Count + " sectors";
             General.Map.UndoRedo.CreateUndo("Edit " + undodesc);
@@ -306,7 +276,6 @@ namespace CodeImp.DoomBuilder.Windows
 
                 // Effects
                 if (!effect.Empty) s.Effect = effect.Value;
-                s.Brightness = General.Clamp(brightness.GetResult(s.Brightness), General.Map.FormatInterface.MinBrightness, General.Map.FormatInterface.MaxBrightness);
 
                 // Floor/Ceiling
                 s.FloorHeight = floorheight.GetResult(s.FloorHeight);
@@ -316,9 +285,6 @@ namespace CodeImp.DoomBuilder.Windows
 
                 // Action
                 s.Tag = General.Clamp(tag.GetResult(s.Tag), General.Map.FormatInterface.MinTag, General.Map.FormatInterface.MaxTag);
-
-                // Custom fields
-                fieldslist.Apply(s.Fields);
             }
 
             // Update the used textures
