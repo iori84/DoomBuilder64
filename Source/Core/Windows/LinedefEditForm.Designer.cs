@@ -50,7 +50,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.newtag = new System.Windows.Forms.Button();
             this.settingsgroup = new System.Windows.Forms.GroupBox();
             this.flags = new CodeImp.DoomBuilder.Controls.CheckboxArrayControl();
-            this.checkBox1 = new System.Windows.Forms.CheckBox();
             this.tabs = new System.Windows.Forms.TabControl();
             this.tabproperties = new System.Windows.Forms.TabPage();
             this.switchsetupbox = new System.Windows.Forms.GroupBox();
@@ -345,15 +344,6 @@ namespace CodeImp.DoomBuilder.Windows
             this.flags.Name = "flags";
             this.flags.Size = new System.Drawing.Size(509, 182);
             this.flags.TabIndex = 0;
-            // 
-            // checkBox1
-            // 
-            this.checkBox1.Location = new System.Drawing.Point(0, 0);
-            this.checkBox1.Name = "checkBox1";
-            this.checkBox1.Size = new System.Drawing.Size(104, 24);
-            this.checkBox1.TabIndex = 0;
-            this.checkBox1.Text = "checkBox1";
-            this.checkBox1.UseVisualStyleBackColor = true;
             // 
             // tabs
             // 
@@ -921,7 +911,6 @@ namespace CodeImp.DoomBuilder.Windows
         private System.Windows.Forms.GroupBox actiongroup;
         private System.Windows.Forms.GroupBox settingsgroup;
         private CodeImp.DoomBuilder.Controls.CheckboxArrayControl flags;
-        private System.Windows.Forms.CheckBox checkBox1;
         private System.Windows.Forms.Button browseaction;
         private CodeImp.DoomBuilder.Controls.ActionSelectorControl action;
         private System.Windows.Forms.Button newtag;
