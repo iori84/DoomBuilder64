@@ -64,10 +64,6 @@ namespace CodeImp.DoomBuilder.Windows
             foreach (KeyValuePair<string, string> tf in General.Map.Config.ThingFlags)
                 flags.Add(tf.Value, tf.Key);
 
-            // Tag/Effects?
-            if (!General.Map.FormatInterface.HasThingAction && !General.Map.FormatInterface.HasThingTag)
-                tabs.TabPages.Remove(tabeffects);
-
             // villsa - hide thing tag if specified false
             if (!General.Map.FormatInterface.HasThingTag)
                 groupBox3.Hide();
