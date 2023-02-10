@@ -64,27 +64,9 @@ namespace CodeImp.DoomBuilder.Windows
             foreach (KeyValuePair<string, string> tf in General.Map.Config.ThingFlags)
                 flags.Add(tf.Value, tf.Key);
 
-            // Fill actions list
-            action.GeneralizedCategories = General.Map.Config.GenActionCategories;
-            action.AddInfo(General.Map.Config.SortedLinedefActions.ToArray());
-
-            // Fill universal fields list
-            fieldslist.ListFixedFields(General.Map.Config.ThingFields);
-
-            // Initialize custom fields editor
-            fieldslist.Setup("thing");
-
-            // Custom fields?
-            if (!General.Map.FormatInterface.HasCustomFields)
-                tabs.TabPages.Remove(tabcustom);
-
             // Tag/Effects?
             if (!General.Map.FormatInterface.HasThingAction && !General.Map.FormatInterface.HasThingTag)
                 tabs.TabPages.Remove(tabeffects);
-
-            // villsa - hide thing action if specified false
-            if (!General.Map.FormatInterface.HasThingAction)
-                actiongroup.Hide();
 
             // villsa - hide thing tag if specified false
             if (!General.Map.FormatInterface.HasThingTag)
@@ -124,17 +106,8 @@ namespace CodeImp.DoomBuilder.Windows
             angle.Text = Angle2D.RealToDoom(ft.Angle).ToString();
             height.Text = ((int)ft.Position.z).ToString();
 
-            // Action/tags
-            action.Value = ft.Action;
+            // Tag
             tag.Text = ft.Tag.ToString();
-            arg0.SetValue(ft.Args[0]);
-            arg1.SetValue(ft.Args[1]);
-            arg2.SetValue(ft.Args[2]);
-            arg3.SetValue(ft.Args[3]);
-            arg4.SetValue(ft.Args[4]);
-
-            // Custom fields
-            fieldslist.SetValues(ft.Fields, true);
 
             ////////////////////////////////////////////////////////////////////////
             // Now go for all lines and change the options when a setting is different
@@ -166,17 +139,8 @@ namespace CodeImp.DoomBuilder.Windows
                 if (angledeg.ToString() != angle.Text) angle.Text = "";
                 if (((int)t.Position.z).ToString() != height.Text) height.Text = "";
 
-                // Action/tags
-                if (t.Action != action.Value) action.Empty = true;
+                // Tag
                 if (t.Tag.ToString() != tag.Text) tag.Text = "";
-                if (t.Args[0] != arg0.GetResult(-1)) arg0.ClearValue();
-                if (t.Args[1] != arg1.GetResult(-1)) arg1.ClearValue();
-                if (t.Args[2] != arg2.GetResult(-1)) arg2.ClearValue();
-                if (t.Args[3] != arg3.GetResult(-1)) arg3.ClearValue();
-                if (t.Args[4] != arg4.GetResult(-1)) arg4.ClearValue();
-
-                // Custom fields
-                fieldslist.SetValues(t.Fields, false);
             }
         }
 
@@ -224,48 +188,6 @@ namespace CodeImp.DoomBuilder.Windows
             {
                 spritetex.BackgroundImage = null;
             }
-
-            // Update arguments
-            action_ValueChanges(this, EventArgs.Empty);
-        }
-
-        // Action changes
-        private void action_ValueChanges(object sender, EventArgs e)
-        {
-            int showaction = 0;
-            ArgumentInfo[] arginfo;
-
-            // Only when line type is known, otherwise use the thing arguments
-            if (General.Map.Config.LinedefActions.ContainsKey(action.Value)) showaction = action.Value;
-            if ((showaction == 0) && (thinginfo != null)) arginfo = thinginfo.Args; else arginfo = General.Map.Config.LinedefActions[showaction].Args;
-
-            // Change the argument descriptions
-            arg0label.Text = arginfo[0].Title + ":";
-            arg1label.Text = arginfo[1].Title + ":";
-            arg2label.Text = arginfo[2].Title + ":";
-            arg3label.Text = arginfo[3].Title + ":";
-            arg4label.Text = arginfo[4].Title + ":";
-            arg0label.Enabled = arginfo[0].Used;
-            arg1label.Enabled = arginfo[1].Used;
-            arg2label.Enabled = arginfo[2].Used;
-            arg3label.Enabled = arginfo[3].Used;
-            arg4label.Enabled = arginfo[4].Used;
-            if (arg0label.Enabled) arg0.ForeColor = SystemColors.WindowText; else arg0.ForeColor = SystemColors.GrayText;
-            if (arg1label.Enabled) arg1.ForeColor = SystemColors.WindowText; else arg1.ForeColor = SystemColors.GrayText;
-            if (arg2label.Enabled) arg2.ForeColor = SystemColors.WindowText; else arg2.ForeColor = SystemColors.GrayText;
-            if (arg3label.Enabled) arg3.ForeColor = SystemColors.WindowText; else arg3.ForeColor = SystemColors.GrayText;
-            if (arg4label.Enabled) arg4.ForeColor = SystemColors.WindowText; else arg4.ForeColor = SystemColors.GrayText;
-            arg0.Setup(arginfo[0]);
-            arg1.Setup(arginfo[1]);
-            arg2.Setup(arginfo[2]);
-            arg3.Setup(arginfo[3]);
-            arg4.Setup(arginfo[4]);
-        }
-
-        // Browse Action clicked
-        private void browseaction_Click(object sender, EventArgs e)
-        {
-            action.Value = ActionBrowserForm.BrowseAction(this, action.Value);
         }
 
         // Angle text changes
@@ -300,13 +222,6 @@ namespace CodeImp.DoomBuilder.Windows
                 return;
             }
 
-            // Verify the action
-            if (General.Map.FormatInterface.HasThingAction && ((action.Value < General.Map.FormatInterface.MinAction) || (action.Value > General.Map.FormatInterface.MaxAction)))
-            {
-                General.ShowWarningMessage("Thing action must be between " + General.Map.FormatInterface.MinAction + " and " + General.Map.FormatInterface.MaxAction + ".", MessageBoxButtons.OK);
-                return;
-            }
-
             // Make undo
             if (things.Count > 1) undodesc = things.Count + " things";
             General.Map.UndoRedo.CreateUndo("Edit " + undodesc);
@@ -328,17 +243,8 @@ namespace CodeImp.DoomBuilder.Windows
                     else if (c.CheckState == CheckState.Unchecked) t.SetFlag(c.Tag.ToString(), false);
                 }
 
-                // Action/tags
+                // Tag
                 t.Tag = tag.GetResult(t.Tag);
-                if (!action.Empty) t.Action = action.Value;
-                t.Args[0] = arg0.GetResult(t.Args[0]);
-                t.Args[1] = arg1.GetResult(t.Args[1]);
-                t.Args[2] = arg2.GetResult(t.Args[2]);
-                t.Args[3] = arg3.GetResult(t.Args[3]);
-                t.Args[4] = arg4.GetResult(t.Args[4]);
-
-                // Custom fields
-                fieldslist.Apply(t.Fields);
 
                 // Update settings
                 t.UpdateConfiguration();
