@@ -382,6 +382,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.backside.TabIndex = 20;
             this.backside.Text = "Back Side";
             this.backside.UseVisualStyleBackColor = true;
+            this.backside.CheckStateChanged += new System.EventHandler(this.backside_CheckStateChanged);
             // 
             // backoffsety
             // 
@@ -479,6 +480,7 @@ namespace CodeImp.DoomBuilder.Windows
             this.frontside.TabIndex = 17;
             this.frontside.Text = "Front Side";
             this.frontside.UseVisualStyleBackColor = true;
+            this.frontside.CheckStateChanged += new System.EventHandler(this.frontside_CheckStateChanged);
             // 
             // frontoffsety
             // 
