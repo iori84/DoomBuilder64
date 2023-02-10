@@ -72,10 +72,7 @@ namespace CodeImp.DoomBuilder.Windows
             // Initialize image selectors
             floortex.Initialize();
             ceilingtex.Initialize();
-
-            // villsa
-            if (!General.Map.FormatInterface.InDoom64Mode)
-                tabs.TabPages.Remove(tabLights);
+            this.Height = heightpanel3.Height;
         }
 
         // This sets up the form to edit the given sectors
