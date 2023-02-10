@@ -28,18 +28,18 @@ namespace CodeImp.DoomBuilder.Windows
         /// </summary>
         private void InitializeComponent()
         {
-            System.Windows.Forms.Label label2;
+            System.Windows.Forms.Label labelAction;
             System.Windows.Forms.Label taglabel;
-            System.Windows.Forms.Label label3;
-            System.Windows.Forms.Label label4;
-            System.Windows.Forms.Label label5;
-            System.Windows.Forms.Label label6;
-            System.Windows.Forms.Label label7;
-            System.Windows.Forms.Label label8;
-            System.Windows.Forms.Label label9;
-            System.Windows.Forms.Label label10;
-            System.Windows.Forms.Label label11;
-            System.Windows.Forms.Label label12;
+            System.Windows.Forms.Label labelFrontUpper;
+            System.Windows.Forms.Label labelFrontMiddle;
+            System.Windows.Forms.Label labelFrontLower;
+            System.Windows.Forms.Label labelFrontOffset;
+            System.Windows.Forms.Label labelBackOffset;
+            System.Windows.Forms.Label labelBackLower;
+            System.Windows.Forms.Label labelBackMiddle;
+            System.Windows.Forms.Label labelBackUpper;
+            System.Windows.Forms.Label labelFrontSecIndex;
+            System.Windows.Forms.Label labelBackSecIndex;
             System.Windows.Forms.Label switchtexturelbl;
             System.Windows.Forms.Label displayswitchlbl;
             this.cancel = new System.Windows.Forms.Button();
@@ -93,18 +93,18 @@ namespace CodeImp.DoomBuilder.Windows
             this.heightpanel1 = new System.Windows.Forms.Panel();
             this.heightpanel2 = new System.Windows.Forms.Panel();
             this.heightpanel3 = new System.Windows.Forms.Panel();
-            label2 = new System.Windows.Forms.Label();
+            labelAction = new System.Windows.Forms.Label();
             taglabel = new System.Windows.Forms.Label();
-            label3 = new System.Windows.Forms.Label();
-            label4 = new System.Windows.Forms.Label();
-            label5 = new System.Windows.Forms.Label();
-            label6 = new System.Windows.Forms.Label();
-            label7 = new System.Windows.Forms.Label();
-            label8 = new System.Windows.Forms.Label();
-            label9 = new System.Windows.Forms.Label();
-            label10 = new System.Windows.Forms.Label();
-            label11 = new System.Windows.Forms.Label();
-            label12 = new System.Windows.Forms.Label();
+            labelFrontUpper = new System.Windows.Forms.Label();
+            labelFrontMiddle = new System.Windows.Forms.Label();
+            labelFrontLower = new System.Windows.Forms.Label();
+            labelFrontOffset = new System.Windows.Forms.Label();
+            labelBackOffset = new System.Windows.Forms.Label();
+            labelBackLower = new System.Windows.Forms.Label();
+            labelBackMiddle = new System.Windows.Forms.Label();
+            labelBackUpper = new System.Windows.Forms.Label();
+            labelFrontSecIndex = new System.Windows.Forms.Label();
+            labelBackSecIndex = new System.Windows.Forms.Label();
             switchtexturelbl = new System.Windows.Forms.Label();
             displayswitchlbl = new System.Windows.Forms.Label();
             this.actiongroup.SuspendLayout();
@@ -122,14 +122,14 @@ namespace CodeImp.DoomBuilder.Windows
             this.backgroup.SuspendLayout();
             this.SuspendLayout();
             // 
-            // label2
+            // labelAction
             // 
-            label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(15, 30);
-            label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(41, 14);
-            label2.TabIndex = 9;
-            label2.Text = "Action:";
+            labelAction.AutoSize = true;
+            labelAction.Location = new System.Drawing.Point(15, 30);
+            labelAction.Name = "labelAction";
+            labelAction.Size = new System.Drawing.Size(41, 14);
+            labelAction.TabIndex = 9;
+            labelAction.Text = "Action:";
             // 
             // taglabel
             // 
@@ -140,95 +140,95 @@ namespace CodeImp.DoomBuilder.Windows
             taglabel.TabIndex = 6;
             taglabel.Text = "Tag:";
             // 
-            // label3
+            // labelFrontUpper
             // 
-            label3.Location = new System.Drawing.Point(252, 18);
-            label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(83, 16);
-            label3.TabIndex = 3;
-            label3.Text = "Upper";
-            label3.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            labelFrontUpper.Location = new System.Drawing.Point(252, 18);
+            labelFrontUpper.Name = "labelFrontUpper";
+            labelFrontUpper.Size = new System.Drawing.Size(83, 16);
+            labelFrontUpper.TabIndex = 3;
+            labelFrontUpper.Text = "Upper";
+            labelFrontUpper.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label4
+            // labelFrontMiddle
             // 
-            label4.Location = new System.Drawing.Point(343, 18);
-            label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(83, 16);
-            label4.TabIndex = 4;
-            label4.Text = "Middle";
-            label4.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            labelFrontMiddle.Location = new System.Drawing.Point(343, 18);
+            labelFrontMiddle.Name = "labelFrontMiddle";
+            labelFrontMiddle.Size = new System.Drawing.Size(83, 16);
+            labelFrontMiddle.TabIndex = 4;
+            labelFrontMiddle.Text = "Middle";
+            labelFrontMiddle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label5
+            // labelFrontLower
             // 
-            label5.Location = new System.Drawing.Point(434, 18);
-            label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(83, 16);
-            label5.TabIndex = 5;
-            label5.Text = "Lower";
-            label5.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            labelFrontLower.Location = new System.Drawing.Point(434, 18);
+            labelFrontLower.Name = "labelFrontLower";
+            labelFrontLower.Size = new System.Drawing.Size(83, 16);
+            labelFrontLower.TabIndex = 5;
+            labelFrontLower.Text = "Lower";
+            labelFrontLower.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label6
+            // labelFrontOffset
             // 
-            label6.AutoSize = true;
-            label6.Location = new System.Drawing.Point(16, 79);
-            label6.Name = "label6";
-            label6.Size = new System.Drawing.Size(80, 14);
-            label6.TabIndex = 7;
-            label6.Text = "Texture Offset:";
+            labelFrontOffset.AutoSize = true;
+            labelFrontOffset.Location = new System.Drawing.Point(16, 79);
+            labelFrontOffset.Name = "labelFrontOffset";
+            labelFrontOffset.Size = new System.Drawing.Size(80, 14);
+            labelFrontOffset.TabIndex = 7;
+            labelFrontOffset.Text = "Texture Offset:";
             // 
-            // label7
+            // labelBackOffset
             // 
-            label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(16, 79);
-            label7.Name = "label7";
-            label7.Size = new System.Drawing.Size(80, 14);
-            label7.TabIndex = 7;
-            label7.Text = "Texture Offset:";
+            labelBackOffset.AutoSize = true;
+            labelBackOffset.Location = new System.Drawing.Point(16, 79);
+            labelBackOffset.Name = "labelBackOffset";
+            labelBackOffset.Size = new System.Drawing.Size(80, 14);
+            labelBackOffset.TabIndex = 7;
+            labelBackOffset.Text = "Texture Offset:";
             // 
-            // label8
+            // labelBackLower
             // 
-            label8.Location = new System.Drawing.Point(437, 18);
-            label8.Name = "label8";
-            label8.Size = new System.Drawing.Size(83, 16);
-            label8.TabIndex = 5;
-            label8.Text = "Lower";
-            label8.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            labelBackLower.Location = new System.Drawing.Point(437, 18);
+            labelBackLower.Name = "labelBackLower";
+            labelBackLower.Size = new System.Drawing.Size(83, 16);
+            labelBackLower.TabIndex = 5;
+            labelBackLower.Text = "Lower";
+            labelBackLower.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label9
+            // labelBackMiddle
             // 
-            label9.Location = new System.Drawing.Point(346, 18);
-            label9.Name = "label9";
-            label9.Size = new System.Drawing.Size(83, 16);
-            label9.TabIndex = 4;
-            label9.Text = "Middle";
-            label9.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            labelBackMiddle.Location = new System.Drawing.Point(346, 18);
+            labelBackMiddle.Name = "labelBackMiddle";
+            labelBackMiddle.Size = new System.Drawing.Size(83, 16);
+            labelBackMiddle.TabIndex = 4;
+            labelBackMiddle.Text = "Middle";
+            labelBackMiddle.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label10
+            // labelBackUpper
             // 
-            label10.Location = new System.Drawing.Point(255, 18);
-            label10.Name = "label10";
-            label10.Size = new System.Drawing.Size(83, 16);
-            label10.TabIndex = 3;
-            label10.Text = "Upper";
-            label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
+            labelBackUpper.Location = new System.Drawing.Point(255, 18);
+            labelBackUpper.Name = "labelBackUpper";
+            labelBackUpper.Size = new System.Drawing.Size(83, 16);
+            labelBackUpper.TabIndex = 3;
+            labelBackUpper.Text = "Upper";
+            labelBackUpper.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // label11
+            // labelFrontSecIndex
             // 
-            label11.AutoSize = true;
-            label11.Location = new System.Drawing.Point(26, 40);
-            label11.Name = "label11";
-            label11.Size = new System.Drawing.Size(71, 14);
-            label11.TabIndex = 13;
-            label11.Text = "Sector Index:";
+            labelFrontSecIndex.AutoSize = true;
+            labelFrontSecIndex.Location = new System.Drawing.Point(26, 40);
+            labelFrontSecIndex.Name = "labelFrontSecIndex";
+            labelFrontSecIndex.Size = new System.Drawing.Size(71, 14);
+            labelFrontSecIndex.TabIndex = 13;
+            labelFrontSecIndex.Text = "Sector Index:";
             // 
-            // label12
+            // labelBackSecIndex
             // 
-            label12.AutoSize = true;
-            label12.Location = new System.Drawing.Point(26, 40);
-            label12.Name = "label12";
-            label12.Size = new System.Drawing.Size(71, 14);
-            label12.TabIndex = 16;
-            label12.Text = "Sector Index:";
+            labelBackSecIndex.AutoSize = true;
+            labelBackSecIndex.Location = new System.Drawing.Point(26, 40);
+            labelBackSecIndex.Name = "labelBackSecIndex";
+            labelBackSecIndex.Size = new System.Drawing.Size(71, 14);
+            labelBackSecIndex.TabIndex = 16;
+            labelBackSecIndex.Text = "Sector Index:";
             // 
             // switchtexturelbl
             // 
@@ -275,7 +275,7 @@ namespace CodeImp.DoomBuilder.Windows
             // 
             this.actiongroup.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.actiongroup.Controls.Add(label2);
+            this.actiongroup.Controls.Add(labelAction);
             this.actiongroup.Controls.Add(this.action);
             this.actiongroup.Controls.Add(this.browseaction);
             this.actiongroup.Location = new System.Drawing.Point(8, 234);
@@ -638,14 +638,14 @@ namespace CodeImp.DoomBuilder.Windows
             this.frontgroup.Controls.Add(this.frontoffsetx);
             this.frontgroup.Controls.Add(this.frontsector);
             this.frontgroup.Controls.Add(this.customfrontbutton);
-            this.frontgroup.Controls.Add(label11);
+            this.frontgroup.Controls.Add(labelFrontSecIndex);
             this.frontgroup.Controls.Add(this.frontlow);
             this.frontgroup.Controls.Add(this.frontmid);
             this.frontgroup.Controls.Add(this.fronthigh);
-            this.frontgroup.Controls.Add(label6);
-            this.frontgroup.Controls.Add(label5);
-            this.frontgroup.Controls.Add(label4);
-            this.frontgroup.Controls.Add(label3);
+            this.frontgroup.Controls.Add(labelFrontOffset);
+            this.frontgroup.Controls.Add(labelFrontLower);
+            this.frontgroup.Controls.Add(labelFrontMiddle);
+            this.frontgroup.Controls.Add(labelFrontUpper);
             this.frontgroup.Enabled = false;
             this.frontgroup.Location = new System.Drawing.Point(3, 3);
             this.frontgroup.Name = "frontgroup";
@@ -748,14 +748,14 @@ namespace CodeImp.DoomBuilder.Windows
             this.backgroup.Controls.Add(this.backoffsetx);
             this.backgroup.Controls.Add(this.backsector);
             this.backgroup.Controls.Add(this.custombackbutton);
-            this.backgroup.Controls.Add(label12);
+            this.backgroup.Controls.Add(labelBackSecIndex);
             this.backgroup.Controls.Add(this.backlow);
             this.backgroup.Controls.Add(this.backmid);
             this.backgroup.Controls.Add(this.backhigh);
-            this.backgroup.Controls.Add(label7);
-            this.backgroup.Controls.Add(label8);
-            this.backgroup.Controls.Add(label9);
-            this.backgroup.Controls.Add(label10);
+            this.backgroup.Controls.Add(labelBackOffset);
+            this.backgroup.Controls.Add(labelBackLower);
+            this.backgroup.Controls.Add(labelBackMiddle);
+            this.backgroup.Controls.Add(labelBackUpper);
             this.backgroup.Enabled = false;
             this.backgroup.Location = new System.Drawing.Point(3, 3);
             this.backgroup.Name = "backgroup";
