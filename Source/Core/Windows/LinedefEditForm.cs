@@ -56,18 +56,6 @@ namespace CodeImp.DoomBuilder.Windows
             backmid.Initialize();
             backlow.Initialize();
 
-            customfrontbutton.Visible = General.Map.FormatInterface.HasCustomFields;
-            custombackbutton.Visible = General.Map.FormatInterface.HasCustomFields;
-
-            // Arrange panels
-            if (!General.Map.FormatInterface.HasMixedActivations &&
-                    !General.Map.FormatInterface.HasActionArgs &&
-                    !General.Map.FormatInterface.HasPresetActivations)
-            {
-                actiongroup.Height = action.Bottom + action.Top + (actiongroup.Width - actiongroup.ClientRectangle.Width);
-                this.Height = heightpanel2.Height;
-            }
-
             // Tag?
             if (General.Map.FormatInterface.HasLinedefTag)
             {
@@ -84,7 +72,6 @@ namespace CodeImp.DoomBuilder.Windows
             {
                 this.activationtype.Show();
                 activationtype.Top = idgroup.Bottom + idgroup.Margin.Bottom + activationtype.Margin.Top;
-                switchsetupbox.Top = activationtype.Bottom + activationtype.Margin.Bottom + switchsetupbox.Margin.Top;
                 this.Height = heightpanel3.Height;
             }
         }
@@ -354,7 +341,6 @@ namespace CodeImp.DoomBuilder.Windows
                     if (backsector.Text != l.Back.Sector.Index.ToString()) backsector.Text = "";
                     if (backoffsetx.Text != l.Back.OffsetX.ToString()) backoffsetx.Text = "";
                     if (backoffsety.Text != l.Back.OffsetY.ToString()) backoffsety.Text = "";
-                    if (General.Map.FormatInterface.HasCustomFields) custombackbutton.Visible = true;
                 }
             }
 
